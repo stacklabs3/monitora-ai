@@ -1,0 +1,39 @@
+[package]
+name = "watchdogs"
+version = "1.0.0"
+edition = "2021"
+# File::lock (a trava dos comandos pesados, src/trava.rs) é estável desde o Rust 1.89.
+rust-version = "1.89"
+description = "Watchdogs e validador de regras de código do método StackLabs"
+publish = false
+
+[lib]
+name = "watchdogs"
+path = "src/lib.rs"
+
+[[bin]]
+name = "watchdogs"
+path = "src/main.rs"
+
+[dependencies]
+regex = "1"
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"
+toml = { version = "=1.1.8", default-features = false, features = ["std", "parse", "serde"] }
+
+[target.'cfg(unix)'.dependencies]
+# Grupo de processos e repasse de sinais dos comandos pesados (src/trava.rs).
+libc = "0.2"
+
+# O ci faz o hash do próprio binário (src/ci.rs); sem otimização, o do binário de teste leva segundos.
+[profile.dev.package.sha2]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+strip = true
+
+[lints.clippy]
+# E1, regra 20 da constituição: nenhum nome de uma letra; só `_` (lista vazia em clippy.toml).
+min_ident_chars = "deny"
