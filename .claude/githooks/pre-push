@@ -1,0 +1,5 @@
+#!/bin/sh
+# Git pre-push: a main só recebe merge de PR no GitHub, nunca push direto. A regra mora nos
+# watchdogs (.claude/watchdogs/src/pre_push.rs); este arquivo só a chama, repassando o stdin.
+# Ativação (uma vez por clone): git config core.hooksPath .claude/githooks
+exec "$(git rev-parse --show-toplevel)/.claude/watchdogs/rodar" pre-push "$@"
