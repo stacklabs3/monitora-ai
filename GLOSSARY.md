@@ -9,7 +9,7 @@ Um sistema atendido pela plataforma, como o Excurfly, que reúne uma ou mais apl
 _Avoid_: Projeto, cliente, tenant
 
 **Aplicação**:
-Uma parte executável de um produto que envia eventos, como a API em Java ou o site em Node do Excurfly.
+Uma parte executável de um produto que envia eventos, como a API ou um site do Excurfly.
 _Avoid_: Serviço, app, sistema monitorado
 
 **Alerta**:
