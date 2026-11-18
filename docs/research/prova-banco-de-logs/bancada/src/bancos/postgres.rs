@@ -7,6 +7,7 @@ use tokio::sync::mpsc::Sender;
 use tokio::sync::Mutex;
 use tokio_postgres::binary_copy::BinaryCopyInWriter;
 use tokio_postgres::types::{ToSql, Type};
+use tokio_postgres::error::SqlState;
 use tokio_postgres::{Client, NoTls};
 
 const CRIAR_TABELA: &str = r#"
@@ -51,6 +52,12 @@ async fn conectar(endereco: &str) -> Result<Client> {
         let _ = conexao.await;
     });
     Ok(cliente)
+}
+
+fn foi_cancelada_por_prazo(erro: &anyhow::Error) -> bool {
+    erro.downcast_ref::<tokio_postgres::Error>()
+        .and_then(tokio_postgres::Error::code)
+        .is_some_and(|codigo| *codigo == SqlState::QUERY_CANCELED)
 }
 
 async fn garantir_conexao<'vaga>(
@@ -219,7 +226,7 @@ impl BancoPostgres {
             let faltam = consulta.limite as i64 - resultado.linhas.len() as i64;
             match Self::buscar_no_trecho(cliente, consulta, inicio_trecho_ms, fim_trecho_ms, faltam).await {
                 Ok(linhas) => resultado.linhas.extend(linhas),
-                Err(erro) if erro.to_string().contains("statement timeout") || format!("{erro:?}").contains("57014") => {
+                Err(erro) if foi_cancelada_por_prazo(&erro) => {
                     resultado.parcial = true;
                     break;
                 }

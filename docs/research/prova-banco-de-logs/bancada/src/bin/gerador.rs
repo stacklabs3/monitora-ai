@@ -1,6 +1,6 @@
 //! Gerador de carga em taxa aberta. Roda em outra máquina e anota cada confirmação em disco.
 use anyhow::Result;
-use bancada::catalogo::{buscas_garantidas, buscas_lentas, BuscaCatalogo, PedidoCatalogo};
+use bancada::catalogo::{buscas_garantidas, buscas_lentas, buscas_lentas_sem_resultado, BuscaCatalogo, PedidoCatalogo};
 use bancada::cliente::{ClienteBancada, ResultadoEnvio};
 use bancada::geracao::*;
 use bancada::modelo::*;
@@ -66,6 +66,11 @@ enum Modo {
     Bateria {
         #[arg(long)]
         rotulo: String,
+    },
+    /// Buscas lentas simultâneas, com uma busca garantida no meio delas.
+    Lentas {
+        #[arg(long, default_value_t = 3)]
+        simultaneas: usize,
     },
 }
 
@@ -369,6 +374,26 @@ async fn rodar_bateria(contexto: Contexto, rotulo: &str) {
     }
 }
 
+async fn rodar_lentas(contexto: Contexto, simultaneas: usize) -> Result<()> {
+    let agora = agora_ms();
+    let lentas = buscas_lentas_sem_resultado(agora);
+    let mut tarefas = Vec::new();
+    for numero_busca in 0..simultaneas {
+        let busca = lentas[numero_busca % lentas.len()].clone();
+        let contexto_busca = contexto.clone();
+        tarefas.push(tokio::spawn(async move {
+            medir_busca(&contexto_busca, &busca, Instant::now(), "lentas").await
+        }));
+    }
+    sleep(Duration::from_millis(2)).await;
+    let garantida = buscas_garantidas(agora).swap_remove(0);
+    medir_busca(&contexto, &garantida, Instant::now(), "durante-lentas").await;
+    for tarefa in tarefas {
+        tarefa.await?;
+    }
+    Ok(())
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     let argumentos = Argumentos::parse();
@@ -392,6 +417,7 @@ async fn main() -> Result<()> {
             carregar_historico(contexto.clone(), dias, eventos_por_dia, tamanho_lote, envios_simultaneos).await?;
         }
         Modo::Bateria { rotulo } => rodar_bateria(contexto.clone(), &rotulo).await,
+        Modo::Lentas { simultaneas } => rodar_lentas(contexto.clone(), simultaneas).await?,
         Modo::Ritmo { duracao_s, eventos_por_segundo, picos, reenvio_apos_s, sem_buscas } => {
             let picos = Arc::new(ler_picos(&picos)?);
             let duracao = Duration::from_secs(duracao_s);

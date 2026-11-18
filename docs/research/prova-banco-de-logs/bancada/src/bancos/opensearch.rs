@@ -188,11 +188,19 @@ impl BancoOpenSearch {
             "_source": ["id", "ts_ms", "campos"],
             "track_total_hits": false
         });
+        let mut caminho = format!("{indices}/_search?ignore_unavailable=true&allow_partial_search_results=true");
         if let Some(duracao) = prazo {
-            corpo["timeout"] = json!(format!("{}s", duracao.as_secs()));
+            corpo["timeout"] = json!(format!("{}ms", duracao.as_millis()));
+            // O cancelamento vem depois do corte, só para não deixar busca presa no banco.
+            caminho.push_str(&format!("&cancel_after_time_interval={}ms", duracao.as_millis() + 1000));
         }
-        let caminho = format!("{indices}/_search?ignore_unavailable=true&allow_partial_search_results=true");
-        let resposta = self.pedir(reqwest::Method::POST, &caminho, Some(corpo)).await?;
+        let resposta = match self.pedir(reqwest::Method::POST, &caminho, Some(corpo)).await {
+            Ok(resposta) => resposta,
+            Err(erro) if prazo.is_some() && erro.to_string().contains("task_cancelled_exception") => {
+                return Ok(ResultadoBusca { linhas: Vec::new(), parcial: true });
+            }
+            Err(erro) => return Err(erro),
+        };
         let linhas = resposta["hits"]["hits"]
             .as_array()
             .map(|acertos| {

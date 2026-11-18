@@ -24,7 +24,6 @@ const JANELA_REENVIO_MS: i64 = 16 * 60 * 1000;
 const MAIOR_ATRASO_DE_VINCULO_MS: i64 = 2 * 3_600_000 + 20 * 60 * 1000;
 const JANELA_AGRUPAMENTO: Duration = Duration::from_millis(200);
 const LIMITE_EVENTOS_GRUPO: usize = 5_000;
-const PRAZO_BUSCA_LENTA: Duration = Duration::from_secs(10);
 const CAMPOS_DE_VINCULO: [&str; 3] = ["reservationId", "pspTxId", "refundId"];
 const MAXIMO_EVENTOS_LINHA_DO_TEMPO: usize = 5_000;
 
@@ -37,6 +36,8 @@ struct Estado {
     banco: Arc<Banco>,
     gravador: mpsc::Sender<PedidoGravacao>,
     buscas_lentas: Arc<Semaphore>,
+    prazo_busca_lenta: Duration,
+    margem_corte: Duration,
     pasta_dados: String,
     reserva_bytes: u64,
 }
@@ -185,9 +186,12 @@ async fn buscar(State(estado): State<Arc<Estado>>, Json(pedido): Json<PedidoBusc
     let Ok(_vaga) = estado.buscas_lentas.clone().try_acquire_owned() else {
         return (StatusCode::TOO_MANY_REQUESTS, "limite de buscas lentas").into_response();
     };
-    match estado.banco.buscar(&pedido.consulta, Some(PRAZO_BUSCA_LENTA)).await {
-        Ok(resultado) => Json(resultado).into_response(),
-        Err(erro) => falha_interna(erro),
+    // O banco tenta cortar sozinho; a margem garante o corte mesmo quando ele não obedece.
+    let limite_total = estado.prazo_busca_lenta + estado.margem_corte;
+    match tokio::time::timeout(limite_total, estado.banco.buscar(&pedido.consulta, Some(estado.prazo_busca_lenta))).await {
+        Ok(Ok(resultado)) => Json(resultado).into_response(),
+        Ok(Err(erro)) => falha_interna(erro),
+        Err(_) => Json(ResultadoBusca { linhas: Vec::new(), parcial: true }).into_response(),
     }
 }
 
@@ -314,6 +318,8 @@ async fn main() -> Result<()> {
         banco,
         gravador,
         buscas_lentas: Arc::new(Semaphore::new(2)),
+        prazo_busca_lenta: Duration::from_millis(variavel("PRAZO_BUSCA_LENTA_MS", "10000").parse()?),
+        margem_corte: Duration::from_millis(variavel("MARGEM_CORTE_MS", "500").parse()?),
         pasta_dados: variavel("PASTA_DADOS", "."),
         reserva_bytes: variavel("RESERVA_BYTES", "0").parse()?,
     });

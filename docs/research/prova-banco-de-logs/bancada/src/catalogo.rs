@@ -85,6 +85,26 @@ pub fn buscas_garantidas(agora_ms: i64) -> Vec<BuscaCatalogo> {
     catalogo
 }
 
+/// Pior caso: sem resultado, a busca precisa percorrer o período inteiro.
+pub fn buscas_lentas_sem_resultado(agora_ms: i64) -> Vec<BuscaCatalogo> {
+    let desde_ms = agora_ms - 30 * MILISSEGUNDOS_POR_DIA;
+    let lenta = |nome: &str, consulta: Consulta| BuscaCatalogo {
+        nome: nome.to_string(),
+        janela: "30d",
+        pedido: PedidoCatalogo::Busca { consulta, lenta: true },
+    };
+    vec![
+        lenta("lenta-texto-ausente", Consulta {
+            texto_livre: Some("palavrainexistente".to_string()),
+            ..consulta_base(desde_ms, agora_ms)
+        }),
+        lenta("lenta-regex-ausente", Consulta {
+            regex_url: Some("/api/v1/inexistente/[^/]+/fim".to_string()),
+            ..consulta_base(desde_ms, agora_ms)
+        }),
+    ]
+}
+
 pub fn buscas_lentas(agora_ms: i64) -> Vec<BuscaCatalogo> {
     let desde_ms = agora_ms - MILISSEGUNDOS_POR_DIA;
     vec![

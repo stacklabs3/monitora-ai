@@ -134,7 +134,7 @@ impl BancoClickHouse {
     pub async fn buscar(&self, consulta: &Consulta, prazo: Option<Duration>) -> Result<ResultadoBusca> {
         let inicio = std::time::Instant::now();
         let configuracao_prazo = prazo
-            .map(|duracao| format!(", max_execution_time = {}, timeout_overflow_mode = 'break'", duracao.as_secs()))
+            .map(|duracao| format!(", max_execution_time = {:.3}, timeout_overflow_mode = 'break'", duracao.as_secs_f64()))
             .unwrap_or_default();
         let sql = format!(
             "SELECT id, ts_ms, campos FROM eventos WHERE {} ORDER BY ts_ms DESC LIMIT {} SETTINGS max_threads = 2{configuracao_prazo} FORMAT JSONEachRow",

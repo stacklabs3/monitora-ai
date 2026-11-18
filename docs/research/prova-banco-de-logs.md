@@ -29,14 +29,32 @@ Cada banco recebeu 40 mil eventos de histórico e 150 s em ritmo real com pico d
 | Perda plantada detectada | sim | sim | sim |
 | Duplicata plantada detectada | sim | sim | sim |
 
+Ensaios em escala reduzida, com os três bancos aprovados:
+
+| Ensaio | Script | O que confere |
+|---|---|---|
+| Banco fora | [`testar-falhas-local.sh`](prova-banco-de-logs/scripts/testar-falhas-local.sh) | 20 s fora no pico: nada confirmado na queda, 0 perdidos e 0 duplicados na volta |
+| Disco na reserva | idem | Envio recebe 503 com `Retry-After` e a busca continua |
+| Exclusões | idem | Pessoa e dia vencido somem da busca |
+| Busca lenta | [`testar-limites-local.sh`](prova-banco-de-logs/scripts/testar-limites-local.sh) | Corte com resultado parcial, recusa acima de 2 simultâneas, busca garantida respondendo |
+| Degraus de carga | [`degraus-de-carga.sh`](prova-banco-de-logs/scripts/degraus-de-carga.sh) | Dobra a carga até quebrar meta; uma meta impossível para no primeiro degrau |
+
+O corte de busca lenta foi ensaiado com prazo de 5 ms. Com pouco dado, o corte pode vir do servidor e não do banco; o comportamento do banco com volume real só aparece na máquina-alvo.
+
+## Ponto em aberto no #9
+
+"Busca garantida: 95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s" podem ser lidos de dois jeitos. O [`relatorio.rs`](prova-banco-de-logs/bancada/src/bin/relatorio.rs) aplica hoje o p95 e registra o pior tempo, até o responsável decidir.
+
 ## Ainda não construído
 
-- Automação na AWS: instalação, disco cifrado, conferência da máquina e cenários de falha além da queda do servidor.
+- Restauração com vencidos e lista de exclusões, e medida dos backups.
 - Medida da biblioteca sintética em Node 20, 22 e 24.
-- Site Next sintético na Vercel.
+- Site Next sintético.
+- Automação da máquina: instalação, disco cifrado, conferência de disco e CPU, quedas com `sysrq`.
 
 ## Próximos passos
 
-1. Humano faz login na AWS e autoriza os recursos.
-2. Confirmar os dois itens em aberto: disco cifrado repassa a ordem de gravar e parada forçada em máquina saudável.
-3. Seguir a ordem do #9: conferência da máquina, 2 h, 30 dias, 24 h, falhas e degraus de carga.
+1. Terminar e ensaiar localmente tudo o que falta acima. **Nenhum recurso na AWS antes disso**, por decisão do responsável em 18/11/2026.
+2. Pedir autorização com o custo atualizado.
+3. Confirmar os dois itens em aberto: disco cifrado repassa a ordem de gravar e parada forçada em máquina saudável.
+4. Seguir a ordem do #9: conferência da máquina, 2 h, 30 dias, 24 h, falhas e degraus de carga.
