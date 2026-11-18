@@ -42,6 +42,21 @@ Ensaios em escala reduzida, com os três bancos aprovados:
 
 O corte de busca lenta foi ensaiado com prazo de 5 ms. Com pouco dado, o corte pode vir do servidor e não do banco; o comportamento do banco com volume real só aparece na máquina-alvo.
 
+## Biblioteca sintética (ensaio local)
+
+[`medicao-node/`](prova-banco-de-logs/medicao-node/) tem API em Fastify 5.12.1 e pino 10.3.1, com e sem a biblioteca, a 200 pedidos/s e cerca de 5 linhas de log por pedido, com 20% das compras trazendo dado pessoal sintético. Rodado com [`medir-node-local.sh`](prova-banco-de-logs/scripts/medir-node-local.sh), 3 rodadas por cenário.
+
+| | Node 20.20.2 | Node 22.23.5 | Node 24.22.3 |
+|---|---|---|---|
+| 200 compras simultâneas: ocorrência trocada / segredo enviado / `/health` enviado | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| Tempo dentro da biblioteca por pedido | 0,141 ms | 0,128 ms | 0,134 ms |
+| Acréscimo no p99 | +1,2 ms | +0,2 ms | -0,5 ms |
+| Acréscimo de memória | +10 MB | +14 MB | +17 MB |
+
+Com o recebedor fora por 20 s a 20, 120 e 500 pedidos/s, a fila ficou em até 2.048 eventos, toda perda foi contada e todos os erros chegaram.
+
+**A meta de até 5% de CPU ainda não tem resultado.** A CPU por processo oscilou demais neste Mac: em Node 24 a biblioteca pareceria reduzir 22%, o que é impossível. A medida vale só na máquina-alvo. Atenção para lá: esta API quase não faz trabalho (cerca de 0,67 ms de CPU por pedido), então 0,13 ms pesa perto de 20% sobre ela.
+
 ## Leitura confirmada da meta de busca
 
 O #9 diz "95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s". O responsável decidiu em 18/11/2026 que **vale o p95 de cada tipo de busca**: um tipo reprova quando o p95 passa de 5 s, e o pior tempo fica registrado sem reprovar sozinho. O [`relatorio.rs`](prova-banco-de-logs/bancada/src/bin/relatorio.rs) aplica essa regra.
@@ -49,7 +64,7 @@ O #9 diz "95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s". O 
 ## Ainda não construído
 
 - Medida das 7 cópias na máquina-alvo (o ensaio local mede uma).
-- Medida da biblioteca sintética em Node 20, 22 e 24.
+- Medida de CPU da biblioteca na máquina-alvo.
 - Site Next sintético.
 - Automação da máquina: instalação, disco cifrado, conferência de disco e CPU, quedas com `sysrq`.
 

@@ -1,3 +1,6 @@
 bancada/target/
 resultados-locais/
 medicao-node/node_modules/
+medicao-node/site-next/node_modules/
+medicao-node/site-next/.next/
+medicao-node/site-next/biblioteca.mjs

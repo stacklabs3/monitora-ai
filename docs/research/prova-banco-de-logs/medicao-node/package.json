@@ -1,0 +1,10 @@
+{
+  "name": "medicao-node",
+  "private": true,
+  "type": "module",
+  "description": "Biblioteca e API sintéticas da prova de banco de logs. Não é código de produto.",
+  "dependencies": {
+    "fastify": "5.12.1",
+    "pino": "10.3.1"
+  }
+}
