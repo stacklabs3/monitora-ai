@@ -83,3 +83,23 @@ _Avoid_: Leitor, analista
 **Administrador**:
 Um investigador que também cuida de pessoas, chaves de envio, retenção e exclusões de um produto.
 _Avoid_: Admin, dono
+
+**Campo pesquisável**:
+Um campo declarado pelo produto, com tipo e formas de busca permitidas.
+_Avoid_: Campo indexado, facet
+
+**Campo de localização**:
+Um campo pesquisável que o produto marca para achar tentativas sem ligar eventos entre si, como cliente ou viagem.
+_Avoid_: Campo de correlação, quando não liga eventos
+
+**Busca garantida**:
+Uma busca que a plataforma promete responder dentro da meta de tempo, como a busca por um código de reserva.
+_Avoid_: Busca indexada
+
+**Busca lenta**:
+Uma busca que funciona sem promessa de tempo e pode terminar com resultado parcial, como texto livre ou regex.
+_Avoid_: Varredura, full scan
+
+**Rota**:
+O molde de um endereço da aplicação, sem os valores de cada chamada, como `/api/v1/trip/:id/purchase`.
+_Avoid_: Endpoint, URL, quando se fala do molde
