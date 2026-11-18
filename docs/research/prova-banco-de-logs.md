@@ -37,17 +37,18 @@ Ensaios em escala reduzida, com os três bancos aprovados:
 | Disco na reserva | idem | Envio recebe 503 com `Retry-After` e a busca continua |
 | Exclusões | idem | Pessoa e dia vencido somem da busca |
 | Busca lenta | [`testar-limites-local.sh`](prova-banco-de-logs/scripts/testar-limites-local.sh) | Corte com resultado parcial, recusa acima de 2 simultâneas, busca garantida respondendo |
+| Restauração | [`testar-restauracao-local.sh`](prova-banco-de-logs/scripts/testar-restauracao-local.sh) | Cópia cifrada medida; banco apagado, restaurado e limpo antes de abrir fica idêntico ao original, sem pessoa excluída nem dia vencido |
 | Degraus de carga | [`degraus-de-carga.sh`](prova-banco-de-logs/scripts/degraus-de-carga.sh) | Dobra a carga até quebrar meta; uma meta impossível para no primeiro degrau |
 
 O corte de busca lenta foi ensaiado com prazo de 5 ms. Com pouco dado, o corte pode vir do servidor e não do banco; o comportamento do banco com volume real só aparece na máquina-alvo.
 
-## Ponto em aberto no #9
+## Leitura confirmada da meta de busca
 
-"Busca garantida: 95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s" podem ser lidos de dois jeitos. O [`relatorio.rs`](prova-banco-de-logs/bancada/src/bin/relatorio.rs) aplica hoje o p95 e registra o pior tempo, até o responsável decidir.
+O #9 diz "95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s". O responsável decidiu em 18/11/2026 que **vale o p95 de cada tipo de busca**: um tipo reprova quando o p95 passa de 5 s, e o pior tempo fica registrado sem reprovar sozinho. O [`relatorio.rs`](prova-banco-de-logs/bancada/src/bin/relatorio.rs) aplica essa regra.
 
 ## Ainda não construído
 
-- Restauração com vencidos e lista de exclusões, e medida dos backups.
+- Medida das 7 cópias na máquina-alvo (o ensaio local mede uma).
 - Medida da biblioteca sintética em Node 20, 22 e 24.
 - Site Next sintético.
 - Automação da máquina: instalação, disco cifrado, conferência de disco e CPU, quedas com `sysrq`.

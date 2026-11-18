@@ -10,6 +10,7 @@ services:
     ports: ["127.0.0.1:18123:8123"]
     volumes:
       - dados-clickhouse:/var/lib/clickhouse
+      - copias-clickhouse:/copias
       - ./config/clickhouse-pouca-memoria.xml:/etc/clickhouse-server/config.d/pouca-memoria.xml:ro
       - ./config/clickhouse-usuario.xml:/etc/clickhouse-server/users.d/pouca-memoria.xml:ro
   opensearch:
@@ -23,9 +24,11 @@ services:
       DISABLE_INSTALL_DEMO_CONFIG: "true"
       OPENSEARCH_JAVA_OPTS: "-Xms700m -Xmx700m"
       bootstrap.memory_lock: "true"
+      path.repo: /copias
     ports: ["127.0.0.1:19200:9200"]
     volumes:
       - dados-opensearch:/usr/share/opensearch/data
+      - copias-opensearch:/copias
   postgres:
     image: postgres:18.7
     mem_limit: 1500m
@@ -38,8 +41,12 @@ services:
     ports: ["127.0.0.1:15432:5432"]
     volumes:
       - dados-postgres:/var/lib/postgresql
+      - copias-postgres:/copias
       - ./config/postgresql.conf:/etc/postgresql/postgresql.conf:ro
 volumes:
   dados-clickhouse:
   dados-opensearch:
   dados-postgres:
+  copias-clickhouse:
+  copias-opensearch:
+  copias-postgres:

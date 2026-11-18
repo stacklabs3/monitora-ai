@@ -20,5 +20,8 @@
     <latency_log remove="1"/>
     <error_log remove="1"/>
     <query_metric_log remove="1"/>
+    <backups>
+        <allowed_path>/copias/</allowed_path>
+    </backups>
     <listen_host>0.0.0.0</listen_host>
 </clickhouse>

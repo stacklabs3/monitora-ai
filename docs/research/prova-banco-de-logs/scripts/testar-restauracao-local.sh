@@ -1,0 +1,137 @@
+#!/bin/sh
+# Ensaio local de cópia e restauração: faz a cópia, exclui uma pessoa e os dias vencidos no original,
+# apaga o banco, restaura a cópia, reaplica as exclusões antes de abrir e compara os dois, evento a evento.
+# Uso: sh scripts/testar-restauracao-local.sh clickhouse|opensearch|postgres
+set -eu
+nome_banco="$1"
+nome_rodada="restauracao"
+pasta_prova="$(cd "$(dirname "$0")/.." && pwd)"
+. "$pasta_prova/scripts/comum-local.sh"
+
+nome_copia="copia1"
+endereco_repositorio="$endereco_banco/_snapshot/copias"
+
+no_banco_como_root() {
+  compose_prova exec -T -u root "$nome_banco" sh -c "$1"
+}
+
+preparar_copias() {
+  case "$nome_banco" in
+    clickhouse) dono_copias=clickhouse ;;
+    opensearch) dono_copias=opensearch ;;
+    postgres) dono_copias=postgres ;;
+  esac
+  no_banco_como_root "rm -rf /copias/* && chown -R $dono_copias /copias"
+}
+
+registrar_repositorio() {
+  curl -fsS -o /dev/null -X PUT "$endereco_repositorio" -H 'content-type: application/json' \
+    -d '{"type":"fs","settings":{"location":"/copias"}}'
+}
+
+fazer_copia() {
+  case "$nome_banco" in
+    clickhouse)
+      curl -fsS -o /dev/null "$endereco_banco" -d "BACKUP TABLE eventos TO File('/copias/$nome_copia')" ;;
+    opensearch)
+      registrar_repositorio
+      curl -fsS -o /dev/null -X PUT "$endereco_repositorio/$nome_copia?wait_for_completion=true" \
+        -H 'content-type: application/json' -d '{"indices":"eventos-*","include_global_state":false}' ;;
+    postgres)
+      compose_prova exec -T -u postgres postgres pg_dump -U postgres -d prova -Fc -Z zstd -f "/copias/$nome_copia.dump" ;;
+  esac
+}
+
+restaurar_copia() {
+  case "$nome_banco" in
+    clickhouse)
+      curl -fsS -o /dev/null "$endereco_banco" -d "RESTORE TABLE eventos FROM File('/copias/$nome_copia')" ;;
+    opensearch)
+      registrar_repositorio
+      curl -fsS -o /dev/null -X POST "$endereco_repositorio/$nome_copia/_restore?wait_for_completion=true" \
+        -H 'content-type: application/json' -d '{"indices":"eventos-*","include_global_state":false}' ;;
+    postgres)
+      compose_prova exec -T -u postgres postgres pg_restore -U postgres -d prova --no-owner "/copias/$nome_copia.dump" ;;
+  esac
+}
+
+# Mede a cópia como ela sairia da máquina: empacotada e cifrada com chave descartável.
+medir_copia_cifrada() {
+  CHAVE_DESCARTAVEL=$(openssl rand -hex 32)
+  export CHAVE_DESCARTAVEL
+  no_banco_como_root "tar -C /copias -cf - ." |
+    openssl enc -aes-256-ctr -pbkdf2 -salt -pass env:CHAVE_DESCARTAVEL | wc -c | tr -d ' '
+  unset CHAVE_DESCARTAVEL
+}
+
+apagar_banco_inteiro() {
+  compose_prova rm -sf "$nome_banco" >/dev/null 2>&1
+  docker volume rm "prova-banco-de-logs_dados-$nome_banco" >/dev/null
+  compose_prova up -d "$nome_banco" >/dev/null 2>&1
+  esperar_banco
+}
+
+aplicar_exclusoes() {
+  curl -fsS "$endereco_servidor/v1/exclusoes" -H 'content-type: application/json' \
+    -d "{\"termo_pessoa\":\"$termo_pessoa\",\"dia_final_exclusivo\":$dia_atual}"
+}
+
+listar_presentes() {
+  curl -fsS "$endereco_servidor/v1/presentes?desde_ms=$inicio_periodo_ms" | LC_ALL=C sort >"$1"
+}
+
+esperar_banco
+limpar_banco
+preparar_copias
+subir_servidor
+trap 'kill "$pid_servidor" 2>/dev/null || true' EXIT
+
+echo "== dados"
+gerador historico hist historico --dias 2 --eventos-por-dia 5000 --tamanho-lote 100 >/dev/null
+gerador ritmo ritmo1 ritmo --duracao-s 30 --reenvio-apos-s 5 --sem-buscas >/dev/null
+sleep 6
+
+agora_ms=$(agora_em_ms)
+inicio_periodo_ms=$((agora_ms - 3456000000))
+inicio_busca_ms=$((agora_ms - 259200000))
+dia_atual=$(($(date +%s) / 86400))
+inicio_dia_atual_ms=$((dia_atual * 86400000))
+termo_pessoa=$(curl -fsS "$endereco_servidor/v1/busca" -H 'content-type: application/json' \
+  -d "{\"consulta\":{\"desde_ms\":$inicio_busca_ms,\"ate_ms\":$agora_ms,\"termos\":[\"nivel=info\"],\"limite\":1}}" |
+  python3 -c 'import json, sys; print("accountId=" + json.loads(json.load(sys.stdin)["linhas"][0]["campos"])["accountId"])')
+
+echo "== cópia"
+fazer_copia
+bytes_copia=$(medir_copia_cifrada)
+echo "cópia cifrada: $bytes_copia bytes"
+[ "$bytes_copia" -gt 10000 ] || falhar "cópia vazia"
+
+echo "== exclusões depois da cópia, no original"
+aplicar_exclusoes
+sleep 6
+listar_presentes "$resultados/original.txt"
+linhas_original=$(wc -l <"$resultados/original.txt" | tr -d ' ')
+[ "$linhas_original" -gt 0 ] || falhar "original ficou vazio"
+
+echo "== máquina nova: apaga tudo e restaura"
+derrubar_servidor
+apagar_banco_inteiro
+inicio_restauracao=$(date +%s)
+restaurar_copia
+subir_servidor
+sleep 3
+linhas_antes_da_limpeza=$(curl -fsS "$endereco_servidor/v1/presentes?desde_ms=$inicio_periodo_ms" | wc -l | tr -d ' ')
+[ "$linhas_antes_da_limpeza" -gt "$linhas_original" ] || falhar "a cópia deveria trazer os dados excluídos depois dela"
+aplicar_exclusoes
+echo "restauração e limpeza: $(($(date +%s) - inicio_restauracao)) s"
+sleep 6
+
+echo "== comparação"
+listar_presentes "$resultados/restaurado.txt"
+cmp -s "$resultados/original.txt" "$resultados/restaurado.txt" || falhar "restaurado difere do original"
+linhas_pessoa=$(contar_linhas "$inicio_busca_ms" "$agora_ms" "$termo_pessoa")
+linhas_vencidas=$(contar_linhas "$inicio_busca_ms" "$inicio_dia_atual_ms" "nivel=info")
+echo "eventos iguais=$linhas_original (antes da limpeza=$linhas_antes_da_limpeza) pessoa=$linhas_pessoa vencidos=$linhas_vencidas"
+[ "$linhas_pessoa" -eq 0 ] || falhar "pessoa excluída voltou"
+[ "$linhas_vencidas" -eq 0 ] || falhar "dia vencido voltou"
+echo "restauração local ok"
