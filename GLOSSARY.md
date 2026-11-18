@@ -68,6 +68,14 @@ _Avoid_: Notificação, alarme, monitor
 A credencial que identifica uma aplicação de um produto em um ambiente ao enviar eventos.
 _Avoid_: Token, API key
 
+**Chave de códigos**:
+A chave secreta de um produto usada para gerar seus códigos de busca.
+_Avoid_: Salt, chave de hash
+
+**Situação da execução**:
+O informe que uma execução manda à parte dos eventos, com o último número usado, as perdas, o início e o encerramento.
+_Avoid_: Heartbeat, ping
+
 **Valor mascarado**:
 Um dado pessoal com parte escondida de forma irreversível, como `***.456.789-**`, que continua sendo dado pessoal.
 _Avoid_: Valor anonimizado, valor ofuscado
