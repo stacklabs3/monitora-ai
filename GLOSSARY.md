@@ -63,3 +63,23 @@ _Avoid_: Descarte, quando se fala do resultado
 **Alerta**:
 Um aviso enviado a uma pessoa, fora do painel, quando os eventos de uma ou mais aplicações atendem a uma condição combinada, como muitos erros ou reinícios seguidos.
 _Avoid_: Notificação, alarme, monitor
+
+**Chave de envio**:
+A credencial que identifica uma aplicação de um produto em um ambiente ao enviar eventos.
+_Avoid_: Token, API key
+
+**Valor mascarado**:
+Um dado pessoal com parte escondida de forma irreversível, como `***.456.789-**`, que continua sendo dado pessoal.
+_Avoid_: Valor anonimizado, valor ofuscado
+
+**Código de busca**:
+Um valor gerado com chave secreta a partir de um dado pessoal, que permite achar o dado exato sem guardá-lo.
+_Avoid_: Hash, pseudônimo
+
+**Investigador**:
+Quem pode buscar e ler os eventos de um produto no painel.
+_Avoid_: Leitor, analista
+
+**Administrador**:
+Um investigador que também cuida de pessoas, chaves de envio, retenção e exclusões de um produto.
+_Avoid_: Admin, dono
