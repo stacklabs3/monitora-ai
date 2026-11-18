@@ -7,6 +7,14 @@ let eventosGuardados = [];
 let quantidadeEventos = 0;
 let quantidadeErros = 0;
 let lotesComSegredo = 0;
+const execucoes = new Map();
+
+function execucaoDe(nomeExecucao) {
+  if (!execucoes.has(nomeExecucao)) {
+    execucoes.set(nomeExecucao, { eventos: 0, ultimoNumero: -1, iniciou: false, encerrou: false });
+  }
+  return execucoes.get(nomeExecucao);
+}
 
 function lerCorpo(pedido) {
   return new Promise((aoResolver, aoFalhar) => {
@@ -30,6 +38,7 @@ const servidor = http.createServer(async (pedido, resposta) => {
     const { eventos } = JSON.parse(texto);
     quantidadeEventos += eventos.length;
     for (const evento of eventos) {
+      execucaoDe(evento.execucao).eventos += 1;
       if (evento.nivel === 'error') quantidadeErros += 1;
       if (process.env.GUARDAR_EVENTOS === '1') {
         eventosGuardados.push({ ocorrencia: evento.ocorrencia, compraId: evento.campos.compraId, url: evento.url });
@@ -37,12 +46,27 @@ const servidor = http.createServer(async (pedido, resposta) => {
     }
     return responder(200, { aceitos: eventos.length, duplicados: 0 });
   }
+  if (pedido.url === '/v1/situacao') {
+    if (fora) return responder(503, { erro: 'fora' }, { 'retry-after': '1' });
+    const situacao = JSON.parse(corpo.toString());
+    const execucao = execucaoDe(situacao.execucao);
+    execucao.ultimoNumero = Math.max(execucao.ultimoNumero, situacao.ultimoNumero);
+    execucao.iniciou ||= situacao.momento === 'inicio';
+    execucao.encerrou ||= situacao.momento === 'encerramento';
+    return responder(200, { ok: true });
+  }
   if (pedido.url === '/__modo') {
     fora = JSON.parse(corpo.toString()).fora;
     return responder(200, { fora });
   }
   if (pedido.url === '/__resumo') {
-    return responder(200, { quantidadeEventos, quantidadeErros, lotesComSegredo, eventos: eventosGuardados });
+    return responder(200, {
+      quantidadeEventos,
+      quantidadeErros,
+      lotesComSegredo,
+      eventos: eventosGuardados,
+      execucoes: Object.fromEntries(execucoes),
+    });
   }
   return responder(404, {});
 });

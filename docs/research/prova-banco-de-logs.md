@@ -57,6 +57,17 @@ Com o recebedor fora por 20 s a 20, 120 e 500 pedidos/s, a fila ficou em até 2.
 
 **A meta de até 5% de CPU ainda não tem resultado.** A CPU por processo oscilou demais neste Mac: em Node 24 a biblioteca pareceria reduzir 22%, o que é impossível. A medida vale só na máquina-alvo. Atenção para lá: esta API quase não faz trabalho (cerca de 0,67 ms de CPU por pedido), então 0,13 ms pesa perto de 20% sobre ela.
 
+## Site Next sintético (ensaio local)
+
+[`site-next/`](prova-banco-de-logs/medicao-node/site-next/) usa Next 16.3.8 e captura `console.warn` e `console.error`. [`medir-site-local.sh`](prova-banco-de-logs/scripts/medir-site-local.sh) simula 20 publicações trocando o processo, e isto **não representa a Vercel**, onde o encerramento é outro.
+
+| | 20 publicações com SIGTERM | Controle: 3 publicações com SIGKILL |
+|---|---|---|
+| Avisos "pode ter perdido mais" | 1 | 3 |
+| Eventos esperados / recebidos | 1.600 / 1.600 | 240 / 234 |
+
+Esta medida só informa e não reprova banco (#9). Na Vercel o site precisa alcançar um recebedor público, o que entra no pedido de autorização.
+
 ## Leitura confirmada da meta de busca
 
 O #9 diz "95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s". O responsável decidiu em 18/11/2026 que **vale o p95 de cada tipo de busca**: um tipo reprova quando o p95 passa de 5 s, e o pior tempo fica registrado sem reprovar sozinho. O [`relatorio.rs`](prova-banco-de-logs/bancada/src/bin/relatorio.rs) aplica essa regra.
@@ -65,7 +76,7 @@ O #9 diz "95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s". O 
 
 - Medida das 7 cópias na máquina-alvo (o ensaio local mede uma).
 - Medida de CPU da biblioteca na máquina-alvo.
-- Site Next sintético.
+- Publicações do site na Vercel, depois de autorização.
 - Automação da máquina: instalação, disco cifrado, conferência de disco e CPU, quedas com `sysrq`.
 
 ## Próximos passos

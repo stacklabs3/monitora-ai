@@ -29,7 +29,7 @@ function limparCampos(registro) {
   return limpo;
 }
 
-export function criarMonitora({ endereco, chaveCodigos, produto, aplicacao, execucao, rotasExcluidas = ['/health'] }) {
+export function criarMonitora({ endereco, chaveCodigos, produto, aplicacao, execucao, rotasExcluidas = ['/health'], intervaloSituacaoMs = 30_000 }) {
   const contexto = new AsyncLocalStorage();
   const enderecoEnvio = new URL('/v1/eventos', endereco);
   const agenteHttp = new http.Agent({ keepAlive: true, maxSockets: 1 });
@@ -187,11 +187,40 @@ export function criarMonitora({ endereco, chaveCodigos, produto, aplicacao, exec
     if (fila.length >= LIMITE_EVENTOS_LOTE) setImmediate(enviarPendentes);
   }
 
+  function enviarSituacao(momento) {
+    const corpo = Buffer.from(JSON.stringify({ aplicacao, execucao, momento, ultimoNumero: proximoNumero - 1, perdas }));
+    return new Promise((aoResolver) => {
+      const pedido = http.request(new URL('/v1/situacao', endereco), {
+        method: 'POST',
+        agent: agenteHttp,
+        headers: { 'content-type': 'application/json', 'content-length': corpo.length },
+      }, (resposta) => {
+        resposta.resume();
+        resposta.on('end', aoResolver);
+      });
+      pedido.on('error', aoResolver);
+      pedido.setTimeout(2000, () => pedido.destroy(new Error('tempo esgotado')));
+      pedido.end(corpo);
+    });
+  }
+
+  async function descarregar() {
+    while (fila.length > 0 && !loteEmVoo) await enviarPendentes();
+  }
+
   const relogioEnvio = setInterval(enviarPendentes, 1000);
   relogioEnvio.unref();
+  const relogioSituacao = setInterval(() => enviarSituacao('periodica'), intervaloSituacaoMs);
+  relogioSituacao.unref();
+  enviarSituacao('inicio');
 
   return {
     destino: { write: processarLinha },
+    descarregar,
+    encerrar: async () => {
+      await descarregar();
+      await enviarSituacao('encerramento');
+    },
     mixin: () => {
       const ocorrenciaAtual = contexto.getStore();
       return ocorrenciaAtual ? { ocorrencia: ocorrenciaAtual.ocorrencia, familia: ocorrenciaAtual.familia } : {};
