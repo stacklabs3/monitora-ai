@@ -1,0 +1,45 @@
+# Ambiente local de teste da bancada. Só dados sintéticos, sem senha e com portas só em 127.0.0.1.
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:26.10.4.207
+    mem_limit: 1500m
+    cpus: 2
+    ulimits: { nofile: 262144 }
+    environment:
+      CLICKHOUSE_SKIP_USER_SETUP: "1"
+    ports: ["127.0.0.1:18123:8123"]
+    volumes:
+      - dados-clickhouse:/var/lib/clickhouse
+      - ./config/clickhouse-pouca-memoria.xml:/etc/clickhouse-server/config.d/pouca-memoria.xml:ro
+      - ./config/clickhouse-usuario.xml:/etc/clickhouse-server/users.d/pouca-memoria.xml:ro
+  opensearch:
+    image: opensearchproject/opensearch:3.9.0
+    mem_limit: 1500m
+    cpus: 2
+    ulimits: { nofile: 65536, memlock: { soft: -1, hard: -1 } }
+    environment:
+      discovery.type: single-node
+      DISABLE_SECURITY_PLUGIN: "true"
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms700m -Xmx700m"
+      bootstrap.memory_lock: "true"
+    ports: ["127.0.0.1:19200:9200"]
+    volumes:
+      - dados-opensearch:/usr/share/opensearch/data
+  postgres:
+    image: postgres:18.7
+    mem_limit: 1500m
+    cpus: 2
+    shm_size: 512m
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: prova
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
+    ports: ["127.0.0.1:15432:5432"]
+    volumes:
+      - dados-postgres:/var/lib/postgresql
+      - ./config/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+volumes:
+  dados-clickhouse:
+  dados-opensearch:
+  dados-postgres:
