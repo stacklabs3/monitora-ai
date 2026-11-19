@@ -159,7 +159,7 @@ validador confere). Levar algo ao método é decisão do humano, quando ele pedi
 
 Regra própria do projeto, com ID `RP<n>` que nunca se reusa:
 
-- (nenhuma)
+- **RP1. Provar a falha:** todo teste, ensaio ou medida de falha comprova que a falha aconteceu e tem um controle negativo que precisa reprovar; sem os dois, o resultado é inválido.
 
 <!-- Formato: - **RP1.** Toda tela nova tem modo escuro. *Por quê:* [decisão](link). -->
 
