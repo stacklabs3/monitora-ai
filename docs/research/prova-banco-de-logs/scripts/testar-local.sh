@@ -3,6 +3,7 @@
 # queda do servidor no meio, bateria de buscas e conferência das confirmações.
 # Uso: sh scripts/testar-local.sh clickhouse|opensearch|postgres
 set -eu
+set -o pipefail
 nome_banco="$1"
 nome_rodada="ponta-a-ponta"
 pasta_prova="$(cd "$(dirname "$0")/.." && pwd)"

@@ -2,6 +2,7 @@
 # Ensaio local de busca lenta (corte, recusa da terceira, busca garantida no meio) e degraus de carga.
 # Uso: sh scripts/testar-limites-local.sh clickhouse|opensearch|postgres
 set -eu
+set -o pipefail
 nome_banco="$1"
 nome_rodada="limites"
 pasta_prova="$(cd "$(dirname "$0")/.." && pwd)"

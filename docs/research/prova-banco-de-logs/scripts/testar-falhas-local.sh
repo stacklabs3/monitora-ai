@@ -3,6 +3,7 @@
 # Confere se a bancada detecta o resultado; os tempos reais do #9 rodam na máquina-alvo.
 # Uso: sh scripts/testar-falhas-local.sh clickhouse|opensearch|postgres
 set -eu
+set -o pipefail
 nome_banco="$1"
 nome_rodada="falhas"
 pasta_prova="$(cd "$(dirname "$0")/.." && pwd)"
@@ -20,13 +21,18 @@ echo "== banco fora por 20 s durante o pico"
 gerador ritmo ritmo1 ritmo --duracao-s 100 --picos 20:40:120 --reenvio-apos-s 30 --sem-buscas >/dev/null &
 pid_gerador=$!
 sleep 30
+identificador_conteiner=$(compose_prova ps -q "$nome_banco")
 compose_prova kill "$nome_banco" >/dev/null 2>&1
 inicio_queda_ms=$(agora_em_ms)
+[ "$(docker inspect -f '{{.State.Running}}' "$identificador_conteiner")" = false ] || falhar "o banco continuou de pé"
 sleep 20
 fim_queda_ms=$(agora_em_ms)
 compose_prova start "$nome_banco" >/dev/null 2>&1
 esperar_banco
 wait "$pid_gerador"
+lotes_repetidos=$(awk -F, 'NR>1 && $5>1 {soma++} END {print soma+0}' "$resultados/ritmo/envios.csv")
+echo "lotes que precisaram de nova tentativa: $lotes_repetidos"
+[ "$lotes_repetidos" -gt 0 ] || falhar "a carga não sentiu a queda do banco"
 
 confirmados_na_queda=$(awk -F, -v inicio="$inicio_queda_ms" -v fim="$fim_queda_ms" \
   'NR>1 && $1>=inicio+2000 && $1<=fim && $6>0 {soma+=$6} END {print soma+0}' "$resultados/ritmo/envios.csv")

@@ -134,6 +134,8 @@ struct Contexto {
     buscas: Registro,
     visibilidade: Registro,
     perdidos: Arc<AtomicU64>,
+    /// Lotes do ritmo ainda tentando: o gerador só termina quando cada um confirmou ou foi contado como perdido.
+    lotes_em_voo: Arc<AtomicU64>,
 }
 
 /// Envia até confirmar ou esgotar os 5 min de tentativas da biblioteca.
@@ -270,12 +272,14 @@ async fn laco_aplicacao(
             .cloned()
             .collect();
         let contexto_envio = contexto.clone();
+        contexto.lotes_em_voo.fetch_add(1, Ordering::SeqCst);
         tokio::spawn(async move {
             let confirmado = enviar_com_tentativas(&contexto_envio, indice_aplicacao, eventos, agendado, true).await;
             if confirmado && !reenvios.is_empty() {
                 sleep(reenvio_apos).await;
                 enviar_com_tentativas(&contexto_envio, indice_aplicacao, reenvios, Instant::now(), false).await;
             }
+            contexto_envio.lotes_em_voo.fetch_sub(1, Ordering::SeqCst);
         });
     }
 }
@@ -411,6 +415,7 @@ async fn main() -> Result<()> {
         buscas: Registro::abrir(&pasta.join("buscas.csv"), "instante_ms,rotulo,busca,janela,latencia_ms,linhas,parcial,situacao", false)?,
         visibilidade: Registro::abrir(&pasta.join("visibilidade.csv"), "instante_ms,tardia,latencia_ms", false)?,
         perdidos: Arc::new(AtomicU64::new(0)),
+        lotes_em_voo: Arc::new(AtomicU64::new(0)),
     };
     match argumentos.modo {
         Modo::Historico { dias, eventos_por_dia, tamanho_lote, envios_simultaneos } => {
@@ -439,6 +444,14 @@ async fn main() -> Result<()> {
             }
             // Dá tempo aos envios, reenvios e sondas que ainda estão em voo.
             sleep_until(Instant::now() + reenvio_apos.min(Duration::from_secs(900)) + Duration::from_secs(30)).await;
+            // Sair com lote tentando esconderia a perda: ele não seria confirmado nem contado.
+            // Cada tentativa dura até 60 s e cada envio desiste em PRAZO_TENTATIVAS, então o prazo abaixo basta.
+            let prazo_em_voo = Instant::now() + PRAZO_TENTATIVAS * 2 + reenvio_apos + Duration::from_secs(180);
+            while contexto.lotes_em_voo.load(Ordering::SeqCst) > 0 && Instant::now() < prazo_em_voo {
+                sleep(Duration::from_secs(1)).await;
+            }
+            let lotes_pendentes = contexto.lotes_em_voo.load(Ordering::SeqCst);
+            anyhow::ensure!(lotes_pendentes == 0, "{lotes_pendentes} lotes ainda tentando no fim do prazo");
         }
     }
     println!("eventos sem confirmação após 5 min: {}", contexto.perdidos.load(Ordering::Relaxed));

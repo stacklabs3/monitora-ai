@@ -1,17 +1,21 @@
 #!/bin/sh
 # Ensaia a automação numa máquina virtual Lima de 2 GB, criada do zero para cada banco.
-# Uso: sh scripts/ensaiar-maquina-local.sh clickhouse|opensearch|postgres [quedas]
+# Uso: sh scripts/ensaiar-maquina-local.sh clickhouse|opensearch|postgres [quedas] [paradas_forcadas]
 set -eu
+set -o pipefail
 nome_banco="$1"
 quantidade_quedas="${2:-3}"
+quantidade_paradas="${3:-0}"
 pasta_prova="$(cd "$(dirname "$0")/.." && pwd)"
+. "$pasta_prova/scripts/comum-tempo.sh"
 nome_maquina=prova-banco
 resultados="$pasta_prova/resultados-locais/maquina/$nome_banco"
 binarios_mac="$pasta_prova/bancada/target/release"
 endereco_servidor=http://127.0.0.1:18090
+limite_etapa_s=1800
 
 como_root() {
-  limactl shell "$nome_maquina" sudo "$@"
+  com_limite "$limite_etapa_s" limactl shell "$nome_maquina" sudo "$@"
 }
 
 case "$nome_banco" in
@@ -25,8 +29,8 @@ rm -rf "$resultados"
 mkdir -p "$resultados"
 
 echo "== máquina nova"
-limactl delete --force "$nome_maquina" >/dev/null 2>&1 || true
-limactl start --name="$nome_maquina" --cpus=2 --memory=2 --disk=30 --vm-type=vz --mount-none -y template:ubuntu-24.04 >/dev/null 2>&1
+com_limite 180 limactl delete --force "$nome_maquina" >/dev/null 2>&1 || true
+com_limite 900 limactl start --name="$nome_maquina" --cpus=2 --memory=2 --disk=30 --vm-type=vz --mount-none -y template:ubuntu-24.04 >/dev/null 2>&1
 COPYFILE_DISABLE=1 tar -C "$pasta_prova" -czf - config scripts bancada/target-linux-arm64/release/servidor |
   como_root sh -c 'mkdir -p /opt/prova && tar -C /opt/prova -xzf - 2>/dev/null'
 
@@ -50,7 +54,7 @@ done
 
 echo "== carga com medida de memória"
 como_root sh -c "nohup sh /opt/prova/scripts/coletar-metricas.sh /var/tmp/metricas.csv /dados '$regex_processos' 5 24 >/dev/null 2>&1 &"
-"$binarios_mac/gerador" --servidor "$endereco_servidor" --saida "$resultados/carga" --execucao carga \
+com_limite 600 "$binarios_mac/gerador" --servidor "$endereco_servidor" --saida "$resultados/carga" --execucao carga \
   ritmo --duracao-s 120 --picos 30:30:120 --reenvio-apos-s 20 >/dev/null
 como_root cat /var/tmp/metricas.csv >"$resultados/metricas.csv"
 "$binarios_mac/relatorio" --pasta "$resultados/carga" --verificar >"$resultados/relatorio-carga.txt" || true
@@ -58,7 +62,8 @@ sed -n '1,3p;/^VEREDITO/,$p' "$resultados/relatorio-carga.txt" | cut -c1-150 | h
 awk -F, 'NR>1 {if ($4>memoria) memoria=$4; if ($5>swap) swap=$5; soma+=$2; amostras++}
   END {printf "pico de memória banco+servidor=%.0f MB swap=%.0f MB cpu média=%.0f%%\n", memoria/1024, swap/1024, soma/amostras}' "$resultados/metricas.csv"
 
-echo "== quedas com sysrq"
+echo "== quedas com sysrq e paradas forçadas"
 COMANDO_ROOT="limactl shell $nome_maquina sudo" COMANDO_RELIGAR="limactl start $nome_maquina -y" \
+  COMANDO_PARADA_FORCADA="limactl stop --force $nome_maquina" QUANTIDADE_PARADAS="$quantidade_paradas" \
   sh "$pasta_prova/scripts/quedas-sysrq.sh" "$binarios_mac" "$endereco_servidor" "$resultados/quedas" "$quantidade_quedas" 30
 echo "ensaio da máquina ok: $nome_banco"

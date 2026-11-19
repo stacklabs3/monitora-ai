@@ -36,7 +36,15 @@ fazer_copia() {
 restaurar_copia() {
   case "$nome_banco" in
     clickhouse)
-      curl -fsS -o /dev/null "$endereco_banco" -d "RESTORE TABLE eventos FROM File('/copias/$nome_copia')" ;;
+      # A parte restaurada traz a versão de dados do original (ex.: 17), e a primeira exclusão da
+      # tabela nova recebe um número menor (ex.: 2): o ClickHouse 26.10 a marca como feita sem
+      # apagar nada. Reanexar as partições numa tabela vazia renumera as partes e a exclusão volta a valer.
+      curl -fsS -o /dev/null "$endereco_banco" -d "RESTORE TABLE eventos AS eventos_restaurada FROM File('/copias/$nome_copia')"
+      curl -fsS -o /dev/null "$endereco_banco" -d "CREATE TABLE eventos AS eventos_restaurada"
+      for particao_restaurada in $(curl -fsS "$endereco_banco" -d "SELECT DISTINCT partition_id FROM system.parts WHERE table = 'eventos_restaurada' AND active FORMAT TSV"); do
+        curl -fsS -o /dev/null "$endereco_banco" -d "ALTER TABLE eventos ATTACH PARTITION ID '$particao_restaurada' FROM eventos_restaurada"
+      done
+      curl -fsS -o /dev/null "$endereco_banco" -d "DROP TABLE eventos_restaurada SYNC" ;;
     opensearch)
       registrar_repositorio
       curl -fsS -o /dev/null -X POST "$endereco_repositorio/$nome_copia/_restore?wait_for_completion=true" \

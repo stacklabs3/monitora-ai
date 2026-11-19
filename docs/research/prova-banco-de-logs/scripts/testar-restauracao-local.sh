@@ -3,6 +3,7 @@
 # apaga o banco, restaura a cópia, reaplica as exclusões antes de abrir e compara os dois, evento a evento.
 # Uso: sh scripts/testar-restauracao-local.sh clickhouse|opensearch|postgres
 set -eu
+set -o pipefail
 nome_banco="$1"
 nome_rodada="restauracao"
 pasta_prova="$(cd "$(dirname "$0")/.." && pwd)"
