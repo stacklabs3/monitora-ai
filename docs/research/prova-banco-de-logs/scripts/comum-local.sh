@@ -16,7 +16,7 @@ rm -rf "$resultados"
 mkdir -p "$resultados"
 
 compose_prova() {
-  docker compose -f "$pasta_prova/compose.yml" "$@"
+  docker compose -f "$pasta_prova/compose.yml" ${COMPOSE_EXTRA:+-f "$COMPOSE_EXTRA"} "$@"
 }
 
 sql_postgres() {

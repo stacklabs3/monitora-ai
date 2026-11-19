@@ -1,0 +1,21 @@
+# Máquina simulada: banco e servidor de teste dividem 2 GB, sem swap, e 0,4 CPU.
+# 0,4 é o mínimo garantido do plano de 2 vCPU com 20% por vCPU. O saldo de CPU da AWS não é simulado.
+x-maquina: &maquina
+  mem_limit: 2g
+  memswap_limit: 2g
+  cpus: 0.4
+  ports: ["127.0.0.1:18080:18080"]
+
+services:
+  clickhouse:
+    <<: *maquina
+    volumes:
+      - ./bancada/target-musl-arm64/release:/opt/bancada:ro
+  opensearch:
+    <<: *maquina
+    volumes:
+      - ./bancada/target-musl-arm64/release:/opt/bancada:ro
+  postgres:
+    <<: *maquina
+    volumes:
+      - ./bancada/target-musl-arm64/release:/opt/bancada:ro

@@ -79,9 +79,17 @@ O #9 diz "95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s". O 
 - Publicações do site na Vercel, depois de autorização.
 - Automação da máquina: instalação, disco cifrado, conferência de disco e CPU, quedas com `sysrq`.
 
+## Estado em 19/11/2026
+
+- **Decisão:** o #21 fecha com números do Docker marcados como simulados; a validação na AWS vira ticket próprio, bloqueado pelo backend e pelo frontend.
+- **Máquina simulada:** [`compose.simulacao.yml`](prova-banco-de-logs/compose.simulacao.yml) (banco e servidor em 2 GB e 0,4 CPU) e [`simular-prova.sh`](prova-banco-de-logs/scripts/simular-prova.sh), que retoma da última fase. O histórico carrega com 2 CPUs, igual para todos.
+- **Ensaio em escala 1/120 no PostgreSQL, ainda sem validade como medida:** passou até o disco cheio; `apagar_com_carga` quebrou uma meta e falta investigar.
+- **Máquina virtual (Lima):** disco cifrado confirmou o repasse da ordem de gravar. O ensaio de quedas com prova de reinício **travou por mais de 4 h e foi interrompido, sem resultado**.
+
 ## Próximos passos
 
-1. Terminar e ensaiar localmente tudo o que falta acima. **Nenhum recurso na AWS antes disso**, por decisão do responsável em 18/11/2026.
-2. Pedir autorização com o custo atualizado.
-3. Confirmar os dois itens em aberto: disco cifrado repassa a ordem de gravar e parada forçada em máquina saudável.
-4. Seguir a ordem do #9: conferência da máquina, 2 h, 30 dias, 24 h, falhas e degraus de carga.
+**Decisão do responsável em 18/11/2026: a AWS só será usada quando o backend e o frontend estiverem prontos. Até lá, a prova é simulada no Docker.** Isso muda o que o #21 consegue entregar: números do Docker são simulados e não substituem a máquina de 2 GB em `sa-east-1` pedida no #9.
+
+1. Terminar os ensaios locais de instalação e quedas.
+2. Simular no Docker a ordem do #9: 2 h, 30 dias, 24 h, falhas e degraus de carga.
+3. Na AWS, depois do produto pronto: conferência da máquina, parada forçada em máquina saudável, CPU da biblioteca, publicações na Vercel e custo medido.

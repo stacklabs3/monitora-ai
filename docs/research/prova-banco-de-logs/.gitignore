@@ -4,3 +4,5 @@ medicao-node/node_modules/
 medicao-node/site-next/node_modules/
 medicao-node/site-next/.next/
 medicao-node/site-next/biblioteca.mjs
+bancada/target-linux-*/
+bancada/target-musl-*/
