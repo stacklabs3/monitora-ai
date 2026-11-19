@@ -72,24 +72,72 @@ Esta medida só informa e não reprova banco (#9). Na Vercel o site precisa alca
 
 O #9 diz "95% em até 5 s" e "reprova na hora: busca garantida acima de 5 s". O responsável decidiu em 18/11/2026 que **vale o p95 de cada tipo de busca**: um tipo reprova quando o p95 passa de 5 s, e o pior tempo fica registrado sem reprovar sozinho. O [`relatorio.rs`](prova-banco-de-logs/bancada/src/bin/relatorio.rs) aplica essa regra.
 
-## Ainda não construído
+## Prova simulada (números SIMULADOS)
 
-- Medida das 7 cópias na máquina-alvo (o ensaio local mede uma).
-- Medida de CPU da biblioteca na máquina-alvo.
-- Publicações do site na Vercel, depois de autorização.
-- Automação da máquina: instalação, disco cifrado, conferência de disco e CPU, quedas com `sysrq`.
+**Decisão do responsável em 18/11/2026: a AWS só entra quando o backend e o frontend estiverem prontos.** O #21 fecha com os números abaixo, todos **SIMULADOS**. Eles não substituem a máquina de 2 GB em `sa-east-1` pedida no #9. A validação fica em "Validar o banco na AWS".
 
-## Estado em 19/11/2026
+**Regra aplicada (RP1, retrospectiva de 19/11/2026):** toda falha provocada comprova que aconteceu e tem um controle negativo que precisa reprovar. Sem os dois, o resultado é inválido.
 
-- **Decisão:** o #21 fecha com números do Docker marcados como simulados; a validação na AWS vira ticket próprio, bloqueado pelo backend e pelo frontend.
-- **Máquina simulada:** [`compose.simulacao.yml`](prova-banco-de-logs/compose.simulacao.yml) (banco e servidor em 2 GB e 0,4 CPU) e [`simular-prova.sh`](prova-banco-de-logs/scripts/simular-prova.sh), que retoma da última fase. O histórico carrega com 2 CPUs, igual para todos.
-- **Ensaio em escala 1/120 no PostgreSQL, ainda sem validade como medida:** passou até o disco cheio; `apagar_com_carga` quebrou uma meta e falta investigar.
-- **Máquina virtual (Lima):** disco cifrado confirmou o repasse da ordem de gravar. O ensaio de quedas com prova de reinício **travou por mais de 4 h e foi interrompido, sem resultado**.
+### Como roda
 
-## Próximos passos
+| Peça | O que faz |
+|---|---|
+| [`compose.simulacao.yml`](prova-banco-de-logs/compose.simulacao.yml) | Banco e servidor no mesmo contêiner: 2 GB sem swap, 0,4 CPU (mínimo garantido de 2 vCPU a 20%). O histórico carrega com 2 CPUs, igual para todos |
+| [`simular-prova.sh`](prova-banco-de-logs/scripts/simular-prova.sh) | Ordem do #9. Cada fase roda em processo próprio, com `set -e`, `pipefail` e limite de tempo, e retoma da última fase concluída |
+| [`rodar-prova-completa.sh`](prova-banco-de-logs/scripts/rodar-prova-completa.sh) | Roda um banco por vez, fora da sessão, e guarda os resumos em [`resultados-simulacao/`](prova-banco-de-logs/resultados-simulacao/) |
+| [`comum-controle.sh`](prova-banco-de-logs/scripts/comum-controle.sh) | Controle negativo do conferidor pela API: perda e duplicata plantadas precisam reprovar, e a duplicata é apagada depois |
+| [`comum-tempo.sh`](prova-banco-de-logs/scripts/comum-tempo.sh) | Limite de tempo que encerra o grupo de processos inteiro |
 
-**Decisão do responsável em 18/11/2026: a AWS só será usada quando o backend e o frontend estiverem prontos. Até lá, a prova é simulada no Docker.** Isso muda o que o #21 consegue entregar: números do Docker são simulados e não substituem a máquina de 2 GB em `sa-east-1` pedida no #9.
+Versões: ClickHouse 26.10.4.207, OpenSearch 3.9.0 e PostgreSQL 18.7, em Docker Desktop num Mac com 10 CPUs. Configurações em [`config/`](prova-banco-de-logs/config/), sem ajuste por banco além do que está registrado aqui.
 
-1. Terminar os ensaios locais de instalação e quedas.
-2. Simular no Docker a ordem do #9: 2 h, 30 dias, 24 h, falhas e degraus de carga.
-3. Na AWS, depois do produto pronto: conferência da máquina, parada forçada em máquina saudável, CPU da biblioteca, publicações na Vercel e custo medido.
+| Cenário | Como prova que a falha aconteceu | Controle negativo |
+|---|---|---|
+| Conferência | Exige pelo menos um evento confirmado | Perda e duplicata plantadas reprovam; meta impossível reprova no relatório |
+| Banco fora | Contêiner parado, servidor sem responder e lotes que precisaram de nova tentativa > 0 | Nada confirmado durante a queda |
+| Reenvio | Duplicados barrados depois do reinício do servidor > 0, e o servidor visto fora do ar | Conferência com 0 duplicados |
+| Disco cheio | 503 com `Retry-After` e busca trazendo linhas | Sem reserva, o mesmo envio passa (200) |
+| Apagar com carga | Linhas das 100 pessoas e dos dias vencidos > 0 antes | Uma pessoa não excluída mantém as linhas |
+| Restauração | Volume apagado de fato; pessoa e dias vencidos tinham linhas antes | Restaurado idêntico ao original, evento a evento |
+| Queda da máquina (VM) | Boot novo em cada reinício e carga confirmando antes de cada um | Sem reinício, o identificador de boot não muda |
+
+### Ensaio do roteiro em escala 1/120
+
+Os três bancos rodaram todas as fases em 19/11/2026 (`ESCALA=120`), junto com a VM, só para conferir o roteiro. **Os tempos do ensaio não valem como medida.** As metas quebradas apareceram só nos degraus de carga e, no OpenSearch, em apagar com carga (p95 de 1,2 s para confirmar), e são limites de banco, não da bancada.
+
+### Quedas na máquina virtual (Lima/vz, 2 vCPU e 2 GB, disco cifrado)
+
+[`ensaiar-maquina-local.sh`](prova-banco-de-logs/scripts/ensaiar-maquina-local.sh) cria uma VM nova por banco e roda [`quedas-sysrq.sh`](prova-banco-de-logs/scripts/quedas-sysrq.sh): **20 quedas com `sysrq b` e 3 paradas forçadas (`limactl stop --force`)**, sempre com carga e com o registro de confirmações fora da VM. SIMULADO: é a VM do Mac, não a AWS.
+
+| | ClickHouse | OpenSearch | PostgreSQL |
+|---|---|---|---|
+| Reinícios com boot novo | 23 de 23, **só com o limite de partes quebradas aumentado** | 23 de 23 | 23 de 23 |
+| Confirmados / perdidos / duplicados | 42.838 / 0 / 0 | 42.838 / 0 / 0 | 42.838 / 0 / 0 |
+| Volta do servidor (média / maior) | 0,7 s / 2 s | 6,3 s / 10 s | 1,3 s / 3 s |
+| Pico de memória banco + servidor, carga curta | 708 MB | 1.342 MB | 84 MB |
+| Controle negativo (perda e duplicata plantadas) | reprovou | reprovou | reprovou |
+
+**ClickHouse com a configuração padrão não volta sozinho de uma queda.** Na primeira queda com `sysrq`, a tabela não abriu: `Suspiciously many (104 parts, 0.00 B in total) broken parts`, porque o limite padrão `max_suspicious_broken_parts` é 100 ([configurações MergeTree](https://clickhouse.com/docs/operations/settings/merge-tree-settings#max_suspicious_broken_parts)). O servidor ficou de pé e nenhum envio foi confirmado por 5 min. Com o limite em 100.000, a tabela abriu, as 104 partes vazias foram para `detached` e os 418 eventos confirmados antes da queda estavam lá, sem perda nem duplicata. Com esse ajuste, registrado em `MAXIMO_PARTES_QUEBRADAS`, os 23 reinícios passaram. A escolha entre aceitar esse ajuste ou contar como reprovação fica no [Escolher o banco de logs](https://github.com/stacklabs3/monitora-ai/issues/22).
+
+## Diagnósticos de 19/11/2026
+
+| Sintoma | Causa provada | Correção |
+|---|---|---|
+| Ensaio de quedas travou por mais de 4 h | O journal da VM mostra que a leitura do `boot_id` chegou nas quedas 1 e 2 e **nunca chegou** na 3, embora o servidor tenha voltado às 20:04:07. O `limactl shell` ficou preso no Mac, sem limite. A VM seguiu ligada: a pista de que o `sysrq` pararia a VM não se confirmou. Em 12 reinícios seguidos sem carga a trava não voltou, então o motivo dentro do `limactl`/ssh segue sem prova | Toda chamada à VM tem limite e nova tentativa, e cada corte vira aviso no registro. Nas 69 quedas e paradas seguintes, nenhum aviso |
+| `apagar_com_carga` com 18 linhas de pessoas excluídas | **Defeito da bancada.** As 18 linhas (17 da carga e 1 da sonda) foram recebidas depois do início da exclusão: a carga cria vínculos tardios com horário de até 2 h atrás. Nenhuma linha antiga sobreviveu | A conferência olha só eventos com mais de 2 h e 5 min antes do corte; a meta e a exclusão são julgadas separadamente |
+| "Passou" sem testar | As fases rodavam dentro de um `if`, que desliga o `set -e`, e o `\| tee` escondia o código de saída | Cada fase roda em processo próprio, com `set -e` e `pipefail` |
+| Banco fora no OpenSearch sem nenhum lote repetido | O gerador saía 40 s depois da carga, sem esperar os lotes ainda tentando: o OpenSearch voltou depois disso e esses lotes não foram contados nem como confirmados nem como perdidos | O gerador espera todo lote em voo até confirmar ou ser contado como perdido |
+| Restauração do ClickHouse com 340 linhas a mais | A parte restaurada guarda a versão de dados do original (17), e a primeira exclusão da tabela nova recebe o número 2: o ClickHouse 26.10 a marca como feita sem apagar nada. Reproduzido isolado | Restaurar numa tabela auxiliar e reanexar as partições numa tabela vazia, o que renumera as partes. É um passo a mais de operação no ClickHouse |
+| Buscas frias com erro no OpenSearch | A bancada considerava o banco pronto antes de os índices abrirem | Esperar `wait_for_status=yellow` |
+
+## Resultados da prova completa
+
+<!-- Preenchido ao fim de cada banco com resultados-simulacao/<banco>. -->
+Em andamento desde 19/11/2026 07:28, um banco por vez: PostgreSQL, ClickHouse e OpenSearch.
+
+## O que o Docker não mediu
+
+- **Disco real:** o volume do Docker no Mac não é o disco do Lightsail, nem em velocidade nem em gravação segura.
+- **Saldo de CPU:** o limite de 0,4 CPU simula só o mínimo garantido; o acúmulo e o gasto de saldo da AWS não existem aqui.
+- **Parada pela AWS:** a parada forçada foi da VM local (`limactl stop --force`), não a do Lightsail numa máquina saudável.
+- **CPU da biblioteca:** a medida por processo oscilou demais no Mac (seção da biblioteca).
+- **Vercel:** as 20 publicações foram simuladas trocando o processo, não publicadas na Vercel.
