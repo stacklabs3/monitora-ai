@@ -1,0 +1,2 @@
+confirmados=151201 presentes=152639 perdidos=3 duplicados=0
+exemplos de perdidos: excurfly-api/controle-simulacao-1795092228/900000, excurfly-api/controle-simulacao-1795092228/900001, excurfly-api/controle-simulacao-1795092228/900002

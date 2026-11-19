@@ -1,0 +1,2 @@
+controle negativo ok: perdidos_plantados=3 duplicados_plantados=1, ambos reprovaram
+controle do relatório ok: meta impossível reprovou
