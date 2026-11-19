@@ -30,7 +30,8 @@ mkdir -p "$resultados"
 
 echo "== máquina nova"
 com_limite 180 limactl delete --force "$nome_maquina" >/dev/null 2>&1 || true
-com_limite 900 limactl start --name="$nome_maquina" --cpus=2 --memory=2 --disk=30 --vm-type=vz --mount-none -y template:ubuntu-24.04 >/dev/null 2>&1
+com_limite 900 limactl start --name="$nome_maquina" --cpus=2 --memory=2 --disk=30 --vm-type=vz --mount-none -y template:ubuntu-24.04 >"$resultados/maquina-nova.log" 2>&1 ||
+  { echo "FALHA ao criar a máquina:"; tail -5 "$resultados/maquina-nova.log" | cut -c1-220; exit 1; }
 COPYFILE_DISABLE=1 tar -C "$pasta_prova" -czf - config scripts bancada/target-linux-arm64/release/servidor |
   como_root sh -c 'mkdir -p /opt/prova && tar -C /opt/prova -xzf - 2>/dev/null'
 
@@ -44,7 +45,7 @@ executar_etapa() {
   tail -1 "$arquivo_etapa" | cut -c1-120
 }
 executar_etapa disco sh /opt/prova/scripts/maquina/preparar-disco.sh 4
-executar_etapa instalacao sh /opt/prova/scripts/maquina/instalar-banco.sh "$nome_banco" /opt/prova/bancada/target-linux-arm64/release
+executar_etapa instalacao env MAXIMO_PARTES_QUEBRADAS="${MAXIMO_PARTES_QUEBRADAS:-}" sh /opt/prova/scripts/maquina/instalar-banco.sh "$nome_banco" /opt/prova/bancada/target-linux-arm64/release
 tentativas=0
 until curl -fsS --max-time 2 "$endereco_servidor/saude" >/dev/null 2>&1; do
   tentativas=$((tentativas + 1))

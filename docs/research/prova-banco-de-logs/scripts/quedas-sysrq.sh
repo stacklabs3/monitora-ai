@@ -55,11 +55,19 @@ esperar_volta() {
 
 confirmacoes_ate_agora() { wc -l <"$pasta_saida/confirmados.log" | tr -d ' '; }
 
-# Sem carga confirmando, a queda não testaria nada.
+# Sem carga confirmando, a queda não testaria nada. Depois de um reinício o banco pode levar
+# um tempo para voltar a gravar: espera até o prazo de volta e registra quanto levou.
 provar_carga_ativa() {
-  kill -0 "$pid_gerador" 2>/dev/null || falhar "o gerador parou antes de $1"
-  confirmacoes_agora=$(confirmacoes_ate_agora)
-  [ "$confirmacoes_agora" -gt "$confirmacoes_na_queda_anterior" ] || falhar "nenhuma confirmação nova antes de $1"
+  inicio_espera_confirmacao=$(date +%s)
+  while :; do
+    kill -0 "$pid_gerador" 2>/dev/null || falhar "o gerador parou antes de $1"
+    confirmacoes_agora=$(confirmacoes_ate_agora)
+    [ "$confirmacoes_agora" -le "$confirmacoes_na_queda_anterior" ] || break
+    [ $(($(date +%s) - inicio_espera_confirmacao)) -lt "$limite_volta_s" ] || falhar "nenhuma confirmação nova em $limite_volta_s s antes de $1"
+    sleep 2
+  done
+  segundos_sem_confirmar=$(($(date +%s) - inicio_espera_confirmacao))
+  [ "$segundos_sem_confirmar" -eq 0 ] || echo "antes de $1: a carga voltou a confirmar depois de mais $segundos_sem_confirmar s"
   confirmacoes_na_queda_anterior=$confirmacoes_agora
 }
 

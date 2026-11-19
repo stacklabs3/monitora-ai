@@ -6,3 +6,12 @@ medicao-node/site-next/.next/
 medicao-node/site-next/biblioteca.mjs
 bancada/target-linux-*/
 bancada/target-musl-*/
+# Da prova completa vão para o git só os resumos; os registros brutos ficam na máquina.
+resultados-simulacao/**/confirmados.log
+resultados-simulacao/**/confirmados-com-perda.log
+resultados-simulacao/**/envios.csv
+resultados-simulacao/**/buscas.csv
+resultados-simulacao/**/visibilidade.csv
+resultados-simulacao/**/original.txt
+resultados-simulacao/**/restaurado.txt
+resultados-simulacao/orquestrador.log

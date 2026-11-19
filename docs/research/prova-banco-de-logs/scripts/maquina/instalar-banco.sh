@@ -50,6 +50,12 @@ case "$nome_banco" in
     sed 's#/copias/#/dados/copias/#; s#<listen_host>0.0.0.0</listen_host>#<listen_host>127.0.0.1</listen_host><path>/dados/clickhouse/</path><tmp_path>/dados/clickhouse/tmp/</tmp_path><user_files_path>/dados/clickhouse/user_files/</user_files_path>#' \
       "$pasta_prova/config/clickhouse-pouca-memoria.xml" >/etc/clickhouse-server/config.d/pouca-memoria.xml
     cp "$pasta_prova/config/clickhouse-usuario.xml" /etc/clickhouse-server/users.d/pouca-memoria.xml
+    # Ajuste registrado, fora do padrão: com o limite padrão (100) a tabela não abre depois de uma
+    # queda com sysrq, por causa de partes vazias deixadas pela queda. Só vale quando pedido.
+    if [ -n "${MAXIMO_PARTES_QUEBRADAS:-}" ]; then
+      printf '<clickhouse><merge_tree><max_suspicious_broken_parts>%s</max_suspicious_broken_parts></merge_tree></clickhouse>\n' \
+        "$MAXIMO_PARTES_QUEBRADAS" >/etc/clickhouse-server/config.d/partes-quebradas.xml
+    fi
     chown clickhouse:clickhouse /etc/clickhouse-server/config.d/pouca-memoria.xml /etc/clickhouse-server/users.d/pouca-memoria.xml
     ligar_ao_cofre clickhouse-server
     systemctl daemon-reload
