@@ -1,0 +1,132 @@
+confirmar lote (ms): n=0 p50=-1 p95=-1 p99=-1 max=-1
+lotes com 'tente depois'=0 sem confirmação=0 aceitos=0 duplicados barrados=0
+aparecer na busca (ms): n=0 p50=-1 p95=-1 p99=-1 max=-1 não vistas em 120 s=0
+busca trinta-dias-fria assento 1d: n=1 p50=222 p95=222 p99=222 max=222 linhas=100 {"ok": 1}
+busca trinta-dias-fria assento 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-fria codigo-telefone 1d: n=1 p50=8 p95=8 p99=8 max=8 linhas=100 {"ok": 1}
+busca trinta-dias-fria codigo-telefone 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-fria codigo-telefone 30d: n=1 p50=269 p95=269 p99=269 max=269 linhas=100 {"ok": 1}
+busca trinta-dias-fria comeco-url 1d: n=1 p50=2998 p95=2998 p99=2998 max=2998 linhas=100 {"ok": 1}
+busca trinta-dias-fria comeco-url 1h: n=1 p50=19 p95=19 p99=19 max=19 linhas=0 {"ok": 1}
+busca trinta-dias-fria correlacao-cobranca 1d: n=1 p50=14 p95=14 p99=14 max=14 linhas=100 {"ok": 1}
+busca trinta-dias-fria correlacao-cobranca 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-fria correlacao-cobranca 30d: n=1 p50=421 p95=421 p99=421 max=421 linhas=100 {"ok": 1}
+busca trinta-dias-fria correlacao-reserva 1d: n=1 p50=25 p95=25 p99=25 max=25 linhas=100 {"ok": 1}
+busca trinta-dias-fria correlacao-reserva 1h: n=1 p50=39 p95=39 p99=39 max=39 linhas=0 {"ok": 1}
+busca trinta-dias-fria correlacao-reserva 30d: n=1 p50=851 p95=851 p99=851 max=851 linhas=100 {"ok": 1}
+busca trinta-dias-fria familia 1d: n=1 p50=6068 p95=6068 p99=6068 max=6068 linhas=100 {"ok": 1}
+busca trinta-dias-fria familia 1h: n=1 p50=31 p95=31 p99=31 max=31 linhas=0 {"ok": 1}
+busca trinta-dias-fria lenta-regex 1d: n=1 p50=9006 p95=9006 p99=9006 max=9006 linhas=100 {"ok": 1}
+busca trinta-dias-fria lenta-texto-livre 1d: n=1 p50=3831 p95=3831 p99=3831 max=3831 linhas=100 {"ok": 1}
+busca trinta-dias-fria linha-do-tempo 1d: n=1 p50=109 p95=109 p99=109 max=109 linhas=474 {"ok": 1}
+busca trinta-dias-fria linha-do-tempo 1h: n=1 p50=0 p95=0 p99=0 max=0 linhas=0 {"ok": 1}
+busca trinta-dias-fria linha-do-tempo 30d: n=1 p50=10726 p95=10726 p99=10726 max=10726 linhas=5000 {"parcial": 1}
+busca trinta-dias-fria localizacao-conta 1d: n=1 p50=957 p95=957 p99=957 max=957 linhas=100 {"ok": 1}
+busca trinta-dias-fria localizacao-conta 1h: n=1 p50=6 p95=6 p99=6 max=6 linhas=0 {"ok": 1}
+busca trinta-dias-fria localizacao-conta 30d: n=1 p50=29028 p95=29028 p99=29028 max=29028 linhas=100 {"ok": 1}
+busca trinta-dias-fria localizacao-viagem 1d: n=1 p50=100 p95=100 p99=100 max=100 linhas=100 {"ok": 1}
+busca trinta-dias-fria localizacao-viagem 1h: n=1 p50=2 p95=2 p99=2 max=2 linhas=0 {"ok": 1}
+busca trinta-dias-fria localizacao-viagem 30d: n=1 p50=2954 p95=2954 p99=2954 max=2954 linhas=100 {"ok": 1}
+busca trinta-dias-fria ocorrencia 1d: n=1 p50=2509 p95=2509 p99=2509 max=2509 linhas=100 {"ok": 1}
+busca trinta-dias-fria ocorrencia 1h: n=1 p50=7 p95=7 p99=7 max=7 linhas=0 {"ok": 1}
+busca trinta-dias-fria ocorrencia 30d: n=0 p50=-1 p95=-1 p99=-1 max=-1 linhas=0 {"erro": 1}
+busca trinta-dias-fria origem-nivel 1d: n=1 p50=229 p95=229 p99=229 max=229 linhas=100 {"ok": 1}
+busca trinta-dias-fria origem-nivel 1h: n=1 p50=8 p95=8 p99=8 max=8 linhas=0 {"ok": 1}
+busca trinta-dias-fria palavras 1d: n=1 p50=8085 p95=8085 p99=8085 max=8085 linhas=100 {"ok": 1}
+busca trinta-dias-fria palavras 1h: n=1 p50=58 p95=58 p99=58 max=58 linhas=0 {"ok": 1}
+busca trinta-dias-fria status 1d: n=1 p50=9373 p95=9373 p99=9373 max=9373 linhas=100 {"ok": 1}
+busca trinta-dias-fria status 1h: n=1 p50=16 p95=16 p99=16 max=16 linhas=0 {"ok": 1}
+busca trinta-dias-fria valor 1d: n=1 p50=193 p95=193 p99=193 max=193 linhas=100 {"ok": 1}
+busca trinta-dias-fria valor 1h: n=1 p50=3 p95=3 p99=3 max=3 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 assento 1d: n=1 p50=194 p95=194 p99=194 max=194 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 assento 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 codigo-telefone 1d: n=1 p50=10 p95=10 p99=10 max=10 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 codigo-telefone 1h: n=1 p50=3 p95=3 p99=3 max=3 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 codigo-telefone 30d: n=1 p50=271 p95=271 p99=271 max=271 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 comeco-url 1d: n=1 p50=1410 p95=1410 p99=1410 max=1410 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 comeco-url 1h: n=1 p50=49 p95=49 p99=49 max=49 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 correlacao-cobranca 1d: n=1 p50=48 p95=48 p99=48 max=48 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 correlacao-cobranca 1h: n=1 p50=2 p95=2 p99=2 max=2 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 correlacao-cobranca 30d: n=1 p50=338 p95=338 p99=338 max=338 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 correlacao-reserva 1d: n=1 p50=5 p95=5 p99=5 max=5 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 correlacao-reserva 1h: n=1 p50=83 p95=83 p99=83 max=83 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 correlacao-reserva 30d: n=1 p50=724 p95=724 p99=724 max=724 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 familia 1d: n=1 p50=5790 p95=5790 p99=5790 max=5790 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 familia 1h: n=1 p50=26 p95=26 p99=26 max=26 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 lenta-regex 1d: n=1 p50=6388 p95=6388 p99=6388 max=6388 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 lenta-texto-livre 1d: n=1 p50=2256 p95=2256 p99=2256 max=2256 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 linha-do-tempo 1d: n=1 p50=28 p95=28 p99=28 max=28 linhas=474 {"ok": 1}
+busca trinta-dias-quente-1 linha-do-tempo 1h: n=1 p50=0 p95=0 p99=0 max=0 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 linha-do-tempo 30d: n=1 p50=7057 p95=7057 p99=7057 max=7057 linhas=5000 {"parcial": 1}
+busca trinta-dias-quente-1 localizacao-conta 1d: n=1 p50=684 p95=684 p99=684 max=684 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 localizacao-conta 1h: n=1 p50=6 p95=6 p99=6 max=6 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 localizacao-conta 30d: n=1 p50=27704 p95=27704 p99=27704 max=27704 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 localizacao-viagem 1d: n=1 p50=100 p95=100 p99=100 max=100 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 localizacao-viagem 1h: n=1 p50=3 p95=3 p99=3 max=3 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 localizacao-viagem 30d: n=1 p50=2723 p95=2723 p99=2723 max=2723 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 ocorrencia 1d: n=1 p50=998 p95=998 p99=998 max=998 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 ocorrencia 1h: n=1 p50=7 p95=7 p99=7 max=7 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 ocorrencia 30d: n=0 p50=-1 p95=-1 p99=-1 max=-1 linhas=0 {"erro": 1}
+busca trinta-dias-quente-1 origem-nivel 1d: n=1 p50=194 p95=194 p99=194 max=194 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 origem-nivel 1h: n=1 p50=7 p95=7 p99=7 max=7 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 palavras 1d: n=1 p50=8906 p95=8906 p99=8906 max=8906 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 palavras 1h: n=1 p50=31 p95=31 p99=31 max=31 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 status 1d: n=1 p50=7422 p95=7422 p99=7422 max=7422 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 status 1h: n=1 p50=15 p95=15 p99=15 max=15 linhas=0 {"ok": 1}
+busca trinta-dias-quente-1 valor 1d: n=1 p50=179 p95=179 p99=179 max=179 linhas=100 {"ok": 1}
+busca trinta-dias-quente-1 valor 1h: n=1 p50=3 p95=3 p99=3 max=3 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 assento 1d: n=1 p50=116 p95=116 p99=116 max=116 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 assento 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 codigo-telefone 1d: n=1 p50=6 p95=6 p99=6 max=6 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 codigo-telefone 1h: n=1 p50=0 p95=0 p99=0 max=0 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 codigo-telefone 30d: n=1 p50=296 p95=296 p99=296 max=296 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 comeco-url 1d: n=1 p50=1202 p95=1202 p99=1202 max=1202 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 comeco-url 1h: n=1 p50=17 p95=17 p99=17 max=17 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 correlacao-cobranca 1d: n=1 p50=10 p95=10 p99=10 max=10 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 correlacao-cobranca 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 correlacao-cobranca 30d: n=1 p50=438 p95=438 p99=438 max=438 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 correlacao-reserva 1d: n=1 p50=4 p95=4 p99=4 max=4 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 correlacao-reserva 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 correlacao-reserva 30d: n=1 p50=642 p95=642 p99=642 max=642 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 familia 1d: n=1 p50=4080 p95=4080 p99=4080 max=4080 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 familia 1h: n=1 p50=10 p95=10 p99=10 max=10 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 lenta-regex 1d: n=1 p50=9690 p95=9690 p99=9690 max=9690 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 lenta-texto-livre 1d: n=1 p50=3239 p95=3239 p99=3239 max=3239 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 linha-do-tempo 1d: n=1 p50=93 p95=93 p99=93 max=93 linhas=474 {"ok": 1}
+busca trinta-dias-quente-2 linha-do-tempo 1h: n=1 p50=0 p95=0 p99=0 max=0 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 linha-do-tempo 30d: n=1 p50=9770 p95=9770 p99=9770 max=9770 linhas=5000 {"parcial": 1}
+busca trinta-dias-quente-2 localizacao-conta 1d: n=1 p50=436 p95=436 p99=436 max=436 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 localizacao-conta 1h: n=1 p50=2 p95=2 p99=2 max=2 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 localizacao-conta 30d: n=1 p50=27213 p95=27213 p99=27213 max=27213 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 localizacao-viagem 1d: n=1 p50=113 p95=113 p99=113 max=113 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 localizacao-viagem 1h: n=1 p50=1 p95=1 p99=1 max=1 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 localizacao-viagem 30d: n=1 p50=2893 p95=2893 p99=2893 max=2893 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 ocorrencia 1d: n=1 p50=997 p95=997 p99=997 max=997 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 ocorrencia 1h: n=1 p50=4 p95=4 p99=4 max=4 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 ocorrencia 30d: n=0 p50=-1 p95=-1 p99=-1 max=-1 linhas=0 {"erro": 1}
+busca trinta-dias-quente-2 origem-nivel 1d: n=1 p50=200 p95=200 p99=200 max=200 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 origem-nivel 1h: n=1 p50=60 p95=60 p99=60 max=60 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 palavras 1d: n=1 p50=6299 p95=6299 p99=6299 max=6299 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 palavras 1h: n=1 p50=29 p95=29 p99=29 max=29 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 status 1d: n=1 p50=5821 p95=5821 p99=5821 max=5821 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 status 1h: n=1 p50=14 p95=14 p99=14 max=14 linhas=0 {"ok": 1}
+busca trinta-dias-quente-2 valor 1d: n=1 p50=175 p95=175 p99=175 max=175 linhas=100 {"ok": 1}
+busca trinta-dias-quente-2 valor 1h: n=1 p50=3 p95=3 p99=3 max=3 linhas=0 {"ok": 1}
+VEREDITO: fora das metas
+  - busca trinta-dias-fria familia 1d p95=6068 ms
+  - busca trinta-dias-fria linha-do-tempo 30d p95=10726 ms
+  - busca trinta-dias-fria localizacao-conta 30d p95=29028 ms
+  - busca trinta-dias-fria ocorrencia 30d com 1 erros
+  - busca trinta-dias-fria palavras 1d p95=8085 ms
+  - busca trinta-dias-fria status 1d p95=9373 ms
+  - busca trinta-dias-quente-1 familia 1d p95=5790 ms
+  - busca trinta-dias-quente-1 linha-do-tempo 30d p95=7057 ms
+  - busca trinta-dias-quente-1 localizacao-conta 30d p95=27704 ms
+  - busca trinta-dias-quente-1 ocorrencia 30d com 1 erros
+  - busca trinta-dias-quente-1 palavras 1d p95=8906 ms
+  - busca trinta-dias-quente-1 status 1d p95=7422 ms
+  - busca trinta-dias-quente-2 linha-do-tempo 30d p95=9770 ms
+  - busca trinta-dias-quente-2 localizacao-conta 30d p95=27213 ms
+  - busca trinta-dias-quente-2 ocorrencia 30d com 1 erros
+  - busca trinta-dias-quente-2 palavras 1d p95=6299 ms
+  - busca trinta-dias-quente-2 status 1d p95=5821 ms

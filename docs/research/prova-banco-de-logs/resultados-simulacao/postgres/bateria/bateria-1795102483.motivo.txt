@@ -1,0 +1,18 @@
+VEREDITO: fora das metas
+  - busca trinta-dias-fria familia 1d p95=6068 ms
+  - busca trinta-dias-fria linha-do-tempo 30d p95=10726 ms
+  - busca trinta-dias-fria localizacao-conta 30d p95=29028 ms
+  - busca trinta-dias-fria ocorrencia 30d com 1 erros
+  - busca trinta-dias-fria palavras 1d p95=8085 ms
+  - busca trinta-dias-fria status 1d p95=9373 ms
+  - busca trinta-dias-quente-1 familia 1d p95=5790 ms
+  - busca trinta-dias-quente-1 linha-do-tempo 30d p95=7057 ms
+  - busca trinta-dias-quente-1 localizacao-conta 30d p95=27704 ms
+  - busca trinta-dias-quente-1 ocorrencia 30d com 1 erros
+  - busca trinta-dias-quente-1 palavras 1d p95=8906 ms
+  - busca trinta-dias-quente-1 status 1d p95=7422 ms
+  - busca trinta-dias-quente-2 linha-do-tempo 30d p95=9770 ms
+  - busca trinta-dias-quente-2 localizacao-conta 30d p95=27213 ms
+  - busca trinta-dias-quente-2 ocorrencia 30d com 1 erros
+  - busca trinta-dias-quente-2 palavras 1d p95=6299 ms
+  - busca trinta-dias-quente-2 status 1d p95=5821 ms

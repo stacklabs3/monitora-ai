@@ -1,0 +1,1 @@
+confirmados=30000000 presentes=30152639 perdidos=0 duplicados=0
