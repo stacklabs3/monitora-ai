@@ -1,0 +1,41 @@
+confirmar lote (ms): n=49866 p50=206 p95=223 p99=265 max=4520
+lotes com 'tente depois'=0 sem confirmação=0 aceitos=152639 duplicados barrados=1461
+aparecer na busca (ms): n=1441 p50=3039 p95=5257 p99=5521 max=9863 não vistas em 120 s=0
+busca carga assento 1d: n=78 p50=23 p95=70 p99=160 max=160 linhas=7395 {"ok": 78}
+busca carga assento 1h: n=78 p50=22 p95=83 p99=458 max=458 linhas=7298 {"ok": 78}
+busca carga codigo-telefone 1d: n=78 p50=11 p95=21 p99=29 max=29 linhas=1554 {"ok": 78}
+busca carga codigo-telefone 1h: n=78 p50=11 p95=40 p99=66 max=66 linhas=1138 {"ok": 78}
+busca carga codigo-telefone 30d: n=78 p50=11 p95=22 p99=158 max=158 linhas=1574 {"ok": 78}
+busca carga comeco-url 1d: n=78 p50=22 p95=65 p99=81 max=81 linhas=7758 {"ok": 78}
+busca carga comeco-url 1h: n=78 p50=23 p95=88 p99=562 max=562 linhas=7627 {"ok": 78}
+busca carga correlacao-cobranca 1d: n=78 p50=14 p95=31 p99=68 max=68 linhas=3100 {"ok": 78}
+busca carga correlacao-cobranca 1h: n=78 p50=12 p95=64 p99=161 max=161 linhas=2216 {"ok": 78}
+busca carga correlacao-cobranca 30d: n=78 p50=14 p95=24 p99=69 max=69 linhas=3148 {"ok": 78}
+busca carga correlacao-reserva 1d: n=78 p50=12 p95=65 p99=341 max=341 linhas=1814 {"ok": 78}
+busca carga correlacao-reserva 1h: n=78 p50=11 p95=19 p99=65 max=65 linhas=1383 {"ok": 78}
+busca carga correlacao-reserva 30d: n=78 p50=11 p95=19 p99=68 max=68 linhas=1837 {"ok": 78}
+busca carga familia 1d: n=78 p50=19 p95=67 p99=75 max=75 linhas=7800 {"ok": 78}
+busca carga familia 1h: n=77 p50=19 p95=65 p99=79 max=79 linhas=7637 {"ok": 77}
+busca carga lenta-regex 1d: n=77 p50=24 p95=74 p99=166 max=166 linhas=7700 {"ok": 77}
+busca carga lenta-texto-livre 1d: n=77 p50=21 p95=64 p99=273 max=273 linhas=7685 {"ok": 77}
+busca carga linha-do-tempo 1d: n=78 p50=23 p95=65 p99=166 max=166 linhas=3402 {"ok": 78}
+busca carga linha-do-tempo 1h: n=78 p50=21 p95=67 p99=160 max=160 linhas=2497 {"ok": 78}
+busca carga linha-do-tempo 30d: n=78 p50=23 p95=69 p99=189 max=189 linhas=3426 {"ok": 78}
+busca carga localizacao-conta 1d: n=78 p50=21 p95=79 p99=169 max=169 linhas=7437 {"ok": 78}
+busca carga localizacao-conta 1h: n=78 p50=20 p95=60 p99=165 max=165 linhas=7455 {"ok": 78}
+busca carga localizacao-conta 30d: n=78 p50=21 p95=76 p99=168 max=168 linhas=7502 {"ok": 78}
+busca carga localizacao-viagem 1d: n=78 p50=24 p95=82 p99=477 max=477 linhas=5647 {"ok": 78}
+busca carga localizacao-viagem 1h: n=78 p50=23 p95=84 p99=264 max=264 linhas=5679 {"ok": 78}
+busca carga localizacao-viagem 30d: n=78 p50=20 p95=63 p99=285 max=285 linhas=5744 {"ok": 78}
+busca carga ocorrencia 1d: n=78 p50=17 p95=27 p99=71 max=71 linhas=7685 {"ok": 78}
+busca carga ocorrencia 1h: n=77 p50=18 p95=70 p99=167 max=167 linhas=7614 {"ok": 77}
+busca carga ocorrencia 30d: n=78 p50=19 p95=65 p99=661 max=661 linhas=7759 {"ok": 78}
+busca carga origem-nivel 1d: n=78 p50=24 p95=63 p99=72 max=72 linhas=6977 {"ok": 78}
+busca carga origem-nivel 1h: n=78 p50=27 p95=85 p99=264 max=264 linhas=6911 {"ok": 78}
+busca carga palavras 1d: n=78 p50=22 p95=61 p99=94 max=94 linhas=7800 {"ok": 78}
+busca carga palavras 1h: n=78 p50=21 p95=79 p99=93 max=93 linhas=7800 {"ok": 78}
+busca carga status 1d: n=78 p50=20 p95=64 p99=94 max=94 linhas=7800 {"ok": 78}
+busca carga status 1h: n=78 p50=19 p95=70 p99=269 max=269 linhas=7724 {"ok": 78}
+busca carga valor 1d: n=78 p50=23 p95=64 p99=74 max=74 linhas=7274 {"ok": 78}
+busca carga valor 1h: n=78 p50=24 p95=68 p99=273 max=273 linhas=7198 {"ok": 78}
+VEREDITO: dentro das metas
