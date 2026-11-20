@@ -1,0 +1,7 @@
+24h: interrompida em 20/11/2026 02:33, a pedido do responsável, depois de 13,6 h de 24 h, porque a reprovação já estava certa.
+Relatório parcial: rodada-24h/rodada-24h-1795102899.relatorio-parcial.txt
+- buscas garantidas: p95 de 54 s e 10.709 buscas com erro (estouraram 60 s); meta: p95 até 5 s
+- aparecer na busca: p50 46 s, p95 115 s, 4.593 sondas não vistas em 120 s; meta: p95 até 10 s e nenhuma acima de 60 s
+- confirmar lote: p95 389 ms, 0 lotes com "tente depois"; meta: p95 até 1 s (dentro)
+Antes disso, a bateria de 30 dias já tinha quebrado a meta de busca (p95 de 6 a 29 s).
+Cenários de falha, degraus e restauração não rodaram neste banco.
