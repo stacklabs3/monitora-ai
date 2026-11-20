@@ -1,0 +1,13 @@
+Diagnóstico da reprovação no histórico (20/11/2026), a partir de /var/log/clickhouse-server/clickhouse-server.err.log e de /tmp/servidor.log do contêiner.
+
+- O histórico de 30 milhões de eventos levou 44.385 s (12,3 h), com 2 CPUs. O gerador desistiu de 10.000 eventos depois de 5 min de "tente depois" (não confirmados, contados como perdidos).
+- Na última hora da carga, o ClickHouse bateu o limite de memória do servidor (max_server_memory_usage 1,2 GB, guia oficial de pouca memória):
+  45.943 junções de partes falharam com MEMORY_LIMIT_EXCEEDED, e 2.121 inserções foram recusadas pelo mesmo motivo.
+- A conferência depois do histórico ("SELECT aplicacao, execucao, seq FROM eventos WHERE ts >= ...") foi parada pelo OvercommitTracker
+  ("memory limit exceeded: would use 1.15 GiB"), e a resposta chegou cortada ao conferidor ("unexpected EOF during chunk size line").
+- O contêiner não foi morto por falta de memória (OOMKilled=false): o código 137 é a parada pelo roteiro ao passar para o OpenSearch.
+- Disco depois do histórico: 6,2 GB em 8.864 partes (muitas ainda sem junção).
+
+Leitura: defeito da bancada descartado. A consulta é a mesma usada nos outros bancos e só lê três colunas; ela caiu porque as junções em
+segundo plano ocuparam todo o limite de memória do servidor. Pelo #9, "falta de memória" reprova na hora. Não houve ajuste fora do guia
+oficial; ajustes possíveis (limitar a memória das junções, inserções assíncronas, menos partes) ficam para a decisão no #22.

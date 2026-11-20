@@ -151,9 +151,22 @@ Um banco por vez, a partir de 19/11/2026 07:28: PostgreSQL, ClickHouse e OpenSea
 
 **O que não se sabe:** se com mais CPU (a AWS dá saldo acima de 0,4) o PostgreSQL passaria. O Docker não simula saldo de CPU (ver [Validar o banco na AWS](https://github.com/stacklabs3/monitora-ai/issues/60)).
 
-### ClickHouse 26.10.4.207 e OpenSearch 3.9.0
+### ClickHouse 26.10.4.207: REPROVADO no histórico de 30 dias (falta de memória)
 
-Em andamento.
+[`config/clickhouse-pouca-memoria.xml`](prova-banco-de-logs/config/clickhouse-pouca-memoria.xml) (guia oficial de pouca memória: `max_server_memory_usage` 1,2 GB, 2 tarefas de junção). Tabela com `fsync_after_insert = 1` e `fsync_part_directory = 1`, partição por dia. Diagnóstico completo em [`resultados-simulacao/clickhouse/diagnostico.txt`](prova-banco-de-logs/resultados-simulacao/clickhouse/diagnostico.txt).
+
+| Fase | Resultado | Meta do #9 |
+|---|---|---|
+| Etapa de 2 h | **passou**: 151.198 confirmados, 0 perdidos, 0 duplicados | confirmar p95 até 1 s, aparecer p95 até 10 s, 0 perdidos e duplicados |
+| Controle do conferidor e do relatório | **passou** | precisam reprovar |
+| Histórico de 30 dias (30 milhões de eventos, 2 CPUs) | **REPROVOU**. Levou 12,3 h (o PostgreSQL levou 2,8 h) e ficou 6,2 GB em disco (o PostgreSQL ficou 58,5 GB). Na última hora, as junções de partes em segundo plano ocuparam todo o limite de memória: 45.943 junções e 2.121 inserções falharam com `MEMORY_LIMIT_EXCEEDED`, e 10.000 eventos ficaram sem confirmação depois de 5 min. A conferência, que só lê três colunas, foi parada pelo controle de memória do ClickHouse | "falta de memória" reprova na hora |
+| Bateria, 24 h e cenários de falha | **não rodaram**: o banco parou na reprovação | — |
+
+**Leitura:** o ClickHouse guarda o histórico em um décimo do disco do PostgreSQL, mas, com 1,2 GB de limite e 2 CPUs, não deu conta de juntar as partes pequenas que a carga cria. As gravações foram recusadas e a leitura caiu. Isso também explica a queda de ritmo da carga a partir de 25 milhões de eventos. Não houve ajuste fora do guia oficial. Ajustes possíveis, como limitar a memória das junções, usar inserções assíncronas ou gravar lotes maiores, mudam a configuração comparada e ficam para o [Escolher o banco de logs](https://github.com/stacklabs3/monitora-ai/issues/22), junto com o limite de partes quebradas da queda.
+
+### OpenSearch 3.9.0
+
+Em andamento desde 20/11/2026 16:52.
 
 ## O que o Docker não mediu
 
