@@ -34,7 +34,13 @@ guardar_periodicamente() {
   done
 }
 
-echo $$ >"$pasta_resultados/orquestrador.pid"
+# Duas provas ao mesmo tempo mandariam carga para o mesmo banco e invalidariam as duas.
+arquivo_pid="$pasta_resultados/orquestrador.pid"
+if [ -f "$arquivo_pid" ] && kill -0 "$(cat "$arquivo_pid")" 2>/dev/null; then
+  echo "a prova já está rodando (processo $(cat "$arquivo_pid")); nada foi iniciado" >&2
+  exit 1
+fi
+echo $$ >"$arquivo_pid"
 registrar "início da prova completa"
 guardar_periodicamente & pid_guardador=$!
 trap 'kill "$pid_guardador" 2>/dev/null || true' EXIT
