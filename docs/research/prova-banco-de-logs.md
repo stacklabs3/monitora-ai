@@ -132,7 +132,28 @@ Os três bancos rodaram todas as fases em 19/11/2026 (`ESCALA=120`), junto com a
 ## Resultados da prova completa
 
 <!-- Preenchido ao fim de cada banco com resultados-simulacao/<banco>. -->
-Em andamento desde 19/11/2026 07:28, um banco por vez: PostgreSQL, ClickHouse e OpenSearch.
+Um banco por vez, a partir de 19/11/2026 07:28: PostgreSQL, ClickHouse e OpenSearch. Resumos brutos em [`resultados-simulacao/`](prova-banco-de-logs/resultados-simulacao/). Tudo **SIMULADO**.
+
+### PostgreSQL 18.7: REPROVADO na rodada de 24 h (busca)
+
+[`config/postgresql.conf`](prova-banco-de-logs/config/postgresql.conf): `shared_buffers` 512 MB (25% de 2 GB, guia oficial), `work_mem` 16 MB, gravação segura ligada. Partição por dia, índice GIN em `termos` e em `palavras`, BRIN em `ts_ms`.
+
+| Fase | Resultado | Meta do #9 |
+|---|---|---|
+| Etapa de 2 h | **passou**: confirmar p95 222 ms, aparecer p95 293 ms, 151.198 confirmados, 0 perdidos, 0 duplicados, 1.461 reenvios barrados | confirmar p95 até 1 s, aparecer p95 até 10 s, 0 perdidos e duplicados |
+| Controle do conferidor e do relatório | **passou**: perda e duplicata plantadas reprovaram; meta impossível reprovou | precisam reprovar |
+| Histórico de 30 dias (30 milhões de eventos, 2 CPUs) | **passou** em 2 h 46 min; disco depois do histórico: **58,5 GB** | sem meta de tempo; disco entra em "dias que cabem" |
+| Bateria de buscas em 30 dias | **meta quebrada** (fase não obrigatória). Fria: `accountId` em 30 d p95 29 s, linha do tempo em 30 d 10,7 s, `status` em 1 d 9,4 s, palavras em 1 d 8,1 s, família em 1 d 6,1 s; `ocorrencia` em 30 d com erro. Dentro: correlação (até 0,9 s em 30 d), telefone (0,3 s), valor, origem e nível, e todas na janela de 1 h | cada tipo com p95 até 5 s |
+| Rodada de 24 h | **REPROVOU**. Interrompida a pedido do responsável depois de 13,6 h, com a reprovação já certa. Busca: p95 entre 43 e 58 s em todos os tipos, 10.709 buscas com erro (estouraram 60 s). Aparecer na busca: p50 46 s, p95 115 s, 4.593 sondas não vistas em 120 s. Ingestão: confirmar p95 389 ms, 0 lotes com "tente depois", 0 sem confirmação | busca p95 até 5 s; aparecer p95 até 10 s e nenhum acima de 60 s |
+| Banco fora, reenvio, disco cheio, apagar com carga, degraus, restauração, disco por valores | **não rodaram**: o banco parou na reprovação | — |
+
+**Leitura:** com 0,4 CPU, o PostgreSQL grava no ritmo pedido, mas não responde as buscas a tempo depois que o histórico de 30 dias está no disco. Na bateria, as buscas lentas são as de termo frequente em janela longa. Nas 24 h, as buscas em horário fixo se acumulam atrás das 4 conexões de leitura do servidor de teste, e todo tipo de busca passa a esperar a fila, inclusive a de 1 h. A memória do contêiner encostou nos 2 GB, mas a maior parte era cache de disco: no histórico, ~1,0 GB eram memória de fato (545 MB de `shared_buffers` e ~456 MB dos processos, quase tudo do servidor de teste guardando os códigos de reenvio). A CPU média do contêiner foi de 36% de 1 CPU, contando o histórico com 2 CPUs.
+
+**O que não se sabe:** se com mais CPU (a AWS dá saldo acima de 0,4) o PostgreSQL passaria. O Docker não simula saldo de CPU (ver [Validar o banco na AWS](https://github.com/stacklabs3/monitora-ai/issues/60)).
+
+### ClickHouse 26.10.4.207 e OpenSearch 3.9.0
+
+Em andamento.
 
 ## O que o Docker não mediu
 
