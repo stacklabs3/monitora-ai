@@ -1,0 +1,6 @@
+historico: falta de memória
+
+Caused by:
+    0: request or response body error
+    1: error reading a body from connection
+    2: unexpected EOF during chunk size line
