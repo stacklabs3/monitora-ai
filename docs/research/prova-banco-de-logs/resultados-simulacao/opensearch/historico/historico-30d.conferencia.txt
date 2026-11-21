@@ -1,6 +1,1 @@
-Error: error decoding response body
-
-Caused by:
-    0: request or response body error
-    1: error reading a body from connection
-    2: unexpected EOF during chunk size line
+confirmados=30000000 presentes=30152639 perdidos=0 duplicados=0
