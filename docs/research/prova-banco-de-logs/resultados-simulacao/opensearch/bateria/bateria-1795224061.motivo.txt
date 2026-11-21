@@ -1,0 +1,2 @@
+VEREDITO: fora das metas
+  - busca trinta-dias-fria linha-do-tempo 30d p95=6104 ms
