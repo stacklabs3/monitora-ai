@@ -127,6 +127,7 @@ Os três bancos rodaram todas as fases em 19/11/2026 (`ESCALA=120`), junto com a
 | "Passou" sem testar | As fases rodavam dentro de um `if`, que desliga o `set -e`, e o `\| tee` escondia o código de saída | Cada fase roda em processo próprio, com `set -e` e `pipefail` |
 | Banco fora no OpenSearch sem nenhum lote repetido | O gerador saía 40 s depois da carga, sem esperar os lotes ainda tentando: o OpenSearch voltou depois disso e esses lotes não foram contados nem como confirmados nem como perdidos | O gerador espera todo lote em voo até confirmar ou ser contado como perdido |
 | Restauração do ClickHouse com 340 linhas a mais | A parte restaurada guarda a versão de dados do original (17), e a primeira exclusão da tabela nova recebe o número 2: o ClickHouse 26.10 a marca como feita sem apagar nada. Reproduzido isolado | Restaurar numa tabela auxiliar e reanexar as partições numa tabela vazia, o que renumera as partes. É um passo a mais de operação no ClickHouse |
+| OpenSearch morto por falta de memória na conferência do histórico (20/11) | **Defeito da bancada.** O adaptador do OpenSearch juntava a lista inteira de eventos presentes (30 milhões, ~1 GB) na memória do servidor de teste antes de mandar o primeiro bloco; os outros dois bancos mandavam em fluxo. A conferência repetida sobre o mesmo histórico, com o servidor corrigido, passou: 30.000.000 confirmados, 0 perdidos, 0 duplicados, pico de 1,47 GB, sem falta de memória | Listagem página a página. A reprovação foi anulada e o OpenSearch retomou da bateria; o servidor de teste mudou só no OpenSearch, porque os outros dois já tinham parado por outro motivo |
 | Buscas frias com erro no OpenSearch | A bancada considerava o banco pronto antes de os índices abrirem | Esperar `wait_for_status=yellow` |
 
 ## Resultados da prova completa
@@ -166,7 +167,7 @@ Um banco por vez, a partir de 19/11/2026 07:28: PostgreSQL, ClickHouse e OpenSea
 
 ### OpenSearch 3.9.0
 
-Em andamento desde 20/11/2026 16:52.
+Em andamento desde 20/11/2026 16:52. Até aqui: etapa de 2 h e controle do conferidor passaram; o histórico de 30 dias carregou em 2 h 27 min (2 CPUs), com 0 eventos sem confirmação, e ocupou 11,2 GB em disco.
 
 ## O que o Docker não mediu
 

@@ -123,6 +123,31 @@ impl BancoOpenSearch {
         Ok(ids)
     }
 
+    async fn abrir_rolagem(&self, consulta: Value, campos: Value, desde_ms: i64) -> Result<Value> {
+        let indices = indices_do_periodo(desde_ms, crate::modelo::agora_ms());
+        let caminho = format!("{indices}/_search?scroll=2m&ignore_unavailable=true");
+        let corpo = json!({"size": 5000, "query": consulta, "_source": campos, "sort": ["_doc"]});
+        self.pedir(reqwest::Method::POST, &caminho, Some(corpo)).await
+    }
+
+    async fn proxima_pagina(&self, pagina_atual: &Value) -> Result<Value> {
+        let marcador = pagina_atual["_scroll_id"].as_str().unwrap_or_default().to_string();
+        self.pedir(reqwest::Method::POST, "_search/scroll", Some(json!({"scroll": "2m", "scroll_id": marcador})))
+            .await
+    }
+
+    async fn fechar_rolagem(&self, ultima_pagina: &Value) {
+        if let Some(marcador) = ultima_pagina["_scroll_id"].as_str() {
+            let _ = self
+                .pedir(reqwest::Method::DELETE, "_search/scroll", Some(json!({"scroll_id": [marcador]})))
+                .await;
+        }
+    }
+
+    fn acertos_da_pagina(pagina: &Value) -> Vec<Value> {
+        pagina["hits"]["hits"].as_array().cloned().unwrap_or_default()
+    }
+
     async fn percorrer(
         &self,
         consulta: Value,
@@ -130,28 +155,18 @@ impl BancoOpenSearch {
         desde_ms: i64,
         mut ao_receber: impl FnMut(&Value),
     ) -> Result<()> {
-        let indices = indices_do_periodo(desde_ms, crate::modelo::agora_ms());
-        let caminho = format!("{indices}/_search?scroll=2m&ignore_unavailable=true");
-        let corpo = json!({"size": 5000, "query": consulta, "_source": campos, "sort": ["_doc"]});
-        let mut pagina = self.pedir(reqwest::Method::POST, &caminho, Some(corpo)).await?;
+        let mut pagina = self.abrir_rolagem(consulta, campos, desde_ms).await?;
         loop {
-            let acertos = pagina["hits"]["hits"].as_array().cloned().unwrap_or_default();
+            let acertos = Self::acertos_da_pagina(&pagina);
             if acertos.is_empty() {
                 break;
             }
             for acerto in &acertos {
                 ao_receber(&acerto["_source"]);
             }
-            let marcador = pagina["_scroll_id"].as_str().unwrap_or_default().to_string();
-            pagina = self
-                .pedir(reqwest::Method::POST, "_search/scroll", Some(json!({"scroll": "2m", "scroll_id": marcador})))
-                .await?;
+            pagina = self.proxima_pagina(&pagina).await?;
         }
-        if let Some(marcador) = pagina["_scroll_id"].as_str() {
-            let _ = self
-                .pedir(reqwest::Method::DELETE, "_search/scroll", Some(json!({"scroll_id": [marcador]})))
-                .await;
-        }
+        self.fechar_rolagem(&pagina).await;
         Ok(())
     }
 
@@ -218,26 +233,32 @@ impl BancoOpenSearch {
     }
 
     pub async fn listar_presentes(&self, desde_ms: i64, saida: Sender<String>) -> Result<()> {
+        // Manda página a página: juntar tudo antes (como antes) ocupava ~1 GB com 30 milhões de eventos.
         let consulta = json!({"range": {"ts_ms": {"gte": desde_ms}}});
-        let mut bloco = String::new();
-        let mut blocos_prontos = Vec::new();
         self.pedir(reqwest::Method::POST, "eventos-*/_refresh?ignore_unavailable=true", None).await?;
-        self.percorrer(consulta, json!(["aplicacao", "execucao", "seq"]), desde_ms, |fonte| {
-            bloco.push_str(&format!(
-                "{} {} {}\n",
-                fonte["aplicacao"].as_str().unwrap_or_default(),
-                fonte["execucao"].as_str().unwrap_or_default(),
-                fonte["seq"].as_u64().unwrap_or_default()
-            ));
-            if bloco.len() > 1_000_000 {
-                blocos_prontos.push(std::mem::take(&mut bloco));
+        let mut pagina = self.abrir_rolagem(consulta, json!(["aplicacao", "execucao", "seq"]), desde_ms).await?;
+        loop {
+            let acertos = Self::acertos_da_pagina(&pagina);
+            if acertos.is_empty() {
+                break;
             }
-        })
-        .await?;
-        blocos_prontos.push(bloco);
-        for pronto in blocos_prontos {
-            saida.send(pronto).await.map_err(|_| anyhow!("leitor encerrou"))?;
+            let mut bloco = String::new();
+            for acerto in &acertos {
+                let fonte = &acerto["_source"];
+                bloco.push_str(&format!(
+                    "{} {} {}\n",
+                    fonte["aplicacao"].as_str().unwrap_or_default(),
+                    fonte["execucao"].as_str().unwrap_or_default(),
+                    fonte["seq"].as_u64().unwrap_or_default()
+                ));
+            }
+            if let Err(erro) = saida.send(bloco).await {
+                self.fechar_rolagem(&pagina).await;
+                return Err(anyhow!("leitor encerrou: {erro}"));
+            }
+            pagina = self.proxima_pagina(&pagina).await?;
         }
+        self.fechar_rolagem(&pagina).await;
         Ok(())
     }
 
