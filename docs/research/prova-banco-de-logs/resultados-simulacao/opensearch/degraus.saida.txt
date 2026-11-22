@@ -1,0 +1,9 @@
+degrau 12/s: fora das metas
+VEREDITO: fora das metas
+  - confirmar lote p95=259899 ms
+  - 2128 lotes receberam 'tente depois'
+  - 3880 lotes sem confirmação
+  - aparecer na busca p95=230927 ms
+  - aparecer na busca max=310925 ms, não vistas=60
+maior carga aprovada: 0 eventos/s
+FALHA: nenhum degrau ficou dentro das metas

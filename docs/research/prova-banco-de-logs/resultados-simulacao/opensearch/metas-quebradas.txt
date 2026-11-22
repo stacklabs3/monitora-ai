@@ -1,1 +1,3 @@
 bateria: código 1
+apagar_com_carga: código 22
+degraus: código 1

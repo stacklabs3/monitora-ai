@@ -16,3 +16,7 @@
 2026-11-22 00:15:46 início disco_cheio
 2026-11-22 00:15:49 fim disco_cheio: passou
 2026-11-22 00:15:49 início apagar_com_carga
+2026-11-22 00:20:13 fim apagar_com_carga: meta quebrada (código 22), prova segue
+2026-11-22 00:20:13 início degraus
+2026-11-22 00:50:51 fim degraus: meta quebrada (código 1), prova segue
+2026-11-22 00:50:51 início restauracao

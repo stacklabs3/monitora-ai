@@ -1,1 +1,2 @@
 antes: linhas_de_pessoas=10000 linhas_vencidas=100 linhas_pessoa_mantida=100
+curl: (22) The requested URL returned error: 500
