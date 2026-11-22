@@ -1,1 +1,2 @@
 segundos_copia=1206 bytes_copia_cifrada=10817177616
+curl: (28) Operation timed out after 7200006 milliseconds with 954553096 bytes received
