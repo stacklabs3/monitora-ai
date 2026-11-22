@@ -1,7 +1,7 @@
 # Prova dos candidatos a banco de logs
 
-**Estado em 18/11/2026: bancada testada só em ambiente local. Nenhuma medida daqui vale para a escolha do banco.**
-A prova na AWS ainda não começou. Ticket: [Medir os candidatos a banco de logs com dados sintéticos](https://github.com/stacklabs3/monitora-ai/issues/21).
+**Estado em 22/11/2026: prova completa encerrada na máquina simulada do Docker. Todos os números são SIMULADOS.**
+PostgreSQL reprovou na rodada de 24 h (busca), ClickHouse reprovou no histórico de 30 dias (falta de memória) e OpenSearch passou em todas as fases obrigatórias. A AWS não foi usada; a validação fica em [Validar o banco na AWS](https://github.com/stacklabs3/monitora-ai/issues/60). A comparação final está em [Tabela comparativa](#tabela-comparativa-simulado) e o custo em [Custo mensal estimado](#custo-mensal-estimado). Ticket: [Medir os candidatos a banco de logs com dados sintéticos](https://github.com/stacklabs3/monitora-ai/issues/21).
 Regras, metas e cenários: [Definir prova de conceito e critérios de avaliação](https://github.com/stacklabs3/monitora-ai/issues/9).
 
 ## O que existe
@@ -130,6 +130,16 @@ Os três bancos rodaram todas as fases em 19/11/2026 (`ESCALA=120`), junto com a
 | OpenSearch morto por falta de memória na conferência do histórico (20/11) | **Defeito da bancada.** O adaptador do OpenSearch juntava a lista inteira de eventos presentes (30 milhões, ~1 GB) na memória do servidor de teste antes de mandar o primeiro bloco; os outros dois bancos mandavam em fluxo. A conferência repetida sobre o mesmo histórico, com o servidor corrigido, passou: 30.000.000 confirmados, 0 perdidos, 0 duplicados, pico de 1,47 GB, sem falta de memória | Listagem página a página. A reprovação foi anulada e o OpenSearch retomou da bateria; o servidor de teste mudou só no OpenSearch, porque os outros dois já tinham parado por outro motivo |
 | Buscas frias com erro no OpenSearch | A bancada considerava o banco pronto antes de os índices abrirem | Esperar `wait_for_status=yellow` |
 
+## Diagnósticos de 22/11/2026 (OpenSearch, fases não obrigatórias)
+
+Por decisão do responsável em 22/11/2026, as três fases abaixo ficam **registradas sem repetir**: nenhuma é uma falha do banco provada pela RP1, e repetir faria parte da prova de novo.
+
+| Fase | Sintoma | O que está provado | O que não está | Registro |
+|---|---|---|---|---|
+| Apagar com carga | Erro 500 numa chamada a `/v1/exclusoes`; 6.361 eventos sem confirmação depois de 5 min | Havia linhas para apagar (10.000 de pessoas, 100 vencidas, 100 da pessoa mantida). A carga perdeu ritmo durante a exclusão. O adaptador manda 100 `_delete_by_query` em sequência, cada um com `refresh=true`, por um cliente HTTP com limite de 120 s | O log do servidor de teste se perdeu quando a fase seguinte recriou o contêiner, então não dá para saber se o 500 veio do limite de 120 s ou do banco. Também não se sabe se apagar as 100 pessoas numa chamada só manteria a carga dentro da meta | **inconclusivo** |
+| Degraus | O primeiro degrau, de 12/s, ficou fora das metas: confirmar p95 260 s, 2.128 lotes com "tente depois" | Começou 0 s depois da falha anterior. A CPU média ficou em 40,5% de 1 CPU, que é o teto de 0,4. Na rodada de 24 h, o mesmo ritmo usou 5,5% (controle). As exclusões aceitas pelo banco seguem rodando depois que o cliente desiste | A folga do OpenSearch sem exclusões rodando em segundo plano | **não medido** (degrau contaminado pela fase anterior) |
+| Restauração | `curl: (28)` depois de 7.200 s com 954.553.096 bytes recebidos | A cópia cifrada foi medida: **10.817.177.616 bytes em 1.206 s**. Quem estourou o limite de 2 h foi a listagem de conferência do banco **original** (24.045.000 de cerca de 31 milhões de eventos), a 0,4 CPU, antes de apagar ou restaurar qualquer coisa. Com 2 CPUs, a conferência do histórico tinha passado | O tempo de restaurar, e se a cópia restaurada sai limpa | **não medido** (limite de tempo da bancada) |
+
 ## Resultados da prova completa
 
 <!-- Preenchido ao fim de cada banco com resultados-simulacao/<banco>. -->
@@ -165,9 +175,28 @@ Um banco por vez, a partir de 19/11/2026 07:28: PostgreSQL, ClickHouse e OpenSea
 
 **Leitura:** o ClickHouse guarda o histórico em um décimo do disco do PostgreSQL, mas, com 1,2 GB de limite e 2 CPUs, não deu conta de juntar as partes pequenas que a carga cria. As gravações foram recusadas e a leitura caiu. Isso também explica a queda de ritmo da carga a partir de 25 milhões de eventos. Não houve ajuste fora do guia oficial. Ajustes possíveis, como limitar a memória das junções, usar inserções assíncronas ou gravar lotes maiores, mudam a configuração comparada e ficam para o [Escolher o banco de logs](https://github.com/stacklabs3/monitora-ai/issues/22), junto com o limite de partes quebradas da queda.
 
-### OpenSearch 3.9.0
+### OpenSearch 3.9.0: PASSOU em todas as fases obrigatórias
 
-Em andamento desde 20/11/2026 16:52. Até aqui: etapa de 2 h e controle do conferidor passaram; o histórico de 30 dias carregou em 2 h 27 min (2 CPUs), com 0 eventos sem confirmação, e ocupou 11,2 GB em disco.
+[`compose.yml`](prova-banco-de-logs/compose.yml): heap fixo de 700 MB (`-Xms700m -Xmx700m`), um índice por dia. A prova foi de 20/11/2026 16:53 a 22/11/2026 03:26.
+
+| Fase | Resultado | Meta do #9 |
+|---|---|---|
+| Etapa de 2 h | **passou**: confirmar p95 223 ms, aparecer p95 5,3 s, 151.198 confirmados, 0 perdidos, 0 duplicados, 1.461 reenvios barrados | confirmar p95 até 1 s, aparecer p95 até 10 s, 0 perdidos e duplicados |
+| Controle do conferidor e do relatório | **passou**: perda e duplicata plantadas reprovaram; meta impossível reprovou | precisam reprovar |
+| Histórico de 30 dias (30 milhões de eventos, 2 CPUs) | **passou** em 2 h 27 min, com 0 eventos sem confirmação; conferência com 30.000.000 confirmados, 0 perdidos, 0 duplicados (a primeira reprovação foi anulada, ver [Diagnósticos de 19/11/2026](#diagnósticos-de-19112026)); disco depois do histórico: **11,2 GB** | sem meta de tempo; disco entra em "dias que cabem" |
+| Bateria de buscas em 30 dias | **meta quebrada** (fase não obrigatória) só num tipo: linha do tempo em 30 d, fria, com p95 de 6,1 s e resultado parcial (5.000 linhas). Nas duas buscas quentes, o mesmo tipo levou 4,5 s e 3,2 s. Todo outro tipo, frio, ficou em até 1,2 s | cada tipo com p95 até 5 s |
+| Rodada de 24 h | **passou**: 1.231.198 confirmados, 0 perdidos, 0 duplicados, 12.447 reenvios barrados. Confirmar p95 222 ms (máximo 2,1 s), 0 lotes com "tente depois", 0 sem confirmação. Aparecer na busca p95 5,2 s (máximo 9,5 s), 0 sondas não vistas. Busca: o maior p95 foi o da linha do tempo em 30 d, 4,5 s (máximo 7,8 s, sempre parcial); os demais tipos ficaram abaixo de 0,5 s. CPU média 5,5% de 1 CPU (2,75% por vCPU). Disco depois das 24 h: 11,7 GB | busca p95 até 5 s; aparecer p95 até 10 s e nenhum acima de 60 s; confirmar p95 até 1 s; CPU até 20% por vCPU |
+| Banco fora (5 e 20 min no pico) | **passou**: 0 confirmados durante a queda, 0 perdidos e 0 duplicados na conferência. Lotes contados como perdidos pelo gerador: 2.410 e 9.739; lotes repetidos: 5.901 e 12.543; atraso zerado em 196 s e 116 s | nada confirmado na queda, sem duplicar, perda contada, atraso zerado em 10 min |
+| Reenvio com reinício do servidor | **passou**: 141 reenvios barrados depois do reinício, 0 duplicados, 0 perdidos | 0 duplicados |
+| Disco cheio | **passou**: envio recebeu 503 com `Retry-After` e a busca trouxe 100 linhas; sem reserva, o mesmo envio deu 200 (controle) | "tente depois" e busca continuando |
+| Apagar com carga | **inconclusivo** (fase não obrigatória): erro 500 na exclusão e 6.361 eventos sem confirmação; ver [Diagnósticos de 22/11/2026](#diagnósticos-de-22112026-opensearch-fases-não-obrigatórias) | nada volta na busca, buscas em até 5 s |
+| Degraus de carga | **não medido** (fase não obrigatória): o degrau base herdou as exclusões da fase anterior | dobrar até quebrar uma meta |
+| Restauração | **cópia cifrada medida: 10,8 GB (10.817.177.616 bytes) em 20 min**; restauração **não medida**, porque a listagem de conferência estourou o limite de 2 h da bancada | em até 4 h, sem excluído ou vencido visível |
+| Disco por valores (1 dia, 2 CPUs) | **passou**: 0,97 GB com os valores normais e 0,99 GB com o dobro de valores distintos | só informa |
+
+**Leitura:** com 0,4 CPU, o OpenSearch gravou, confirmou e respondeu as buscas dentro das metas durante as 24 h, com 30 dias de histórico no disco, e passou nas quedas da VM e nos cenários de falha obrigatórios. A busca mais perto do limite é a linha do tempo em 30 dias: 4,5 s nas 24 h e 6,1 s fria na bateria. A memória do contêiner ficou em média em 1,6 GB e chegou a 1,83 GB nas 24 h. Essa medida inclui o cache dos arquivos do índice que o OpenSearch mapeia na memória, e a simulação não separou banco + servidor sem cache (na VM, com carga curta, deu 1.342 MB). **A meta de 1,5 GB de memória não foi conferida.**
+
+**O que não se sabe:** se a restauração cabe em 4 h e sai limpa, quanta folga de carga existe e se a exclusão com carga cumpre a meta. Os três ficam para [Validar o banco na AWS](https://github.com/stacklabs3/monitora-ai/issues/60), com a bancada corrigida.
 
 ## O que o Docker não mediu
 
@@ -176,3 +205,31 @@ Em andamento desde 20/11/2026 16:52. Até aqui: etapa de 2 h e controle do confe
 - **Parada pela AWS:** a parada forçada foi da VM local (`limactl stop --force`), não a do Lightsail numa máquina saudável.
 - **CPU da biblioteca:** a medida por processo oscilou demais no Mac (seção da biblioteca).
 - **Vercel:** as 20 publicações foram simuladas trocando o processo, não publicadas na Vercel.
+- **Memória sem cache:** o contêiner mede banco, servidor e cache de arquivos juntos; banco + servidor sem cache só foi medido na VM, com carga curta.
+
+## Tabela comparativa (SIMULADO)
+
+Na ordem do #9, sem vencedor: a escolha fica em [Escolher o banco de logs](https://github.com/stacklabs3/monitora-ai/issues/22). Máquina simulada: 2 GB sem swap, 0,4 CPU, disco de 60 GB do plano de US$ 12 ([pesquisa da prova de conceito](https://github.com/stacklabs3/monitora-ai/blob/research/prova-de-conceito/docs/research/prova-de-conceito.md)).
+
+| | PostgreSQL 18.7 | ClickHouse 26.10.4.207 | OpenSearch 3.9.0 |
+|---|---|---|---|
+| Resultado | **reprovou** na rodada de 24 h (busca) | **reprovou** no histórico (falta de memória) | **passou** nas fases obrigatórias |
+| Tempo de busca (p95 por tipo, meta 5 s) | 24 h: 43 a 58 s em todos os tipos. Bateria fria: até 29 s | **não medido**: parou antes da bateria | 24 h: maior p95 4,5 s (linha do tempo 30 d), os outros abaixo de 0,5 s. Bateria fria: 6,1 s na linha do tempo 30 d e até 1,2 s nos outros |
+| Disco por dia | 1,95 GB (58,5 GB ÷ 30 dias de histórico) | 0,21 GB (6,2 GB ÷ 30, com muitas partes ainda sem junção) | 0,48 GB (aumento na rodada de 24 h); 0,37 GB pelo histórico; 0,97 GB num dia carregado isolado |
+| Dias que cabem em 60 GB (teto, sem descontar sistema e reserva) | ~30 | ~290 | ~125 (pela rodada de 24 h); ~61 (pelo dia isolado) |
+| Folga de carga (degraus) | **não medido**: parou antes | **não medido**: parou antes | **não medido**: degrau contaminado pela fase anterior |
+| Simplicidade de operar (passos extras observados) | nenhum até onde rodou (não chegou à restauração) | **dois**: aumentar `max_suspicious_broken_parts` para a tabela abrir depois de uma queda, e restaurar numa tabela auxiliar para depois reanexar as partições | nenhum passo extra; volta do servidor depois de queda mais lenta (6,3 s em média, 10 s no pior caso, na VM) |
+
+## Custo mensal estimado
+
+`custo mensal ESTIMADO = US$ 12 da máquina + backup de 7 cópias + rede acima de 1,5 TB × US$ 0,15/GB` (fórmula do #9). Preços de `sa-east-1` da [pesquisa da prova de conceito](https://github.com/stacklabs3/monitora-ai/blob/research/prova-de-conceito/docs/research/prova-de-conceito.md): snapshot US$ 0,05/GB-mês; bucket Lightsail US$ 3 até 100 GB e US$ 5 até 250 GB, com excedente de US$ 0,023/GB-mês; S3 Standard US$ 0,0405/GB-mês.
+
+**Rede:** a carga é de 1 milhão de eventos por dia. Pela mistura do #9, o evento médio tem cerca de 633 B (0,75 × 450 + 0,20 × 800 + 0,05 × 2.500 + 0,00001 × 1.048.576). Isso dá 0,63 GB por dia e cerca de 19 GB por mês, contra 1.500 GB incluídos. Excedente: 0 GB × US$ 0,15 = **US$ 0**.
+
+| | Base do backup | 7 cópias | Snapshot | Bucket | S3 | Total (snapshot / bucket / S3) |
+|---|---|---|---|---|---|---|
+| PostgreSQL | **ESTIMADO pelo disco** depois do histórico (58,5 GB) | 409,4 GB | US$ 20,47 | US$ 8,67 (US$ 5 + 159,4 GB × US$ 0,023; não cabe no de US$ 3) | US$ 16,58 | US$ 32,47 / US$ 20,67 / US$ 28,58 |
+| ClickHouse | **ESTIMADO pelo disco** depois do histórico (6,2 GB) | 43,4 GB | US$ 2,17 | US$ 3,00 | US$ 1,76 | US$ 14,17 / US$ 15,00 / US$ 13,76 |
+| OpenSearch | **medido**: cópia cifrada de 10,82 GB | 75,7 GB | US$ 3,79 | US$ 3,00 | US$ 3,07 | US$ 15,79 / US$ 15,00 / US$ 15,07 |
+
+Cópias completas, sem desconto por snapshot incremental. O custo é ESTIMADO sobre números SIMULADOS, e a AWS não cobrou nada.
