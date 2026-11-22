@@ -1,0 +1,1 @@
+duplicados_barrados=141 depois_do_reinicio=141

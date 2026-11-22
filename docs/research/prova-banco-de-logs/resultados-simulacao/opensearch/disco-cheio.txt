@@ -1,0 +1,1 @@
+situacao_envio=503 linhas_busca=100 situacao_sem_reserva=200

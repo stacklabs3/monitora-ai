@@ -8,3 +8,11 @@
 2026-11-20 22:19:17 início bateria
 2026-11-20 22:21:33 fim bateria: meta quebrada (código 1), prova segue
 2026-11-20 22:21:33 início 24h
+2026-11-21 22:37:22 fim 24h: passou
+2026-11-21 22:37:22 início banco_fora
+2026-11-21 23:40:23 fim banco_fora: passou
+2026-11-21 23:40:23 início reenvio
+2026-11-22 00:15:46 fim reenvio: passou
+2026-11-22 00:15:46 início disco_cheio
+2026-11-22 00:15:49 fim disco_cheio: passou
+2026-11-22 00:15:49 início apagar_com_carga

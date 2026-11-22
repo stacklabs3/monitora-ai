@@ -1,0 +1,1 @@
+confirmados=121266 presentes=303956 perdidos=0 duplicados=0

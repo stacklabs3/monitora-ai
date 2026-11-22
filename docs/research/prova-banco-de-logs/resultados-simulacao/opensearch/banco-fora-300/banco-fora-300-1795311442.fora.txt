@@ -1,0 +1,1 @@
+confirmados_na_queda=0 lotes_sem_confirmacao=2410 lotes_repetidos=5901 segundos_ate_zerar_atraso=196

@@ -1,0 +1,4 @@
+confirmados=123276 presentes=199899 perdidos=0 duplicados=0
+confirmados_na_queda=0 lotes_sem_confirmacao=2410 lotes_repetidos=5901 segundos_ate_zerar_atraso=196
+confirmados=121266 presentes=303956 perdidos=0 duplicados=0
+confirmados_na_queda=0 lotes_sem_confirmacao=9739 lotes_repetidos=12543 segundos_ate_zerar_atraso=116
