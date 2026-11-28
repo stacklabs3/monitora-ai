@@ -89,7 +89,7 @@ Quem pode buscar e ler os eventos de um produto no painel.
 _Avoid_: Leitor, analista
 
 **Administrador**:
-Um investigador que também cuida de pessoas, chaves de envio, retenção e exclusões de um produto.
+Um investigador que também cuida de pessoas, chaves de envio, catálogo de campos, alertas, retenção e exclusões de um produto.
 _Avoid_: Admin, dono
 
 **Campo pesquisável**:
