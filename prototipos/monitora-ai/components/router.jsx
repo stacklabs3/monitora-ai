@@ -10,6 +10,10 @@ const ROUTES = {
   SEGUNDO_FATOR:        '#/segundo-fator/:destino',
   PAINEL_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador',
   PAINEL_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador',
+  /* A busca inteira mora no endereço, num segmento só (busca.jsx diz o formato). As rotas
+     PAINEL_* acima são a abertura da busca: última hora, sem filtro. */
+  BUSCA_INVESTIGADOR:   '#/painel/:produto/:ambiente/investigador/eventos/:busca',
+  BUSCA_ADMINISTRADOR:  '#/painel/:produto/:ambiente/administrador/eventos/:busca',
   ALERTA_NO_CELULAR:    '#/alerta/:idDoAlerta',
   MENSAGEM_DO_ALERTA:   '#/telegram/:idDoAlerta',
 };

@@ -24,6 +24,8 @@ const SCREEN_MAP = {
   SEGUNDO_FATOR: TelaSegundoFator,
   PAINEL_INVESTIGADOR: TelaPainelInvestigador,
   PAINEL_ADMINISTRADOR: TelaPainelAdministrador,
+  BUSCA_INVESTIGADOR: TelaPainelInvestigador,
+  BUSCA_ADMINISTRADOR: TelaPainelAdministrador,
   ALERTA_NO_CELULAR: TelaAlertaNoCelular,
   MENSAGEM_DO_ALERTA: TelaMensagemDoAlerta,
 };
@@ -222,14 +224,17 @@ const ShowcaseConteudo = () => {
   }, [estado]);
 
   // A contagem começa quando a primeira tela abre e termina na última tela da rotina.
+  // Compara o endereço inteiro: telas da mesma rota com params diferentes (duas buscas)
+  // são telas diferentes.
   React.useEffect(() => {
     if (!contagem || contagem.concluida) return;
     const { telas } = contagem.rotina;
+    const estaNaTela = (tela) => buildPath(route.name, route.params) === buildPath(tela.rota, tela.params || {});
     if (contagem.aguardandoPrimeiraTela) {
-      if (route.name === telas[0].rota) setContagem({ ...contagem, aguardandoPrimeiraTela: false });
+      if (estaNaTela(telas[0])) setContagem({ ...contagem, aguardandoPrimeiraTela: false });
       return;
     }
-    if (route.name === telas[telas.length - 1].rota) setContagem({ ...contagem, concluida: true });
+    if (estaNaTela(telas[telas.length - 1])) setContagem({ ...contagem, concluida: true });
   }, [route, contagem]);
 
   // Leitura da contagem por quem audita (javascript_tool), sem abrir o painel.

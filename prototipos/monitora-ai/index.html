@@ -157,6 +157,15 @@ button { cursor: pointer; }
 input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .campo-sem-moldura:focus-visible { outline: none; }
 label:focus-within:has(.campo-sem-moldura) { outline: 2px solid var(--accent); outline-offset: 1px; }
+.caixa-de-campo:has(.campo-sem-moldura:focus-visible) { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* Linha da lista de eventos e item de lista que se escolhe: os estados que o estilo em
+   linha não alcança. As variantes "--hover", "--focus" e "--active" são as que o grupo
+   Estado do painel flutuante força, para a conferência. */
+.linha-de-evento:hover, .linha-de-evento--hover, .item-realcavel:hover { background: var(--surface-2); }
+.linha-de-evento:active, .linha-de-evento--active { background: var(--primary-soft); }
+.linha-de-evento[aria-current="true"] { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+.linha-de-evento:focus-visible, .linha-de-evento--focus { outline: 2px solid var(--accent); outline-offset: -2px; }
 
 /* Texto só para leitor de tela. */
 .so-leitor {
@@ -406,18 +415,19 @@ label:focus-within:has(.campo-sem-moldura) { outline: 2px solid var(--accent); o
 
   <!-- Ordem obrigatoria: sao scripts globais, cada camada so enxerga as anteriores.
        Tela nova entra depois de painel.jsx e antes de app.jsx. -->
-  <script type="text/babel" src="components/i18n.jsx?v=7"></script>
-  <script type="text/babel" src="components/data.jsx?v=7"></script>
-  <script type="text/babel" src="components/icons.jsx?v=7"></script>
-  <script type="text/babel" src="components/ui.jsx?v=7"></script>
-  <script type="text/babel" src="components/device.jsx?v=7"></script>
-  <script type="text/babel" src="components/router.jsx?v=7"></script>
-  <script type="text/babel" src="components/visoes.jsx?v=7"></script>
-  <script type="text/babel" src="components/painel.jsx?v=7"></script>
-  <script type="text/babel" src="components/entrada.jsx?v=7"></script>
-  <script type="text/babel" src="components/painel-casca.jsx?v=7"></script>
-  <script type="text/babel" src="components/alerta.jsx?v=7"></script>
-  <script type="text/babel" src="components/app.jsx?v=7"></script>
+  <script type="text/babel" src="components/i18n.jsx?v=8"></script>
+  <script type="text/babel" src="components/data.jsx?v=8"></script>
+  <script type="text/babel" src="components/icons.jsx?v=8"></script>
+  <script type="text/babel" src="components/ui.jsx?v=8"></script>
+  <script type="text/babel" src="components/device.jsx?v=8"></script>
+  <script type="text/babel" src="components/router.jsx?v=8"></script>
+  <script type="text/babel" src="components/visoes.jsx?v=8"></script>
+  <script type="text/babel" src="components/painel.jsx?v=8"></script>
+  <script type="text/babel" src="components/entrada.jsx?v=8"></script>
+  <script type="text/babel" src="components/painel-casca.jsx?v=8"></script>
+  <script type="text/babel" src="components/busca.jsx?v=8"></script>
+  <script type="text/babel" src="components/alerta.jsx?v=8"></script>
+  <script type="text/babel" src="components/app.jsx?v=8"></script>
 
   <script type="text/babel">
     const root = ReactDOM.createRoot(document.getElementById('root'));

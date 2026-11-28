@@ -47,7 +47,8 @@ const Press = React.forwardRef(({ children, onClick, style, className, disabled,
 });
 
 /* ---------- Button variants ---------- */
-const Button = React.forwardRef(({ variant = 'primary', loading, disabled, children, ...rest }, referencia) => {
+/* `compacto` é o botão das barras densas do painel (paginação, ação de um aviso). */
+const Button = React.forwardRef(({ variant = 'primary', loading, disabled, compacto, children, ...rest }, referencia) => {
   const styles = {
     primary: {
       background: 'var(--primary)',
@@ -77,15 +78,16 @@ const Button = React.forwardRef(({ variant = 'primary', loading, disabled, child
       {...rest}
       style={{
         ...styles[variant],
-        padding: 'var(--space-3) var(--space-5)',
-        borderRadius: 'var(--radius-md)',
-        fontSize: 14,
+        padding: compacto ? 'var(--space-1) var(--space-3)' : 'var(--space-3) var(--space-5)',
+        borderRadius: compacto ? 'var(--radius-sm)' : 'var(--radius-md)',
+        fontSize: compacto ? 13 : 14,
         fontWeight: 700,
         display: 'inline-flex',
         alignItems: 'center',
         gap: 'var(--space-2)',
         justifyContent: 'center',
-        minHeight: 44,
+        minHeight: compacto ? 32 : 44,
+        whiteSpace: 'nowrap',
       }}
     >
       {loading && <IconLoader size={16} />}
@@ -111,7 +113,7 @@ const Card = ({ children, style }) => (
 );
 
 /* ---------- Field ---------- */
-const Field = ({ label, value, onChange, type = 'text', placeholder, error, disabled, inputMode, autoComplete, mono }) => {
+const Field = ({ label, value, onChange, type = 'text', placeholder, error, disabled, inputMode, autoComplete, mono, dica, focarAoAbrir, aoTeclar, maximoDeLetras }) => {
   const [focus, setFocus] = useState(false);
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%' }}>
@@ -125,6 +127,9 @@ const Field = ({ label, value, onChange, type = 'text', placeholder, error, disa
         disabled={disabled}
         inputMode={inputMode}
         autoComplete={autoComplete}
+        autoFocus={focarAoAbrir}
+        maxLength={maximoDeLetras}
+        onKeyDown={aoTeclar}
         aria-invalid={error ? true : undefined}
         onChange={(evento) => onChange && onChange(evento.target.value)}
         onFocus={() => setFocus(true)}
@@ -144,7 +149,10 @@ const Field = ({ label, value, onChange, type = 'text', placeholder, error, disa
         }}
       />
       {error && (
-        <span style={{ fontSize: 12, color: 'var(--danger)' }}>{error}</span>
+        <span role="alert" style={{ fontSize: 12, color: 'var(--danger)' }}>{error}</span>
+      )}
+      {dica && !error && (
+        <span style={{ fontSize: 12, color: 'var(--muted)' }}>{dica}</span>
       )}
     </label>
   );
@@ -166,7 +174,9 @@ const Skeleton = ({ largura = '100%', altura = 16, raio = 'var(--radius-sm)' }) 
 );
 
 /* ---------- Empty / Error states ---------- */
-const EmptyState = ({ title, body, cta, onCta }) => (
+/* `detalhes` e `acoes` servem ao vazio que precisa dizer o que foi olhado e oferecer mais
+   de um próximo passo (a busca de eventos). */
+const EmptyState = ({ title, body, cta, onCta, detalhes, acoes }) => (
   <div
     style={{
       display: 'flex',
@@ -189,8 +199,10 @@ const EmptyState = ({ title, body, cta, onCta }) => (
       <IconBox size={28} />
     </div>
     <div style={{ fontSize: 16, fontWeight: 700 }}>{title}</div>
-    <div style={{ fontSize: 13, color: 'var(--muted)', maxWidth: 320 }}>{body}</div>
+    <div style={{ fontSize: 13, color: 'var(--muted)', maxWidth: detalhes ? 520 : 320 }}>{body}</div>
+    {detalhes}
     {cta && <Button onClick={onCta}>{cta}</Button>}
+    {acoes}
   </div>
 );
 
@@ -364,6 +376,25 @@ const AvisoDeErro = ({ titulo, corpo, acao }) => (
       {corpo && <div style={{ fontSize: 13 }}>{corpo}</div>}
       {acao}
     </div>
+  </div>
+);
+
+/* ---------- Aviso de atenção dentro da tela ----------
+   O resultado veio, mas com uma ressalva que a pessoa precisa ler (parcial, "rápido
+   desde"). Anunciado a leitor de tela sem tirar o foco. */
+const AvisoDeAtencao = ({ titulo, corpo, acao }) => (
+  <div role="status" aria-live="polite" style={{
+    display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start',
+    padding: 'var(--space-3) var(--space-4)',
+    background: 'var(--warn-soft)', color: 'var(--fg)',
+    border: '1px solid var(--warn)', borderRadius: 'var(--radius-md)',
+  }}>
+    <IconAlert size={20} style={{ color: 'var(--warn)', flexShrink: 0, marginTop: 1 }} />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', flex: 1, minWidth: 0 }}>
+      <div style={{ fontSize: 14, fontWeight: 800 }}>{titulo}</div>
+      {corpo && <div style={{ fontSize: 13, lineHeight: 1.45 }}>{corpo}</div>}
+    </div>
+    {acao && <div style={{ flexShrink: 0, alignSelf: 'center' }}>{acao}</div>}
   </div>
 );
 

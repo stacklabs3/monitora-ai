@@ -42,6 +42,30 @@ const ROTINAS = [
     ],
     metaDeToques: 1,
   },
+  /* Prototipar a busca de eventos (issue 68). A busca vai inteira no parâmetro `busca`,
+     no formato de busca.jsx. Caminho: Adicionar filtro → reservationId → R-1042 e aplicar. */
+  {
+    id: 'buscar-eventos',
+    visao: 'painel',
+    rotulo: 'Buscar eventos',
+    telas: [
+      { rota: 'PAINEL_INVESTIGADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=1h;f=reservationId:e:R-1042' } },
+    ],
+  },
+  /* Os avisos próprios da busca, cada um numa tela: "rápido desde" (campo declarado às
+     14h), resultado parcial de uma busca lenta e a busca lenta que termina inteira.
+     Caminho: tirar a ficha → texto livre "limite" e Enter → Reduzir para a última hora. */
+  {
+    id: 'avisos-da-busca',
+    visao: 'painel',
+    rotulo: 'Ler os avisos da busca',
+    telas: [
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=24h;f=amountCents:i:1000,5000' } },
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=24h;q=limite' } },
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=1h;q=limite' } },
+    ],
+  },
   {
     id: 'entrar-pelo-celular',
     visao: 'celular',

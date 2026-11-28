@@ -17,7 +17,7 @@ Abra http://localhost:8765. Precisa de HTTP: `file://` não carrega os `.jsx`.
 
 | Aba | Superfícies | Tema de abertura | Rotinas |
 |---|---|---|---|
-| Painel | computador | claro | Entrar no painel · Ver o painel como Administrador |
+| Painel | computador | claro | Entrar no painel · Ver o painel como Administrador · Buscar eventos · Ler os avisos da busca |
 | Painel no celular | iOS, Android | escuro | Entrar pelo link do alerta |
 | Alerta no Telegram | iOS, Android | escuro | Receber o alerta e abrir o painel |
 
