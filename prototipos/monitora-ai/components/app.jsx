@@ -55,6 +55,13 @@ const SCREEN_MAP = {
   CATALOGO_ADMINISTRADOR: TelaCatalogoAdministrador,
   CATALOGO_CAMPO_ADMINISTRADOR: TelaCatalogoAdministrador,
   CATALOGO_DECLARADO_ADMINISTRADOR: TelaCatalogoAdministrador,
+  /* Saúde do envio: uma tela só, de leitura; o período e a aplicação aberta vêm nos params. */
+  SAUDE_INVESTIGADOR: TelaSaudeInvestigador,
+  SAUDE_ADMINISTRADOR: TelaSaudeAdministrador,
+  SAUDE_PERIODO_INVESTIGADOR: TelaSaudeInvestigador,
+  SAUDE_PERIODO_ADMINISTRADOR: TelaSaudeAdministrador,
+  SAUDE_APLICACAO_INVESTIGADOR: TelaSaudeInvestigador,
+  SAUDE_APLICACAO_ADMINISTRADOR: TelaSaudeAdministrador,
   ALERTA_NO_CELULAR: TelaAlertaNoCelular,
   MENSAGEM_DO_ALERTA: TelaMensagemDoAlerta,
 };

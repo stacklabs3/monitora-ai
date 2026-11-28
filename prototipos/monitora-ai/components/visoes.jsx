@@ -217,6 +217,46 @@ const ROTINAS = [
     ],
     metaDeToques: 1,
   },
+  /* Prototipar a saúde do envio (issue 73). Tela só de leitura, dos dois papéis. A abertura
+     olha as últimas 24 h; o período e a aplicação aberta moram no endereço. No cenário a API
+     tem 152 eventos faltando (122 com motivo "fila cheia", 30 de motivo desconhecido).
+     Caminho: menu "Saúde do envio" → "Abrir" na linha da API. */
+  {
+    id: 'conferir-a-saude-do-envio',
+    visao: 'painel',
+    rotulo: 'Conferir a saúde do envio de uma aplicação',
+    telas: [
+      { rota: 'PAINEL_INVESTIGADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'SAUDE_INVESTIGADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'SAUDE_APLICACAO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, periodo: '24h', aplicacao: 'api' } },
+    ],
+    metaDeToques: 2,
+  },
+  /* A execução que sumiu sem se despedir: a webhooks-c44a parou de informar às 14:52. O
+     painel mostra o que faltou e avisa, sem número, que ela pode ter perdido mais depois.
+     Caminho: "Abrir" na linha dos Webhooks. */
+  {
+    id: 'execucao-que-sumiu',
+    visao: 'painel',
+    rotulo: 'Ler a execução que sumiu sem se despedir',
+    telas: [
+      { rota: 'SAUDE_ADMINISTRADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'SAUDE_APLICACAO_ADMINISTRADOR', params: { ...PAINEL_DO_EXCURFLY, periodo: '24h', aplicacao: 'webhooks' } },
+    ],
+    metaDeToques: 1,
+  },
+  /* De uma perda para a busca: os eventos da aplicação nos 5 minutos antes e depois do
+     horário da perda. Caminho: "Ver eventos em volta" na perda das 14:31. */
+  {
+    id: 'eventos-em-volta-da-perda',
+    visao: 'painel',
+    rotulo: 'Ver os eventos em volta de uma perda',
+    telas: [
+      { rota: 'SAUDE_APLICACAO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, periodo: '24h', aplicacao: 'api' } },
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=i.202611271426.202611271436;f=aplicacao:e:API' } },
+    ],
+    metaDeToques: 1,
+  },
   {
     id: 'entrar-pelo-celular',
     visao: 'celular',

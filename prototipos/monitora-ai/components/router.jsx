@@ -52,6 +52,14 @@ const ROUTES = {
   CATALOGO_ADMINISTRADOR:           '#/painel/:produto/:ambiente/administrador/catalogo',
   CATALOGO_CAMPO_ADMINISTRADOR:     '#/painel/:produto/:ambiente/administrador/catalogo/:campo/:passo',
   CATALOGO_DECLARADO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/catalogo/:campo/declarado/:declaracao',
+  /* Saúde do envio: os dois papéis leem, ninguém escreve. A abertura olha as últimas 24 h;
+     o período escolhido e a aplicação aberta moram no endereço (saude.jsx). */
+  SAUDE_INVESTIGADOR:            '#/painel/:produto/:ambiente/investigador/saude',
+  SAUDE_ADMINISTRADOR:           '#/painel/:produto/:ambiente/administrador/saude',
+  SAUDE_PERIODO_INVESTIGADOR:    '#/painel/:produto/:ambiente/investigador/saude/:periodo',
+  SAUDE_PERIODO_ADMINISTRADOR:   '#/painel/:produto/:ambiente/administrador/saude/:periodo',
+  SAUDE_APLICACAO_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/saude/:periodo/:aplicacao',
+  SAUDE_APLICACAO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/saude/:periodo/:aplicacao',
   ALERTA_NO_CELULAR:    '#/alerta/:idDoAlerta',
   MENSAGEM_DO_ALERTA:   '#/telegram/:idDoAlerta',
 };

@@ -3,8 +3,9 @@
 // teclado. O miolo de cada rotina entra como filho da CascaDoPainel: a busca de eventos
 // está em busca.jsx, o detalhe do evento em evento.jsx e as tentativas, com a linha do
 // tempo, em tentativa.jsx; as aplicações e chaves de envio, em aplicacoes.jsx; o catálogo
-// de campos, em catalogo.jsx. O menu leva à busca, às tentativas e, para o Administrador,
-// às aplicações e chaves de envio e ao catálogo de campos.
+// de campos, em catalogo.jsx; a saúde do envio, em saude.jsx. O menu leva à busca, às
+// tentativas, à saúde do envio e, para o Administrador, às aplicações e chaves de envio e
+// ao catálogo de campos.
 
 const LARGURA_DO_MENU_DO_PAINEL = 236;
 const LARGURA_DA_JANELA_DE_ATALHOS = 420;
@@ -39,6 +40,7 @@ const ROTAS_DO_PAPEL = {
     tentativa: 'TENTATIVA_INVESTIGADOR', eventoDaTentativa: 'TENTATIVA_EVENTO_INVESTIGADOR', secaoDaTentativa: 'TENTATIVA_SECAO_INVESTIGADOR',
     /* O Investigador lê o catálogo de campos (chega pelo evento aberto); não declara. */
     catalogo: 'CATALOGO_INVESTIGADOR',
+    saude: 'SAUDE_INVESTIGADOR', saudeNoPeriodo: 'SAUDE_PERIODO_INVESTIGADOR', saudeDaAplicacao: 'SAUDE_APLICACAO_INVESTIGADOR',
   },
   administrador: {
     abertura: 'PAINEL_ADMINISTRADOR', busca: 'BUSCA_ADMINISTRADOR', evento: 'EVENTO_ADMINISTRADOR', eventoNaSecao: 'EVENTO_SECAO_ADMINISTRADOR',
@@ -48,6 +50,7 @@ const ROTAS_DO_PAPEL = {
     aplicacoes: 'APLICACOES_ADMINISTRADOR', aplicacaoNova: 'APLICACAO_NOVA_ADMINISTRADOR',
     chave: 'CHAVE_ADMINISTRADOR', passoDaChave: 'CHAVE_PASSO_ADMINISTRADOR',
     catalogo: 'CATALOGO_ADMINISTRADOR', campoDoCatalogo: 'CATALOGO_CAMPO_ADMINISTRADOR', campoDeclarado: 'CATALOGO_DECLARADO_ADMINISTRADOR',
+    saude: 'SAUDE_ADMINISTRADOR', saudeNoPeriodo: 'SAUDE_PERIODO_ADMINISTRADOR', saudeDaAplicacao: 'SAUDE_APLICACAO_ADMINISTRADOR',
   },
 };
 
@@ -80,8 +83,8 @@ const SecaoDoMenu = ({ titulo, children }) => (
   </div>
 );
 
-/* `itemAtual` diz em que rotina a pessoa está: 'busca', 'tentativas', 'aplicacoes' ou
-   'catalogo'. O Investigador chega ao catálogo de campos pelo evento aberto: o menu dele
+/* `itemAtual` diz em que rotina a pessoa está: 'busca', 'tentativas', 'saude', 'aplicacoes'
+   ou 'catalogo'. O Investigador chega ao catálogo de campos pelo evento aberto: o menu dele
    não tem o item, e nenhum fica marcado. */
 const MenuDoPainel = ({ traduzir, papel, itemAtual, aoIrPara }) => (
   <nav aria-label={traduzir('cascaMenu')} style={{
@@ -92,7 +95,7 @@ const MenuDoPainel = ({ traduzir, papel, itemAtual, aoIrPara }) => (
     <SecaoDoMenu titulo={traduzir('menuInvestigar')}>
       <ItemDoMenu icone={IconSearch} rotulo={traduzir('menuBusca')} atual={itemAtual === 'busca'} aoClicar={() => aoIrPara('abertura')} />
       <ItemDoMenu icone={IconBranch} rotulo={traduzir('menuTentativas')} atual={itemAtual === 'tentativas'} aoClicar={() => aoIrPara('tentativas')} />
-      <ItemDoMenu icone={IconActivity} rotulo={traduzir('menuSaude')} />
+      <ItemDoMenu icone={IconActivity} rotulo={traduzir('menuSaude')} atual={itemAtual === 'saude'} aoClicar={() => aoIrPara('saude')} />
       <ItemDoMenu icone={IconBell} rotulo={traduzir('menuAlertas')} />
     </SecaoDoMenu>
     {papel === 'administrador' && (

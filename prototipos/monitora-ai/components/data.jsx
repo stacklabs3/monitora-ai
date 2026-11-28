@@ -40,16 +40,60 @@ const RELOGIO_DO_PAINEL = {
   dadosDesde: instanteNoFusoDoPainel(27, 15) - RETENCAO_EM_DIAS * MILISSEGUNDOS_POR_DIA,
 };
 
-/* Perdas de evento que as aplicações informaram na última hora (saúde do envio). */
+/* ---------- Saúde do envio (sintético) ----------
+   A busca, a tentativa e a tela "Saúde do envio" leem as perdas e as execuções daqui.
+
+   Perdas de evento que as aplicações informaram, com horário e motivo. A contagem viaja
+   separada dos eventos. Na última hora do cenário (14:00 a 15:00) só há a das 14:31; a das
+   13:00 aparece em períodos maiores. */
 const PERDAS_INFORMADAS = [
+  { aplicacao: 'API', execucao: 'api-7f3c', quantidade: 120, motivo: 'fila cheia', informadaEm: instanteNoFusoDoPainel(27, 13, 0, 4) },
   { aplicacao: 'API', execucao: 'api-7f3c', quantidade: 2, motivo: 'fila cheia', informadaEm: instanteNoFusoDoPainel(27, 14, 31, 7) },
 ];
 
+/* A situação de cada execução: o início, o último informe, o encerramento (quando a
+   execução se despediu), o último número que ela disse ter usado e quantos eventos dela o
+   servidor recebeu. O que falta é a diferença; o que falta sem perda informada que explique
+   é "motivo desconhecido". `sumiu` marca a execução que parou de informar sem se despedir:
+   depois do último informe a perda é sinalizada, sem número.
+   Uma aplicação pode ter mais de uma execução ao mesmo tempo (uma por máquina). */
+const SITUACAO_DAS_EXECUCOES = {
+  excurfly: {
+    producao: [
+      /* 152 faltando: 122 com motivo informado (120 às 13:00 e 2 às 14:31) e 30 sem. */
+      { idDaAplicacao: 'api', aplicacao: 'API', execucao: 'api-7f3c', versao: '2.14.0',
+        iniciadaEm: instanteNoFusoDoPainel(-3, 8, 30), ultimoInformeEm: instanteNoFusoDoPainel(27, 14, 59, 52),
+        ultimoNumeroInformado: 2591993, eventosRecebidos: 2591841 },
+      /* Desligada de madrugada, com despedida: nada falta e não há aviso. */
+      { idDaAplicacao: 'api', aplicacao: 'API', execucao: 'api-9d02', versao: '2.14.0',
+        iniciadaEm: instanteNoFusoDoPainel(20, 9, 5), ultimoInformeEm: instanteNoFusoDoPainel(27, 2, 10, 44),
+        encerradaEm: instanteNoFusoDoPainel(27, 2, 10, 44), ultimoNumeroInformado: 412380, eventosRecebidos: 412380 },
+      { idDaAplicacao: 'site', aplicacao: 'Site', execucao: 'site-b21a', versao: '5.3.1',
+        iniciadaEm: instanteNoFusoDoPainel(20, 8, 45), ultimoInformeEm: instanteNoFusoDoPainel(27, 14, 59, 58),
+        ultimoNumeroInformado: 2591999, eventosRecebidos: 2591999 },
+      { idDaAplicacao: 'webhooks', aplicacao: 'Webhooks', execucao: 'webhooks-e90d', versao: '1.8.2',
+        iniciadaEm: instanteNoFusoDoPainel(12, 11, 30), ultimoInformeEm: instanteNoFusoDoPainel(27, 14, 59, 31),
+        ultimoNumeroInformado: 2591972, eventosRecebidos: 2591972 },
+      /* Sumiu sem se despedir: 40 faltando sem motivo, e pode ter perdido mais depois. */
+      { idDaAplicacao: 'webhooks', aplicacao: 'Webhooks', execucao: 'webhooks-c44a', versao: '1.8.2',
+        iniciadaEm: instanteNoFusoDoPainel(27, 8, 20), ultimoInformeEm: instanteNoFusoDoPainel(27, 14, 52, 10),
+        sumiu: true, ultimoNumeroInformado: 18460, eventosRecebidos: 18420 },
+    ],
+    homologacao: [
+      { idDaAplicacao: 'api', aplicacao: 'API', execucao: 'api-h3b0', versao: '2.15.0',
+        iniciadaEm: instanteNoFusoDoPainel(27, 9, 2), ultimoInformeEm: instanteNoFusoDoPainel(27, 14, 41, 3),
+        ultimoNumeroInformado: 9204, eventosRecebidos: 9204 },
+    ],
+  },
+  demonstracao: {},
+};
+
 /* Execução que parou de mandar a situação sem informar o encerramento: a perda fica
    sinalizada, sem número (pode ter perdido mais depois do último informe). */
-const EXECUCOES_SEM_ENCERRAMENTO = [
-  { aplicacao: 'Webhooks', execucao: 'webhooks-c44a', ultimoInformeEm: instanteNoFusoDoPainel(27, 14, 52, 10) },
-];
+const EXECUCOES_SEM_ENCERRAMENTO = Object.values(SITUACAO_DAS_EXECUCOES)
+  .flatMap((execucoesPorAmbiente) => Object.values(execucoesPorAmbiente).flat())
+  .filter((situacaoDaExecucao) => situacaoDaExecucao.sumiu)
+  .map(({ aplicacao, execucao, ultimoInformeEm }) => ({ aplicacao, execucao, ultimoInformeEm }));
 
 /* ---------- Origem: aplicações, versões e execuções do Excurfly ---------- */
 const ORIGENS_DO_EXCURFLY = {
