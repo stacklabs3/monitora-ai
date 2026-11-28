@@ -1,0 +1,28 @@
+FAIL 1440x900 print · abertura (sem filtro) · Adicionar filtro: painel x 697–1457, base 660 · moldura x 236–1440, base 3779 · rolou de lado: main scrollLeft=338 · transborda: main 1559>1204
+PASS 1440x900 print · abertura (sem filtro) · Período: painel x 260–800, base 682 · moldura x 236–1440, base 3779
+FAIL 1440x900 print · um filtro · Adicionar filtro: painel x 697–1457, base 664 · moldura x 236–1440, base 900 · rolou de lado: main scrollLeft=371 · transborda: main 1592>1204
+PASS 1440x900 print · um filtro · Período: painel x 260–800, base 634 · moldura x 236–1440, base 900
+FAIL 1440x900 print · dois filtros · Adicionar filtro: painel x 697–1457, base 702 · moldura x 236–1440, base 900 · rolou de lado: main scrollLeft=99 · transborda: main 1320>1204
+PASS 1440x900 print · dois filtros · Período: painel x 260–800, base 634 · moldura x 236–1440, base 900
+FAIL 1440x900 print · evento aberto ao lado · Adicionar filtro: painel x 697–1457, base 664 · moldura x 236–1440, base 900 · rolou de lado: main scrollLeft=371 · transborda: main 1592>1204
+PASS 1440x900 print · evento aberto ao lado · Período: painel x 260–800, base 634 · moldura x 236–1440, base 900
+PASS 1440x900 print · achar tentativas · Período: painel x 260–800, base 607 · moldura x 236–1440, base 900
+FAIL 1440x900 com casca · abertura (sem filtro) · Adicionar filtro: painel x 673–1433, base 748 · moldura x 260–1416, base 876 · rolou de lado: main scrollLeft=386 · transborda: main 1559>1156
+PASS 1440x900 com casca · abertura (sem filtro) · Período: painel x 284–824, base 770 · moldura x 260–1416, base 876
+FAIL 1440x900 com casca · um filtro · Adicionar filtro: painel x 673–1433, base 752 · moldura x 260–1416, base 876 · rolou de lado: main scrollLeft=419 · transborda: main 1592>1156
+PASS 1440x900 com casca · um filtro · Período: painel x 284–824, base 722 · moldura x 260–1416, base 876
+FAIL 1440x900 com casca · dois filtros · Adicionar filtro: painel x 673–1433, base 790 · moldura x 260–1416, base 876 · rolou de lado: main scrollLeft=147 · transborda: main 1320>1156
+PASS 1440x900 com casca · dois filtros · Período: painel x 284–824, base 722 · moldura x 260–1416, base 876
+FAIL 1440x900 com casca · evento aberto ao lado · Adicionar filtro: painel x 673–1433, base 752 · moldura x 260–1416, base 876 · rolou de lado: main scrollLeft=419 · transborda: main 1592>1156
+PASS 1440x900 com casca · evento aberto ao lado · Período: painel x 284–824, base 722 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · achar tentativas · Período: painel x 284–824, base 695 · moldura x 260–1416, base 876
+FAIL 1280x720 print · abertura (sem filtro) · Adicionar filtro: painel x 537–1297, base 660 · moldura x 236–1280, base 3779 · rolou de lado: main scrollLeft=498 · transborda: main 1559>1044
+PASS 1280x720 print · abertura (sem filtro) · Período: painel x 260–800, base 682 · moldura x 236–1280, base 3779
+FAIL 1280x720 print · um filtro · Adicionar filtro: painel x 537–1297, base 664 · moldura x 236–1280, base 720 · rolou de lado: main scrollLeft=531 · transborda: main 1592>1044
+PASS 1280x720 print · um filtro · Período: painel x 260–800, base 634 · moldura x 236–1280, base 720
+FAIL 1280x720 print · dois filtros · Adicionar filtro: painel x 537–1297, base 706 · moldura x 236–1280, base 720 · rolou de lado: main scrollLeft=504 · transborda: main 1565>1044
+PASS 1280x720 print · dois filtros · Período: painel x 260–800, base 634 · moldura x 236–1280, base 720
+FAIL 1280x720 print · evento aberto ao lado · Adicionar filtro: painel x 537–1297, base 664 · moldura x 236–1280, base 736 · rolou de lado: main scrollLeft=531 · transborda: main 1592>1044
+PASS 1280x720 print · evento aberto ao lado · Período: painel x 260–800, base 634 · moldura x 236–1280, base 736
+PASS 1280x720 print · achar tentativas · Período: painel x 260–800, base 607 · moldura x 236–1280, base 720
+falhas: 12

@@ -140,7 +140,7 @@ const Field = ({ label, value, onChange, type = 'text', placeholder, error, disa
         style={{
           background: 'var(--input-bg)',
           color: 'var(--fg)',
-          border: `1px solid ${error ? 'var(--danger)' : focus ? 'var(--primary)' : 'var(--border)'}`,
+          border: `1px solid ${error ? 'var(--danger)' : focus ? 'var(--primary)' : 'var(--border-control)'}`,
           borderRadius: 'var(--radius-md)',
           padding: 'var(--space-3) var(--space-4)',
           fontSize: 14,
@@ -433,6 +433,38 @@ const Etiqueta = ({ tom = 'neutro', podeQuebrar, children }) => {
   );
 };
 
+/* ---------- Foco de volta ao fechar um painel ----------
+   Quando o painel que abre embaixo de um botão fecha (Esc, aplicar, escolher), o foco volta
+   ao botão que o abriu, se ficou sem dono: quem usa o teclado não perde o lugar. O clique
+   fora leva o foco para onde a pessoa clicou, e ali ele fica.
+   `painelAberto` é o nome do painel aberto (ou nada); `botoes`, a referência do botão de cada um. */
+const useFocoDeVoltaAoFechar = (painelAberto, botoes) => {
+  const painelAbertoAntesRef = useRef(painelAberto);
+  useEffect(() => {
+    const painelAbertoAntes = painelAbertoAntesRef.current;
+    painelAbertoAntesRef.current = painelAberto;
+    if (!painelAbertoAntes || painelAberto) return;
+    const focoSemDono = !document.activeElement || document.activeElement === document.body;
+    if (focoSemDono) botoes[painelAbertoAntes]?.current?.focus();
+  }, [painelAberto]);
+};
+
+/* ---------- Faixa fixa no topo da área que rola ----------
+   O aviso de sem internet fica à vista enquanto a tela rola. A área que rola ganha a
+   folga do tamanho da faixa, para o foco do teclado nunca parar debaixo dela. */
+const FaixaFixa = ({ children }) => {
+  const faixaRef = useRef(null);
+  useEffect(() => {
+    const faixa = faixaRef.current;
+    let areaQueRola = faixa?.parentElement;
+    while (areaQueRola && !/(auto|scroll)/.test(getComputedStyle(areaQueRola).overflowY)) areaQueRola = areaQueRola.parentElement;
+    if (!areaQueRola) return undefined;
+    areaQueRola.style.scrollPaddingTop = `${faixa.offsetHeight}px`;
+    return () => { areaQueRola.style.scrollPaddingTop = ''; };
+  }, []);
+  return <div ref={faixaRef} style={{ position: 'sticky', top: 0, zIndex: 5 }}>{children}</div>;
+};
+
 /* ---------- Dica ao passar o mouse ou focar ----------
    A explicação aparece com o mouse e com o foco do teclado, some com Esc e fica ligada ao
    alvo por `aria-describedby`: leitor de tela lê a dica junto do alvo (não depende de
@@ -441,10 +473,26 @@ const LARGURA_DA_DICA = 280;
 
 const ComDica = ({ dica, alinharADireita, mostrar, children }) => {
   const [visivel, setVisivel] = useState(false);
+  const [abreParaBaixo, setAbreParaBaixo] = useState(false);
+  const alvoRef = useRef(null);
+  const dicaRef = useRef(null);
   const idDaDica = React.useId();
   const aberta = visivel || Boolean(mostrar);
+
+  /* A dica abre para cima. Sem lugar acima dentro da área que rola (o alvo encostado no
+     topo), ela abre para baixo: assim nunca fica cortada. */
+  React.useLayoutEffect(() => {
+    if (!aberta || !alvoRef.current || !dicaRef.current) return;
+    let areaQueCorta = alvoRef.current.parentElement;
+    while (areaQueCorta && !/(auto|scroll|hidden)/.test(getComputedStyle(areaQueCorta).overflowY)) areaQueCorta = areaQueCorta.parentElement;
+    const topoDaArea = areaQueCorta ? Math.max(0, areaQueCorta.getBoundingClientRect().top) : 0;
+    const espacoAcima = alvoRef.current.getBoundingClientRect().top - topoDaArea;
+    setAbreParaBaixo(espacoAcima < dicaRef.current.offsetHeight + alvoRef.current.offsetHeight);
+  }, [aberta]);
+
   return (
     <span
+      ref={alvoRef}
       style={{ position: 'relative', display: 'inline-flex' }}
       onMouseEnter={() => setVisivel(true)} onMouseLeave={() => setVisivel(false)}
       onFocus={() => setVisivel(true)} onBlur={() => setVisivel(false)}
@@ -460,8 +508,9 @@ const ComDica = ({ dica, alinharADireita, mostrar, children }) => {
       >
         {children}
       </span>
-      <span role="tooltip" id={idDaDica} style={{
-        display: aberta ? 'block' : 'none', position: 'absolute', bottom: 'calc(100% + var(--space-1))', zIndex: 8,
+      <span ref={dicaRef} role="tooltip" id={idDaDica} style={{
+        display: aberta ? 'block' : 'none', position: 'absolute', zIndex: 8,
+        ...(abreParaBaixo ? { top: 'calc(100% + var(--space-1))' } : { bottom: 'calc(100% + var(--space-1))' }),
         left: alinharADireita ? 'auto' : 0, right: alinharADireita ? 0 : 'auto', width: LARGURA_DA_DICA,
         padding: 'var(--space-2) var(--space-3)', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-lg)',
         background: 'var(--toast-bg)', color: 'var(--toast-fg)',

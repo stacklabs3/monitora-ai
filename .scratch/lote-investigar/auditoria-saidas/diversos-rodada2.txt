@@ -1,0 +1,63 @@
+== MARCAS NA LINHA DO TEMPO ==
+  tentativas com cada marca: {"entrou pelo recebimento":["R-1031","R-1038"],"cortado":["R-1040"]}
+  PASS [light] «entrou pelo recebimento» em R-1031: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"12:20:39.788 ERRO API cartão sem limite entrou pelo recebimento ligado por reservationId = R-1031","y":334,"altura":34}
+  PASS [dark] «entrou pelo recebimento» em R-1031: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"12:20:39.788 ERRO API cartão sem limite entrou pelo recebimento ligado por reservationId = R-1031","y":334,"altura":34}
+  PASS [light] «cortado» em R-1040: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"14:21:47.233 ERRO API cartão sem limite cortado ligado por reservationId = R-1040","y":334,"altura":34}
+  PASS [dark] «cortado» em R-1040: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"14:21:47.233 ERRO API cartão sem limite cortado ligado por reservationId = R-1040","y":334,"altura":34}
+
+== MODO SHOWCASE ==
+  PASS [painel light] rotinas 10/10 · quadros 26/26 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+    títulos: Entrar no painel · meta de 3 toques | Ver o painel como Administrador · meta de 1 toques | Buscar eventos · meta de 3 toques | Ler os avisos da busca · meta de 3 toques | Abrir e ler um evento · meta de 3 toques | Ler os atributos e o erro de um evento · meta de 3 toques | Filtrar por um valor do evento · meta de 3 toques | Achar a tentativa e ler a linha do tempo · meta de 3 toques | Ler um evento da linha do tempo e o que fica à parte · meta de 3 toques | Ler o código ligado a duas tentativas · meta de 3 toques
+  PASS [painel dark] rotinas 10/10 · quadros 26/26 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [celular light] rotinas 1/1 · quadros 3/3 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [celular dark] rotinas 1/1 · quadros 3/3 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [telegram light] rotinas 1/1 · quadros 4/4 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [telegram dark] rotinas 1/1 · quadros 4/4 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+
+== SALTO DE LAYOUT AO SAIR DO CARREGANDO ==
+  PASS buscar-eventos/01-painel_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,3612 · pronto 64,34,3563
+  PASS buscar-eventos/02-busca_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,485 · pronto 64,34,436
+  PASS avisos-da-busca/01-busca_investigador: blocos 4→4 · topos iguais · alturas carregando 64,34,86,3579 · pronto 64,34,86,3530
+  PASS avisos-da-busca/02-busca_investigador: blocos 4→4 · topos iguais · alturas carregando 64,34,67,315 · pronto 64,34,67,266
+  PASS avisos-da-busca/03-busca_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,247 · pronto 64,34,198
+  PASS ler-um-evento/02-evento_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,684 · pronto 64,34,684
+  WARN ler-um-evento/03-tentativa_investigador: blocos 2→2 · o bloco 2 muda de topo 148→188 · alturas carregando 58,357 · pronto 98,907
+  PASS ler-o-erro-do-evento/02-evento_secao_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,684 · pronto 64,34,684
+  PASS ler-o-erro-do-evento/03-evento_secao_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,684 · pronto 64,34,684
+  PASS filtrar-por-um-valor/02-busca_investigador: blocos 3→3 · topos iguais · alturas carregando 64,69,281 · pronto 64,69,232
+  PASS achar-a-tentativa/01-tentativas_investigador: blocos 6→5 · topos iguais · alturas carregando 23,37,64,34,51,127 · pronto 23,37,64,34,127
+  WARN achar-a-tentativa/02-tentativas_achadas_investigador: blocos 6→6 · o bloco 6 muda de topo 532→483 · alturas carregando 23,37,64,34,236,158 · pronto 23,37,64,34,187,158
+  PASS ler-a-linha-do-tempo/02-tentativa_evento_investigador: blocos 2→2 · topos iguais · alturas carregando 98,696 · pronto 98,696
+  WARN ler-a-linha-do-tempo/03-tentativa_secao_investigador: blocos 2→2 · o bloco 1 muda de topo 78→-133 · alturas carregando 58,357 · pronto 98,907
+  WARN codigo-em-duas-tentativas/01-tentativa_investigador: blocos 2→2 · o bloco 2 muda de topo 148→188 · alturas carregando 58,357 · pronto 98,433
+  WARN codigo-em-duas-tentativas/02-tentativa_investigador: blocos 2→2 · o bloco 2 muda de topo 148→188 · alturas carregando 58,357 · pronto 98,399
+
+== TEXTO CORTADO OU SOBREPOSTO ==
+  PASS buscar-eventos/01-painel_investigador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS buscar-eventos/02-busca_investigador default: sem corte nem sobreposição · 4 textos com reticências
+  PASS avisos-da-busca/01-busca_investigador default: sem corte nem sobreposição · 50 textos com reticências
+  PASS avisos-da-busca/02-busca_investigador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS avisos-da-busca/03-busca_investigador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS ler-um-evento/02-evento_investigador default: sem corte nem sobreposição · 9 textos com reticências
+  PASS ler-um-evento/03-tentativa_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS ler-o-erro-do-evento/02-evento_secao_investigador default: sem corte nem sobreposição · 9 textos com reticências
+  PASS ler-o-erro-do-evento/03-evento_secao_investigador default: sem corte nem sobreposição · 9 textos com reticências
+  PASS filtrar-por-um-valor/02-busca_investigador default: sem corte nem sobreposição · 2 textos com reticências
+  PASS achar-a-tentativa/01-tentativas_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS achar-a-tentativa/02-tentativas_achadas_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS ler-a-linha-do-tempo/02-tentativa_evento_investigador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS ler-a-linha-do-tempo/03-tentativa_secao_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS codigo-em-duas-tentativas/01-tentativa_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS codigo-em-duas-tentativas/02-tentativa_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  CONTROLE NEGATIVO: cortados 1 (esperado 1) · sobrepostos 1 (esperado 1) => REPROVADO como devia
+  cenas conferidas 96 · com problema 0
+
+== ABAS, PAINEL FLUTUANTE, CONEXÃO DE VOLTA ==
+  PASS aba «Painel no celular»: resumo «iOS · Escuro · default» · tema dark · #/entrada/alerta-a17
+  PASS aba «Alerta no Telegram»: resumo «iOS · Escuro · default» · tema dark · #/telegram/a17
+  PASS aba «Painel»: resumo «Computador · Claro · default» · tema light · #/entrada/painel
+  PASS painel flutuante: superfícies da aba «SUPERFÍCIE Computador» · Esc fecha (true) e devolve o foco (painel-toggle) · clique fora fecha (true)
+  PASS sair do sem internet em or/eventos/p=1h;f=reservationId:e:R-1042: aviso sem internet true · aviso de volta «A conexão voltou. A lista já pode ser atualizada.»
+  PASS sair do sem internet em stigador/tentativas/reservationId/R-1042: aviso sem internet true · aviso de volta «A conexão voltou. A lista já pode ser atualizada.»
+
+CONSOLE (3 distintas): console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for produc | http 404: http://localhost:8766/favicon.ico | log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhos

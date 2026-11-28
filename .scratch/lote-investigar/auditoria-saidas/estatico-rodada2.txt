@@ -1,0 +1,6 @@
+chaves no dicionario 413 usadas literais 317
+USADA E INEXISTENTE: []
+AVOID? [chave] menuAplicacoes: Aplicações e chaves de envio
+AVOID? [grupo] buscaRegexErroReferencia: Regex recusada: ela usa referência a um grupo anterior (\1), e o tempo dessa busca é imprevisível.
+AVOID? [url] tipoUrl: URL
+AVOID? [url] campoUrl: URL

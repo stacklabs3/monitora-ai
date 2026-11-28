@@ -1,0 +1,13 @@
+PASS janela 900 · linha do tempo → sem vínculo · default: topo da parte 742 · aviso null–null · rolagem 211/211 · área começa em 62
+PASS janela 900 · linha do tempo → sem vínculo · offline: topo da parte 742 · aviso 78–164 · rolagem 309/309 · área começa em 62
+PASS janela 900 · busca de abertura (100 linhas) · Shift+Tab 30 vezes a partir da última linha: 0 paradas inteiras debaixo do aviso fixo e 0 em parte, de 30
+PASS janela 900 · linha do tempo · Shift+Tab 30 vezes a partir da última linha: 0 paradas inteiras debaixo do aviso fixo e 0 em parte, de 30
+PASS janela 600 · linha do tempo → sem vínculo · default: topo da parte 442 · aviso null–null · rolagem 511/511 · área começa em 62
+PASS janela 600 · linha do tempo → sem vínculo · offline: topo da parte 442 · aviso 78–164 · rolagem 609/609 · área começa em 62
+PASS janela 600 · busca de abertura (100 linhas) · Shift+Tab 30 vezes a partir da última linha: 0 paradas inteiras debaixo do aviso fixo e 0 em parte, de 30
+PASS janela 600 · linha do tempo · Shift+Tab 30 vezes a partir da última linha: 0 paradas inteiras debaixo do aviso fixo e 3 em parte, de 30
+PASS janela 440 · linha do tempo → sem vínculo · default: topo da parte 282 · aviso null–null · rolagem 671/671 · área começa em 62
+PASS janela 440 · linha do tempo → sem vínculo · offline: topo da parte 282 · aviso 78–164 · rolagem 769/769 · área começa em 62
+PASS janela 440 · busca de abertura (100 linhas) · Shift+Tab 30 vezes a partir da última linha: 0 paradas inteiras debaixo do aviso fixo e 0 em parte, de 30
+PASS janela 440 · linha do tempo · Shift+Tab 30 vezes a partir da última linha: 0 paradas inteiras debaixo do aviso fixo e 6 em parte, de 30
+falhas: 0

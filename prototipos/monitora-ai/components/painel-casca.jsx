@@ -132,7 +132,7 @@ const BarraDoPainel = ({ traduzir, params, papel, desabilitado, abrirAtalhos, ao
           onChange={(eventoDeTroca) => aoMudar({ produto: eventoDeTroca.target.value })}
           style={{
             minHeight: LADO_DO_BOTAO_DE_ICONE, padding: '0 var(--space-3)', borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--border-strong)', background: 'var(--surface)', color: 'var(--fg)',
+            border: '1px solid var(--border-control)', background: 'var(--surface)', color: 'var(--fg)',
             fontSize: 13.5, fontWeight: 700,
           }}
         >

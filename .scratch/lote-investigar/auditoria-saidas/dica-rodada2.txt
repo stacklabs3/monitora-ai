@@ -1,0 +1,10 @@
+PASS [light] evento na busca, seção atributos: 5 dicas · 5 por Tab · 10 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+PASS [light] evento na busca, topo: 5 dicas · 5 por Tab · 10 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+PASS [light] evento do webhook na linha do tempo: 2 dicas · 2 por Tab · 4 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+PASS [light] evento cortado: 0 dicas · 0 por Tab · 0 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+PASS [dark] evento na busca, seção atributos: 5 dicas · 5 por Tab · 10 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+PASS [dark] evento na busca, topo: 5 dicas · 5 por Tab · 10 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+PASS [dark] evento do webhook na linha do tempo: 2 dicas · 2 por Tab · 4 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+PASS [dark] evento cortado: 0 dicas · 0 por Tab · 0 no pior caso (nota no topo da rolagem, mouse e foco) · com problema 0
+CONTROLE NEGATIVO (dica 60 px acima do topo da rolagem): REPROVADO como devia: section.rolagem-propria (dica 261,141–461,181 · moldura 260,200–737,884)
+dicas conferidas: 72 · falhas: 0

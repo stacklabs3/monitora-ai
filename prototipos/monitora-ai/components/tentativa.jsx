@@ -290,9 +290,9 @@ const TituloDeColunas = ({ colunas, titulos }) => (
 );
 
 const AvisoSemInternetFixo = ({ traduzir, chaveDoQueContinua, chaveDoQueEspera }) => (
-  <div style={{ position: 'sticky', top: 0, zIndex: 5 }}>
+  <FaixaFixa>
     <AvisoSemInternet titulo={traduzir('semInternetTitulo')} continuaFuncionando={traduzir(chaveDoQueContinua)} espera={traduzir(chaveDoQueEspera)} />
-  </div>
+  </FaixaFixa>
 );
 
 const BarraDeCarregando = ({ traduzir, chaveDaMensagem, chaveDoComplemento }) => (
@@ -343,14 +343,16 @@ const ComoAcharUmaTentativa = ({ traduzir }) => (
   </section>
 );
 
-const LinhaDeTentativa = ({ traduzir, tentativa, estadoDemonstrado, disabled, aoAbrir }) => (
+const LinhaDeTentativa = ({ traduzir, tentativa, estadoDemonstrado, disabled, semInternet, aoAbrir }) => (
   <li style={{ listStyle: 'none' }}>
     <Press
-      disabled={disabled} onClick={aoAbrir} title={traduzir('tentativasAbrir', { valor: tentativa.valorDoCampo })}
+      disabled={disabled} onClick={semInternet ? undefined : aoAbrir} title={traduzir('tentativasAbrir', { valor: tentativa.valorDoCampo })}
       className={`linha-de-evento${estadoDemonstrado ? ` linha-de-evento--${estadoDemonstrado}` : ''}`}
+      {...propriedadesDaLinhaSemInternet(traduzir, semInternet)}
       style={{
         display: 'grid', gridTemplateColumns: COLUNAS_DAS_TENTATIVAS, gap: 'var(--space-3)', alignItems: 'center',
         minHeight: ALTURA_DA_CAIXA_DE_BUSCA, padding: '6px var(--space-3)', borderBottom: '1px solid var(--border)', fontSize: 13,
+        ...(semInternet ? { cursor: 'default' } : {}),
       }}
     >
       <CodigoEmDestaque tamanho={14}>{tentativa.valorDoCampo}</CodigoEmDestaque>
@@ -413,6 +415,9 @@ const TelaTentativas = ({ lang, estado, params, papel }) => {
   const [chaveDaRecusa, setChaveDaRecusa] = useState(null);
   const campoDoValorRef = useRef(null);
   const semTentativaRef = useRef(null);
+  const botaoDePeriodoRef = useRef(null);
+
+  useFocoDeVoltaAoFechar(periodoAberto ? 'periodo' : null, { periodo: botaoDePeriodoRef });
 
   useEffect(() => {
     setIdDoCampoEscolhido(campoDoEndereco?.id || camposParaAchar[0]?.id);
@@ -528,7 +533,7 @@ const TelaTentativas = ({ lang, estado, params, papel }) => {
           <div style={{ display: 'flex' }}>
             <SeletorDePeriodo
               traduzir={traduzir} busca={{ periodo: idDoPeriodo, base: 'origem' }} periodo={periodo} liberaToda
-              indisponivel={indisponivel} aberto={periodoAberto}
+              indisponivel={indisponivel} aberto={periodoAberto} botaoRef={botaoDePeriodoRef}
               aoAbrir={() => setPeriodoAberto(true)} aoFechar={() => setPeriodoAberto(false)} aoEscolherPeriodo={escolherPeriodo}
             />
           </div>
@@ -580,7 +585,7 @@ const TelaTentativas = ({ lang, estado, params, papel }) => {
                 <ol aria-label={traduzir('tentativasLista')} aria-busy={carregando || undefined} style={{ margin: 0, padding: 0 }}>
                   {achado.tentativas.map((tentativa, indiceDaTentativa) => (
                     <LinhaDeTentativa
-                      key={tentativa.valorDoCampo} traduzir={traduzir} tentativa={tentativa} disabled={desabilitado}
+                      key={tentativa.valorDoCampo} traduzir={traduzir} tentativa={tentativa} disabled={desabilitado} semInternet={semInternet}
                       estadoDemonstrado={indiceDaTentativa === 1 ? estadoDemonstrado : null} aoAbrir={() => abrirTentativa(tentativa)}
                     />
                   ))}

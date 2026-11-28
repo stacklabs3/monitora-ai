@@ -1,0 +1,3 @@
+cenas lidas: 96 · achados distintos: 2
+  INGLÊS?: search → «plicação mensagem 14:58:40.074 info site search results rendered results=14 dura»  (buscar-eventos/01-painel_investigador default)
+  INGLÊS?: retry → «code":402,"reason":"insufficient_funds","retry":{"allowed":true,"afterseconds":3»  (buscar-eventos/02-busca_investigador default)

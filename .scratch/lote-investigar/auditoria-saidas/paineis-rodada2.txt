@@ -1,0 +1,28 @@
+PASS 1440x900 print · abertura (sem filtro) · Adicionar filtro: painel x 260–1020, base 667 · moldura x 236–1440, base 3779
+PASS 1440x900 print · abertura (sem filtro) · Período: painel x 260–800, base 682 · moldura x 236–1440, base 3779
+PASS 1440x900 print · um filtro · Adicionar filtro: painel x 260–1020, base 667 · moldura x 236–1440, base 900
+PASS 1440x900 print · um filtro · Período: painel x 260–800, base 634 · moldura x 236–1440, base 900
+PASS 1440x900 print · dois filtros · Adicionar filtro: painel x 260–1020, base 702 · moldura x 236–1440, base 900
+PASS 1440x900 print · dois filtros · Período: painel x 260–800, base 634 · moldura x 236–1440, base 900
+PASS 1440x900 print · evento aberto ao lado · Adicionar filtro: painel x 260–1020, base 667 · moldura x 236–1440, base 900
+PASS 1440x900 print · evento aberto ao lado · Período: painel x 260–800, base 634 · moldura x 236–1440, base 900
+PASS 1440x900 print · achar tentativas · Período: painel x 260–800, base 607 · moldura x 236–1440, base 900
+PASS 1440x900 com casca · abertura (sem filtro) · Adicionar filtro: painel x 284–1044, base 755 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · abertura (sem filtro) · Período: painel x 284–824, base 770 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · um filtro · Adicionar filtro: painel x 284–1044, base 755 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · um filtro · Período: painel x 284–824, base 722 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · dois filtros · Adicionar filtro: painel x 284–1044, base 790 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · dois filtros · Período: painel x 284–824, base 722 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · evento aberto ao lado · Adicionar filtro: painel x 284–1044, base 755 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · evento aberto ao lado · Período: painel x 284–824, base 722 · moldura x 260–1416, base 876
+PASS 1440x900 com casca · achar tentativas · Período: painel x 284–824, base 695 · moldura x 260–1416, base 876
+PASS 1280x720 print · abertura (sem filtro) · Adicionar filtro: painel x 260–1020, base 667 · moldura x 236–1280, base 3779
+PASS 1280x720 print · abertura (sem filtro) · Período: painel x 260–800, base 682 · moldura x 236–1280, base 3779
+PASS 1280x720 print · um filtro · Adicionar filtro: painel x 260–1020, base 667 · moldura x 236–1280, base 720
+PASS 1280x720 print · um filtro · Período: painel x 260–800, base 634 · moldura x 236–1280, base 720
+PASS 1280x720 print · dois filtros · Adicionar filtro: painel x 260–1020, base 709 · moldura x 236–1280, base 720
+PASS 1280x720 print · dois filtros · Período: painel x 260–800, base 634 · moldura x 236–1280, base 720
+PASS 1280x720 print · evento aberto ao lado · Adicionar filtro: painel x 260–1020, base 667 · moldura x 236–1280, base 736
+PASS 1280x720 print · evento aberto ao lado · Período: painel x 260–800, base 634 · moldura x 236–1280, base 736
+PASS 1280x720 print · achar tentativas · Período: painel x 260–800, base 607 · moldura x 236–1280, base 720
+falhas: 0

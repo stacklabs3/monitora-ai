@@ -30,6 +30,8 @@
   --input-bg:       #FFFFFF;
   --border:         rgba(16, 32, 31, 0.10);
   --border-strong:  rgba(16, 32, 31, 0.24);
+  /* Contorno de campo de digitar e de escolher: 3:1 contra o fundo (WCAG 1.4.11) */
+  --border-control: #74838A;
   --muted:          #51626A;
   --tabbar-bg:      rgba(246, 248, 249, 0.92);
   --header-blur-bg: rgba(255, 255, 255, 0.82);
@@ -102,6 +104,7 @@
   --input-bg:       #0E181A;
   --border:         rgba(230, 238, 238, 0.10);
   --border-strong:  rgba(230, 238, 238, 0.24);
+  --border-control: #6E8188;
   --muted:          #9AABB0;
   --tabbar-bg:      rgba(10, 18, 19, 0.92);
   --header-blur-bg: rgba(17, 28, 30, 0.82);
@@ -155,6 +158,8 @@ body {
 #root { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
 
 input, textarea, button, select { font-family: inherit; }
+/* O exemplo dentro do campo usa a cor de texto secundário: a do navegador reprova no escuro. */
+::placeholder { color: var(--muted); opacity: 1; }
 button { cursor: pointer; }
 
 /* Foco sempre visível, nos dois temas (Definir princípios de UI/UX, Q3). */
@@ -171,6 +176,9 @@ label:focus-within:has(.campo-sem-moldura) { outline: 2px solid var(--accent); o
 .linha-de-evento:active, .linha-de-evento--active { background: var(--primary-soft); }
 .linha-de-evento[aria-current="true"] { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
 .linha-de-evento:focus-visible, .linha-de-evento--focus { outline: 2px solid var(--accent); outline-offset: -2px; }
+/* Linha que não abre agora (sem internet, desabilitada): não acende ao passar o mouse nem ao apertar. */
+.linha-de-evento[aria-disabled="true"]:not([aria-current="true"]):hover,
+.linha-de-evento[aria-disabled="true"]:not([aria-current="true"]):active { background: transparent; }
 
 /* Botão: o realce é uma camada por cima da cor de cada variante, que vem em linha.
    As variantes "--hover", "--focus" e "--active" são as que o grupo Estado força. */
@@ -436,21 +444,21 @@ label:focus-within:has(.campo-sem-moldura) { outline: 2px solid var(--accent); o
 
   <!-- Ordem obrigatoria: sao scripts globais, cada camada so enxerga as anteriores.
        Tela nova entra depois de painel.jsx e antes de app.jsx. -->
-  <script type="text/babel" src="components/i18n.jsx?v=11"></script>
-  <script type="text/babel" src="components/data.jsx?v=11"></script>
-  <script type="text/babel" src="components/icons.jsx?v=11"></script>
-  <script type="text/babel" src="components/ui.jsx?v=11"></script>
-  <script type="text/babel" src="components/device.jsx?v=11"></script>
-  <script type="text/babel" src="components/router.jsx?v=11"></script>
-  <script type="text/babel" src="components/visoes.jsx?v=11"></script>
-  <script type="text/babel" src="components/painel.jsx?v=11"></script>
-  <script type="text/babel" src="components/entrada.jsx?v=11"></script>
-  <script type="text/babel" src="components/painel-casca.jsx?v=11"></script>
-  <script type="text/babel" src="components/busca.jsx?v=11"></script>
-  <script type="text/babel" src="components/evento.jsx?v=11"></script>
-  <script type="text/babel" src="components/tentativa.jsx?v=11"></script>
-  <script type="text/babel" src="components/alerta.jsx?v=11"></script>
-  <script type="text/babel" src="components/app.jsx?v=11"></script>
+  <script type="text/babel" src="components/i18n.jsx?v=12"></script>
+  <script type="text/babel" src="components/data.jsx?v=12"></script>
+  <script type="text/babel" src="components/icons.jsx?v=12"></script>
+  <script type="text/babel" src="components/ui.jsx?v=12"></script>
+  <script type="text/babel" src="components/device.jsx?v=12"></script>
+  <script type="text/babel" src="components/router.jsx?v=12"></script>
+  <script type="text/babel" src="components/visoes.jsx?v=12"></script>
+  <script type="text/babel" src="components/painel.jsx?v=12"></script>
+  <script type="text/babel" src="components/entrada.jsx?v=12"></script>
+  <script type="text/babel" src="components/painel-casca.jsx?v=12"></script>
+  <script type="text/babel" src="components/busca.jsx?v=12"></script>
+  <script type="text/babel" src="components/evento.jsx?v=12"></script>
+  <script type="text/babel" src="components/tentativa.jsx?v=12"></script>
+  <script type="text/babel" src="components/alerta.jsx?v=12"></script>
+  <script type="text/babel" src="components/app.jsx?v=12"></script>
 
   <script type="text/babel">
     const root = ReactDOM.createRoot(document.getElementById('root'));

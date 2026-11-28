@@ -1,0 +1,8 @@
+== MARCAS NA LINHA DO TEMPO ==
+  tentativas com cada marca: {"entrou pelo recebimento":["R-1031","R-1038"],"cortado":["R-1040"]}
+  PASS [light] «entrou pelo recebimento» em R-1031: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"12:20:39.788 ERRO API cartão sem limite entrou pelo recebimento ligado por reservationId = R-1031","y":334,"altura":34}
+  PASS [dark] «entrou pelo recebimento» em R-1031: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"12:20:39.788 ERRO API cartão sem limite entrou pelo recebimento ligado por reservationId = R-1031","y":334,"altura":34}
+  PASS [light] «cortado» em R-1040: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"14:21:47.233 ERRO API cartão sem limite cortado ligado por reservationId = R-1040","y":334,"altura":34}
+  PASS [dark] «cortado» em R-1040: {"dentroDaLinha":true,"cortada":false,"textoDaLinha":"14:21:47.233 ERRO API cartão sem limite cortado ligado por reservationId = R-1040","y":334,"altura":34}
+
+CONSOLE (3 distintas): console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for produc | http 404: http://localhost:8766/favicon.ico | log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhos

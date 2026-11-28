@@ -474,7 +474,7 @@ const BarraDeBusca = ({
       <div className="caixa-de-campo" style={{
         flex: 1, minWidth: 0, display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
         padding: '0 var(--space-3)', minHeight: ALTURA_DA_CAIXA_DE_BUSCA, borderRadius: 'var(--radius-md)',
-        background: 'var(--input-bg)', border: `1px solid ${chaveDaRecusa ? 'var(--danger)' : 'var(--border-strong)'}`,
+        background: 'var(--input-bg)', border: `1px solid ${chaveDaRecusa ? 'var(--danger)' : 'var(--border-control)'}`,
       }}>
         <IconSearch size={16} style={{ color: 'var(--muted)', flexShrink: 0 }} />
         <input
@@ -503,10 +503,12 @@ const BarraDeBusca = ({
             style={{
               padding: '2px var(--space-2)', borderRadius: 'var(--radius-sm)', flexShrink: 0,
               fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700,
-              border: '1px solid var(--border-strong)', color: 'var(--fg)',
+              display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)',
+              border: `1px solid ${modoRegex ? 'var(--accent)' : 'var(--border-strong)'}`, color: 'var(--fg)',
               background: modoRegex ? 'var(--accent-soft)' : 'var(--surface)',
             }}
           >
+            {modoRegex && <IconCheck size={12} />}
             {traduzir('buscaRegex')}
           </Press>
         )}
@@ -526,11 +528,11 @@ const BarraDeBusca = ({
 
 /* O período fica sempre à vista, com a data, o fuso e por qual horário se conta. */
 const SeletorDePeriodo = ({
-  traduzir, busca, periodo, liberaToda, indisponivel, aberto, aoAbrir, aoFechar, aoEscolherPeriodo, aoEscolherBase,
+  traduzir, busca, periodo, liberaToda, indisponivel, aberto, aoAbrir, aoFechar, aoEscolherPeriodo, aoEscolherBase, botaoRef,
 }) => (
   <div style={{ position: 'relative', display: 'flex' }}>
     <Press
-      disabled={indisponivel} aria-haspopup="dialog" aria-expanded={aberto}
+      ref={botaoRef} disabled={indisponivel} aria-haspopup="dialog" aria-expanded={aberto}
       onClick={aberto ? aoFechar : aoAbrir}
       style={{
         display: 'flex', alignItems: 'center', gap: 'var(--space-2)', padding: 'var(--space-1) var(--space-3)',
@@ -746,7 +748,7 @@ const PainelDeAdicionarFiltro = ({ traduzir, catalogo, nomeDoProduto, aoAplicar,
 /* ---------- Fichas ---------- */
 const FichasDaBusca = ({
   traduzir, busca, catalogo, nomeDoProduto, desabilitado, buscaIndisponivel,
-  filtroAberto, aoAbrirFiltro, aoFecharFiltro, aoAplicarFiltro, aoRemoverFiltro,
+  filtroAberto, aoAbrirFiltro, aoFecharFiltro, aoAplicarFiltro, aoRemoverFiltro, botaoDeFiltroRef,
 }) => (
   <div role="group" aria-label={traduzir('buscaFichas')} style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap', alignItems: 'center', flex: 1, minWidth: 0 }}>
     {busca.filtros.map((filtro, indiceDoFiltro) => {
@@ -765,8 +767,11 @@ const FichasDaBusca = ({
       );
     })}
     {busca.filtros.length === 0 && <span style={{ fontSize: 13, color: 'var(--muted)' }}>{traduzir('fichasNenhuma')}</span>}
-    <div style={{ position: 'relative' }}>
+    {/* O painel se prende à linha do período e das fichas (quem chama dá `position: relative`):
+        preso ao botão, ele saía da tela pela direita. */}
+    <div>
       <Press
+        ref={botaoDeFiltroRef}
         disabled={desabilitado || buscaIndisponivel} aria-haspopup="dialog" aria-expanded={filtroAberto}
         onClick={filtroAberto ? aoFecharFiltro : aoAbrirFiltro}
         style={{
@@ -790,18 +795,26 @@ const FichasDaBusca = ({
 /* ---------- Lista ----------
    `miolo` troca o que vem na coluna da mensagem (a linha do tempo põe ali a mensagem, as
    marcas e o vínculo de correlação). */
-const LinhaDeEvento = ({ traduzir, evento, horario, colunas, quebrarLinha, selecionada, estadoDemonstrado, aoSelecionar, aoTeclar, linhaRef, disabled, miolo }) => (
+/* Sem internet a linha continua legível e alcançável pelo teclado, mas não abre: ela se
+   declara indisponível (`aria-disabled`), diz o motivo e não reage como quem abre. */
+const propriedadesDaLinhaSemInternet = (traduzir, semInternet) => (semInternet
+  ? { 'aria-disabled': true, title: traduzir('motivoSemInternet') }
+  : {});
+
+const LinhaDeEvento = ({ traduzir, evento, horario, colunas, quebrarLinha, selecionada, estadoDemonstrado, aoSelecionar, aoTeclar, linhaRef, disabled, semInternet, miolo }) => (
   <li style={{ listStyle: 'none' }}>
     <Press
       ref={linhaRef} disabled={disabled}
-      onClick={aoSelecionar} onKeyDownCapture={aoTeclar}
+      onClick={semInternet ? undefined : aoSelecionar} onKeyDownCapture={aoTeclar}
       aria-current={selecionada ? 'true' : undefined}
       className={`linha-de-evento${estadoDemonstrado ? ` linha-de-evento--${estadoDemonstrado}` : ''}`}
+      {...propriedadesDaLinhaSemInternet(traduzir, semInternet)}
       style={{
         display: 'grid', gridTemplateColumns: colunas, gap: 'var(--space-3)',
         alignItems: quebrarLinha ? 'start' : 'center',
         minHeight: ALTURA_DA_LINHA_DE_EVENTO, padding: '6px var(--space-3)',
         borderBottom: '1px solid var(--border)', fontSize: 13,
+        ...(semInternet ? { cursor: 'default' } : {}),
       }}
     >
       <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, color: 'var(--muted)', fontVariantNumeric: 'tabular-nums' }}>
@@ -918,7 +931,7 @@ const ListaDeEventos = ({
         {resultado.eventos.map((evento, indiceDaLinha) => (
           <LinhaDeEvento
             key={evento.id} traduzir={traduzir} evento={evento} horario={horarioDoEvento(evento)} colunas={colunas}
-            quebrarLinha={quebrarLinha} disabled={desabilitado} miolo={mioloDaLinha && mioloDaLinha(evento)}
+            quebrarLinha={quebrarLinha} disabled={desabilitado} semInternet={estado === 'offline'} miolo={mioloDaLinha && mioloDaLinha(evento)}
             selecionada={idDoEventoAberto ? eventoAbertoExiste && evento.id === idDoEventoAberto : !semCursor && indiceDaLinha === indiceSelecionado}
             estadoDemonstrado={indiceDaLinha === 1 ? estadoDemonstrado : null}
             aoSelecionar={() => { setIndiceSelecionado(indiceDaLinha); aoAbrir(evento); }}
@@ -1027,8 +1040,12 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
   const [painelAberto, setPainelAberto] = useState(null);
   const [quebrarLinha, setQuebrarLinha] = useState(false);
   const campoDeBuscaRef = useRef(null);
+  const botaoDePeriodoRef = useRef(null);
+  const botaoDeFiltroRef = useRef(null);
 
   useEffect(() => { setTextoDigitado(busca.texto); setModoRegex(busca.regex); setPainelAberto(null); }, [textoDaBusca]);
+
+  useFocoDeVoltaAoFechar(painelAberto, { periodo: botaoDePeriodoRef, filtro: botaoDeFiltroRef });
 
   useEffect(() => {
     if (!painelAberto) return undefined;
@@ -1101,13 +1118,13 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
       aoMudar={(destino) => irParaBusca({ ...busca, pagina: 1 }, { ...destino, idDoEvento: destino.papel ? idDoEventoAberto : undefined, secao: secaoDoEvento })}
     >
       {semInternet && (
-        <div style={{ position: 'sticky', top: 0, zIndex: 5 }}>
+        <FaixaFixa>
           <AvisoSemInternet
             titulo={traduzir('semInternetTitulo')}
             continuaFuncionando={traduzir(temEventoAberto ? 'eventoSemInternetContinua' : 'buscaSemInternetContinua')}
             espera={traduzir(temEventoAberto ? 'eventoSemInternetEspera' : 'buscaSemInternetEspera')}
           />
-        </div>
+        </FaixaFixa>
       )}
 
       <BarraDeBusca
@@ -1118,8 +1135,9 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
         chaveDaRecusa={chaveDaRecusa} aoBuscar={buscarOTexto} aoLimparTexto={limparTexto}
       />
 
-      <div style={{ display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start', flexWrap: 'wrap' }}>
+      <div style={{ position: 'relative', display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start', flexWrap: 'wrap' }}>
         <SeletorDePeriodo
+          botaoRef={botaoDePeriodoRef}
           traduzir={traduzir} busca={busca} periodo={resultado.periodo} liberaToda={liberaToda}
           indisponivel={buscaIndisponivel} aberto={painelAberto === 'periodo'}
           aoAbrir={() => setPainelAberto('periodo')} aoFechar={() => setPainelAberto(null)}
@@ -1129,7 +1147,7 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
         <FichasDaBusca
           traduzir={traduzir} busca={busca} catalogo={catalogo} nomeDoProduto={nomeDoProduto}
           desabilitado={desabilitado} buscaIndisponivel={buscaIndisponivel}
-          filtroAberto={painelAberto === 'filtro'}
+          filtroAberto={painelAberto === 'filtro'} botaoDeFiltroRef={botaoDeFiltroRef}
           aoAbrirFiltro={() => setPainelAberto('filtro')} aoFecharFiltro={() => setPainelAberto(null)}
           aoAplicarFiltro={(filtroNovo) => { setPainelAberto(null); mudarBusca({ filtros: juntarFiltro(busca.filtros, filtroNovo) }); }}
           aoRemoverFiltro={(filtroRemovido) => mudarBusca({ filtros: busca.filtros.filter((filtro) => filtro !== filtroRemovido) })}

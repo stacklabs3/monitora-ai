@@ -1,0 +1,9 @@
+PASS ador/eventos/p=1h;f=reservationId:e:R-1042: papel «produção,Administrador» · 2079 letras · console 0
+PASS ador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06: papel «produção,Administrador» · 5124 letras · console 0
+PASS ador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro: papel «produção,Administrador» · 5124 letras · console 0
+PASS ador/tentativas: papel «produção,Administrador,cliente» · 995 letras · console 0
+PASS ador/tentativas/por/cliente/conta-7/1h: papel «produção,Administrador,cliente» · 1438 letras · console 0
+PASS ador/tentativas/reservationId/R-1042: papel «produção,Administrador» · 2881 letras · console 0
+PASS ador/tentativas/reservationId/R-1042/evento/ev-1042-05: papel «produção,Administrador» · 3525 letras · console 0
+PASS ador/tentativas/reservationId/R-1042/secao/sem-vinculo: papel «produção,Administrador» · 2881 letras · console 0
+prints esperados (listarPrints=todas): 212 · faltando no repositório: 0 

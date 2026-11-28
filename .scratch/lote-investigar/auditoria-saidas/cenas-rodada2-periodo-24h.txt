@@ -1,0 +1,14 @@
+ok   periodo-24h light: 541 textos, menor 5.49:1, reprovados 0 · #/painel/excurfly/producao/investigador/eventos/p=24h
+ok   periodo-24h dark: 541 textos, menor 5.23:1, reprovados 0 · #/painel/excurfly/producao/investigador/eventos/p=24h
+
+RESUMO: light 541 pares, menor 5.49:1 · dark 541 pares, menor 5.23:1
+PARES REPROVADOS (0):
+BORDAS DE CAMPO (4):
+ok   3.92:1 borda #74838a fora #ffffff dentro #ffffff  select. «ExcurflyProduto de demonstração» (periodo-24h light)
+ok   3.92:1 borda #74838a fora #f6f8f9 dentro #ffffff  div.caixa-de-campo «regexbusca lenta/» (periodo-24h light)
+ok   4.27:1 borda #6e8188 fora #111c1e dentro #111c1e  select. «ExcurflyProduto de demonstração» (periodo-24h dark)
+ok   4.65:1 borda #6e8188 fora #0a1213 dentro #0e181a  div.caixa-de-campo «regexbusca lenta/» (periodo-24h dark)
+CONSOLE (3):
+  console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+  http 404: http://localhost:8766/favicon.ico
+  log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhost:8766/favicon.ico
