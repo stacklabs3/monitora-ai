@@ -49,6 +49,12 @@ const SCREEN_MAP = {
   APLICACAO_NOVA_ADMINISTRADOR: TelaAplicacoesAdministrador,
   CHAVE_ADMINISTRADOR: TelaAplicacoesAdministrador,
   CHAVE_PASSO_ADMINISTRADOR: TelaAplicacoesAdministrador,
+  /* Catálogo de campos: uma tela só; a janela de declarar abre por cima da lista, e o campo
+     declarado entra nela, pelo que vem nos params. O Investigador só lê. */
+  CATALOGO_INVESTIGADOR: TelaCatalogoInvestigador,
+  CATALOGO_ADMINISTRADOR: TelaCatalogoAdministrador,
+  CATALOGO_CAMPO_ADMINISTRADOR: TelaCatalogoAdministrador,
+  CATALOGO_DECLARADO_ADMINISTRADOR: TelaCatalogoAdministrador,
   ALERTA_NO_CELULAR: TelaAlertaNoCelular,
   MENSAGEM_DO_ALERTA: TelaMensagemDoAlerta,
 };

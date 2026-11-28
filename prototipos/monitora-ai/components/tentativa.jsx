@@ -994,6 +994,7 @@ const TelaTentativa = ({ lang, estado, params, papel }) => {
               secao={secaoDoEvento} aoIrParaSecao={setSecaoDoEvento}
               aoFechar={fecharEvento} aoIrParaVizinho={abrirEventoVizinho} aoFiltrar={irParaABusca}
               aoAbrirTentativa={(nomeDoCampoPrincipal, valorDoCampoPrincipal) => abrirOutraTentativa({ nomeDoCampo: nomeDoCampoPrincipal, valor: valorDoCampoPrincipal })}
+              aoAbrirCatalogo={() => irAoCatalogoDeCampos(navigate, papel, { produto: idDoProduto, ambiente: idDoAmbiente })}
               tentativaAberta={{ nomeDoCampo, valorDoCampo }} chavesDeTexto={TEXTOS_DO_EVENTO_NA_LINHA_DO_TEMPO}
             />
           )}

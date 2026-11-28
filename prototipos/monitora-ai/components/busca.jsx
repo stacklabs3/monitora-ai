@@ -1267,6 +1267,7 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
             secao={secaoDoEvento} aoIrParaSecao={irParaASecaoDoEvento}
             aoFechar={fecharEvento} aoIrParaVizinho={abrirEventoVizinho}
             aoFiltrar={filtrarPeloValor} aoAbrirTentativa={abrirTentativa}
+            aoAbrirCatalogo={() => irAoCatalogoDeCampos(navigate, papel, { produto: idDoProduto, ambiente: idDoAmbiente })}
           />
         )}
         </div>

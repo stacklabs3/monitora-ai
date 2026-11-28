@@ -44,6 +44,14 @@ const ROUTES = {
   APLICACAO_NOVA_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/aplicacoes/:passo',
   CHAVE_ADMINISTRADOR:          '#/painel/:produto/:ambiente/administrador/aplicacoes/:aplicacao/chaves/:chave',
   CHAVE_PASSO_ADMINISTRADOR:    '#/painel/:produto/:ambiente/administrador/aplicacoes/:aplicacao/chaves/:chave/:passo',
+  /* Catálogo de campos: o Administrador declara, o Investigador só lê (por isso só a lista
+     tem a rota dele). A janela de declarar um campo não declarado (`passo` = declarar) e a
+     lista logo depois de declarar, com o que foi declarado no endereço (`declaracao` =
+     tipo.buscas.papel, como catalogo.jsx diz). */
+  CATALOGO_INVESTIGADOR:            '#/painel/:produto/:ambiente/investigador/catalogo',
+  CATALOGO_ADMINISTRADOR:           '#/painel/:produto/:ambiente/administrador/catalogo',
+  CATALOGO_CAMPO_ADMINISTRADOR:     '#/painel/:produto/:ambiente/administrador/catalogo/:campo/:passo',
+  CATALOGO_DECLARADO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/catalogo/:campo/declarado/:declaracao',
   ALERTA_NO_CELULAR:    '#/alerta/:idDoAlerta',
   MENSAGEM_DO_ALERTA:   '#/telegram/:idDoAlerta',
 };

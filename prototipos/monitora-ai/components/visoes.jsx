@@ -190,6 +190,33 @@ const ROTINAS = [
     ],
     metaDeToques: 2,
   },
+  /* Prototipar o catálogo de campos (issue 72). No cenário, `amountCents` já foi declarado
+     hoje às 14:00 ("rápido desde 14:00"); a rotina declara `installmentCount`, que os eventos
+     da cobrança T-900 trazem sem declaração, e ele fica "rápido desde 15:00". O que foi
+     declarado mora no endereço. Caminho: "Declarar" na linha de installmentCount → o tipo
+     número já vem sugerido pelo valor visto → "Declarar o campo". */
+  {
+    id: 'declarar-um-campo',
+    visao: 'painel',
+    rotulo: 'Declarar um campo não declarado do catálogo de campos',
+    telas: [
+      { rota: 'CATALOGO_ADMINISTRADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'CATALOGO_CAMPO_ADMINISTRADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'installmentCount', passo: 'declarar' } },
+      { rota: 'CATALOGO_DECLARADO_ADMINISTRADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'installmentCount', declaracao: 'numero.exata-intervalo.nenhum' } },
+    ],
+  },
+  /* O Investigador lê o catálogo, sem declarar. O menu dele não tem o item: a entrada é o
+     evento aberto, pela nota do atributo não declarado. Caminho: "Ver no catálogo de campos". */
+  {
+    id: 'ler-o-catalogo-como-investigador',
+    visao: 'painel',
+    rotulo: 'Ler o catálogo de campos como Investigador',
+    telas: [
+      { rota: 'EVENTO_SECAO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE, secao: 'atributos' } },
+      { rota: 'CATALOGO_INVESTIGADOR', params: PAINEL_DO_EXCURFLY },
+    ],
+    metaDeToques: 1,
+  },
   {
     id: 'entrar-pelo-celular',
     visao: 'celular',

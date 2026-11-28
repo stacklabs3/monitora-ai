@@ -100,6 +100,15 @@ const CATALOGO_DE_CAMPOS = {
   demonstracao: [],
 };
 
+/* Os limites do catálogo de campos de um produto (Definir semântica de busca e campos
+   configuráveis, item 25). */
+const LIMITE_DE_CAMPOS_DECLARADOS = 100;
+const LIMITE_DE_CAMPOS_COM_BUSCA_POR_PALAVRAS = 5;
+
+/* O campo que a rotina do catálogo declara: aparece como não declarado nos eventos da
+   cobrança T-900 e é declarado no "agora" do cenário (rápido desde 15:00). */
+const CAMPO_DO_EXEMPLO_DE_DECLARACAO = 'installmentCount';
+
 /* Campos de localização: o papel genérico que o produto marca para achar tentativas sem
    ligar eventos entre si. `campos` são os campos do catálogo que a busca olha (com os
    apelidos deles); `codigosDeBusca`, os dados pessoais que ela acha pelo código de busca;

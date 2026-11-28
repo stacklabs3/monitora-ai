@@ -97,12 +97,16 @@ const filtroJaEstaNaBusca = (filtrosDaBusca, nomeDoCampo, codigoDoOperador, valo
 const classeDoEstadoDemonstrado = (estadoDemonstrado) => (estadoDemonstrado ? `botao--${estadoDemonstrado}` : undefined);
 
 /* ---------- Peças do miolo ---------- */
-const SecaoDoEvento = ({ titulo, secao, children }) => (
+/* `acao` fica à direita do título da seção, à vista assim que a seção abre. */
+const SecaoDoEvento = ({ titulo, secao, acao, children }) => (
   <section aria-label={titulo} data-secao={secao} style={{
     display: 'flex', flexDirection: 'column', gap: 'var(--space-2)',
     paddingTop: 'var(--space-3)', borderTop: '1px solid var(--border)',
   }}>
-    <h3 style={{ margin: 0, fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--muted)' }}>{titulo}</h3>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+      <h3 style={{ margin: 0, fontSize: 11, fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--muted)' }}>{titulo}</h3>
+      {acao}
+    </div>
     {children}
   </section>
 );
@@ -337,7 +341,18 @@ const LinhaDeAtributo = ({ traduzir, linha, filtrosDaBusca, indisponivel, semInt
   );
 };
 
-const AtributosDoEvento = ({ traduzir, linhas, filtrosDaBusca, indisponivel, semInternet, estadoDemonstrado, aoFiltrar }) => {
+/* De qual evento aberto a pessoa foi ao catálogo de campos, para o "voltar" de lá. Fica só
+   na memória da página: num link aberto direto não há de onde voltar. */
+const ORIGEM_DO_CATALOGO = { endereco: null };
+
+const irAoCatalogoDeCampos = (navigate, papel, ondeEstou) => {
+  ORIGEM_DO_CATALOGO.endereco = window.location.hash;
+  navigate(ROTAS_DO_PAPEL[papel].catalogo, ondeEstou);
+};
+
+/* Com `aoAbrirCatalogo`, o evento que traz atributo não declarado leva ao catálogo de campos,
+   pelo botão ao lado do título da seção: é por onde o Investigador chega lá para ler. */
+const AtributosDoEvento = ({ traduzir, linhas, filtrosDaBusca, indisponivel, semInternet, estadoDemonstrado, aoFiltrar, aoAbrirCatalogo }) => {
   const estiloDoTitulo = {
     padding: '0 var(--space-2) var(--space-1) 0', borderBottom: '1px solid var(--border-strong)', textAlign: 'left',
     fontSize: 11, fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--muted)',
@@ -353,7 +368,17 @@ const AtributosDoEvento = ({ traduzir, linhas, filtrosDaBusca, indisponivel, sem
     situacoes.includes('codigo') && 'notaCodigoDeBusca',
   ].filter(Boolean);
   return (
-    <SecaoDoEvento titulo={traduzir('eventoSecaoAtributos')} secao="atributos">
+    <SecaoDoEvento
+      titulo={traduzir('eventoSecaoAtributos')} secao="atributos"
+      acao={situacoes.includes('naoDeclarado') && aoAbrirCatalogo && (
+        <Button
+          variant="secondary" compacto disabled={indisponivel} title={semInternet ? traduzir('motivoSemInternet') : undefined}
+          onClick={() => { if (!indisponivel) aoAbrirCatalogo(); }}
+        >
+          {traduzir('eventoVerNoCatalogo')}<IconArrow size={14} />
+        </Button>
+      )}
+    >
       {linhas.length === 0 && <p style={{ margin: 0, fontSize: 13, color: 'var(--muted)' }}>{traduzir('eventoSemAtributos')}</p>}
       {linhas.length > 0 && (
         <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
@@ -432,7 +457,7 @@ const ErroDoEvento = ({ traduzir, erro, indisponivel }) => (
    e a tabela de atributos encolhe com a coluna. */
 const DetalheDoEvento = ({
   traduzir, evento, catalogo, filtrosDaBusca, nomeDoProduto, nomeDoAmbiente,
-  indisponivel, semInternet, estadoDemonstrado, aoFiltrar, aoAbrirTentativa, tentativaAberta,
+  indisponivel, semInternet, estadoDemonstrado, aoFiltrar, aoAbrirTentativa, aoAbrirCatalogo, tentativaAberta,
 }) => {
   const linhas = useMemo(() => linhasDosAtributos(evento, catalogo), [evento, catalogo]);
   return (
@@ -446,7 +471,7 @@ const DetalheDoEvento = ({
       />
       <AtributosDoEvento
         traduzir={traduzir} linhas={linhas} filtrosDaBusca={filtrosDaBusca} indisponivel={indisponivel} semInternet={semInternet}
-        estadoDemonstrado={estadoDemonstrado} aoFiltrar={aoFiltrar}
+        estadoDemonstrado={estadoDemonstrado} aoFiltrar={aoFiltrar} aoAbrirCatalogo={aoAbrirCatalogo}
       />
       {evento.erro && <ErroDoEvento traduzir={traduzir} erro={evento.erro} indisponivel={indisponivel} />}
     </div>
@@ -499,7 +524,7 @@ const TEXTOS_DO_EVENTO_NA_BUSCA = { posicao: 'eventoPosicao', voltar: 'eventoVol
 const PainelDoEvento = ({
   traduzir, estado, evento, idDoEvento, catalogo, filtrosDaBusca, nomeDoProduto, nomeDoAmbiente,
   posicaoNaPagina, eventosNaPagina, enderecoDoEvento, secao, aoIrParaSecao, aoFechar, aoIrParaVizinho, aoFiltrar, aoAbrirTentativa,
-  tentativaAberta, chavesDeTexto = TEXTOS_DO_EVENTO_NA_BUSCA,
+  aoAbrirCatalogo, tentativaAberta, chavesDeTexto = TEXTOS_DO_EVENTO_NA_BUSCA,
 }) => {
   const painelRef = useRef(null);
   const mioloRolavelRef = useRef(null);
@@ -618,7 +643,7 @@ const PainelDoEvento = ({
             traduzir={traduzir} evento={evento} catalogo={catalogo} filtrosDaBusca={filtrosDaBusca}
             nomeDoProduto={nomeDoProduto} nomeDoAmbiente={nomeDoAmbiente}
             indisponivel={desabilitado || semInternet} semInternet={semInternet} estadoDemonstrado={estadoDemonstrado}
-            aoFiltrar={aoFiltrar} aoAbrirTentativa={aoAbrirTentativa} tentativaAberta={tentativaAberta}
+            aoFiltrar={aoFiltrar} aoAbrirTentativa={aoAbrirTentativa} aoAbrirCatalogo={aoAbrirCatalogo} tentativaAberta={tentativaAberta}
           />
         )}
       </div>

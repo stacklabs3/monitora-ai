@@ -116,12 +116,14 @@ const Card = ({ children, style }) => (
 );
 
 /* ---------- Field ---------- */
-const Field = ({ label, value, onChange, type = 'text', placeholder, error, disabled, inputMode, autoComplete, mono, dica, focarAoAbrir, aoTeclar, maximoDeLetras }) => {
+/* `rotuloSoParaLeitor` tira o rótulo da vista quando o exemplo dentro do campo já diz para
+   que ele serve (a procura numa barra de título); leitor de tela continua lendo o rótulo. */
+const Field = ({ label, value, onChange, type = 'text', placeholder, error, disabled, inputMode, autoComplete, mono, dica, focarAoAbrir, aoTeclar, maximoDeLetras, rotuloSoParaLeitor }) => {
   const [focus, setFocus] = useState(false);
   return (
-    <label style={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%' }}>
+    <label style={{ display: 'flex', flexDirection: 'column', gap: rotuloSoParaLeitor ? 0 : 4, width: '100%' }}>
       {label && (
-        <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--muted)' }}>{label}</span>
+        <span className={rotuloSoParaLeitor ? 'so-leitor' : undefined} style={{ fontSize: 12, fontWeight: 700, color: 'var(--muted)' }}>{label}</span>
       )}
       <input
         type={type}
@@ -333,6 +335,31 @@ const SeletorSegmentado = ({ rotulo, opcoes, valor, aoEscolher, disabled }) => (
       );
     })}
   </div>
+);
+
+/* ---------- Caixa de marcar ----------
+   Liga ou desliga uma opção que vale junto com outras (as buscas permitidas de um campo).
+   `dica` explica a opção logo abaixo do rótulo. O teclado marca com Enter ou espaço. */
+const LADO_DA_CAIXA_DE_MARCAR = 18;
+
+const CaixaDeMarcar = ({ rotulo, dica, marcada, aoMudar, disabled }) => (
+  <Press
+    role="checkbox" aria-checked={marcada} disabled={disabled} onClick={() => aoMudar(!marcada)}
+    style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--space-2)', borderRadius: 'var(--radius-sm)' }}
+  >
+    <span aria-hidden style={{
+      width: LADO_DA_CAIXA_DE_MARCAR, height: LADO_DA_CAIXA_DE_MARCAR, flexShrink: 0, marginTop: 1,
+      display: 'grid', placeItems: 'center', borderRadius: 'var(--radius-sm)',
+      border: `1px solid ${marcada ? 'var(--accent)' : 'var(--border-control)'}`,
+      background: marcada ? 'var(--accent)' : 'var(--input-bg)', color: 'var(--on-accent)',
+    }}>
+      {marcada && <IconCheck size={14} />}
+    </span>
+    <span style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+      <span style={{ fontSize: 13.5, fontWeight: 700, color: 'var(--fg)' }}>{rotulo}</span>
+      {dica && <span style={{ fontSize: 12.5, color: 'var(--muted)', lineHeight: 1.4 }}>{dica}</span>}
+    </span>
+  </Press>
 );
 
 /* ---------- Mensagem de estado ----------
