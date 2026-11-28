@@ -7,6 +7,9 @@ ADR em que o humano o aprovou. Como ler e usar este registro: [docs/agents/risco
   em que a coordenação aprovou os riscos por delegação do responsável pelo produto (20/11/2026).
 - **Origem `#66`** é o ticket [Medir o painel em Solid no fluxo real](https://github.com/stacklabs3/monitora-ai/issues/66),
   em que a coordenação aprovou o risco por delegação (28/11/2026).
+- **Origem `#100`** é o [Spec: fase 1, primeiro erro no painel](https://github.com/stacklabs3/monitora-ai/issues/100),
+  em que a coordenação aprovou o risco por delegação (28/11/2026). **Situação `pendente #100`** espera a
+  fatia desse spec que cobre o risco.
 - **Situação `pendente #35`** aponta o [Mapa: fases do desenvolvimento](https://github.com/stacklabs3/monitora-ai/issues/35):
   ainda não há fatia. O `/to-spec` de cada fase troca o `#35` pela fatia que cobre o risco.
 - **Onde** usa os módulos do [ADR 0003](adr/0003-modulos-e-seams-do-servidor.md), mais "biblioteca"
@@ -50,6 +53,7 @@ ADR em que o humano o aprovou. Como ler e usar este registro: [docs/agents/risco
 | RK20 | Busca, evento aberto, mudança de permissão, de chave, de retenção ou exclusão não fica na auditoria; ou a auditoria guarda o termo sem máscara, guarda o padrão da regex ou aceita edição | não dá para saber quem viu o dado da Ana, ou a própria auditoria vaza o CPF buscado | auditoria | #45: aprovado pela coordenação, por delegação | pendente #35 |
 | RK21 | Texto livre ou regex alcança nome, valor mascarado ou código de busca | buscar `456` devolve os eventos com `***.456.789-**` e ajuda a reconstruir o CPF | consulta, guarda de eventos | #45: aprovado pela coordenação, por delegação | pendente #35 |
 | RK22 | O alerta leva conteúdo do evento ou dado pessoal, além de condição, aplicação, ambiente, contagem, horário e link | dado de cliente sai da plataforma e fica nos servidores do Telegram | alertas | #45: aprovado pela coordenação, por delegação | pendente #35 |
+| RK39 | A entrada no painel ou a falha de entrada (senha ou segundo fator errado) não fica na auditoria, com quem, quando e de onde | alguém tenta o código do segundo fator dez vezes e ninguém fica sabendo; não dá para dizer quem estava no painel às 3h | acesso, auditoria | #100: aprovado pela coordenação, por delegação | pendente #100 |
 
 ## Retenção e exclusão
 
