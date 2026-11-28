@@ -56,7 +56,7 @@ Decidido em [Definir módulos e seams principais](https://github.com/stacklabs3/
 
 ## Ainda em aberto
 
-- Onde roda a avaliação dos alertas: no recebimento, por consulta periódica à guarda ou só no módulo de alertas.
+- Onde roda a avaliação dos alertas: decidido no [ADR 0008](0008-avaliacao-dos-alertas-no-modulo-de-alertas.md). Roda no módulo de alertas, que lê a saúde do envio e conta pela guarda.
 - Como os módulos se escrevem em Rust: em [Desenho de módulos e SOLID](https://github.com/stacklabs3/monitora-ai/issues/44). Se os módulos ganham um adaptador da guarda em memória para os testes: em [Definir a estratégia de testes por fase](https://github.com/stacklabs3/monitora-ai/issues/39).
 
 ## Fontes
