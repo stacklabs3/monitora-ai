@@ -24,6 +24,11 @@ const BUSCA_DA_RESERVA = 'p=1h;f=reservationId:e:R-1042';
 const EVENTO_DO_CARTAO_SEM_LIMITE = 'ev-1042-06';
 const TENTATIVA_DA_RESERVA = { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1042' };
 
+/* O cenário das rotinas Administrar: a chave gerada no cadastro da API de parceiros e a
+   chave do servidor antigo do Site, as duas de data.jsx. */
+const CHAVE_DA_API_DE_PARCEIROS = { ...PAINEL_DO_EXCURFLY, aplicacao: 'api-de-parceiros', chave: 'ex7a' };
+const CHAVE_ANTIGA_DO_SITE = { ...PAINEL_DO_EXCURFLY, aplicacao: 'site', chave: 'ex2b' };
+
 /* Uma rotina é o trabalho inteiro de alguém, em telas na ordem em que acontecem.
    `telas` são rotas de router.jsx, com os params da tela quando ela precisa. */
 const ROTINAS = [
@@ -143,6 +148,47 @@ const ROTINAS = [
       { rota: 'TENTATIVA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1046' } },
       { rota: 'TENTATIVA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1047' } },
     ],
+  },
+  /* Prototipar aplicações e chaves de envio (issue 71). Só o Administrador. No cenário a API,
+     o Site e os Webhooks já enviam de produção; a rotina cadastra uma aplicação que ainda
+     não existe ali, a API de parceiros. A chave inteira aparece uma vez só.
+     Caminho: menu "Aplicações e chaves de envio" → "Cadastrar aplicação" → digitar
+     API de parceiros e "Cadastrar e gerar a chave" (ou Enter). */
+  {
+    id: 'cadastrar-aplicacao',
+    visao: 'painel',
+    rotulo: 'Cadastrar uma aplicação e gerar a chave de envio',
+    telas: [
+      { rota: 'PAINEL_ADMINISTRADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'APLICACOES_ADMINISTRADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'APLICACAO_NOVA_ADMINISTRADOR', params: { ...PAINEL_DO_EXCURFLY, passo: 'nova' } },
+      { rota: 'CHAVE_PASSO_ADMINISTRADOR', params: { ...CHAVE_DA_API_DE_PARCEIROS, passo: 'gerada' } },
+    ],
+  },
+  /* A chave mostrada uma vez: copiar e fechar. Depois de fechar, a lista só mostra o começo.
+     Caminho: "Copiar a chave" → "Já guardei a chave". */
+  {
+    id: 'guardar-a-chave',
+    visao: 'painel',
+    rotulo: 'Copiar a chave de envio, mostrada uma vez só',
+    telas: [
+      { rota: 'CHAVE_PASSO_ADMINISTRADOR', params: { ...CHAVE_DA_API_DE_PARCEIROS, passo: 'gerada' } },
+      { rota: 'CHAVE_ADMINISTRADOR', params: CHAVE_DA_API_DE_PARCEIROS },
+    ],
+    metaDeToques: 2,
+  },
+  /* Revogar pede confirmação com o nome e a consequência. Caminho: "Revogar" na chave
+     "servidor antigo" do Site → "Revogar a chave". */
+  {
+    id: 'revogar-chave',
+    visao: 'painel',
+    rotulo: 'Revogar uma chave de envio',
+    telas: [
+      { rota: 'APLICACOES_ADMINISTRADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'CHAVE_PASSO_ADMINISTRADOR', params: { ...CHAVE_ANTIGA_DO_SITE, passo: 'revogar' } },
+      { rota: 'CHAVE_PASSO_ADMINISTRADOR', params: { ...CHAVE_ANTIGA_DO_SITE, passo: 'revogada' } },
+    ],
+    metaDeToques: 2,
   },
   {
     id: 'entrar-pelo-celular',

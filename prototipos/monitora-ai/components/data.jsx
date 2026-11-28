@@ -397,6 +397,71 @@ const EVENTOS_DO_ALERTA = [
   { id: 'al-06', horario: '23:03:22.761', nivel: 'erro', aplicacao: 'API', mensagem: 'NullPointerException at PurchaseService.confirm' },
 ];
 
+/* ---------- Aplicações e chaves de envio (sintético) ----------
+   Cada aplicação tem a sua chave de envio em cada ambiente, com até duas ativas ao mesmo
+   tempo (a troca é manual). O painel só conhece o começo de cada chave: a chave inteira
+   aparece uma vez, ao gerar. Nenhum valor aqui é ou parece uma chave de verdade: a chave
+   inteira do protótipo traz escrito que é exemplo. */
+const LIMITE_DE_CHAVES_ATIVAS = 2;
+const PREFIXO_DA_CHAVE_POR_AMBIENTE = { producao: 'mk_prod_', homologacao: 'mk_homol_' };
+const RESTO_DA_CHAVE_SINTETICA = '_EXEMPLO-nao-e-uma-chave-real';
+/* O miolo que distingue as chaves geradas no protótipo, na ordem em que saem. */
+const MIOLOS_DE_CHAVE_GERADA = ['ex7a', 'ex8b', 'ex9c', 'ex0d'];
+const SEGUNDA_PESSOA_EXEMPLO = { nome: 'Segunda Pessoa' };
+
+const DIA_DO_CENARIO = 27;
+const instanteDiasAntes = (diasAntes, hora, minuto = 0, segundo = 0) => instanteNoFusoDoPainel(DIA_DO_CENARIO - diasAntes, hora, minuto, segundo);
+
+/* No cenário, a API, o Site e os Webhooks do Excurfly já enviam eventos de produção. O Site
+   está no meio de uma troca de chave: a do servidor antigo não envia desde o dia 20. */
+const APLICACOES_CADASTRADAS = {
+  excurfly: {
+    producao: [
+      {
+        id: 'api', nome: 'API',
+        chaves: [
+          { id: 'ex3f', apelido: 'servidor da API', criadaEm: instanteDiasAntes(260, 10, 14), criadaPor: PESSOA_EXEMPLO.nome, ultimoEnvioEm: instanteDiasAntes(0, 14, 59, 52) },
+          {
+            id: 'ex1c', apelido: 'teste de carga', criadaEm: instanteDiasAntes(120, 16, 2), criadaPor: SEGUNDA_PESSOA_EXEMPLO.nome, ultimoEnvioEm: instanteDiasAntes(92, 18, 47),
+            revogadaEm: instanteDiasAntes(90, 9, 30), revogadaPor: PESSOA_EXEMPLO.nome,
+          },
+        ],
+      },
+      {
+        id: 'site', nome: 'Site',
+        chaves: [
+          { id: 'ex2b', apelido: 'servidor antigo', criadaEm: instanteDiasAntes(260, 10, 21), criadaPor: PESSOA_EXEMPLO.nome, ultimoEnvioEm: instanteDiasAntes(7, 9, 12) },
+          { id: 'ex5d', apelido: 'servidor novo', criadaEm: instanteDiasAntes(7, 8, 40), criadaPor: PESSOA_EXEMPLO.nome, ultimoEnvioEm: instanteDiasAntes(0, 14, 59, 58) },
+        ],
+      },
+      {
+        id: 'webhooks', nome: 'Webhooks',
+        chaves: [
+          { id: 'ex4e', apelido: 'servidor dos webhooks', criadaEm: instanteDiasAntes(198, 11, 5), criadaPor: SEGUNDA_PESSOA_EXEMPLO.nome, ultimoEnvioEm: instanteDiasAntes(0, 14, 59, 31) },
+        ],
+      },
+    ],
+    homologacao: [
+      {
+        id: 'api', nome: 'API',
+        chaves: [
+          { id: 'ex6a', apelido: 'servidor de homologação', criadaEm: instanteDiasAntes(255, 15, 30), criadaPor: PESSOA_EXEMPLO.nome, ultimoEnvioEm: instanteDiasAntes(0, 14, 41, 3) },
+        ],
+      },
+      {
+        id: 'site', nome: 'Site',
+        chaves: [
+          { id: 'ex6b', apelido: '', criadaEm: instanteDiasAntes(255, 15, 34), criadaPor: PESSOA_EXEMPLO.nome, ultimoEnvioEm: null },
+        ],
+      },
+    ],
+  },
+  demonstracao: {},
+};
+
+/* A aplicação que a rotina de cadastro cria: ainda não existe em produção. */
+const APLICACAO_DO_EXEMPLO_DE_CADASTRO = { id: 'api-de-parceiros', nome: 'API de parceiros' };
+
 /* Superfície e tema de abertura vêm da aba ativa, em visoes.jsx. */
 const DEFAULTS = {
   estado: 'default',

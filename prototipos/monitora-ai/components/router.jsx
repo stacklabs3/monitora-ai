@@ -37,6 +37,13 @@ const ROUTES = {
   /* A linha do tempo já rolada até uma parte dela (o que fica à parte, embaixo). */
   TENTATIVA_SECAO_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/tentativas/:campo/:valor/secao/:secao',
   TENTATIVA_SECAO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/tentativas/:campo/:valor/secao/:secao',
+  /* Aplicações e chaves de envio: só o Administrador. A lista, o cadastro (`passo` = nova),
+     a lista logo depois de guardar uma chave gerada (`chave` = nova abre o pedido de mais uma
+     chave) e os passos de uma chave (`passo` = gerada, revogar ou revogada). */
+  APLICACOES_ADMINISTRADOR:     '#/painel/:produto/:ambiente/administrador/aplicacoes',
+  APLICACAO_NOVA_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/aplicacoes/:passo',
+  CHAVE_ADMINISTRADOR:          '#/painel/:produto/:ambiente/administrador/aplicacoes/:aplicacao/chaves/:chave',
+  CHAVE_PASSO_ADMINISTRADOR:    '#/painel/:produto/:ambiente/administrador/aplicacoes/:aplicacao/chaves/:chave/:passo',
   ALERTA_NO_CELULAR:    '#/alerta/:idDoAlerta',
   MENSAGEM_DO_ALERTA:   '#/telegram/:idDoAlerta',
 };

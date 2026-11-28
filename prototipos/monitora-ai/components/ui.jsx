@@ -385,21 +385,84 @@ const AvisoDeErro = ({ titulo, corpo, acao }) => (
 /* ---------- Aviso de atenção dentro da tela ----------
    O resultado veio, mas com uma ressalva que a pessoa precisa ler (parcial, "rápido
    desde"). Anunciado a leitor de tela sem tirar o foco. */
-const AvisoDeAtencao = ({ titulo, corpo, acao }) => (
-  <div role="status" aria-live="polite" style={{
-    display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start',
-    padding: 'var(--space-3) var(--space-4)',
-    background: 'var(--warn-soft)', color: 'var(--fg)',
-    border: '1px solid var(--warn)', borderRadius: 'var(--radius-md)',
-  }}>
-    <IconAlert size={20} style={{ color: 'var(--warn)', flexShrink: 0, marginTop: 1 }} />
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', flex: 1, minWidth: 0 }}>
-      <div style={{ fontSize: 14, fontWeight: 800 }}>{titulo}</div>
-      {corpo && <div style={{ fontSize: 13, lineHeight: 1.45 }}>{corpo}</div>}
+const TONS_DO_AVISO = {
+  atencao: { fundo: 'var(--warn-soft)', contorno: 'var(--warn)', icone: IconAlert },
+  feito: { fundo: 'var(--ok-soft)', contorno: 'var(--ok)', icone: IconCheck },
+};
+
+/* `tom="feito"` confirma o que acabou de ser feito (chave revogada), com o mesmo desenho. */
+const AvisoDeAtencao = ({ titulo, corpo, acao, tom = 'atencao' }) => {
+  const { fundo, contorno, icone: IconeDoTom } = TONS_DO_AVISO[tom] || TONS_DO_AVISO.atencao;
+  return (
+    <div role="status" aria-live="polite" style={{
+      display: 'flex', gap: 'var(--space-3)', alignItems: 'flex-start',
+      padding: 'var(--space-3) var(--space-4)',
+      background: fundo, color: 'var(--fg)',
+      border: `1px solid ${contorno}`, borderRadius: 'var(--radius-md)',
+    }}>
+      <IconeDoTom size={20} style={{ color: contorno, flexShrink: 0, marginTop: 1 }} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)', flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 14, fontWeight: 800 }}>{titulo}</div>
+        {corpo && <div style={{ fontSize: 13, lineHeight: 1.45 }}>{corpo}</div>}
+      </div>
+      {acao && <div style={{ flexShrink: 0, alignSelf: 'center' }}>{acao}</div>}
     </div>
-    {acao && <div style={{ flexShrink: 0, alignSelf: 'center' }}>{acao}</div>}
-  </div>
-);
+  );
+};
+
+/* ---------- Janela de diálogo ----------
+   Janela por cima da tela, que prende o foco do teclado enquanto está aberta. O foco entra
+   no elemento marcado com `data-foco-inicial` (ou na própria janela). Com `aoFechar`, Esc e
+   o clique fora fecham; sem ele, a janela só fecha pelos botões de dentro: serve ao que a
+   pessoa não pode perder por um toque sem querer. Devolver o foco é de quem abriu. */
+const SELETOR_DE_FOCAVEIS = 'input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]';
+
+const JanelaDeDialogo = ({ titulo, largura = 480, papel = 'dialog', aoFechar, children }) => {
+  const janelaRef = useRef(null);
+  const aoFecharRef = useRef(aoFechar);
+  const idDoTitulo = React.useId();
+  aoFecharRef.current = aoFechar;
+
+  useEffect(() => {
+    const janela = janelaRef.current;
+    if (!janela.contains(document.activeElement)) (janela.querySelector('[data-foco-inicial]') || janela).focus();
+    const teclar = (eventoDeTeclado) => {
+      if (eventoDeTeclado.key === 'Escape' && aoFecharRef.current) { aoFecharRef.current(); return; }
+      if (eventoDeTeclado.key !== 'Tab') return;
+      const focaveis = [...janela.querySelectorAll(SELETOR_DE_FOCAVEIS)];
+      if (focaveis.length === 0) { eventoDeTeclado.preventDefault(); janela.focus(); return; }
+      const primeiroFocavel = focaveis[0];
+      const ultimoFocavel = focaveis[focaveis.length - 1];
+      const focoAtual = document.activeElement;
+      const focoFora = !janela.contains(focoAtual) || focoAtual === janela;
+      if (eventoDeTeclado.shiftKey && (focoFora || focoAtual === primeiroFocavel)) { eventoDeTeclado.preventDefault(); ultimoFocavel.focus(); }
+      if (!eventoDeTeclado.shiftKey && (focoFora || focoAtual === ultimoFocavel)) { eventoDeTeclado.preventDefault(); primeiroFocavel.focus(); }
+    };
+    window.addEventListener('keydown', teclar);
+    return () => window.removeEventListener('keydown', teclar);
+  }, []);
+
+  return (
+    <div style={{
+      position: 'absolute', inset: 0, background: 'var(--veu)', zIndex: 20,
+      display: 'grid', placeItems: 'center', padding: 'var(--space-4)',
+    }} onClick={() => aoFechar && aoFechar()}>
+      <div
+        ref={janelaRef} role={papel} aria-modal="true" aria-labelledby={idDoTitulo} tabIndex={-1}
+        onClick={(eventoDeClique) => eventoDeClique.stopPropagation()}
+        style={{
+          width: largura, maxWidth: '100%', background: 'var(--surface)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)',
+          border: '1px solid var(--border)', padding: 'var(--space-5)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
+          /* O foco na janela inteira é só o ponto de partida do teclado: não ganha contorno. */
+          outline: 'none',
+        }}
+      >
+        <h2 id={idDoTitulo} style={{ margin: 0, fontSize: 17, fontWeight: 800, lineHeight: 1.3 }}>{titulo}</h2>
+        {children}
+      </div>
+    </div>
+  );
+};
 
 /* ---------- Tecla ---------- */
 const Tecla = ({ children }) => (
@@ -525,7 +588,8 @@ const ComDica = ({ dica, alinharADireita, mostrar, children }) => {
    tela. No protótipo a confirmação aparece sempre; no painel, só quando o navegador aceita. */
 const SEGUNDOS_DA_CONFIRMACAO_DE_COPIA = 2;
 
-const BotaoDeCopiar = ({ rotulo, rotuloCopiado, texto, disabled, className }) => {
+/* `focoInicial` faz o foco entrar neste botão quando ele abre dentro de uma JanelaDeDialogo. */
+const BotaoDeCopiar = ({ rotulo, rotuloCopiado, texto, disabled, className, focoInicial }) => {
   const [copiado, setCopiado] = useState(false);
   useEffect(() => {
     if (!copiado) return undefined;
@@ -541,7 +605,7 @@ const BotaoDeCopiar = ({ rotulo, rotuloCopiado, texto, disabled, className }) =>
   };
   return (
     <React.Fragment>
-      <Button variant="secondary" compacto disabled={disabled} className={className} onClick={copiar}>
+      <Button variant="secondary" compacto disabled={disabled} className={className} onClick={copiar} data-foco-inicial={focoInicial && !disabled ? true : undefined}>
         {copiado ? <IconCheck size={14} /> : <IconCopy size={14} />}
         {copiado ? rotuloCopiado : rotulo}
       </Button>

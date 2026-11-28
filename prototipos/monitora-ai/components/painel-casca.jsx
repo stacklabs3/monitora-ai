@@ -2,7 +2,8 @@
 // Produto e ambiente sempre à vista; seletor de papel; menu das rotinas; tema; atalhos de
 // teclado. O miolo de cada rotina entra como filho da CascaDoPainel: a busca de eventos
 // está em busca.jsx, o detalhe do evento em evento.jsx e as tentativas, com a linha do
-// tempo, em tentativa.jsx. O menu leva à busca e às tentativas.
+// tempo, em tentativa.jsx; as aplicações e chaves de envio, em aplicacoes.jsx. O menu leva
+// à busca, às tentativas e, para o Administrador, às aplicações e chaves de envio.
 
 const LARGURA_DO_MENU_DO_PAINEL = 236;
 const LARGURA_DA_JANELA_DE_ATALHOS = 420;
@@ -40,6 +41,9 @@ const ROTAS_DO_PAPEL = {
     abertura: 'PAINEL_ADMINISTRADOR', busca: 'BUSCA_ADMINISTRADOR', evento: 'EVENTO_ADMINISTRADOR', eventoNaSecao: 'EVENTO_SECAO_ADMINISTRADOR',
     tentativas: 'TENTATIVAS_ADMINISTRADOR', tentativasAchadas: 'TENTATIVAS_ACHADAS_ADMINISTRADOR',
     tentativa: 'TENTATIVA_ADMINISTRADOR', eventoDaTentativa: 'TENTATIVA_EVENTO_ADMINISTRADOR', secaoDaTentativa: 'TENTATIVA_SECAO_ADMINISTRADOR',
+    /* Só o Administrador: o Investigador não tem estas rotas nem vê o item no menu. */
+    aplicacoes: 'APLICACOES_ADMINISTRADOR', aplicacaoNova: 'APLICACAO_NOVA_ADMINISTRADOR',
+    chave: 'CHAVE_ADMINISTRADOR', passoDaChave: 'CHAVE_PASSO_ADMINISTRADOR',
   },
 };
 
@@ -72,7 +76,7 @@ const SecaoDoMenu = ({ titulo, children }) => (
   </div>
 );
 
-/* `itemAtual` diz em que rotina a pessoa está: 'busca' ou 'tentativas'. */
+/* `itemAtual` diz em que rotina a pessoa está: 'busca', 'tentativas' ou 'aplicacoes'. */
 const MenuDoPainel = ({ traduzir, papel, itemAtual, aoIrPara }) => (
   <nav aria-label={traduzir('cascaMenu')} style={{
     width: LARGURA_DO_MENU_DO_PAINEL, flexShrink: 0, padding: 'var(--space-3)',
@@ -87,7 +91,7 @@ const MenuDoPainel = ({ traduzir, papel, itemAtual, aoIrPara }) => (
     </SecaoDoMenu>
     {papel === 'administrador' && (
       <SecaoDoMenu titulo={traduzir('menuAdministrar')}>
-        <ItemDoMenu icone={IconKey} rotulo={traduzir('menuAplicacoes')} />
+        <ItemDoMenu icone={IconKey} rotulo={traduzir('menuAplicacoes')} atual={itemAtual === 'aplicacoes'} aoClicar={() => aoIrPara('aplicacoes')} />
         <ItemDoMenu icone={IconDatabase} rotulo={traduzir('menuCatalogo')} />
         <ItemDoMenu icone={IconBell} rotulo={traduzir('menuAdministrarAlertas')} />
       </SecaoDoMenu>
@@ -172,35 +176,22 @@ const BarraDoPainel = ({ traduzir, params, papel, desabilitado, abrirAtalhos, ao
 };
 
 const JanelaDeAtalhos = ({ traduzir, fechar }) => {
-  const botaoFecharRef = useRef(null);
-  useEffect(() => { botaoFecharRef.current?.focus(); }, []);
   const atalhos = [
     ['/', 'atalhoBusca'], ['↑ ↓', 'atalhoSetas'], ['Enter', 'atalhoEnter'], ['Esc', 'atalhoEsc'], ['?', 'atalhoAjuda'],
   ];
   return (
-    <div style={{
-      position: 'absolute', inset: 0, background: 'var(--veu)', zIndex: 20,
-      display: 'grid', placeItems: 'center',
-    }} onClick={fechar}>
-      <div role="dialog" aria-modal="true" aria-labelledby="titulo-dos-atalhos"
-        onClick={(eventoDeClique) => eventoDeClique.stopPropagation()}
-        style={{
-          width: LARGURA_DA_JANELA_DE_ATALHOS, background: 'var(--surface)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)',
-          border: '1px solid var(--border)', padding: 'var(--space-5)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
-        }}>
-        <h2 id="titulo-dos-atalhos" style={{ margin: 0, fontSize: 17, fontWeight: 800 }}>{traduzir('atalhosTitulo')}</h2>
-        <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 'var(--space-2) var(--space-4)', alignItems: 'center' }}>
-          {atalhos.map(([tecla, chaveDoTexto]) => (
-            <React.Fragment key={chaveDoTexto}>
-              <dt><Tecla>{tecla}</Tecla></dt>
-              <dd style={{ margin: 0, fontSize: 13.5 }}>{traduzir(chaveDoTexto)}</dd>
-            </React.Fragment>
-          ))}
-        </dl>
-        <p style={{ margin: 0, fontSize: 12.5, color: 'var(--muted)', lineHeight: 1.45 }}>{traduzir('atalhosNota')}</p>
-        <Button variant="secondary" ref={botaoFecharRef} onClick={fechar}>{traduzir('fechar')}</Button>
-      </div>
-    </div>
+    <JanelaDeDialogo titulo={traduzir('atalhosTitulo')} largura={LARGURA_DA_JANELA_DE_ATALHOS} aoFechar={fechar}>
+      <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 'var(--space-2) var(--space-4)', alignItems: 'center' }}>
+        {atalhos.map(([tecla, chaveDoTexto]) => (
+          <React.Fragment key={chaveDoTexto}>
+            <dt><Tecla>{tecla}</Tecla></dt>
+            <dd style={{ margin: 0, fontSize: 13.5 }}>{traduzir(chaveDoTexto)}</dd>
+          </React.Fragment>
+        ))}
+      </dl>
+      <p style={{ margin: 0, fontSize: 12.5, color: 'var(--muted)', lineHeight: 1.45 }}>{traduzir('atalhosNota')}</p>
+      <Button variant="secondary" data-foco-inicial onClick={fechar}>{traduzir('fechar')}</Button>
+    </JanelaDeDialogo>
   );
 };
 
@@ -216,12 +207,22 @@ const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaR
   /* O menu leva à abertura de cada rotina, no mesmo produto, ambiente e papel. */
   const irParaOItemDoMenu = (rotaDoItem) => navigate(ROTAS_DO_PAPEL[papel][rotaDoItem], { produto: params.produto, ambiente: params.ambiente });
 
+  /* Fechada a janela de atalhos, o foco volta a quem a abriu. */
+  const quemAbriuOsAtalhosRef = useRef(null);
+  const abrirAtalhos = () => { quemAbriuOsAtalhosRef.current = document.activeElement; setAtalhosAbertos(true); };
+  const fecharAtalhos = () => {
+    setAtalhosAbertos(false);
+    const quemAbriu = quemAbriuOsAtalhosRef.current;
+    quemAbriuOsAtalhosRef.current = null;
+    if (quemAbriu?.isConnected) quemAbriu.focus();
+  };
+
   useEffect(() => {
     const teclar = (eventoDeTeclado) => {
-      if (eventoDeTeclado.key === 'Escape') { setAtalhosAbertos(false); return; }
+      if (eventoDeTeclado.key === 'Escape') return;
       if (ehCampoDeDigitar(document.activeElement)) return;
       if (eventoDeTeclado.key === '/') { eventoDeTeclado.preventDefault(); campoDeBuscaRef?.current?.focus(); }
-      if (eventoDeTeclado.key === '?') { eventoDeTeclado.preventDefault(); setAtalhosAbertos(true); }
+      if (eventoDeTeclado.key === '?') { eventoDeTeclado.preventDefault(); abrirAtalhos(); }
     };
     window.addEventListener('keydown', teclar);
     return () => window.removeEventListener('keydown', teclar);
@@ -234,7 +235,7 @@ const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaR
     }}>
       <BarraDoPainel
         traduzir={traduzir} params={params} papel={papel} desabilitado={desabilitado}
-        abrirAtalhos={() => setAtalhosAbertos(true)} aoMudar={aoMudar}
+        abrirAtalhos={abrirAtalhos} aoMudar={aoMudar}
       />
       <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
         <MenuDoPainel traduzir={traduzir} papel={papel} itemAtual={itemAtual} aoIrPara={irParaOItemDoMenu} />
@@ -242,7 +243,7 @@ const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaR
           {children}
         </main>
       </div>
-      {atalhosAbertos && <JanelaDeAtalhos traduzir={traduzir} fechar={() => setAtalhosAbertos(false)} />}
+      {atalhosAbertos && <JanelaDeAtalhos traduzir={traduzir} fechar={fecharAtalhos} />}
     </div>
   );
 };

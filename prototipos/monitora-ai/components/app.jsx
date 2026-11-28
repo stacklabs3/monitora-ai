@@ -43,6 +43,12 @@ const SCREEN_MAP = {
   TENTATIVA_EVENTO_ADMINISTRADOR: TelaTentativaAdministrador,
   TENTATIVA_SECAO_INVESTIGADOR: TelaTentativaInvestigador,
   TENTATIVA_SECAO_ADMINISTRADOR: TelaTentativaAdministrador,
+  /* Aplicações e chaves de envio: uma tela só; o cadastro, a chave gerada e a confirmação
+     de revogar abrem por cima da lista, pelo que vem nos params. */
+  APLICACOES_ADMINISTRADOR: TelaAplicacoesAdministrador,
+  APLICACAO_NOVA_ADMINISTRADOR: TelaAplicacoesAdministrador,
+  CHAVE_ADMINISTRADOR: TelaAplicacoesAdministrador,
+  CHAVE_PASSO_ADMINISTRADOR: TelaAplicacoesAdministrador,
   ALERTA_NO_CELULAR: TelaAlertaNoCelular,
   MENSAGEM_DO_ALERTA: TelaMensagemDoAlerta,
 };
