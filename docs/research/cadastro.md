@@ -51,7 +51,7 @@ fecha a transação impede o checkpoint de terminar e o WAL "cresce sem limite" 
 50 execuções dão 1,7 gravação por segundo. Latência de commit nesse ritmo no disco do Lightsail: **sem
 medida**.
 
-**Memória.** Padrão de 2.048.000 bytes de cache por arquivo aberto e por conexão; `sqlite3_soft_heap_limit64`
+**Memória.** Padrão de 2.048.000 bytes de cache por arquivo de banco aberto; `sqlite3_soft_heap_limit64`
 põe um teto que o SQLite tenta respeitar [S8][S15]. "O SQLite em geral roda mais rápido quanto mais memória
 recebe; o desempenho costuma ser bom mesmo com pouca" [S7]. RSS de um processo real: **sem medida**.
 
@@ -164,8 +164,8 @@ Fatos que pesam na escolha:
   Tempo de build de `rusqlite` contra `sqlx`: **sem medida**.
 - **MSRV:** `rusqlite` 1.89; `sqlx` 1.94; `deadpool-sqlite` e `async-sqlite` 1.95 [B1][B2][B7][B9].
 - **Maturidade de API:** todos os crates de SQLite da tabela são 0.x; `rusqlite_migration` é 2.x. O
-  `rusqlite` teve quatro versões entre 2026-10-28 e 2026-11-15 (0.41.1, 0.42.0, 0.43.0 e 0.41.0 antes), a
-  0.43.0 com três correções de uso de memória já liberada [B3].
+  `rusqlite` teve três versões entre 2026-10-28 e 2026-11-15 (0.41.1, 0.42.0 e 0.43.0), a 0.43.0 com três
+  correções de uso de memória já liberada [B3].
 - **Segurança de memória:** o `sqlx` é `#![forbid(unsafe_code)]`, exceto com a feature `sqlite`, que chama a
   API em C [B4].
 
@@ -179,9 +179,9 @@ O que existe de mais próximo, e não responde à pergunta:
 
 - **AWS Database Blog** (não é o projeto PostgreSQL; mede RDS PostgreSQL 11.6 em `db.m5.large`, 8 GB): 100
   conexões ociosas gastaram cerca de 150 MB, 1,5 MB por conexão; depois de consultas e tabelas temporárias,
-  de 10 a 14,5 MB por conexão. Mede o custo por conexão, não o piso do servidor, e numa versão de 2019 [M1].
+  de 10 a 14,5 MB por conexão. Mede o custo por conexão, não o piso do servidor, e na versão 11.6 [M1].
 - **Configuração documentada, não medida:** os padrões do PostgreSQL reservam 128 MB de `shared_buffers`
-  [P4]; o padrão do SQLite é 2.048.000 bytes de cache por conexão [S8]. São tetos de configuração, não o
+  [P4]; o padrão do SQLite é 2.048.000 bytes de cache por arquivo aberto [S8]. São tetos de configuração, não o
   RSS observado.
 
 ## Lacunas
