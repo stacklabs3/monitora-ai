@@ -1,0 +1,1831 @@
+{
+  "versao": 1,
+  "projeto": {
+    "codigo": [
+      "servidor/**",
+      "painel/**",
+      "biblioteca-node/**",
+      "biblioteca-java/**",
+      "contrato/**"
+    ],
+    "ignorar": [
+      "**/target/**",
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/*.gerado.*"
+    ]
+  },
+  "regras": [
+    {
+      "id": "R1",
+      "principio": "E1",
+      "texto": "Nome em português sem acento, com o termo exato do glossário",
+      "verificacao": {
+        "tipo": "termo-evitado",
+        "glossario": "GLOSSARY.md"
+      }
+    },
+    {
+      "id": "R2",
+      "principio": "E1",
+      "texto": "Nenhum nome de uma letra; caixa da linguagem; booleano começa com esta, tem, pode ou foi",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R2 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "min_ident_chars",
+            "nonstandard_style",
+            "wrong_self_convention"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R3",
+      "principio": "E1",
+      "texto": "Parâmetro de tipo e lifetime têm nome",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R3 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/parametro-de-tipo-sem-nome.yml",
+            "docs/regras-de-codigo/ast-grep/lifetime-sem-nome.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R4",
+      "principio": "E1",
+      "texto": "Número leva a unidade, horário sem fuso no tipo leva _utc e nome de fora fica na borda",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R5",
+      "principio": "E2",
+      "texto": "Função com até 3 níveis de aninhamento, 3 parâmetros e 60 linhas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R5 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "too_many_arguments",
+            "too_many_lines",
+            "excessive_nesting",
+            "manual_let_else"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R6",
+      "principio": "E3",
+      "texto": "Conceito do evento tem tipo próprio, que só se constrói válido e se converte uma vez, na borda",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R7",
+      "principio": "E3",
+      "texto": "Interface de módulo não leva tipo cru: serde_json::Value, bool solto, any, nulo sem tipo",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R7 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "disallowed_types",
+            "fn_params_excessive_bools",
+            "struct_excessive_bools"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R9",
+      "principio": "E3",
+      "texto": "Campos do evento têm fonte única no arquivo do contrato /v1, conferida por teste de paridade",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R9 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && cargo test --locked paridade_do_contrato"
+        }
+      }
+    },
+    {
+      "id": "R10",
+      "principio": "E3",
+      "texto": "Chave de envio e chave de códigos têm tipo cuja impressão não mostra o valor",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R11",
+      "principio": "E4",
+      "texto": "Erro previsto volta como resultado com tipo próprio, que separa recusa de falha",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R11 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/erro-sem-tipo.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R12",
+      "principio": "E4",
+      "texto": "Nenhuma falha é descartada",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R12 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "unused_must_use",
+            "let_underscore_must_use",
+            "unused_result_ok",
+            "map_err_ignore",
+            "result_unit_err"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R13",
+      "principio": "E4",
+      "texto": "Nenhum ramo de erro vazio ou que só registra",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R13 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/catch-vazio.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R14",
+      "principio": "E4",
+      "texto": "Verificador só se cala com o porquê ao lado",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R14 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "allow_attributes",
+            "allow_attributes_without_reason"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R15",
+      "principio": "E4",
+      "texto": "A biblioteca nunca lança erro nem devolve promessa rejeitada para a aplicação",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R16",
+      "principio": "E4",
+      "texto": "O código cumpre os lints e o typecheck declarados",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R16 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && cargo clippy --all-targets --locked -- -D warnings"
+        }
+      }
+    },
+    {
+      "id": "R17",
+      "principio": "E5",
+      "texto": "Imutável por padrão",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R17 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "unused_mut"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R18",
+      "principio": "E5",
+      "texto": "O nome diz se a função consulta ou comanda, e consulta não grava",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R19",
+      "principio": "E6",
+      "texto": "TODO e FIXME só com o número da issue",
+      "verificacao": {
+        "tipo": "todo-sem-issue"
+      }
+    },
+    {
+      "id": "R20",
+      "principio": "E6",
+      "texto": "Código comentado reprova",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R20 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/codigo-comentado.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R21",
+      "principio": "E6",
+      "texto": "Comentário explica o porquê e bate com o código novo",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R22",
+      "principio": "E6",
+      "texto": "Sem resto de depuração; documentação obrigatória só no que a biblioteca exporta",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R22 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "todo",
+            "unimplemented",
+            "dbg_macro"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R23",
+      "principio": "E7",
+      "texto": "Bloco igual de 8 linhas ou mais reprova; regra de negócio se junta na segunda ocorrência",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "npx jscpd@5.4.2 --min-lines 8 --threshold 0 --exit-code 1 {arquivos}"
+      }
+    },
+    {
+      "id": "R24",
+      "principio": "E8",
+      "texto": "Número solto em regra reprova, fora 0, 1, -1 e os testes; a constante mora no módulo do assunto",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R24 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/numero-solto.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R26",
+      "principio": "P1",
+      "texto": "Módulo é uma pasta do ADR 0003 com interface pequena; nada é público além dela",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R26 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "unreachable_pub"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R27",
+      "principio": "P1",
+      "texto": "Função que só repassa os mesmos parâmetros reprova",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R28",
+      "principio": "P2",
+      "texto": "trait, interface ou classe abstrata só com a segunda variação real",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R29",
+      "principio": "P3",
+      "texto": "Dependência entra por parâmetro; ambiente, relógio e acaso só na montagem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R29 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/ambiente-so-na-montagem.yml",
+            "docs/regras-de-codigo/ast-grep/relogio-e-acaso-entram.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R30",
+      "principio": "P3",
+      "texto": "Fora do main.rs não há leitura de ambiente, relógio, exit nem saída padrão",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R30 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "disallowed_methods",
+            "exit",
+            "print_stdout",
+            "print_stderr"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R32",
+      "principio": "P4",
+      "texto": "Pastas por conceito, nunca por camada, e as chamadas seguem o sentido do ADR 0003",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R32 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/sentido-das-chamadas.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R33",
+      "principio": "P5",
+      "texto": "Todo teste cita o risco que cobre (RK<n> de docs/riscos.md) e tem nome de frase",
+      "verificacao": {
+        "tipo": "teste-cobre-risco",
+        "riscos": "docs/riscos.md",
+        "testes": [
+          "servidor/**",
+          "painel/**",
+          "biblioteca-node/**",
+          "biblioteca-java/**"
+        ]
+      }
+    },
+    {
+      "id": "R34",
+      "principio": "P5",
+      "texto": "Nenhum teste sem afirmação, com afirmação trivial, desligado ou focado",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R34 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/teste-sem-afirmacao.yml",
+            "docs/regras-de-codigo/ast-grep/afirmacao-trivial.yml",
+            "docs/regras-de-codigo/ast-grep/teste-desligado.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R35",
+      "principio": "P5",
+      "texto": "Teste apagado ou renomeado só com Substitui-teste: <antigo> por <novo> no commit",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R35 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "sh docs/regras-de-codigo/comandos/testes-apagados.sh servidor ${MONITORA_BASE:-origin/main}",
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R36",
+      "principio": "P5",
+      "texto": "Mutação sem sobrevivente no que mudou: recebimento, gravação, busca e alerta no servidor, e as bibliotecas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R36 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && git diff ${MONITORA_BASE:-origin/main}...HEAD > target/alteracoes.diff && cargo mutants --in-diff target/alteracoes.diff --test-workspace=true --jobs 2",
+          "antes": "cd servidor && cargo test --locked"
+        }
+      }
+    },
+    {
+      "id": "R37",
+      "principio": "P5",
+      "texto": "O que é nosso roda de verdade; simulador só para o que não é nosso; teste instável não se repete",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R38",
+      "principio": "P6",
+      "texto": "Commit refactor não altera arquivo de teste",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml package.json */package.json pom.xml */pom.xml 2>/dev/null)\" || { echo 'R38 espera o primeiro subprojeto: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "sh docs/regras-de-codigo/comandos/refactor-sem-teste.sh ${MONITORA_BASE:-origin/main}",
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R39",
+      "principio": "P6",
+      "texto": "TDD nas divisas da spec e em todo bug, com a falha inicial do teste registrada na issue",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R40",
+      "principio": "P7",
+      "texto": "Nada sem uso: dependência, export e código morto saem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R40 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && cargo machete"
+        }
+      }
+    },
+    {
+      "id": "R41",
+      "principio": "P7",
+      "texto": "Dependência nova só com motivo no PR, aceite do humano, versão travada e 7 dias de publicada",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R42",
+      "principio": "P8",
+      "texto": "Um formato só por linguagem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R42 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && cargo fmt --all -- --check"
+        }
+      }
+    },
+    {
+      "id": "R43",
+      "principio": "P8",
+      "texto": "Uma escolha só por assunto: cliente HTTP, datas, validação, logs e erros",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R43 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && cargo deny --locked check bans"
+        }
+      }
+    },
+    {
+      "id": "R44",
+      "principio": "P9",
+      "texto": "Commit em Conventional Commits, em português: tipo(área opcional): frase",
+      "verificacao": {
+        "tipo": "mensagem-de-commit",
+        "padrao": "^(feat|fix|refactor|test|docs|chore)(\\(.+\\))?: .+"
+      }
+    },
+    {
+      "id": "R45",
+      "principio": "P9",
+      "texto": "Cada commit passa na suíte sem contêiner; o último passa na suíte inteira",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml package.json */package.json pom.xml */pom.xml 2>/dev/null)\" || { echo 'R45 espera o primeiro subprojeto: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "sh docs/regras-de-codigo/comandos/suite-por-commit.sh ${MONITORA_BASE:-origin/main}",
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R46",
+      "principio": "S",
+      "texto": "Um diff não põe num módulo a regra de outro ator",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R47",
+      "principio": "O",
+      "texto": "Conjunto fechado é enum ou união de literais, e o match cobre toda variante sem curinga",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R47 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "wildcard_enum_match_arm",
+            "match_wildcard_for_single_variants"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R48",
+      "principio": "O",
+      "texto": "A variação que já existe se estende por dado; o mesmo match em dois módulos reprova",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R49",
+      "principio": "L",
+      "texto": "Todo trait com mais de um adaptador tem suíte de contrato que roda igual em todos",
+      "verificacao": {
+        "tipo": "teste-de-contrato-por-port",
+        "ports": "servidor/src/*/porta_*.rs",
+        "contrato": "servidor/tests/contrato_{nome}.rs"
+      }
+    },
+    {
+      "id": "R50",
+      "principio": "I",
+      "texto": "Uma interface por módulo, pequena e desenhada por quem chama",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R51",
+      "principio": "D",
+      "texto": "O domínio não importa infraestrutura",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R51 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/dominio-sem-infra.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R52",
+      "principio": "D",
+      "texto": "Tipo do cliente do banco ou do framework HTTP não aparece na interface de um módulo",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R52 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/tipo-de-infra-na-interface.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R53",
+      "principio": "RS1",
+      "texto": "Sem unsafe no servidor",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R53 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "unsafe_code"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R54",
+      "principio": "RS2",
+      "texto": "Sem pânico por atalho fora de teste",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R54 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "unwrap_used",
+            "expect_used",
+            "panic",
+            "unwrap_in_result",
+            "panic_in_result_fn",
+            "indexing_slicing",
+            "string_slice"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R55",
+      "principio": "RS3",
+      "texto": "Árvore de dependências auditada: vulnerabilidade, licença, origem e duplicata",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R55 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && cargo deny --locked check"
+        }
+      }
+    },
+    {
+      "id": "R56",
+      "principio": "RS4",
+      "texto": "Cargo.lock no git e --locked em todo comando",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R56 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd servidor && cargo metadata --locked --format-version 1 > /dev/null"
+        }
+      }
+    },
+    {
+      "id": "R57",
+      "principio": "RS5",
+      "texto": "Conversão numérica que pode perder valor usa try_from, nunca as",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls Cargo.toml */Cargo.toml 2>/dev/null)\" || { echo 'R57 espera o servidor: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "servidor/Cargo.toml",
+            "servidor/clippy.toml"
+          ],
+          "regras": [
+            "cast_possible_truncation",
+            "cast_sign_loss",
+            "cast_possible_wrap",
+            "cast_precision_loss"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R102",
+      "principio": "E1",
+      "texto": "Nenhum nome de uma letra; caixa da linguagem; booleano começa com esta, tem, pode ou foi",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R102 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "id-length",
+            "@typescript-eslint/naming-convention"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R103",
+      "principio": "E1",
+      "texto": "Parâmetro de tipo e lifetime têm nome",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R103 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/parametro-de-tipo-sem-nome.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R105",
+      "principio": "E2",
+      "texto": "Função com até 3 níveis de aninhamento, 3 parâmetros e 60 linhas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R105 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "max-depth",
+            "max-params",
+            "max-lines-per-function"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R107",
+      "principio": "E3",
+      "texto": "Interface de módulo não leva tipo cru: serde_json::Value, bool solto, any, nulo sem tipo",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R107 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "eslint.config.js",
+            "tsconfig.json"
+          ],
+          "regras": [
+            "strict",
+            "noUncheckedIndexedAccess",
+            "exactOptionalPropertyTypes",
+            "@typescript-eslint/no-explicit-any",
+            "@typescript-eslint/no-unsafe-assignment",
+            "@typescript-eslint/no-unsafe-argument",
+            "@typescript-eslint/no-unsafe-call",
+            "@typescript-eslint/no-unsafe-member-access",
+            "@typescript-eslint/no-unsafe-return",
+            "@typescript-eslint/no-non-null-assertion",
+            "@typescript-eslint/consistent-type-assertions"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R108",
+      "principio": "E3",
+      "texto": "as unknown as T só na conversão da borda",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R108 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/afirmacao-dupla.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R109",
+      "principio": "E3",
+      "texto": "Campos do evento têm fonte única no arquivo do contrato /v1, conferida por teste de paridade",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R109 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-node && npm test -- paridade-do-contrato"
+        }
+      }
+    },
+    {
+      "id": "R111",
+      "principio": "E4",
+      "texto": "Erro previsto volta como resultado com tipo próprio, que separa recusa de falha",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R111 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "@typescript-eslint/only-throw-error"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R112",
+      "principio": "E4",
+      "texto": "Nenhuma falha é descartada",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R112 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "@typescript-eslint/no-floating-promises",
+            "@typescript-eslint/no-misused-promises"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R113",
+      "principio": "E4",
+      "texto": "Nenhum ramo de erro vazio ou que só registra",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R113 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/catch-vazio.yml",
+            "docs/regras-de-codigo/ast-grep/promessa-engolida.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R114",
+      "principio": "E4",
+      "texto": "Verificador só se cala com o porquê ao lado",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R114 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "@typescript-eslint/ban-ts-comment",
+            "@eslint-community/eslint-comments/require-description"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R116",
+      "principio": "E4",
+      "texto": "O código cumpre os lints e o typecheck declarados",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R116 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "npx eslint --max-warnings 0 . && npx tsc --noEmit -p tsconfig.json"
+        }
+      }
+    },
+    {
+      "id": "R117",
+      "principio": "E5",
+      "texto": "Imutável por padrão",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R117 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "prefer-const",
+            "no-param-reassign",
+            "@typescript-eslint/prefer-readonly"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R120",
+      "principio": "E6",
+      "texto": "Código comentado reprova",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R120 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/codigo-comentado.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R122",
+      "principio": "E6",
+      "texto": "Sem resto de depuração; documentação obrigatória só no que a biblioteca exporta",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R122 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "jsdoc/require-jsdoc"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R124",
+      "principio": "E8",
+      "texto": "Número solto em regra reprova, fora 0, 1, -1 e os testes; a constante mora no módulo do assunto",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R124 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "@typescript-eslint/no-magic-numbers"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R126",
+      "principio": "P1",
+      "texto": "Módulo é uma pasta do ADR 0003 com interface pequena; nada é público além dela",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R126 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "npx knip"
+        }
+      }
+    },
+    {
+      "id": "R129",
+      "principio": "P3",
+      "texto": "Dependência entra por parâmetro; ambiente, relógio e acaso só na montagem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R129 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/efeito-global-no-dominio.yml",
+            "docs/regras-de-codigo/ast-grep/ambiente-so-na-montagem.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R131",
+      "principio": "P3",
+      "texto": "No painel, fetch só no módulo de chamadas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R131 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/fetch-so-no-modulo-de-chamadas.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R132",
+      "principio": "P4",
+      "texto": "Pastas por conceito, nunca por camada, e as chamadas seguem o sentido do ADR 0003",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R132 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "npx -p dependency-cruiser@18.7.0 depcruise --config .dependency-cruiser.cjs painel/src biblioteca-node/src"
+        }
+      }
+    },
+    {
+      "id": "R134",
+      "principio": "P5",
+      "texto": "Nenhum teste sem afirmação, com afirmação trivial, desligado ou focado",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R134 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/teste-sem-afirmacao.yml",
+            "docs/regras-de-codigo/ast-grep/afirmacao-trivial.yml",
+            "docs/regras-de-codigo/ast-grep/teste-desligado.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R135",
+      "principio": "P5",
+      "texto": "Teste apagado ou renomeado só com Substitui-teste: <antigo> por <novo> no commit",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R135 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "sh docs/regras-de-codigo/comandos/testes-apagados.sh biblioteca-node painel ${MONITORA_BASE:-origin/main}",
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R136",
+      "principio": "P5",
+      "texto": "Mutação sem sobrevivente no que mudou: recebimento, gravação, busca e alerta no servidor, e as bibliotecas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R136 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-node && npx stryker run --mutate \"$(git diff --name-only --relative ${MONITORA_BASE:-origin/main}...HEAD -- src | paste -sd, -)\"",
+          "antes": "cd biblioteca-node && npm test"
+        }
+      }
+    },
+    {
+      "id": "R140",
+      "principio": "P7",
+      "texto": "Nada sem uso: dependência, export e código morto saem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R140 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "npx knip --include dependencies,exports,files"
+        }
+      }
+    },
+    {
+      "id": "R142",
+      "principio": "P8",
+      "texto": "Um formato só por linguagem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R142 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "npx prettier --check ."
+        }
+      }
+    },
+    {
+      "id": "R143",
+      "principio": "P8",
+      "texto": "Uma escolha só por assunto: cliente HTTP, datas, validação, logs e erros",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R143 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/biblioteca-excluida.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R147",
+      "principio": "O",
+      "texto": "Conjunto fechado é enum ou união de literais, e o match cobre toda variante sem curinga",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R147 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "@typescript-eslint/switch-exhaustiveness-check"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R149",
+      "principio": "L",
+      "texto": "Todo trait com mais de um adaptador tem suíte de contrato que roda igual em todos",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R149 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "tsconfig.json",
+          "regras": [
+            "noImplicitOverride"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R151",
+      "principio": "D",
+      "texto": "O domínio não importa infraestrutura",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R151 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/dominio-sem-infra.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R158",
+      "principio": "TS1",
+      "texto": "Só sintaxe apagável: sem enum, namespace com código nem *parameter properties*",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R158 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "tsconfig.json",
+          "regras": [
+            "erasableSyntaxOnly"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R159",
+      "principio": "TS2",
+      "texto": "Cada arquivo se transpila sozinho",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R159 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "tsconfig.json",
+          "regras": [
+            "isolatedModules",
+            "verbatimModuleSyntax"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R160",
+      "principio": "TS3",
+      "texto": "Contratos do Solid no painel: props não se desestruturam e o componente retorna uma vez",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R160 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "solid/reactivity",
+            "solid/no-destructure",
+            "solid/components-return-once",
+            "solid/prefer-for",
+            "solid/no-react-specific-props",
+            "solid/no-innerhtml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R161",
+      "principio": "TS4",
+      "texto": "Acessibilidade conferida no JSX do painel",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R161 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "jsx-a11y/alt-text",
+            "jsx-a11y/anchor-is-valid",
+            "jsx-a11y/label-has-associated-control",
+            "jsx-a11y/click-events-have-key-events",
+            "jsx-a11y/no-static-element-interactions"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R162",
+      "principio": "TS5",
+      "texto": "Igualdade e coerção explícitas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls package.json */package.json 2>/dev/null)\" || { echo 'R162 espera o painel ou a biblioteca Node: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "eslint.config.js",
+          "regras": [
+            "eqeqeq",
+            "no-implicit-coercion"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R202",
+      "principio": "E1",
+      "texto": "Nenhum nome de uma letra; caixa da linguagem; booleano começa com esta, tem, pode ou foi",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R202 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/config/checkstyle.xml",
+          "regras": [
+            "LocalVariableName",
+            "ParameterName",
+            "LambdaParameterName",
+            "CatchParameterName",
+            "ClassTypeParameterName",
+            "InterfaceTypeParameterName",
+            "MethodTypeParameterName",
+            "TypeName",
+            "MethodName",
+            "MemberName",
+            "ConstantName",
+            "AbbreviationAsWordInName"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R205",
+      "principio": "E2",
+      "texto": "Função com até 3 níveis de aninhamento, 3 parâmetros e 60 linhas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R205 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "biblioteca-java/config/checkstyle.xml",
+            "biblioteca-java/config/pmd.xml"
+          ],
+          "regras": [
+            "ParameterNumber",
+            "MethodLength",
+            "NestedIfDepth",
+            "NestedTryDepth",
+            "VariableDeclarationUsageDistance",
+            "CognitiveComplexity"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R207",
+      "principio": "E3",
+      "texto": "Interface de módulo não leva tipo cru: serde_json::Value, bool solto, any, nulo sem tipo",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R207 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/pom.xml",
+          "regras": [
+            "-Xep:NullAway:ERROR"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R209",
+      "principio": "E3",
+      "texto": "Campos do evento têm fonte única no arquivo do contrato /v1, conferida por teste de paridade",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R209 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q test -Dtest='ParidadeDoContratoTest'"
+        }
+      }
+    },
+    {
+      "id": "R211",
+      "principio": "E4",
+      "texto": "Erro previsto volta como resultado com tipo próprio, que separa recusa de falha",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R212",
+      "principio": "E4",
+      "texto": "Nenhuma falha é descartada",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R212 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "biblioteca-java/pom.xml",
+            "biblioteca-java/config/pmd.xml"
+          ],
+          "regras": [
+            "-Xep:EmptyCatch:ERROR",
+            "-Xep:CatchAndPrintStackTrace:ERROR",
+            "-Xep:ReturnValueIgnored:ERROR",
+            "-Xep:CheckReturnValue:ERROR",
+            "-Xep:NullOptional:ERROR",
+            "EmptyCatchBlock",
+            "AvoidCatchingGenericException",
+            "PreserveStackTrace"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R213",
+      "principio": "E4",
+      "texto": "Nenhum ramo de erro vazio ou que só registra",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R213 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/catch-vazio.yml",
+            "docs/regras-de-codigo/ast-grep/optional-get-direto.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R214",
+      "principio": "E4",
+      "texto": "Verificador só se cala com o porquê ao lado",
+      "verificacao": {
+        "tipo": "revisor"
+      }
+    },
+    {
+      "id": "R216",
+      "principio": "E4",
+      "texto": "O código cumpre os lints e o typecheck declarados",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R216 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q compile checkstyle:check pmd:check"
+        }
+      }
+    },
+    {
+      "id": "R217",
+      "principio": "E5",
+      "texto": "Imutável por padrão",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R217 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "biblioteca-java/config/pmd.xml",
+            "biblioteca-java/pom.xml"
+          ],
+          "regras": [
+            "ImmutableField",
+            "AvoidReassigningParameters",
+            "MutableStaticState",
+            "-Xep:MutablePublicArray:ERROR"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R220",
+      "principio": "E6",
+      "texto": "Código comentado reprova",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R220 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/codigo-comentado.yml"
+          ],
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R222",
+      "principio": "E6",
+      "texto": "Sem resto de depuração; documentação obrigatória só no que a biblioteca exporta",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R222 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/config/checkstyle.xml",
+          "regras": [
+            "MissingJavadocType",
+            "MissingJavadocMethod"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R224",
+      "principio": "E8",
+      "texto": "Número solto em regra reprova, fora 0, 1, -1 e os testes; a constante mora no módulo do assunto",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R224 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/config/checkstyle.xml",
+          "regras": [
+            "MagicNumber"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R226",
+      "principio": "P1",
+      "texto": "Módulo é uma pasta do ADR 0003 com interface pequena; nada é público além dela",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R226 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q test -Dtest='*ArquiteturaTest' -Dsurefire.failIfNoSpecifiedTests=false"
+        }
+      }
+    },
+    {
+      "id": "R229",
+      "principio": "P3",
+      "texto": "Dependência entra por parâmetro; ambiente, relógio e acaso só na montagem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R229 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/injecao-por-campo.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R230",
+      "principio": "P3",
+      "texto": "Fora do main.rs não há leitura de ambiente, relógio, exit nem saída padrão",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R230 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/pom.xml",
+          "regras": [
+            "-Xep:SystemOut:ERROR",
+            "-Xep:JavaUtilDate:ERROR",
+            "-Xep:JavaTimeDefaultTimeZone:ERROR"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R232",
+      "principio": "P4",
+      "texto": "Pastas por conceito, nunca por camada, e as chamadas seguem o sentido do ADR 0003",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R232 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q test -Dtest='*ArquiteturaTest' -Dsurefire.failIfNoSpecifiedTests=false"
+        }
+      }
+    },
+    {
+      "id": "R234",
+      "principio": "P5",
+      "texto": "Nenhum teste sem afirmação, com afirmação trivial, desligado ou focado",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R234 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/teste-sem-afirmacao.yml",
+            "docs/regras-de-codigo/ast-grep/afirmacao-trivial.yml",
+            "docs/regras-de-codigo/ast-grep/teste-desligado.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R235",
+      "principio": "P5",
+      "texto": "Teste apagado ou renomeado só com Substitui-teste: <antigo> por <novo> no commit",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R235 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "sh docs/regras-de-codigo/comandos/testes-apagados.sh biblioteca-java ${MONITORA_BASE:-origin/main}",
+          "aEscrever": true
+        }
+      }
+    },
+    {
+      "id": "R236",
+      "principio": "P5",
+      "texto": "Mutação sem sobrevivente no que mudou: recebimento, gravação, busca e alerta no servidor, e as bibliotecas",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R236 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q test-compile org.pitest:pitest-maven:mutationCoverage -DtargetClasses=\"$(sh docs/regras-de-codigo/comandos/classes-alteradas.sh ${MONITORA_BASE:-origin/main})\" -DmutationThreshold=100",
+          "aEscrever": true,
+          "antes": "cd biblioteca-java && mvn -B -q test"
+        }
+      }
+    },
+    {
+      "id": "R240",
+      "principio": "P7",
+      "texto": "Nada sem uso: dependência, export e código morto saem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R240 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/pom.xml",
+          "regras": [
+            "-Xep:UnusedVariable:ERROR",
+            "-Xep:UnusedMethod:ERROR"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R242",
+      "principio": "P8",
+      "texto": "Um formato só por linguagem",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R242 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q spotless:check"
+        }
+      }
+    },
+    {
+      "id": "R243",
+      "principio": "P8",
+      "texto": "Uma escolha só por assunto: cliente HTTP, datas, validação, logs e erros",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R243 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q test -Dtest='*ArquiteturaTest' -Dsurefire.failIfNoSpecifiedTests=false"
+        }
+      }
+    },
+    {
+      "id": "R247",
+      "principio": "O",
+      "texto": "Conjunto fechado é enum ou união de literais, e o match cobre toda variante sem curinga",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R247 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/pom.xml",
+          "regras": [
+            "-Xep:MissingCasesInEnumSwitch:ERROR"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R249",
+      "principio": "L",
+      "texto": "Todo trait com mais de um adaptador tem suíte de contrato que roda igual em todos",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R249 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/pom.xml",
+          "regras": [
+            "-Xep:MissingOverride:ERROR"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R251",
+      "principio": "D",
+      "texto": "O domínio não importa infraestrutura",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R251 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "ast-grep",
+          "regras": [
+            "docs/regras-de-codigo/ast-grep/dominio-sem-infra.yml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R263",
+      "principio": "JV1",
+      "texto": "Recurso se fecha em todo caminho (try-with-resources)",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R263 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/config/pmd.xml",
+          "regras": [
+            "CloseResource",
+            "UseTryWithResources"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R264",
+      "principio": "JV2",
+      "texto": "equals e hashCode andam juntos",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R264 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "biblioteca-java/pom.xml",
+            "biblioteca-java/config/pmd.xml"
+          ],
+          "regras": [
+            "-Xep:EqualsHashCode:ERROR",
+            "OverrideBothEqualsAndHashcode"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R265",
+      "principio": "JV3",
+      "texto": "Concorrência sem resultado ignorado nem interrupção engolida",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R265 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "biblioteca-java/pom.xml",
+            "biblioteca-java/config/pmd.xml"
+          ],
+          "regras": [
+            "-Xep:FutureReturnValueIgnored:ERROR",
+            "-Xep:InterruptedExceptionSwallowed:ERROR",
+            "category/java/multithreading.xml"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R266",
+      "principio": "JV4",
+      "texto": "A biblioteca não usa SQL nem lê objeto serializado",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R266 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "comando",
+          "executar": "cd biblioteca-java && mvn -B -q test -Dtest='*ArquiteturaTest' -Dsurefire.failIfNoSpecifiedTests=false"
+        }
+      }
+    },
+    {
+      "id": "R267",
+      "principio": "JV5",
+      "texto": "Construtor não chama método que pode ser sobrescrito",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R267 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": "biblioteca-java/config/pmd.xml",
+          "regras": [
+            "ConstructorCallsOverridableMethod"
+          ]
+        }
+      }
+    },
+    {
+      "id": "R268",
+      "principio": "JV6",
+      "texto": "Objeto se compara com equals",
+      "verificacao": {
+        "tipo": "comando",
+        "executar": "test -z \"$(ls pom.xml */pom.xml 2>/dev/null)\" || { echo 'R268 espera a biblioteca Java: o manifesto existe. Troque esta entrada pela conferencia do campo depois e prove-a com um caso que reprova (docs/regras-de-codigo.md, Conferencias em espera)'; exit 1; }",
+        "depois": {
+          "tipo": "lint-cobre",
+          "config": [
+            "biblioteca-java/pom.xml",
+            "biblioteca-java/config/pmd.xml"
+          ],
+          "regras": [
+            "-Xep:ReferenceEquality:ERROR",
+            "CompareObjectsWithEquals"
+          ]
+        }
+      }
+    }
+  ]
+}
