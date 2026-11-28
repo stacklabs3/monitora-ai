@@ -217,8 +217,10 @@ const OrigemDoEvento = ({ traduzir, evento, nomeDoProduto, nomeDoAmbiente }) => 
   </SecaoDoEvento>
 );
 
-/* ---------- Vínculos de correlação ---------- */
-const VinculosDoEvento = ({ traduzir, linhas, indisponivel, semInternet, estadoDemonstrado, aoAbrirTentativa }) => {
+/* ---------- Vínculos de correlação ----------
+   `tentativaAberta` ({ nomeDoCampo, valorDoCampo }) é a tentativa em cuja linha do tempo
+   o evento está aberto: ali o atalho "Abrir a tentativa" dá lugar a "você está nela". */
+const VinculosDoEvento = ({ traduzir, linhas, indisponivel, semInternet, estadoDemonstrado, aoAbrirTentativa, tentativaAberta }) => {
   const linhasDeVinculo = linhas.filter((linha) => linha.situacao === 'pesquisavel' && PAPEIS_DE_VINCULO.includes(linha.campo.papel));
   return (
     <SecaoDoEvento titulo={traduzir('eventoSecaoVinculos')} secao="vinculos">
@@ -227,6 +229,8 @@ const VinculosDoEvento = ({ traduzir, linhas, indisponivel, semInternet, estadoD
         <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
           {linhasDeVinculo.map((linha) => {
             const ehPrincipal = linha.campo.papel === 'principal';
+            const jaEstaNaTentativa = ehPrincipal && Boolean(tentativaAberta)
+              && tentativaAberta.nomeDoCampo === linha.campo.nome && tentativaAberta.valorDoCampo === String(linha.valor);
             return (
               <li key={linha.id} style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2) var(--space-3)', flexWrap: 'wrap' }}>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12.5, fontWeight: 700 }}>{linha.nome}</span>
@@ -234,7 +238,10 @@ const VinculosDoEvento = ({ traduzir, linhas, indisponivel, semInternet, estadoD
                 <Etiqueta tom={ehPrincipal ? 'destaque' : 'neutro'}>
                   {traduzir(ehPrincipal ? 'etiquetaCampoPrincipal' : 'papelCampoDeCorrelacao')}
                 </Etiqueta>
-                {ehPrincipal && (
+                {jaEstaNaTentativa && (
+                  <span style={{ marginLeft: 'auto', fontSize: 12.5, fontWeight: 600, color: 'var(--muted)' }}>{traduzir('eventoJaNaTentativa')}</span>
+                )}
+                {ehPrincipal && !jaEstaNaTentativa && (
                   <span style={{ marginLeft: 'auto' }}>
                     <Button
                       variant="primary" compacto disabled={indisponivel}
@@ -425,7 +432,7 @@ const ErroDoEvento = ({ traduzir, erro, indisponivel }) => (
    e a tabela de atributos encolhe com a coluna. */
 const DetalheDoEvento = ({
   traduzir, evento, catalogo, filtrosDaBusca, nomeDoProduto, nomeDoAmbiente,
-  indisponivel, semInternet, estadoDemonstrado, aoFiltrar, aoAbrirTentativa,
+  indisponivel, semInternet, estadoDemonstrado, aoFiltrar, aoAbrirTentativa, tentativaAberta,
 }) => {
   const linhas = useMemo(() => linhasDosAtributos(evento, catalogo), [evento, catalogo]);
   return (
@@ -435,7 +442,7 @@ const DetalheDoEvento = ({
       <OrigemDoEvento traduzir={traduzir} evento={evento} nomeDoProduto={nomeDoProduto} nomeDoAmbiente={nomeDoAmbiente} />
       <VinculosDoEvento
         traduzir={traduzir} linhas={linhas} indisponivel={indisponivel} semInternet={semInternet}
-        estadoDemonstrado={estadoDemonstrado} aoAbrirTentativa={aoAbrirTentativa}
+        estadoDemonstrado={estadoDemonstrado} aoAbrirTentativa={aoAbrirTentativa} tentativaAberta={tentativaAberta}
       />
       <AtributosDoEvento
         traduzir={traduzir} linhas={linhas} filtrosDaBusca={filtrosDaBusca} indisponivel={indisponivel} semInternet={semInternet}
@@ -465,7 +472,7 @@ const EsqueletoDoEvento = ({ traduzir }) => (
 
 /* Nunca em branco e nunca afirma que o fato não ocorreu: diz o que foi procurado, desde
    quando há dados e o próximo passo. */
-const EventoNaoEncontrado = ({ traduzir, idDoEvento, nomeDoProduto, nomeDoAmbiente, aoFechar }) => (
+const EventoNaoEncontrado = ({ traduzir, idDoEvento, nomeDoProduto, nomeDoAmbiente, aoFechar, chaveDeVoltar }) => (
   <EmptyState
     title={traduzir('eventoVazioTitulo')}
     body={traduzir('eventoVazioCorpo')}
@@ -477,16 +484,22 @@ const EventoNaoEncontrado = ({ traduzir, idDoEvento, nomeDoProduto, nomeDoAmbien
         [traduzir('vazioDadosDesde'), traduzir('vazioDadosDesdeValor', { dadosDesde: formatarData(RELOGIO_DO_PAINEL.dadosDesde), dias: RETENCAO_EM_DIAS })],
       ]} />
     )}
-    cta={traduzir('eventoVoltarABusca')} onCta={aoFechar}
+    cta={traduzir(chaveDeVoltar)} onCta={aoFechar}
   />
 );
 
+/* Os textos da moldura que dependem de onde o evento foi aberto: ao lado da lista da busca
+   (o padrão) ou ao lado da linha do tempo de uma tentativa. */
+const TEXTOS_DO_EVENTO_NA_BUSCA = { posicao: 'eventoPosicao', voltar: 'eventoVoltarABusca', corpoDaFalha: 'eventoFalhaCorpo' };
+
 /* ---------- A moldura ao lado da lista ----------
    Região rotulada que recebe o foco ao abrir. Esc fecha (o foco volta para a linha, em
-   busca.jsx) e ↑ ↓ trocam o evento aberto, menos dentro da pilha, que rola com as setas. */
+   busca.jsx) e ↑ ↓ trocam o evento aberto, menos dentro da pilha, que rola com as setas.
+   `tentativaAberta` e `chavesDeTexto` servem ao evento aberto na linha do tempo. */
 const PainelDoEvento = ({
   traduzir, estado, evento, idDoEvento, catalogo, filtrosDaBusca, nomeDoProduto, nomeDoAmbiente,
   posicaoNaPagina, eventosNaPagina, enderecoDoEvento, secao, aoIrParaSecao, aoFechar, aoIrParaVizinho, aoFiltrar, aoAbrirTentativa,
+  tentativaAberta, chavesDeTexto = TEXTOS_DO_EVENTO_NA_BUSCA,
 }) => {
   const painelRef = useRef(null);
   const mioloRolavelRef = useRef(null);
@@ -544,7 +557,7 @@ const PainelDoEvento = ({
         <h2 style={{ margin: 0, fontSize: 15, fontWeight: 800 }}>{traduzir('eventoTitulo')}</h2>
         {temPosicao && (
           <span style={{ fontSize: 12.5, color: 'var(--muted)', fontVariantNumeric: 'tabular-nums' }}>
-            {traduzir('eventoPosicao', { posicao: posicaoNaPagina + 1, total: eventosNaPagina })}
+            {traduzir(chavesDeTexto.posicao, { posicao: posicaoNaPagina + 1, total: eventosNaPagina })}
           </span>
         )}
         <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 'var(--space-2)' }}>
@@ -590,13 +603,14 @@ const PainelDoEvento = ({
         {carregando && <EsqueletoDoEvento traduzir={traduzir} />}
         {comErro && (
           <AvisoDeErro
-            titulo={traduzir('eventoFalhaTitulo')} corpo={traduzir('eventoFalhaCorpo')}
+            titulo={traduzir('eventoFalhaTitulo')} corpo={traduzir(chavesDeTexto.corpoDaFalha)}
             acao={<div><Button variant="secondary" compacto onClick={() => {}}>{traduzir('tentarDeNovo')}</Button></div>}
           />
         )}
         {naoEncontrado && (
           <EventoNaoEncontrado
             traduzir={traduzir} idDoEvento={idDoEvento} nomeDoProduto={nomeDoProduto} nomeDoAmbiente={nomeDoAmbiente} aoFechar={aoFechar}
+            chaveDeVoltar={chavesDeTexto.voltar}
           />
         )}
         {mostraOEvento && (
@@ -604,7 +618,7 @@ const PainelDoEvento = ({
             traduzir={traduzir} evento={evento} catalogo={catalogo} filtrosDaBusca={filtrosDaBusca}
             nomeDoProduto={nomeDoProduto} nomeDoAmbiente={nomeDoAmbiente}
             indisponivel={desabilitado || semInternet} semInternet={semInternet} estadoDemonstrado={estadoDemonstrado}
-            aoFiltrar={aoFiltrar} aoAbrirTentativa={aoAbrirTentativa}
+            aoFiltrar={aoFiltrar} aoAbrirTentativa={aoAbrirTentativa} tentativaAberta={tentativaAberta}
           />
         )}
       </div>

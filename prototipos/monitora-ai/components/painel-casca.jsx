@@ -1,8 +1,8 @@
 // Monitora AI — Casca do painel no computador.
 // Produto e ambiente sempre à vista; seletor de papel; menu das rotinas; tema; atalhos de
 // teclado. O miolo de cada rotina entra como filho da CascaDoPainel: a busca de eventos
-// está em busca.jsx, o detalhe do evento em evento.jsx e a tentativa (por enquanto um
-// miolo provisório) em tentativa.jsx.
+// está em busca.jsx, o detalhe do evento em evento.jsx e as tentativas, com a linha do
+// tempo, em tentativa.jsx. O menu leva à busca e às tentativas.
 
 const LARGURA_DO_MENU_DO_PAINEL = 236;
 const LARGURA_DA_JANELA_DE_ATALHOS = 420;
@@ -28,9 +28,26 @@ const pedirTrocaDeTema = () => window.dispatchEvent(new CustomEvent('prototipo-t
 const ehCampoDeDigitar = (elemento) => Boolean(elemento) &&
   (elemento.tagName === 'INPUT' || elemento.tagName === 'TEXTAREA' || elemento.tagName === 'SELECT' || elemento.isContentEditable);
 
-const ItemDoMenu = ({ icone: Icone, rotulo, atual }) => (
+/* As rotas de cada papel, pelo que a tela é. Quem navega no painel escolhe por aqui, para
+   o papel ativo continuar no endereço. */
+const ROTAS_DO_PAPEL = {
+  investigador: {
+    abertura: 'PAINEL_INVESTIGADOR', busca: 'BUSCA_INVESTIGADOR', evento: 'EVENTO_INVESTIGADOR', eventoNaSecao: 'EVENTO_SECAO_INVESTIGADOR',
+    tentativas: 'TENTATIVAS_INVESTIGADOR', tentativasAchadas: 'TENTATIVAS_ACHADAS_INVESTIGADOR',
+    tentativa: 'TENTATIVA_INVESTIGADOR', eventoDaTentativa: 'TENTATIVA_EVENTO_INVESTIGADOR', secaoDaTentativa: 'TENTATIVA_SECAO_INVESTIGADOR',
+  },
+  administrador: {
+    abertura: 'PAINEL_ADMINISTRADOR', busca: 'BUSCA_ADMINISTRADOR', evento: 'EVENTO_ADMINISTRADOR', eventoNaSecao: 'EVENTO_SECAO_ADMINISTRADOR',
+    tentativas: 'TENTATIVAS_ADMINISTRADOR', tentativasAchadas: 'TENTATIVAS_ACHADAS_ADMINISTRADOR',
+    tentativa: 'TENTATIVA_ADMINISTRADOR', eventoDaTentativa: 'TENTATIVA_EVENTO_ADMINISTRADOR', secaoDaTentativa: 'TENTATIVA_SECAO_ADMINISTRADOR',
+  },
+};
+
+/* Item sem `aoClicar` é de uma rotina que ainda não entrou no protótipo. */
+const ItemDoMenu = ({ icone: Icone, rotulo, atual, aoClicar }) => (
   <Press
-    aria-current={atual ? 'page' : undefined}
+    aria-current={atual ? 'page' : undefined} onClick={aoClicar}
+    className={aoClicar && !atual ? 'item-realcavel' : undefined}
     style={{
       display: 'flex', alignItems: 'center', gap: 'var(--space-2)',
       padding: 'var(--space-2) var(--space-3)', borderRadius: 'var(--radius-sm)',
@@ -56,15 +73,15 @@ const SecaoDoMenu = ({ titulo, children }) => (
 );
 
 /* `itemAtual` diz em que rotina a pessoa está: 'busca' ou 'tentativas'. */
-const MenuDoPainel = ({ traduzir, papel, itemAtual }) => (
+const MenuDoPainel = ({ traduzir, papel, itemAtual, aoIrPara }) => (
   <nav aria-label={traduzir('cascaMenu')} style={{
     width: LARGURA_DO_MENU_DO_PAINEL, flexShrink: 0, padding: 'var(--space-3)',
     borderRight: '1px solid var(--border)', background: 'var(--surface)',
     display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', overflowY: 'auto',
   }}>
     <SecaoDoMenu titulo={traduzir('menuInvestigar')}>
-      <ItemDoMenu icone={IconSearch} rotulo={traduzir('menuBusca')} atual={itemAtual === 'busca'} />
-      <ItemDoMenu icone={IconBranch} rotulo={traduzir('menuTentativas')} atual={itemAtual === 'tentativas'} />
+      <ItemDoMenu icone={IconSearch} rotulo={traduzir('menuBusca')} atual={itemAtual === 'busca'} aoClicar={() => aoIrPara('abertura')} />
+      <ItemDoMenu icone={IconBranch} rotulo={traduzir('menuTentativas')} atual={itemAtual === 'tentativas'} aoClicar={() => aoIrPara('tentativas')} />
       <ItemDoMenu icone={IconActivity} rotulo={traduzir('menuSaude')} />
       <ItemDoMenu icone={IconBell} rotulo={traduzir('menuAlertas')} />
     </SecaoDoMenu>
@@ -188,10 +205,16 @@ const JanelaDeAtalhos = ({ traduzir, fechar }) => {
 };
 
 /* A moldura de toda rotina do painel no computador. `campoDeBuscaRef` é o campo que o
-   atalho "/" foca; `aoMudar` recebe a troca de produto, ambiente ou papel. */
-const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaRef, itemAtual = 'busca', children }) => {
+   atalho "/" foca; `aoMudar` recebe a troca de produto, ambiente ou papel.
+   `cabeNaJanela` prende a casca à altura da janela, para o miolo rolar por dentro mesmo
+   quando a moldura do showcase cresce com o conteúdo (o print): serve à tela cujo endereço
+   abre já rolado até uma parte. */
+const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaRef, itemAtual = 'busca', cabeNaJanela, children }) => {
   const [atalhosAbertos, setAtalhosAbertos] = useState(false);
+  const { navigate } = useRouter();
   const desabilitado = estado === 'disabled';
+  /* O menu leva à abertura de cada rotina, no mesmo produto, ambiente e papel. */
+  const irParaOItemDoMenu = (rotaDoItem) => navigate(ROTAS_DO_PAPEL[papel][rotaDoItem], { produto: params.produto, ambiente: params.ambiente });
 
   useEffect(() => {
     const teclar = (eventoDeTeclado) => {
@@ -205,13 +228,16 @@ const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaR
   }, []);
 
   return (
-    <div style={{ position: 'relative', flex: 1, width: '100%', minHeight: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg)' }}>
+    <div style={{
+      position: 'relative', flex: 1, width: '100%', minHeight: '100%', display: 'flex', flexDirection: 'column', background: 'var(--bg)',
+      ...(cabeNaJanela ? { maxHeight: '100vh' } : {}),
+    }}>
       <BarraDoPainel
         traduzir={traduzir} params={params} papel={papel} desabilitado={desabilitado}
         abrirAtalhos={() => setAtalhosAbertos(true)} aoMudar={aoMudar}
       />
       <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
-        <MenuDoPainel traduzir={traduzir} papel={papel} itemAtual={itemAtual} />
+        <MenuDoPainel traduzir={traduzir} papel={papel} itemAtual={itemAtual} aoIrPara={irParaOItemDoMenu} />
         <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', padding: 'var(--space-4) var(--space-5)', overflowY: 'auto' }}>
           {children}
         </main>

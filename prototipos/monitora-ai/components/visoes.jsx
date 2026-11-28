@@ -22,6 +22,7 @@ const PAINEL_DO_EXCURFLY = { produto: 'excurfly', ambiente: 'producao' };
 /* O cenário das rotinas Investigar: a reserva R-1042 e o erro da cobrança T-900. */
 const BUSCA_DA_RESERVA = 'p=1h;f=reservationId:e:R-1042';
 const EVENTO_DO_CARTAO_SEM_LIMITE = 'ev-1042-06';
+const TENTATIVA_DA_RESERVA = { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1042' };
 
 /* Uma rotina é o trabalho inteiro de alguém, em telas na ordem em que acontecem.
    `telas` são rotas de router.jsx, com os params da tela quando ela precisa. */
@@ -72,8 +73,7 @@ const ROTINAS = [
   },
   /* Prototipar o detalhe de um evento (issue 69). O evento abre ao lado da lista e mora
      no endereço. Caminho: clicar na linha do erro "cartão sem limite" (cobrança T-900) →
-     "Abrir a tentativa" no valor R-1042. A tela da tentativa é a próxima rotina: aqui
-     ela é um miolo provisório. */
+     "Abrir a tentativa" no valor R-1042, que leva à linha do tempo dela. */
   {
     id: 'ler-um-evento',
     visao: 'painel',
@@ -81,7 +81,7 @@ const ROTINAS = [
     telas: [
       { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA } },
       { rota: 'EVENTO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE } },
-      { rota: 'TENTATIVA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1042' } },
+      { rota: 'TENTATIVA_INVESTIGADOR', params: TENTATIVA_DA_RESERVA },
     ],
   },
   /* O que fica abaixo da dobra do evento aberto: os atributos (valor mascarado, código de
@@ -105,6 +105,43 @@ const ROTINAS = [
     telas: [
       { rota: 'EVENTO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE } },
       { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: `${BUSCA_DA_RESERVA};f=method:e:cartao` } },
+    ],
+  },
+  /* Prototipar a tentativa e sua linha do tempo (issue 70). Tudo mora no endereço: campo,
+     valor inteiro, período, evento aberto e a parte rolada.
+     Caminho: digitar conta-7 e "Achar tentativas" (ou Enter) → clicar em R-1042. */
+  {
+    id: 'achar-a-tentativa',
+    visao: 'painel',
+    rotulo: 'Achar a tentativa e ler a linha do tempo',
+    telas: [
+      { rota: 'TENTATIVAS_INVESTIGADOR', params: PAINEL_DO_EXCURFLY },
+      { rota: 'TENTATIVAS_ACHADAS_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'cliente', valor: 'conta-7', periodo: '1h' } },
+      { rota: 'TENTATIVA_INVESTIGADOR', params: TENTATIVA_DA_RESERVA },
+    ],
+  },
+  /* A linha do tempo com um evento aberto ao lado e, embaixo, o que fica à parte ("mesmo
+     horário, sem vínculo"). Caminho: clicar na linha do Webhooks ligada por T-900 →
+     "Ir para" Mesmo horário, sem vínculo. */
+  {
+    id: 'ler-a-linha-do-tempo',
+    visao: 'painel',
+    rotulo: 'Ler um evento da linha do tempo e o que fica à parte',
+    telas: [
+      { rota: 'TENTATIVA_INVESTIGADOR', params: TENTATIVA_DA_RESERVA },
+      { rota: 'TENTATIVA_EVENTO_INVESTIGADOR', params: { ...TENTATIVA_DA_RESERVA, idDoEvento: 'ev-1042-05' } },
+      { rota: 'TENTATIVA_SECAO_INVESTIGADOR', params: { ...TENTATIVA_DA_RESERVA, secao: 'sem-vinculo' } },
+    ],
+  },
+  /* O código ligado a duas tentativas: a cobrança T-905 está em R-1046 e em R-1047. O
+     aviso leva de uma à outra, e elas não se juntam. Caminho: "Abrir a tentativa R-1047". */
+  {
+    id: 'codigo-em-duas-tentativas',
+    visao: 'painel',
+    rotulo: 'Ler o código ligado a duas tentativas',
+    telas: [
+      { rota: 'TENTATIVA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1046' } },
+      { rota: 'TENTATIVA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1047' } },
     ],
   },
   {

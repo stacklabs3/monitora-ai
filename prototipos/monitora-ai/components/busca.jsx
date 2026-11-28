@@ -26,11 +26,6 @@ const COLUNAS_DO_CATALOGO = '1fr 112px 136px 136px';
 const COLUNAS_COM_EVENTO_ABERTO = 'minmax(0, 5fr) minmax(0, 7fr)';
 const ALTURA_MINIMA_COM_EVENTO_ABERTO = 520;
 
-const ROTAS_DO_PAPEL = {
-  investigador: { abertura: 'PAINEL_INVESTIGADOR', busca: 'BUSCA_INVESTIGADOR', evento: 'EVENTO_INVESTIGADOR', eventoNaSecao: 'EVENTO_SECAO_INVESTIGADOR', tentativa: 'TENTATIVA_INVESTIGADOR' },
-  administrador: { abertura: 'PAINEL_ADMINISTRADOR', busca: 'BUSCA_ADMINISTRADOR', evento: 'EVENTO_ADMINISTRADOR', eventoNaSecao: 'EVENTO_SECAO_ADMINISTRADOR', tentativa: 'TENTATIVA_ADMINISTRADOR' },
-};
-
 const PERIODOS_PRONTOS = [
   { id: '1h', chave: 'periodoUltimaHora', duracao: MILISSEGUNDOS_POR_HORA },
   { id: '24h', chave: 'periodoUltimas24h', duracao: MILISSEGUNDOS_POR_DIA },
@@ -151,6 +146,11 @@ const resolverPeriodo = (busca) => {
   if (inicio && fim && inicio < fim) return { id: 'intervalo', chave: 'periodoIntervalo', duracao: fim - inicio, inicio, fim };
   return resolverPeriodo({ periodo: '1h' });
 };
+
+/* O período de um id do endereço ("1h", "30d", "i.<início>.<fim>"), para as outras telas.
+   Elas chamam por aqui: `resolverPeriodo` chama a si mesmo, e o Babel do navegador troca o
+   nome de função assim, que deixa de existir fora deste arquivo. */
+const periodoDoId = (idDoPeriodo) => resolverPeriodo({ periodo: idDoPeriodo });
 
 const periodoDeIntervalo = (inicio, fim) => `i.${carimboDoInstante(inicio)}.${carimboDoInstante(fim)}`;
 
@@ -425,6 +425,7 @@ const PainelDoPeriodo = ({ traduzir, busca, periodo, liberaToda, aoEscolherPerio
         })}
       </div>
       {!liberaToda && <p style={{ margin: 0, fontSize: 12.5, color: 'var(--muted)', lineHeight: 1.45 }}>{traduzir('periodoLimiteNota')}</p>}
+      {/* Sem `aoEscolherBase`, o período conta sempre pelo horário de origem (as tentativas). */}
 
       <div style={{ borderTop: '1px solid var(--border)', paddingTop: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
         <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--muted)' }}>{traduzir('periodoIntervalo')} ({FUSO_DO_PAINEL.rotulo})</div>
@@ -440,7 +441,7 @@ const PainelDoPeriodo = ({ traduzir, busca, periodo, liberaToda, aoEscolherPerio
         <div><Button variant="secondary" compacto onClick={usarIntervalo}>{traduzir('periodoUsarIntervalo')}</Button></div>
       </div>
 
-      <div style={{ borderTop: '1px solid var(--border)', paddingTop: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+      {aoEscolherBase && <div style={{ borderTop: '1px solid var(--border)', paddingTop: 'var(--space-3)', display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
         <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--muted)' }}>{traduzir('periodoBase')}</div>
         <div>
           <SeletorSegmentado
@@ -452,16 +453,22 @@ const PainelDoPeriodo = ({ traduzir, busca, periodo, liberaToda, aoEscolherPerio
           />
         </div>
         <p style={{ margin: 0, fontSize: 12.5, color: 'var(--muted)', lineHeight: 1.45 }}>{traduzir('periodoBaseRecebimentoNota')}</p>
-      </div>
+      </div>}
     </PainelSuspenso>
   );
 };
 
-/* ---------- Texto livre, período e buscar ---------- */
+/* ---------- Texto livre, período e buscar ----------
+   Por padrão é a caixa do texto livre (busca lenta, com regex). Com `garantida`, é a caixa
+   de um valor inteiro de busca garantida (achar tentativas): sem regex, com a etiqueta
+   "busca garantida"; `rotuloDaCaixa`, `rotuloDoBotao` e `dica` trocam os textos. */
 const BarraDeBusca = ({
   traduzir, desabilitado, buscaIndisponivel, campoDeBuscaRef,
   textoDigitado, aoDigitar, modoRegex, aoTrocarModoRegex, chaveDaRecusa, aoBuscar, aoLimparTexto,
-}) => (
+  garantida, rotuloDaCaixa, rotuloDoBotao, dica, focarAoAbrir, classeDoBotao,
+}) => {
+  const rotuloDoCampoDeTexto = rotuloDaCaixa || traduzir(modoRegex ? 'buscaCampoRegex' : 'buscaCampo');
+  return (
   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
     <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'stretch' }}>
       <div className="caixa-de-campo" style={{
@@ -471,16 +478,15 @@ const BarraDeBusca = ({
       }}>
         <IconSearch size={16} style={{ color: 'var(--muted)', flexShrink: 0 }} />
         <input
-          ref={campoDeBuscaRef} type="text" disabled={desabilitado} value={textoDigitado}
-          aria-label={traduzir(modoRegex ? 'buscaCampoRegex' : 'buscaCampo')}
-          placeholder={traduzir(modoRegex ? 'buscaCampoRegex' : 'buscaCampo')}
+          ref={campoDeBuscaRef} type="text" disabled={desabilitado} value={textoDigitado} autoFocus={focarAoAbrir}
+          aria-label={rotuloDoCampoDeTexto} placeholder={rotuloDoCampoDeTexto}
           aria-invalid={chaveDaRecusa ? true : undefined} aria-describedby="dica-do-texto-livre"
           onChange={(eventoDeDigitacao) => aoDigitar(eventoDeDigitacao.target.value)}
           onKeyDown={(eventoDeTeclado) => { if (eventoDeTeclado.key === 'Enter') aoBuscar(); }}
           className="campo-sem-moldura"
           style={{
             flex: 1, minWidth: 0, border: 0, background: 'transparent', color: 'var(--fg)', fontSize: 14,
-            fontFamily: modoRegex ? 'var(--font-mono)' : 'inherit',
+            fontFamily: modoRegex || garantida ? 'var(--font-mono)' : 'inherit',
           }}
         />
         {textoDigitado && (
@@ -491,27 +497,32 @@ const BarraDeBusca = ({
             <IconClose size={14} />
           </Press>
         )}
-        <Press
-          aria-pressed={modoRegex} title={traduzir('buscaRegexLigar')} disabled={desabilitado} onClick={aoTrocarModoRegex}
-          style={{
-            padding: '2px var(--space-2)', borderRadius: 'var(--radius-sm)', flexShrink: 0,
-            fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700,
-            border: '1px solid var(--border-strong)', color: 'var(--fg)',
-            background: modoRegex ? 'var(--accent-soft)' : 'var(--surface)',
-          }}
-        >
-          {traduzir('buscaRegex')}
-        </Press>
-        <EtiquetaDaBusca>{traduzir('etiquetaBuscaLenta')}</EtiquetaDaBusca>
+        {!garantida && (
+          <Press
+            aria-pressed={modoRegex} title={traduzir('buscaRegexLigar')} disabled={desabilitado} onClick={aoTrocarModoRegex}
+            style={{
+              padding: '2px var(--space-2)', borderRadius: 'var(--radius-sm)', flexShrink: 0,
+              fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700,
+              border: '1px solid var(--border-strong)', color: 'var(--fg)',
+              background: modoRegex ? 'var(--accent-soft)' : 'var(--surface)',
+            }}
+          >
+            {traduzir('buscaRegex')}
+          </Press>
+        )}
+        <EtiquetaDaBusca garantida={garantida}>{traduzir(garantida ? 'etiquetaBuscaGarantida' : 'etiquetaBuscaLenta')}</EtiquetaDaBusca>
         <span aria-hidden style={{ flexShrink: 0 }}><Tecla>/</Tecla></span>
       </div>
-      <Button variant="primary" disabled={desabilitado || buscaIndisponivel} onClick={aoBuscar}>{traduzir('buscaBuscar')}</Button>
+      <Button variant="primary" disabled={desabilitado || buscaIndisponivel} className={classeDoBotao} onClick={aoBuscar}>
+        {rotuloDoBotao || traduzir('buscaBuscar')}
+      </Button>
     </div>
     {chaveDaRecusa
       ? <div id="dica-do-texto-livre" role="alert" style={{ fontSize: 12.5, color: 'var(--danger)', fontWeight: 600 }}>{traduzir(chaveDaRecusa)}</div>
-      : <div id="dica-do-texto-livre" style={{ fontSize: 12.5, color: 'var(--muted)' }}>{traduzir('buscaTextoDica')}</div>}
+      : <div id="dica-do-texto-livre" style={{ fontSize: 12.5, color: 'var(--muted)' }}>{dica || traduzir('buscaTextoDica')}</div>}
   </div>
-);
+  );
+};
 
 /* O período fica sempre à vista, com a data, o fuso e por qual horário se conta. */
 const SeletorDePeriodo = ({
@@ -776,8 +787,10 @@ const FichasDaBusca = ({
   </div>
 );
 
-/* ---------- Lista ---------- */
-const LinhaDeEvento = ({ traduzir, evento, horario, colunas, quebrarLinha, selecionada, estadoDemonstrado, aoSelecionar, aoTeclar, linhaRef, disabled }) => (
+/* ---------- Lista ----------
+   `miolo` troca o que vem na coluna da mensagem (a linha do tempo põe ali a mensagem, as
+   marcas e o vínculo de correlação). */
+const LinhaDeEvento = ({ traduzir, evento, horario, colunas, quebrarLinha, selecionada, estadoDemonstrado, aoSelecionar, aoTeclar, linhaRef, disabled, miolo }) => (
   <li style={{ listStyle: 'none' }}>
     <Press
       ref={linhaRef} disabled={disabled}
@@ -796,7 +809,7 @@ const LinhaDeEvento = ({ traduzir, evento, horario, colunas, quebrarLinha, selec
       </span>
       <span><NivelDoEvento nivel={evento.nivel} traduzir={traduzir} /></span>
       <span style={{ fontWeight: 700 }}>{evento.aplicacao}</span>
-      <span style={{
+      {miolo || <span style={{
         fontFamily: 'var(--font-mono)', fontSize: 12.5, minWidth: 0,
         whiteSpace: quebrarLinha ? 'normal' : 'nowrap', overflow: 'hidden',
         textOverflow: quebrarLinha ? 'clip' : 'ellipsis', wordBreak: quebrarLinha ? 'break-word' : 'normal',
@@ -805,7 +818,7 @@ const LinhaDeEvento = ({ traduzir, evento, horario, colunas, quebrarLinha, selec
         {quebrarLinha
           ? <span style={{ display: 'block', color: 'var(--muted)', marginTop: 2 }}>{resumoDosAtributos(evento)}</span>
           : <span style={{ color: 'var(--muted)' }}>{'  '}{resumoDosAtributos(evento)}</span>}
-      </span>
+      </span>}
     </Press>
   </li>
 );
@@ -842,8 +855,14 @@ const textoDaContagemDeEventos = (traduzir, resultado) => (resultado.passouDoLim
   : traduzir('buscaContagem', { primeiro: formatarQuantidade(resultado.primeiro), ultimo: formatarQuantidade(resultado.ultimo), total: formatarQuantidade(resultado.total) }));
 
 /* `idDoEventoAberto` é o evento aberto ao lado: a linha dele fica marcada, as setas
-   trocam o evento aberto e Esc fecha, devolvendo o foco à linha. */
-const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebimento, idDoEventoAberto, eventoAbertoExiste, aoAbrir, aoFechar }) => {
+   trocam o evento aberto e Esc fecha, devolvendo o foco à linha.
+   A linha do tempo de uma tentativa usa a mesma lista: `rotulo` dá o nome dela e
+   `mioloDaLinha` devolve o que vai na coluna da mensagem de cada evento. `semCursor`
+   serve à lista que fica à parte na tela: nenhuma linha nasce marcada. */
+const ListaDeEventos = ({
+  traduzir, resultado, estado, quebrarLinha, peloRecebimento, idDoEventoAberto, eventoAbertoExiste, aoAbrir, aoFechar,
+  rotulo, mioloDaLinha, semCursor,
+}) => {
   const [indiceSelecionado, setIndiceSelecionado] = useState(0);
   const linhasRef = useRef([]);
   const idDoEventoAbertoAntesRef = useRef(idDoEventoAberto);
@@ -895,12 +914,12 @@ const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebim
   return (
     <React.Fragment>
       <CabecalhoDaLista traduzir={traduzir} colunas={colunas} peloRecebimento={peloRecebimento} />
-      <ol aria-label={traduzir('buscaLista')} aria-busy={estado === 'loading' || undefined} style={{ margin: 0, padding: 0 }}>
+      <ol aria-label={rotulo || traduzir('buscaLista')} aria-busy={estado === 'loading' || undefined} style={{ margin: 0, padding: 0 }}>
         {resultado.eventos.map((evento, indiceDaLinha) => (
           <LinhaDeEvento
             key={evento.id} traduzir={traduzir} evento={evento} horario={horarioDoEvento(evento)} colunas={colunas}
-            quebrarLinha={quebrarLinha} disabled={desabilitado}
-            selecionada={idDoEventoAberto ? eventoAbertoExiste && evento.id === idDoEventoAberto : indiceDaLinha === indiceSelecionado}
+            quebrarLinha={quebrarLinha} disabled={desabilitado} miolo={mioloDaLinha && mioloDaLinha(evento)}
+            selecionada={idDoEventoAberto ? eventoAbertoExiste && evento.id === idDoEventoAberto : !semCursor && indiceDaLinha === indiceSelecionado}
             estadoDemonstrado={indiceDaLinha === 1 ? estadoDemonstrado : null}
             aoSelecionar={() => { setIndiceSelecionado(indiceDaLinha); aoAbrir(evento); }}
             aoTeclar={teclarNaLinha(indiceDaLinha)}
@@ -915,19 +934,27 @@ const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebim
 /* ---------- Nada encontrado ----------
    Nunca em branco e nunca afirma que o fato não ocorreu: diz o que a busca olhou e dá o
    próximo passo. */
-const VazioDaBusca = ({ traduzir, busca, resultado, catalogo, liberaToda, indisponivel, aoAmpliar, aoTirarFiltros }) => {
-  const { periodo } = resultado;
+/* O que todo "nada encontrado" diz que foi olhado: o período, até quando e desde quando há
+   dados, e as perdas de evento informadas no período. */
+const fatosDoQueFoiOlhado = (traduzir, periodo, peloRecebimento) => {
   const perdasNoPeriodo = PERDAS_INFORMADAS.filter((perda) => perda.informadaEm >= periodo.inicio && perda.informadaEm <= periodo.fim);
-  const camposDeclaradosDepois = busca.filtros
-    .map((filtro) => campoDoCatalogo(catalogo, filtro.campo))
-    .filter((campo) => campo && campo.rapidoDesde);
-  const fatos = [
-    [traduzir('vazioPeriodo'), `${textoDoPeriodoComFuso(traduzir, periodo)}, ${traduzir(busca.base === 'recebimento' ? 'periodoPeloRecebimento' : 'periodoPelaOrigem')}`],
+  return [
+    [traduzir('vazioPeriodo'), `${textoDoPeriodoComFuso(traduzir, periodo)}, ${traduzir(peloRecebimento ? 'periodoPeloRecebimento' : 'periodoPelaOrigem')}`],
     [traduzir('vazioDadosAte'), traduzir('vazioDadosAteValor', { dadosAte: formatarHoraComSegundos(RELOGIO_DO_PAINEL.dadosAte) })],
     [traduzir('vazioDadosDesde'), traduzir('vazioDadosDesdeValor', { dadosDesde: formatarData(RELOGIO_DO_PAINEL.dadosDesde), dias: RETENCAO_EM_DIAS })],
     [traduzir('vazioPerdas'), perdasNoPeriodo.length
       ? perdasNoPeriodo.map((perda) => traduzir('vazioPerdasValor', { quantidade: perda.quantidade, aplicacao: perda.aplicacao, horario: formatarHoraEMinuto(perda.informadaEm) })).join('; ')
       : traduzir('vazioSemPerdas')],
+  ];
+};
+
+const VazioDaBusca = ({ traduzir, busca, resultado, catalogo, liberaToda, indisponivel, aoAmpliar, aoTirarFiltros }) => {
+  const { periodo } = resultado;
+  const camposDeclaradosDepois = busca.filtros
+    .map((filtro) => campoDoCatalogo(catalogo, filtro.campo))
+    .filter((campo) => campo && campo.rapidoDesde);
+  const fatos = [
+    ...fatosDoQueFoiOlhado(traduzir, periodo, busca.base === 'recebimento'),
     [traduzir('vazioRapidoDesde'), camposDeclaradosDepois.length
       ? camposDeclaradosDepois.map((campo) => traduzir('vazioRapidoDesdeValor', { campo: campo.nome, horario: formatarDataEHora(campo.rapidoDesde) })).join('; ')
       : traduzir('vazioRapidoDesdeTodos')],

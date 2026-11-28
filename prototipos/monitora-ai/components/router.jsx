@@ -21,9 +21,22 @@ const ROUTES = {
   /* O evento aberto já rolado até uma seção (atributos, erro…). */
   EVENTO_SECAO_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/eventos/:busca/evento/:idDoEvento/:secao',
   EVENTO_SECAO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/eventos/:busca/evento/:idDoEvento/:secao',
-  /* A tentativa: tudo que se liga a um valor de um campo principal. */
+  /* Achar tentativas: a abertura (sem busca) e as tentativas achadas por um campo de
+     localização, com o valor inteiro e o período no endereço. As rotas "por" vêm antes das
+     rotas da tentativa: o `matchRoute` casa na ordem, e "por" não pode virar nome de campo. */
+  TENTATIVAS_INVESTIGADOR:          '#/painel/:produto/:ambiente/investigador/tentativas',
+  TENTATIVAS_ADMINISTRADOR:         '#/painel/:produto/:ambiente/administrador/tentativas',
+  TENTATIVAS_ACHADAS_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/tentativas/por/:campo/:valor/:periodo',
+  TENTATIVAS_ACHADAS_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/tentativas/por/:campo/:valor/:periodo',
+  /* A tentativa: tudo que se liga a um valor de um campo principal, lido na linha do tempo. */
   TENTATIVA_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/tentativas/:campo/:valor',
   TENTATIVA_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/tentativas/:campo/:valor',
+  /* O evento aberto ao lado da linha do tempo mora no endereço. */
+  TENTATIVA_EVENTO_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/tentativas/:campo/:valor/evento/:idDoEvento',
+  TENTATIVA_EVENTO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/tentativas/:campo/:valor/evento/:idDoEvento',
+  /* A linha do tempo já rolada até uma parte dela (o que fica à parte, embaixo). */
+  TENTATIVA_SECAO_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/tentativas/:campo/:valor/secao/:secao',
+  TENTATIVA_SECAO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/tentativas/:campo/:valor/secao/:secao',
   ALERTA_NO_CELULAR:    '#/alerta/:idDoAlerta',
   MENSAGEM_DO_ALERTA:   '#/telegram/:idDoAlerta',
 };

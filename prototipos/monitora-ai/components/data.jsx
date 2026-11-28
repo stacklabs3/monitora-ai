@@ -42,7 +42,13 @@ const RELOGIO_DO_PAINEL = {
 
 /* Perdas de evento que as aplicações informaram na última hora (saúde do envio). */
 const PERDAS_INFORMADAS = [
-  { aplicacao: 'API', quantidade: 2, informadaEm: instanteNoFusoDoPainel(27, 14, 31, 7) },
+  { aplicacao: 'API', execucao: 'api-7f3c', quantidade: 2, motivo: 'fila cheia', informadaEm: instanteNoFusoDoPainel(27, 14, 31, 7) },
+];
+
+/* Execução que parou de mandar a situação sem informar o encerramento: a perda fica
+   sinalizada, sem número (pode ter perdido mais depois do último informe). */
+const EXECUCOES_SEM_ENCERRAMENTO = [
+  { aplicacao: 'Webhooks', execucao: 'webhooks-c44a', ultimoInformeEm: instanteNoFusoDoPainel(27, 14, 52, 10) },
 ];
 
 /* ---------- Origem: aplicações, versões e execuções do Excurfly ---------- */
@@ -74,7 +80,10 @@ const CAMPOS_DA_PLATAFORMA = [
 const CATALOGO_DE_CAMPOS = {
   excurfly: [
     { nome: 'reservationId', descricao: 'Código da reserva', apelidos: ['reserva'], tipo: 'texto', buscas: ['exata'], papel: 'principal', especifico: true },
-    { nome: 'pspTxId', descricao: 'Código da cobrança no provedor', tipo: 'texto', buscas: ['exata'], papel: 'correlacao', especifico: true },
+    /* `correlacaoDesde`: o instante em que o campo passou a ligar eventos. Evento anterior
+       que só traz esse código fica fora da tentativa. */
+    { nome: 'pspTxId', descricao: 'Código da cobrança no provedor', tipo: 'texto', buscas: ['exata'], papel: 'correlacao', especifico: true,
+      correlacaoDesde: instanteNoFusoDoPainel(27, 14) },
     { nome: 'refundId', descricao: 'Código do estorno', tipo: 'texto', buscas: ['exata'], papel: 'correlacao', especifico: true },
     { nome: 'accountId', descricao: 'Conta de quem compra', apelidos: ['buyerAccountId'], tipo: 'texto', buscas: ['exata'], papel: 'localizacao', especifico: true },
     { nome: 'tripId', descricao: 'Viagem', tipo: 'texto', buscas: ['exata'], papel: 'localizacao', especifico: true },
@@ -91,6 +100,20 @@ const CATALOGO_DE_CAMPOS = {
   demonstracao: [],
 };
 
+/* Campos de localização: o papel genérico que o produto marca para achar tentativas sem
+   ligar eventos entre si. `campos` são os campos do catálogo que a busca olha (com os
+   apelidos deles); `codigosDeBusca`, os dados pessoais que ela acha pelo código de busca;
+   `foraDaBusca`, o campo parecido que não entra, com o motivo que o produto deu. */
+const CAMPOS_DE_LOCALIZACAO = {
+  excurfly: [
+    { id: 'cliente', rotulo: 'cliente', campos: ['accountId'],
+      codigosDeBusca: ['buyerPhone', 'buyerEmail', 'buyerDocument'], dadosComCodigoDeBusca: 'telefone, e-mail e CPF',
+      foraDaBusca: { campo: 'passengerId', motivo: 'é outra pessoa' } },
+    { id: 'viagem', rotulo: 'viagem', campos: ['tripId'] },
+  ],
+  demonstracao: [],
+};
+
 /* Código de busca: o painel troca o valor digitado inteiro pelo código e busca por ele.
    O documento abaixo é inventado e não passa na conferência de dígitos. */
 const CODIGOS_DE_BUSCA_SINTETICOS = { '123.456.789-00': 'cb_51c0e7' };
@@ -101,6 +124,13 @@ const CODIGOS_DE_BUSCA_SINTETICOS = { '123.456.789-00': 'cb_51c0e7' };
    O Site chama a reserva de `reserva` e a conta de `buyerAccountId` (apelidos do catálogo).
    A busca, o detalhe do evento e a tentativa usam estes mesmos eventos. */
 const TRANSACAO_DA_RESERVA = { familia: 'transacao-financeira', ocorrencia: 'oc_1' };
+const TRANSACAO_DA_SEGUNDA_RESERVA = { familia: 'transacao-financeira', ocorrencia: 'oc_2' };
+
+/* Ocorrências do cenário. Com fim, dá para dizer a duração; sem fim, não se conclui nada. */
+const OCORRENCIAS_DO_CENARIO = {
+  oc_1: { familia: 'transacao-financeira', iniciadaEm: instanteNoFusoDoPainel(27, 14, 55, 12, 300), encerradaEm: instanteNoFusoDoPainel(27, 14, 58, 35, 660) },
+  oc_2: { familia: 'transacao-financeira', iniciadaEm: instanteNoFusoDoPainel(27, 14, 40, 3, 250), encerradaEm: null },
+};
 
 const PILHA_DO_CARTAO_SEM_LIMITE = [
   'CardLimitExceededError: cartão sem limite',
@@ -197,6 +227,79 @@ const EVENTOS_DO_CENARIO = [
     origemEm: instanteNoFusoDoPainel(27, 9, 40, 12, 96), marcas: ['muitoNoPassado'],
     rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-7/purchase',
     atributos: { reservationId: 'R-1019', pspTxId: 'T-850', accountId: 'conta-9', amountCents: 8700, method: 'cartao' } },
+
+  /* ---- O que a tentativa e a linha do tempo precisam mostrar ----
+     Mesmo horário em aplicações diferentes: o Webhooks recebe a entrega repetida no mesmo
+     milissegundo em que a API confirma o pagamento. Só traz T-901: entra pela corrente. */
+  { id: 'ev-1042-13', ...ORIGENS_DO_EXCURFLY.webhooks, ...TRANSACAO_DA_RESERVA, nivel: 'info', nome: 'provider.webhook.duplicated', mensagem: 'duplicate webhook ignored',
+    origemEm: instanteNoFusoDoPainel(27, 14, 57, 2, 640),
+    rota: '/webhooks/provider', url: 'https://hooks.excurfly.example/webhooks/provider',
+    atributos: { pspTxId: 'T-901', status: 'paid', providerMessage: 'payment approved' } },
+
+  /* Mesmo horário, sem vínculo: às 14:00 um POST de compra na viagem V-5, sem reserva nem
+     comprador. Horário próximo nunca cria vínculo: ele não entra na tentativa R-1042. */
+  { id: 'ev-v5-01', ...ORIGENS_DO_EXCURFLY.api, nivel: 'info', nome: 'http.request', mensagem: 'POST /api/v1/trip/V-5/purchase 202',
+    origemEm: instanteNoFusoDoPainel(27, 14, 0, 3, 480),
+    rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-5/purchase',
+    atributos: { tripId: 'V-5', statusCode: 202 } },
+
+  /* Eventos sem tentativa: trazem a cliente conta-7, mas nenhum valor de campo principal. */
+  { id: 'ev-c7-01', ...ORIGENS_DO_EXCURFLY.site, nivel: 'info', nome: 'page.viewed', mensagem: 'page viewed',
+    origemEm: instanteNoFusoDoPainel(27, 14, 20, 11, 530),
+    rota: '/minhas-reservas', url: 'https://excurfly.example/minhas-reservas',
+    atributos: { buyerAccountId: 'conta-7' } },
+  { id: 'ev-c7-02', ...ORIGENS_DO_EXCURFLY.site, nivel: 'info', nome: 'session.started', mensagem: 'user signed in',
+    origemEm: instanteNoFusoDoPainel(27, 14, 54, 50, 210),
+    rota: '/entrar', url: 'https://excurfly.example/entrar',
+    atributos: { buyerAccountId: 'conta-7', signInMethod: 'password' } },
+
+  /* Outras tentativas da cliente conta-7. Às 14:40 um clique duplo cria duas reservas da
+     viagem V-8, R-1046 e R-1047, e a API usa a mesma cobrança T-905 nas duas: o código
+     fica ligado a duas tentativas, que não se juntam. O evento do Webhooks, que só traz
+     T-905, aparece nas duas. */
+  { id: 'ev-1046-01', ...ORIGENS_DO_EXCURFLY.site, nivel: 'info', nome: 'reservation.created', mensagem: 'reservation created',
+    origemEm: instanteNoFusoDoPainel(27, 14, 40, 2, 100),
+    rota: '/viagem/:id/reservar', url: 'https://excurfly.example/viagem/V-8/reservar',
+    atributos: { reserva: 'R-1046', buyerAccountId: 'conta-7', tripId: 'V-8', seats: 1 } },
+  { id: 'ev-1047-01', ...ORIGENS_DO_EXCURFLY.site, nivel: 'info', nome: 'reservation.created', mensagem: 'reservation created',
+    origemEm: instanteNoFusoDoPainel(27, 14, 40, 2, 480),
+    rota: '/viagem/:id/reservar', url: 'https://excurfly.example/viagem/V-8/reservar',
+    atributos: { reserva: 'R-1047', buyerAccountId: 'conta-7', tripId: 'V-8', seats: 1 } },
+  { id: 'ev-1046-02', ...ORIGENS_DO_EXCURFLY.api, ...TRANSACAO_DA_SEGUNDA_RESERVA, nivel: 'info', nome: 'charge.created', mensagem: 'charge created',
+    origemEm: instanteNoFusoDoPainel(27, 14, 40, 3, 250),
+    rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-8/purchase',
+    atributos: { reservationId: 'R-1046', pspTxId: 'T-905', accountId: 'conta-7', method: 'pix' } },
+  { id: 'ev-1047-02', ...ORIGENS_DO_EXCURFLY.api, nivel: 'aviso', nome: 'charge.reused', mensagem: 'duplicated reservation: reusing charge',
+    origemEm: instanteNoFusoDoPainel(27, 14, 40, 3, 610),
+    rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-8/purchase',
+    atributos: { reservationId: 'R-1047', pspTxId: 'T-905', accountId: 'conta-7', method: 'pix' } },
+  { id: 'ev-1046-03', ...ORIGENS_DO_EXCURFLY.webhooks, ...TRANSACAO_DA_SEGUNDA_RESERVA, nivel: 'info', nome: 'provider.webhook.received', mensagem: 'provider webhook received',
+    origemEm: instanteNoFusoDoPainel(27, 14, 40, 21, 700),
+    rota: '/webhooks/provider', url: 'https://hooks.excurfly.example/webhooks/provider',
+    atributos: { pspTxId: 'T-905', status: 'paid', providerMessage: 'payment approved' } },
+  { id: 'ev-1046-04', ...ORIGENS_DO_EXCURFLY.api, ...TRANSACAO_DA_SEGUNDA_RESERVA, nivel: 'info', nome: 'payment.confirmed', mensagem: 'payment confirmed',
+    origemEm: instanteNoFusoDoPainel(27, 14, 40, 22, 50),
+    rota: '/webhooks/provider', url: 'https://api.excurfly.example/internal/payment/T-905/confirm',
+    atributos: { reservationId: 'R-1046', pspTxId: 'T-905', accountId: 'conta-7', method: 'pix' } },
+  /* Outra tentativa da viagem V-5, de outra cliente: buscar a viagem lista as duas, sem
+     juntá-las. */
+  { id: 'ev-1044-01', ...ORIGENS_DO_EXCURFLY.api, nivel: 'info', nome: 'purchase.requested', mensagem: 'purchase requested',
+    origemEm: instanteNoFusoDoPainel(27, 14, 30, 18, 440),
+    rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-5/purchase',
+    atributos: { reservationId: 'R-1044', accountId: 'conta-88', tripId: 'V-5', method: 'pix' } },
+  { id: 'ev-1044-02', ...ORIGENS_DO_EXCURFLY.api, nivel: 'info', nome: 'payment.confirmed', mensagem: 'payment confirmed',
+    origemEm: instanteNoFusoDoPainel(27, 14, 31, 2, 15),
+    rota: '/webhooks/provider', url: 'https://api.excurfly.example/internal/payment/T-903/confirm',
+    atributos: { reservationId: 'R-1044', pspTxId: 'T-903', accountId: 'conta-88', method: 'pix' } },
+  /* A de outro dia: só aparece quando o período alcança a véspera. */
+  { id: 'ev-1021-01', ...ORIGENS_DO_EXCURFLY.api, nivel: 'info', nome: 'purchase.requested', mensagem: 'purchase requested',
+    origemEm: instanteNoFusoDoPainel(26, 10, 12, 40, 120),
+    rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-3/purchase',
+    atributos: { reservationId: 'R-1021', accountId: 'conta-7', tripId: 'V-3', method: 'pix' } },
+  { id: 'ev-1021-02', ...ORIGENS_DO_EXCURFLY.api, nivel: 'info', nome: 'payment.confirmed', mensagem: 'payment confirmed',
+    origemEm: instanteNoFusoDoPainel(26, 10, 13, 5, 900),
+    rota: '/webhooks/provider', url: 'https://api.excurfly.example/internal/payment/T-866/confirm',
+    atributos: { reservationId: 'R-1021', pspTxId: 'T-866', accountId: 'conta-7', method: 'pix' } },
 ].map((evento) => ({ recebidoEm: evento.origemEm + 380, ...evento }));
 
 /* ---------- O resto do movimento do Excurfly ----------

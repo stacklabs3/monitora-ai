@@ -31,8 +31,18 @@ const SCREEN_MAP = {
   EVENTO_ADMINISTRADOR: TelaPainelAdministrador,
   EVENTO_SECAO_INVESTIGADOR: TelaPainelInvestigador,
   EVENTO_SECAO_ADMINISTRADOR: TelaPainelAdministrador,
+  /* Achar tentativas: a abertura e as tentativas achadas são a mesma tela. */
+  TENTATIVAS_INVESTIGADOR: TelaTentativasInvestigador,
+  TENTATIVAS_ADMINISTRADOR: TelaTentativasAdministrador,
+  TENTATIVAS_ACHADAS_INVESTIGADOR: TelaTentativasInvestigador,
+  TENTATIVAS_ACHADAS_ADMINISTRADOR: TelaTentativasAdministrador,
+  /* A linha do tempo, com o evento aberto ao lado ou já rolada até uma parte. */
   TENTATIVA_INVESTIGADOR: TelaTentativaInvestigador,
   TENTATIVA_ADMINISTRADOR: TelaTentativaAdministrador,
+  TENTATIVA_EVENTO_INVESTIGADOR: TelaTentativaInvestigador,
+  TENTATIVA_EVENTO_ADMINISTRADOR: TelaTentativaAdministrador,
+  TENTATIVA_SECAO_INVESTIGADOR: TelaTentativaInvestigador,
+  TENTATIVA_SECAO_ADMINISTRADOR: TelaTentativaAdministrador,
   ALERTA_NO_CELULAR: TelaAlertaNoCelular,
   MENSAGEM_DO_ALERTA: TelaMensagemDoAlerta,
 };
