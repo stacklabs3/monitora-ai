@@ -111,3 +111,19 @@ _Avoid_: Varredura, full scan
 **Rota**:
 O molde de um endereço da aplicação, sem os valores de cada chamada, como `/api/v1/trip/:id/purchase`.
 _Avoid_: Endpoint, URL, quando se fala do molde
+
+**Catálogo de campos**:
+O conjunto das regras de um produto sobre seus campos: os declarados, com tipo e formas de busca, as máscaras e as listas de dados proibidos.
+_Avoid_: Esquema, mapping, configuração
+
+**Saúde do envio**:
+O que a plataforma sabe sobre o envio de uma aplicação: a situação de cada execução, as perdas com motivo e as lacunas na numeração.
+_Avoid_: Telemetria, monitoramento da ingestão
+
+**Retenção**:
+O prazo em que os eventos de um produto ficam disponíveis, contado do recebimento, depois do qual eles deixam de existir em toda cópia.
+_Avoid_: Expiração, TTL
+
+**Auditoria**:
+O registro de quem fez o quê no painel e nas chaves de um produto, guardado à parte dos eventos e sem edição.
+_Avoid_: Log de acesso, histórico
