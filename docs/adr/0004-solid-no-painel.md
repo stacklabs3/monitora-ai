@@ -25,11 +25,23 @@ Medianas do js-framework-benchmark (Chrome 156, modo keyed), tiradas da pesquisa
 - **Solid com Vite e um roteador:** o Vite gera os arquivos estáticos direto. O SolidStart fica de fora porque traz rotas e montagem de tela no servidor, e o ADR 0003 recusou um servidor que monta as telas.
 - **Páginas de 100 sem biblioteca de lista longa:** a busca mostra 100 eventos por página, até 5.000 ([Definir semântica de busca e campos configuráveis](https://github.com/stacklabs3/monitora-ai/issues/6), item 33). Criar 1.000 linhas leva 21 ms, então 100 linhas ficam bem abaixo disso. O TanStack Virtual (MIT, com adaptador para Solid) só entra se a medida mostrar lentidão.
 
-## Condição que fica para a medida
+## Condição medida
 
-A escolha vale com uma medida pendente, que roda em [Medir o painel em Solid no fluxo real](https://github.com/stacklabs3/monitora-ai/issues/66). **Se ela reprovar, esta escolha reabre.**
+A escolha valia com uma medida pendente, e ela passou em [Medir o painel em Solid no fluxo real](https://github.com/stacklabs3/monitora-ai/issues/66), em 28/11/2026.
 
-A investigadora da `conta-7` busca a reserva `R-1042`. Duas coisas precisam levar até 100 ms cada no Chrome, num notebook comum com a CPU 4x mais lenta: o desenho da página de 100 eventos e a abertura de um evento com stack trace longo. As duas se medem à parte do tempo da busca no servidor. O limite de 100 ms é o ponto em que a resposta parece imediata (Nielsen). A busca inteira tem meta de 2 s ([Restrições do projeto](https://github.com/stacklabs3/monitora-ai/issues/19)).
+A investigadora da `conta-7` busca a reserva `R-1042`. Duas coisas precisavam levar até 100 ms cada no Chrome, com a CPU 4x mais lenta: o desenho da página de 100 eventos e a abertura de um evento com stack trace longo, as duas medidas à parte do tempo da busca no servidor. O limite de 100 ms é o ponto em que a resposta parece imediata (Nielsen).
+
+| Pior de 30 repetições | Página de 100 eventos | Evento com stack de 400 linhas |
+|---|---|---|
+| CPU 4x mais lenta (a condição) | 42,7 ms | 35,6 ms |
+| CPU 8x mais lenta | 75,4 ms | 77,7 ms |
+| Controle negativo a 4x (5.000 eventos, stack de 20.000 linhas) | 622,9 ms | 615,7 ms |
+
+O JS de uma visita pesa 13,5 KB com gzip, com o Solid e o roteador dentro. O TanStack Virtual fica de fora.
+
+- **A medida rodou num Apple M5, não num notebook comum.** A folga cobre a diferença: os dois tempos só passam de 100 ms com a CPU 16x mais lenta.
+- **A aprovação vale para a linha 1.x do Solid** (`solid-js` 1.9.20). O 2.0 saiu em 17/11/2026, e o `vite-plugin-solid` estável (2.11.17) só aceita o 1.x. **Adotar o 2.x pede rodar a medida de novo.**
+- **A tela medida não é a do protótipo aprovado.** O risco RK38 de [docs/riscos.md](../riscos.md) leva o limite de 100 ms para os testes do painel.
 
 ## Opções recusadas
 
@@ -47,6 +59,7 @@ A investigadora da `conta-7` busca a reserva `R-1042`. Duas coisas precisam leva
 
 - [Pesquisa: framework do painel](https://github.com/stacklabs3/monitora-ai/blob/research/framework-do-painel/docs/research/framework-do-painel.md): versões, licenças, governança, saída estática, virtualização e as medianas do benchmark
 - [js-framework-benchmark, relatório Chrome 156](https://krausest.github.io/js-framework-benchmark/2026/chrome156.html) e a [metodologia](https://github.com/krausest/js-framework-benchmark)
+- [Medida: o painel em Solid no fluxo real](https://github.com/stacklabs3/monitora-ai/blob/research/medida-painel-solid/docs/research/medida-painel-solid.md): os tempos, o controle negativo, os limites da medida e o achado do Solid 2.0
 - [Vite, deploy de site estático](https://vite.dev/guide/static-deploy)
 - [TanStack Virtual](https://tanstack.com/virtual/latest/docs/introduction)
 - [Nielsen, limites de tempo de resposta](https://www.nngroup.com/articles/response-times-3-important-limits/)
