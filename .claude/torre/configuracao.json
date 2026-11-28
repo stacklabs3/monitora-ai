@@ -1,0 +1,54 @@
+{
+  "repo": "stacklabs3/monitora-ai",
+  "intervalo_segundos": 120,
+  "minutos_sem_saida": 45,
+  "minutos_fila_parada": 20,
+  "minutos_entre_varreduras_fora_da_dev": 30,
+  "dias_de_branch_para_varrer": 21,
+  "horas_para_reavaliar_parado": 12,
+  "max_filas_codigo": 2,
+  "tamanho_do_lote": 10,
+  "max_laterais": 1,
+  "grillings_extras": 2,
+  "conta_dos_grillings_extras": "2",
+  "max_continuacoes": 6,
+  "rotulos_fora": [
+    "ready-for-human",
+    "depois-do-lancamento",
+    "wayfinder:prototype",
+    "needs-info",
+    "wontfix"
+  ],
+  "issues_fora": {},
+  "issues_de_ajustes": {},
+  "prioridade_do_lote": {},
+  "rotulos_de_triagem": [
+    "needs-triage",
+    "needs-info",
+    "ready-for-agent",
+    "ready-for-human",
+    "wontfix"
+  ],
+  "rotulos_do_metodo": [
+    "wayfinder:map",
+    "wayfinder:research",
+    "wayfinder:grilling",
+    "wayfinder:prototype",
+    "wayfinder:task",
+    "spec",
+    "mapa-inicial:arquitetura",
+    "mapa-inicial:prototipo",
+    "mapa-inicial:fases",
+    "mapa-inicial:regras-de-codigo",
+    "mapa-inicial:infra",
+    "depois-do-lancamento"
+  ],
+  "semente": {
+    "ajustes_em_curso": {},
+    "proximo_par": {},
+    "specs": []
+  },
+  "chrome_device_id": "",
+  "chrome_nome": "Browser 1, macOS",
+  "rotulo_chrome_local": "chrome-local"
+}
