@@ -1,0 +1,27 @@
+:root { font-family: system-ui, sans-serif; font-size: 14px; color: #1b1f24; background: #f6f7f9; }
+body { margin: 0; }
+.investigacao { display: grid; grid-template-columns: minmax(0, 1fr); padding: 0 16px 24px; }
+.investigacao:has(.painel-do-evento) { grid-template-columns: minmax(0, 1fr) 46%; column-gap: 16px; }
+.cabecalho { grid-column: 1 / -1; display: flex; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid #d8dde3; }
+.busca { grid-column: 1; display: flex; gap: 8px; padding: 12px 0; }
+.busca input { flex: 1; padding: 8px 10px; border: 1px solid #b6bec8; border-radius: 6px; font: inherit; }
+.busca button { padding: 8px 16px; border: 0; border-radius: 6px; background: #1f4fd8; color: #fff; font: inherit; }
+.resumo { grid-column: 1; margin: 0 0 8px; color: #4a5461; }
+.eventos { grid-column: 1; list-style: none; margin: 0; padding: 0; background: #fff; border: 1px solid #d8dde3; border-radius: 8px; }
+.evento { display: grid; grid-template-columns: 96px 56px 150px 1fr; gap: 2px 10px; padding: 8px 12px; border-bottom: 1px solid #eceff3; cursor: pointer; }
+.evento:hover, .evento.aberto { background: #eef3ff; }
+.evento time, .correlacao, .rota { font-family: ui-monospace, monospace; font-size: 12px; color: #4a5461; }
+.evento .mensagem { grid-column: 1 / -1; overflow-wrap: anywhere; }
+.evento .correlacao { grid-column: 1 / -1; }
+.nivel { font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 4px; text-align: center; align-self: start; }
+.nivel-info { background: #e3ecf7; color: #1d4d8f; }
+.nivel-warn { background: #fdf0d0; color: #7a5200; }
+.nivel-error { background: #fbdcdc; color: #9a1b1b; }
+.painel-do-evento { grid-column: 2; grid-row: 2 / span 4; position: sticky; top: 0; max-height: 100vh; overflow: auto; background: #fff; border: 1px solid #d8dde3; border-radius: 8px; padding: 12px 16px; }
+.mensagem-inteira { overflow-wrap: anywhere; line-height: 1.45; }
+.atributos { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; font-family: ui-monospace, monospace; font-size: 12px; }
+.atributos dt { color: #4a5461; }
+.atributos dd { margin: 0; overflow-wrap: anywhere; }
+.stack-trace { font-size: 12px; line-height: 1.4; white-space: pre-wrap; overflow-wrap: anywhere; background: #0f1720; color: #c9d3df; padding: 12px; border-radius: 6px; tab-size: 4; }
+.linha-do-stack.da-aplicacao { color: #ffd479; font-weight: 600; }
+.linha-do-stack.causa { color: #ff8f8f; }

@@ -1,0 +1,19 @@
+{
+  "name": "medida-painel-solid",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "gerar-dados": "node gerar-dados.mjs",
+    "build": "node gerar-dados.mjs && vite build",
+    "medir": "node medir.mjs"
+  },
+  "dependencies": {
+    "@solidjs/router": "^1.0.3",
+    "solid-js": "^1.9.20"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.19.0",
+    "vite": "^8.4.0",
+    "vite-plugin-solid": "^2.11.17"
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "versaoDoChrome": "Chrome/158.0.8127.37",
+  "limiteMs": 100,
+  "fatorDeLentidaoMedido": 3.971875,
+  "conferencias": {
+    "lentidaoAplicada": true,
+    "fluxoRealDesenhouOEsperado": true,
+    "controleDesenhouOEsperado": true,
+    "controleReprovouNaPagina": true,
+    "controleReprovouNoEvento": true,
+    "paginaDentroDoLimite": true,
+    "eventoDentroDoLimite": true
+  },
+  "veredito": "APROVADA",
+  "cenarios": [
+    {
+      "lentidao": 1,
+      "cenario": "real",
+      "eventosDesenhados": 100,
+      "linhasDoStackDesenhadas": 400,
+      "alturaDoStackPx": 19021,
+      "enderecoFinal": "/busca/evento-longo?texto=R-1042",
+      "bytesDeJsTransferidos": 13540,
+      "cargaFixaMs": {
+        "amostras": 30,
+        "minimo": 118,
+        "mediana": 128,
+        "p95": 146.8,
+        "maximo": 147.5
+      },
+      "paginaDosDadosMs": {
+        "amostras": 30,
+        "minimo": 18,
+        "mediana": 22.3,
+        "p95": 27.4,
+        "maximo": 76.4
+      },
+      "paginaDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 35.4,
+        "mediana": 37.9,
+        "p95": 42.6,
+        "maximo": 128.6
+      },
+      "eventoDosDadosMs": {
+        "amostras": 30,
+        "minimo": 20,
+        "mediana": 20.7,
+        "p95": 21.3,
+        "maximo": 21.4
+      },
+      "eventoDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 33.5,
+        "mediana": 37.7,
+        "p95": 38.3,
+        "maximo": 38.4
+      }
+    },
+    {
+      "lentidao": 4,
+      "cenario": "real",
+      "eventosDesenhados": 100,
+      "linhasDoStackDesenhadas": 400,
+      "alturaDoStackPx": 19021,
+      "enderecoFinal": "/busca/evento-longo?texto=R-1042",
+      "bytesDeJsTransferidos": 13540,
+      "cargaFixaMs": {
+        "amostras": 30,
+        "minimo": 467.7,
+        "mediana": 508.4,
+        "p95": 520.5,
+        "maximo": 524.1
+      },
+      "paginaDosDadosMs": {
+        "amostras": 30,
+        "minimo": 36.5,
+        "mediana": 39,
+        "p95": 42,
+        "maximo": 42.7
+      },
+      "paginaDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 50.2,
+        "mediana": 52.5,
+        "p95": 55.2,
+        "maximo": 55.4
+      },
+      "eventoDosDadosMs": {
+        "amostras": 30,
+        "minimo": 25.1,
+        "mediana": 26.9,
+        "p95": 35.5,
+        "maximo": 35.6
+      },
+      "eventoDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 39.3,
+        "mediana": 42.3,
+        "p95": 53.2,
+        "maximo": 54.6
+      }
+    },
+    {
+      "lentidao": 8,
+      "cenario": "real",
+      "eventosDesenhados": 100,
+      "linhasDoStackDesenhadas": 400,
+      "alturaDoStackPx": 19021,
+      "enderecoFinal": "/busca/evento-longo?texto=R-1042",
+      "bytesDeJsTransferidos": 13540,
+      "cargaFixaMs": {
+        "amostras": 30,
+        "minimo": 979.4,
+        "mediana": 1003.8,
+        "p95": 1025.4,
+        "maximo": 1028.5
+      },
+      "paginaDosDadosMs": {
+        "amostras": 30,
+        "minimo": 59.8,
+        "mediana": 62.7,
+        "p95": 71.3,
+        "maximo": 75.4
+      },
+      "paginaDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 72.7,
+        "mediana": 76.5,
+        "p95": 90.9,
+        "maximo": 91.4
+      },
+      "eventoDosDadosMs": {
+        "amostras": 30,
+        "minimo": 49.5,
+        "mediana": 54.1,
+        "p95": 67.6,
+        "maximo": 77.7
+      },
+      "eventoDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 80.5,
+        "mediana": 83.9,
+        "p95": 106.5,
+        "maximo": 108.4
+      }
+    },
+    {
+      "lentidao": 16,
+      "cenario": "real",
+      "eventosDesenhados": 100,
+      "linhasDoStackDesenhadas": 400,
+      "alturaDoStackPx": 19021,
+      "enderecoFinal": "/busca/evento-longo?texto=R-1042",
+      "bytesDeJsTransferidos": 13540,
+      "cargaFixaMs": {
+        "amostras": 30,
+        "minimo": 1929.4,
+        "mediana": 1966.4,
+        "p95": 2019,
+        "maximo": 2033.5
+      },
+      "paginaDosDadosMs": {
+        "amostras": 30,
+        "minimo": 118.7,
+        "mediana": 134.6,
+        "p95": 151.9,
+        "maximo": 155.8
+      },
+      "paginaDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 145.4,
+        "mediana": 162.4,
+        "p95": 182.3,
+        "maximo": 185.5
+      },
+      "eventoDosDadosMs": {
+        "amostras": 30,
+        "minimo": 103.1,
+        "mediana": 112,
+        "p95": 121.6,
+        "maximo": 129.5
+      },
+      "eventoDoCliqueMs": {
+        "amostras": 30,
+        "minimo": 160.3,
+        "mediana": 176.2,
+        "p95": 185,
+        "maximo": 201
+      }
+    },
+    {
+      "lentidao": 4,
+      "cenario": "controle",
+      "eventosDesenhados": 5000,
+      "linhasDoStackDesenhadas": 20000,
+      "alturaDoStackPx": 941489,
+      "enderecoFinal": "/busca/evento-longo?controle=1&texto=R-1042",
+      "bytesDeJsTransferidos": 13540,
+      "cargaFixaMs": {
+        "amostras": 5,
+        "minimo": 506.5,
+        "mediana": 514.2,
+        "p95": 519.9,
+        "maximo": 519.9
+      },
+      "paginaDosDadosMs": {
+        "amostras": 5,
+        "minimo": 580.3,
+        "mediana": 596.2,
+        "p95": 622.9,
+        "maximo": 622.9
+      },
+      "paginaDoCliqueMs": {
+        "amostras": 5,
+        "minimo": 600,
+        "mediana": 617,
+        "p95": 642.8,
+        "maximo": 642.8
+      },
+      "eventoDosDadosMs": {
+        "amostras": 5,
+        "minimo": 601.3,
+        "mediana": 604.3,
+        "p95": 615.7,
+        "maximo": 615.7
+      },
+      "eventoDoCliqueMs": {
+        "amostras": 5,
+        "minimo": 853.4,
+        "mediana": 857.9,
+        "p95": 869.9,
+        "maximo": 869.9
+      }
+    }
+  ]
+}
