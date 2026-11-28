@@ -5,6 +5,8 @@ ADR em que o humano o aprovou. Como ler e usar este registro: [docs/agents/risco
 
 - **Origem `#45`** é o ticket [Riscos que os testes cobrem](https://github.com/stacklabs3/monitora-ai/issues/45),
   em que a coordenação aprovou os riscos por delegação do responsável pelo produto (20/11/2026).
+- **Origem `#66`** é o ticket [Medir o painel em Solid no fluxo real](https://github.com/stacklabs3/monitora-ai/issues/66),
+  em que a coordenação aprovou o risco por delegação (28/11/2026).
 - **Situação `pendente #35`** aponta o [Mapa: fases do desenvolvimento](https://github.com/stacklabs3/monitora-ai/issues/35):
   ainda não há fatia. O `/to-spec` de cada fase troca o `#35` pela fatia que cobre o risco.
 - **Onde** usa os módulos do [ADR 0003](adr/0003-modulos-e-seams-do-servidor.md), mais "biblioteca"
@@ -78,3 +80,4 @@ ADR em que o humano o aprovou. Como ler e usar este registro: [docs/agents/risco
 | RK35 | Os tipos de Rust, TypeScript e Java saem de paridade com o arquivo do contrato `/v1`, ou Node.js e Java se comportam diferente nos mesmos casos | a biblioteca envia o que o servidor recusa e todos os eventos de uma versão viram perda | entrada do envio, biblioteca | #45: aprovado pela coordenação, por delegação | pendente #35 |
 | RK36 | O Telegram recusa, limita (429) ou está fora e o alerta se perde calado, sem aparecer nos últimos disparos | a pessoa não é avisada dos 40 erros em 5 minutos e ninguém sabe que o aviso falhou | alertas | #45: aprovado pela coordenação, por delegação | pendente #35 |
 | RK37 | O alerta não dispara quando a condição acontece, ou dispara em dobro ou sem a condição | incidente sem aviso, ou tanto aviso falso que a pessoa silencia o bot | alertas | #45: aprovado pela coordenação, por delegação | pendente #35 |
+| RK38 | O desenho da página de 100 eventos ou a abertura de um evento com stack trace longo passa de 100 ms no Chrome com a CPU 4x mais lenta, sem contar a busca no servidor | quem investiga `R-1042` espera a cada página e a cada evento aberto, e a escolha do Solid ([ADR 0004](adr/0004-solid-no-painel.md)) deixa de valer | painel | #66: aprovado pela coordenação, por delegação | pendente #35 |
