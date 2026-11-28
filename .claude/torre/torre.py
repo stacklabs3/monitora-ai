@@ -74,6 +74,15 @@ CONTA_DO_CHROME_LOCAL = "1"
 LENTES_DE_DECISAO = ["human-architect-mindset", "domain-modeling", "ceo-advisor", "cto-advisor", "codebase-design"]
 # A execução aberta antes de 27/11 não grava a lista que recebeu: vale a de quatro do kickoff dela.
 LENTES_ATE_27_11 = ["human-architect-mindset", "domain-modeling", "ceo-advisor", "cto-advisor"]
+# Só os modelos aprovados da StackLabs, nunca Fable (Matheus, 28/11): "A torre nao deve JAMAIS usar fable".
+# O `claude -p` sem `--model` herda o padrão da conta, que é Fable.
+MODELO_DA_TORRE = "claude-opus-5-5"
+
+
+def comando_da_execucao(kickoff: str, acao: Dict[str, Any]) -> List[str]:
+    """O `claude -p` de uma execução, sempre com o modelo aprovado explícito."""
+    return ["claude", "-p", kickoff, "--model", MODELO_DA_TORRE, *(["--chrome"] if acao.get("chrome") else []),
+            "--permission-mode", "bypassPermissions", "--output-format", "stream-json", "--verbose"]
 
 processos_vivos: Dict[str, subprocess.Popen] = {}
 
@@ -624,6 +633,7 @@ def bloco_headless(nome_execucao: str) -> str:
     return f"""## Como esta execução roda
 Você roda headless (`claude -p`), aberta pelo `.claude/torre/torre.py`, a Torre autônoma. Não há humano no chat nem turno seguinte:
 - não termine a resposta enquanto houver trabalho; a execução acaba quando você responde pela última vez;
+- modelos: só `claude-opus-5-5`, ou `claude-sonnet-5-5` para trabalho mecânico; **nunca** `claude-fable-*`. Todo subagente e todo `claude -p` que você abrir leva o modelo explícito (`model` no Agent, `--model` no `claude -p`);
 - rode subagentes **em primeiro plano** (sem `run_in_background`) e espere cada um; não use `/loop`, `ScheduleWakeup`, `CronCreate`, `start_session`, `SendMessage` à Torre nem Monitor de espera;
 - pergunta ou folha de decisão: decida você, pela delegação abaixo, e registre na issue;
 - se o `vigia-prompt` pedir `/nova-sessao` (smart zone), grave o estado da rodada no git e na issue, grave o resultado com `"resultado": "smart-zone"` e termine: a Torre abre a continuação;
@@ -1208,8 +1218,7 @@ def lancar(acao: Dict[str, Any], estado: Dict[str, Any], melhorias_ciclo: Dict[s
     log = base.with_suffix(".jsonl")
     with open(log, "w", encoding="utf-8") as saida:
         processo = subprocess.Popen(
-            ["claude", "-p", kickoff, *(["--chrome"] if acao.get("chrome") else []),
-             "--permission-mode", "bypassPermissions", "--output-format", "stream-json", "--verbose"],
+            comando_da_execucao(kickoff, acao),
             cwd=str(cwd), stdout=saida, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, start_new_session=True,
             env=ambiente_da_conta(conta),
         )

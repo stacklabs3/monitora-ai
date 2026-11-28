@@ -70,6 +70,11 @@ reabre como retomada na conta 1, na mesma tentativa, sem contar como falha. Com 
 Torre espera (`aguardando_conta`) e põe uma linha em *Para o Matheus*; não cai na conta 2. O estado
 guarda a conta em uso e os prazos em `contas`.
 
+**Só modelos aprovados** (Matheus, 28/11): toda execução nasce com `--model claude-opus-5-5`
+(`MODELO_DA_TORRE`), porque o `claude -p` sem `--model` herda o padrão da conta, que é Fable. O kickoff
+manda cada subagente e cada `claude -p` aberto pela execução levar o modelo explícito: `claude-opus-5-5`, ou
+`claude-sonnet-5-5` para trabalho mecânico. Fable nunca.
+
 **Chrome local fora de uso** (Matheus, 25/11): a Torre não abre execução com `--chrome`, nem na conta 1,
 a do Chrome deste Mac com a extensão. A execução cujo kickoff cita issue com o rótulo
 `rotulo_chrome_local` da configuração (`chrome-local`) não abre (`segurar_chrome_local`): a Torre põe em
