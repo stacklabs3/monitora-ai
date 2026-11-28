@@ -829,7 +829,8 @@ Resultado: `"spec-publicado"` com `"detalhe": {{"spec": <número da issue do spe
 Rode o `/to-tickets` do spec #{frente['spec']} ({origem_da_frente(frente)}): fatias verticais com bloqueios nativos, cada uma `ready-for-agent` só depois da definição de pronto (`docs/agents/caminho-ate-ready-for-agent.md`).
 - Nota da Torre: {frente.get('nota', '—')}
 - Fatia que depende de decisão em aberto (issue bloqueada por outra do Matheus) nasce com o bloqueio nativo e sem `ready-for-agent`.
-Resultado: `"tickets-publicados"` com `"detalhe": {{"tickets": [<números>], "bloqueadas": [<números>]}}`."""
+Resultado: `"tickets-publicados"` com `"detalhe": {{"tickets": [<números>], "bloqueadas": [<números>]}}`.
+Sem fatia a publicar agora (spec que é retrato, ou plano que ainda não abre): registre a decisão num comentário no spec #{frente['spec']}, com `## Lentes` e `## Fontes`, e grave `"sem-fatia"` com `"detalhe": {{"comentario_da_decisao": "<url do comentário>"}}`. Não invente fatia para ter o que publicar."""
     skills = ["to-spec" if frente["etapa"] == "to-spec" else "to-tickets", *LENTES_DE_DECISAO]
     return cabecalho(skills, f"{frente['etapa']} {origem_da_frente(frente)}") + "\n" + corpo + "\n\n" + \
         bloco_buscar_antes("o nome da fatia ou do spec") + bloco_delegacoes() + bloco_leitura() + bloco_headless(nome_execucao)
@@ -1489,6 +1490,15 @@ def aplicar_resultado(execucao: Dict[str, Any], resultado: Optional[Dict[str, An
             frente["etapa"] = "feito"
             frente["tickets"] = detalhe["tickets"]
             return True
+        if etapa == "to-tickets" and valor == "sem-fatia" and frente.get("spec"):
+            # Spec que não vira fatia agora (retrato, ou plano que ainda não abre): vale com a decisão comentada no próprio spec.
+            comentario = str(detalhe.get("comentario_da_decisao") or "")
+            rotulos = issue_rotulos_seguro(int(frente["spec"]))
+            if f"/issues/{frente['spec']}#issuecomment-" in comentario and rotulos is not None and "spec" in rotulos:
+                frente["etapa"] = "feito"
+                frente["tickets"] = []
+                frente["sem_fatia"] = comentario
+                return True
         return False
     if tipo == "triagem":
         if valor != "triagem-feita":
