@@ -50,7 +50,19 @@ A memória não separa as opções: as duas gastam pouco. O que separa é a qued
 ## Ainda em aberto
 
 - Janela, repetição, silenciar e o que fazer quando a rodada falha: comportamento do alerta, que segue para o `/prototype` ([Definir rotinas do desenho inicial](https://github.com/stacklabs3/monitora-ai/issues/15)).
-- Como se reconhece uma aplicação que caiu e não voltou, e se duas execuções da mesma aplicação ao mesmo tempo contam como reinício: seguem na névoa do [Mapa: arquitetura da plataforma](https://github.com/stacklabs3/monitora-ai/issues/18).
+- Um alerta para a aplicação que ficou sem nenhuma execução ativa: condição nova de alerta, fora das duas combinadas (muitos erros e reinícios seguidos); é escolha do responsável pelo produto.
+
+## Execução sem sinal e o que conta como reinício
+
+Decidido em [Definir quando uma execução conta como sem sinal e o que conta como reinício](https://github.com/stacklabs3/monitora-ai/issues/94), em 28/11/2026, pela recomendação, por delegação do responsável pelo produto.
+
+- **Execução sem sinal:** a saúde do envio dá uma execução como sem sinal quando ela não avisou o encerramento e o último informe da situação tem mais de 90 s, três informes de 30 s seguidos sem chegar. Os 90 s são proposta, como os 30 s do ADR 0001: sem fonte que fixe o valor.
+- **Calculado na leitura:** a saúde do envio guarda só o horário do último informe de cada execução e responde "ativa", "encerrada" ou "sem sinal" quando o painel ou os alertas perguntam. Não há relógio novo nem estado a corrigir depois de uma queda.
+- **Servidor que voltou:** o silêncio conta a partir do mais recente entre o último informe e a hora em que o servidor voltou a receber. Sem isso, uma queda de 5 min do servidor marcaria todas as execuções como sem sinal.
+- **Aplicação que caiu e não voltou:** é a aplicação em que nenhuma execução está ativa e a última ficou sem sinal. O painel mostra isso na saúde do envio, com o "pode ter perdido mais depois de <horário>" da ingestão. Nenhum alerta da primeira versão avisa disso.
+- **Reinício continua sendo início na janela:** cada execução que começa conta um, também quando outra execução da mesma aplicação está ativa. O contrato não diz qual execução substituiu qual, então a plataforma não tenta adivinhar.
+- **Falso aviso conhecido:** uma aplicação que sobe 4 execuções de uma vez num deploy conta 4 inícios. Quem configura o alerta põe a quantidade acima do número de execuções que sobem juntas. Se isso incomodar, um campo opcional na situação da execução, dizendo o lugar que a execução ocupa, resolve sem quebrar o `/v1`.
+- **Sites em Next:** encerram sem avisar (ADR 0001), então todo deploy de site deixa uma execução sem sinal. Por isso o nome é "sem sinal", e não "caiu".
 
 ## Fontes
 
@@ -61,4 +73,5 @@ A memória não separa as opções: as duas gastam pouco. O que separa é a qued
 - [Grafana: avaliação das regras de alerta](https://grafana.com/docs/grafana/latest/alerting/fundamentals/alert-rule-evaluation/): intervalo de avaliação por grupo
 - [OpenSearch: Count API](https://docs.opensearch.org/latest/api-reference/search-apis/count/), [Alerting](https://docs.opensearch.org/latest/observing-your-data/alerting/index/) e [Notifications](https://docs.opensearch.org/latest/observing-your-data/notifications/index/): contagem com filtro, monitor por agenda e lista de canais
 - [Definir garantias e falhas da ingestão](https://github.com/stacklabs3/monitora-ai/issues/7), itens 13 a 15, e [Definir prova de conceito e critérios de avaliação](https://github.com/stacklabs3/monitora-ai/issues/9): meta de 1 s para confirmar
+- Execução sem sinal: [Definir garantias e falhas da ingestão](https://github.com/stacklabs3/monitora-ai/issues/7), item 15 (a aplicação que some sem se despedir é sinalizada, não contada); [Kubernetes: probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) (a tolerância é o número de falhas seguidas vezes o período); [PM2: cluster mode](https://pm2.keymetrics.io/docs/usage/cluster-mode/) (uma aplicação Node sobe um processo por CPU)
 - Delegação do responsável pelo produto de 20/11/2026: decidir pela recomendação

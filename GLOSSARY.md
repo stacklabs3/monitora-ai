@@ -80,6 +80,10 @@ _Avoid_: Salt, chave de hash
 O informe que uma execução manda à parte dos eventos, com o último número usado, as perdas, o início e o encerramento.
 _Avoid_: Heartbeat, ping
 
+**Execução sem sinal**:
+Uma execução que não avisou o encerramento e parou de mandar a situação da execução; a plataforma não sabe se ela caiu ou se só o envio parou.
+_Avoid_: Execução morta, offline, aplicação fora do ar
+
 **Valor mascarado**:
 Um dado pessoal com parte escondida de forma irreversível, como `***.456.789-**`, que continua sendo dado pessoal.
 _Avoid_: Valor anonimizado, valor ofuscado
