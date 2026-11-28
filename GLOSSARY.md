@@ -100,6 +100,14 @@ _Avoid_: Leitor, analista
 Um investigador que também cuida de pessoas, chaves de envio, catálogo de campos, alertas, retenção e exclusões de um produto.
 _Avoid_: Admin, dono
 
+**Convite**:
+O link de uso único, com prazo, que o administrador gera para uma pessoa criar o próprio acesso ao painel.
+_Avoid_: Cadastro aberto, link de registro
+
+**Sessão de acesso**:
+O período em que uma pessoa fica dentro do painel depois de entrar, com limite total e limite parada.
+_Avoid_: Sessão (sozinha), login, token
+
 **Campo pesquisável**:
 Um campo declarado pelo produto, com tipo e formas de busca permitidas.
 _Avoid_: Campo indexado, facet
