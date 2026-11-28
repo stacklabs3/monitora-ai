@@ -15,7 +15,9 @@ const useT = (lang) => {
 };
 
 /* ---------- Press (tappable feedback) ---------- */
-const Press = React.forwardRef(({ children, onClick, style, className, disabled, ...rest }, referencia) => {
+/* `aria-disabled` sem `disabled` é de quem só se declara indisponível (a linha de evento sem
+   internet): o atributo fica, e a guarda do apagado continua sendo só de `disabled`. */
+const Press = React.forwardRef(({ children, onClick, style, className, disabled, 'aria-disabled': declaradoIndisponivel, ...rest }, referencia) => {
   const [down, setDown] = useState(false);
   return (
     <div
@@ -32,7 +34,7 @@ const Press = React.forwardRef(({ children, onClick, style, className, disabled,
       onKeyDown={(evento) => {
         if ((evento.key === 'Enter' || evento.key === ' ') && !disabled && onClick) { evento.preventDefault(); onClick(); }
       }}
-      aria-disabled={disabled || undefined}
+      aria-disabled={disabled || declaradoIndisponivel || undefined}
       style={{
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.5 : 1,
@@ -480,7 +482,9 @@ const JanelaDeDialogo = ({ titulo, largura = 480, papel = 'dialog', aoFechar, ac
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, background: 'var(--veu)', zIndex: 20,
+      /* Acima do cabeçalho da vitrine (50), para o título da janela nunca ficar sob ele, e
+         abaixo do aviso passageiro (60) e do painel flutuante (100). */
+      position: 'fixed', inset: 0, background: 'var(--veu)', zIndex: 55,
       display: 'flex', padding: 'var(--space-4)', overflowY: 'auto',
     }} onClick={() => aoFechar && aoFechar()}>
       <div
