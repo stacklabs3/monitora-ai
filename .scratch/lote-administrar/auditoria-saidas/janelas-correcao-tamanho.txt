@@ -1,0 +1,55 @@
+== CONTROLES do conferidor de foco ==
+  negativo sem contorno: temContorno=false => REPROVADO como devia
+  negativo contorno #eee sobre #fff: 1.16:1 => REPROVADO como devia
+  negativo encoberto por uma camada: encoberto=true => REPROVADO como devia
+  positivo contorno #000 sobre #fff: 21:1, encoberto=false => passou
+MEDIDA VÁLIDA
+
+PASS 1440×900 cadastro default: janela de 434px, de y 233 a 667 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 cadastro error: janela de 568px, de y 166 a 734 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 cadastro offline: janela de 484px, de y 208 a 692 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 mais uma chave default: janela de 284px, de y 308 a 592 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 mais uma chave error: janela de 401px, de y 250 a 650 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 mais uma chave offline: janela de 317px, de y 292 a 608 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 chave gerada default: janela de 470px, de y 215 a 685 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 chave gerada error: janela de 249px, de y 325 a 575 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 chave gerada offline: janela de 503px, de y 199 a 701 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 revogar default: janela de 353px, de y 274 a 626 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 revogar error: janela de 470px, de y 215 a 685 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 revogar offline: janela de 386px, de y 257 a 643 numa janela de navegador de 900px · cabe inteira · rolagem não
+PASS 1440×900 declarar default: janela de 787px, de y 57 a 843 numa janela de navegador de 900px · cabe inteira · rolagem sim
+PASS 1440×900 declarar error: janela de 868px, de y 16 a 884 numa janela de navegador de 900px · cabe inteira · rolagem sim
+PASS 1440×900 declarar offline: janela de 820px, de y 40 a 860 numa janela de navegador de 900px · cabe inteira · rolagem sim
+PASS 1280×720 cadastro default: janela de 434px, de y 143 a 577 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 cadastro error: janela de 568px, de y 76 a 644 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 cadastro offline: janela de 484px, de y 118 a 602 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 mais uma chave default: janela de 284px, de y 218 a 502 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 mais uma chave error: janela de 401px, de y 160 a 560 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 mais uma chave offline: janela de 317px, de y 202 a 518 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 chave gerada default: janela de 470px, de y 125 a 595 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 chave gerada error: janela de 249px, de y 235 a 485 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 chave gerada offline: janela de 503px, de y 109 a 611 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 revogar default: janela de 353px, de y 184 a 536 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 revogar error: janela de 470px, de y 125 a 595 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 revogar offline: janela de 386px, de y 167 a 553 numa janela de navegador de 720px · cabe inteira · rolagem não
+PASS 1280×720 declarar default: janela de 688px, de y 16 a 704 numa janela de navegador de 720px · cabe inteira · rolagem sim
+PASS 1280×720 declarar error: janela de 688px, de y 16 a 704 numa janela de navegador de 720px · cabe inteira · rolagem sim
+PASS 1280×720 declarar offline: janela de 688px, de y 16 a 704 numa janela de navegador de 720px · cabe inteira · rolagem sim
+PASS 1280×600 cadastro default: janela de 434px, de y 83 a 517 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 cadastro error: janela de 568px, de y 16 a 584 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 cadastro offline: janela de 484px, de y 58 a 542 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 mais uma chave default: janela de 284px, de y 158 a 442 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 mais uma chave error: janela de 401px, de y 100 a 500 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 mais uma chave offline: janela de 317px, de y 142 a 458 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 chave gerada default: janela de 470px, de y 65 a 535 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 chave gerada error: janela de 249px, de y 175 a 425 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 chave gerada offline: janela de 503px, de y 49 a 551 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 revogar default: janela de 353px, de y 124 a 476 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 revogar error: janela de 470px, de y 65 a 535 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 revogar offline: janela de 386px, de y 107 a 493 numa janela de navegador de 600px · cabe inteira · rolagem não
+PASS 1280×600 declarar default: janela de 568px, de y 16 a 584 numa janela de navegador de 600px · cabe inteira · rolagem sim
+PASS 1280×600 declarar error: janela de 568px, de y 16 a 584 numa janela de navegador de 600px · cabe inteira · rolagem sim
+PASS 1280×600 declarar offline: janela de 568px, de y 16 a 584 numa janela de navegador de 600px · cabe inteira · rolagem sim
+CONTROLE NEGATIVO (janela de navegador de 300 px): janela de y 0 a 320 => ACUSADA como devia (não cabe)
+
+falhas: 0

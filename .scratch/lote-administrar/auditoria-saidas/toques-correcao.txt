@@ -1,0 +1,29 @@
+PASS entrar-no-painel: 2/3 toques · concluída true · #/painel/excurfly/producao/investigador
+PASS ver-como-administrador: 1/1 toques · concluída true · #/painel/excurfly/producao/administrador
+PASS buscar-eventos: 3/3 toques · concluída true · #/painel/excurfly/producao/investigador/eventos/p=1h;f=reservationId:e:R-1042
+PASS avisos-da-busca: 3/3 toques · concluída true · #/painel/excurfly/producao/investigador/eventos/p=1h;q=limite
+PASS ler-um-evento: 2/3 toques · concluída true · #/painel/excurfly/producao/investigador/tentativas/reservationId/R-1042
+PASS ler-o-erro-do-evento: 2/3 toques · concluída true · #/painel/excurfly/producao/investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro
+PASS filtrar-por-um-valor: 1/3 toques · concluída true · #/painel/excurfly/producao/investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao
+PASS achar-a-tentativa: 2/3 toques · concluída true · #/painel/excurfly/producao/investigador/tentativas/reservationId/R-1042
+PASS ler-a-linha-do-tempo: 2/3 toques · concluída true · #/painel/excurfly/producao/investigador/tentativas/reservationId/R-1042/secao/sem-vinculo
+PASS codigo-em-duas-tentativas: 1/3 toques · concluída true · #/painel/excurfly/producao/investigador/tentativas/reservationId/R-1047
+PASS cadastrar-aplicacao: 3/3 toques · concluída true · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS guardar-a-chave: 2/2 toques · concluída true · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a
+PASS revogar-chave: 2/2 toques · concluída true · #/painel/excurfly/producao/administrador/aplicacoes/site/chaves/ex2b/revogada
+PASS declarar-um-campo: 2/3 toques · concluída true · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarado/numero.exata-intervalo.nenhum
+PASS ler-o-catalogo-como-investigador: 1/1 toques · concluída true · #/painel/excurfly/producao/investigador/catalogo
+PASS conferir-a-saude-do-envio: 2/2 toques · concluída true · #/painel/excurfly/producao/investigador/saude/24h/api
+PASS execucao-que-sumiu: 1/1 toques · concluída true · #/painel/excurfly/producao/administrador/saude/24h/webhooks
+PASS eventos-em-volta-da-perda: 1/1 toques · concluída true · #/painel/excurfly/producao/investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API
+PASS entrar-pelo-celular: 2/3 toques · concluída true · #/alerta/a17
+PASS receber-o-alerta: 3/3 toques · concluída true · #/alerta/a17
+CONTROLE NEGATIVO (toque que não leva à última tela): 2/1 · concluída false => o medidor acusa rotina não concluída
+CONTROLE NEGATIVO (um toque além da meta): 3/1 · concluída true => REPROVADO como devia (acima da meta)
+
+CONSOLE E REDE (3 mensagens distintas no caminho das 20 rotinas):
+  console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+  http 404: http://localhost:8771/favicon.ico
+  log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhost:8771/favicon.ico
+
+falhas: 0

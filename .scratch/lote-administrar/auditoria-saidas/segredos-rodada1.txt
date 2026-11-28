@@ -1,0 +1,16 @@
+CONTROLE NEGATIVO (controle-de-segredos.txt, plantado fora do repositório): 7 achados (esperado: pelo menos 6, um por tipo) => REPROVADO como devia
+   controle-de-segredos.txt:1 [e-mail] maria.silva@gmail.com
+   controle-de-segredos.txt:2 [CPF] 529.982.247-25
+   controle-de-segredos.txt:2 [CNPJ] 11.222.333/0001-81
+   controle-de-segredos.txt:3 [telefone] (11) 98765-4321
+   controle-de-segredos.txt:4 [chave conhecida] sk_live_
+   controle-de-segredos.txt:4 [chave conhecida] AKIAIOSFODNN7EXA
+   controle-de-segredos.txt:5 [sequência longa aleatória] q9XvT2mLp8ZrK4wB7nYc3HdF6sJa1GeU
+ACHADOS NOS COMPONENTES: 7
+   data.jsx:18 [e-mail] pessoa@exemplo.test
+   data.jsx:172 [CPF] 123.456.789-00
+   data.jsx:254 [sequência longa aleatória] example/internal/payment/T-901/confirm
+   data.jsx:258 [sequência longa aleatória] example/api/v1/reservation/R-1042/refund
+   data.jsx:335 [sequência longa aleatória] example/internal/payment/T-905/confirm
+   data.jsx:345 [sequência longa aleatória] example/internal/payment/T-903/confirm
+   data.jsx:354 [sequência longa aleatória] example/internal/payment/T-866/confirm

@@ -1,0 +1,8 @@
+CONTROLE NEGATIVO (texto plantado): 9 achados (esperado: {campo}, undefined, token, api key, heartbeat, admin, histórico, chave de i18n, inglês) => REPROVADO como devia
+CONTROLE POSITIVO (texto limpo): 0 achados (esperado 0) => passou
+cenas lidas: 108 · achados distintos: 5
+  INGLÊS?: search → «plicação mensagem 14:58:40.074 info site search results rendered results=14 dura»  (cadastrar-aplicacao/01-painel_administrador default)
+  AVOID: histórico → «o reprocessados. cada declaração fica no histórico e na auditoria, com quem fez e quando. »  (declarar-um-campo/01-catalogo_administrador default)
+  INGLÊS?: retry → «code":402,"reason":"insufficient_funds","retry":{"allowed":true,"afterseconds":3»  (declarar-um-campo/01-catalogo_administrador default)
+  INGLÊS?: attempt → «isto desde eventos exemplo de valor ação attempt não declarado api 27/11/2026 14»  (declarar-um-campo/01-catalogo_administrador default)
+  INGLÊS?: attempt → «ceu visto desde eventos exemplo de valor attempt não declarado api 27/11/2026 14»  (ler-o-catalogo-como-investigador/02-catalogo_investigador default)

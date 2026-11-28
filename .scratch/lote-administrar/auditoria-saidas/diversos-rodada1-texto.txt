@@ -1,0 +1,24 @@
+
+== TEXTO CORTADO OU SOBREPOSTO ==
+  PASS cadastrar-aplicacao/01-painel_administrador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS cadastrar-aplicacao/02-aplicacoes_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS cadastrar-aplicacao/03-aplicacao_nova_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS cadastrar-aplicacao/04-chave_passo_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS guardar-a-chave/02-chave_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS revogar-chave/02-chave_passo_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS revogar-chave/03-chave_passo_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS declarar-um-campo/01-catalogo_administrador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS declarar-um-campo/02-catalogo_campo_administrador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS declarar-um-campo/03-catalogo_declarado_administrador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS ler-o-catalogo-como-investigador/01-evento_secao_investigador default: sem corte nem sobreposição · 9 textos com reticências
+  PASS ler-o-catalogo-como-investigador/02-catalogo_investigador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS conferir-a-saude-do-envio/01-painel_investigador default: sem corte nem sobreposição · 1 textos com reticências
+  PASS conferir-a-saude-do-envio/02-saude_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS conferir-a-saude-do-envio/03-saude_aplicacao_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS execucao-que-sumiu/01-saude_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS execucao-que-sumiu/02-saude_aplicacao_administrador default: sem corte nem sobreposição · 0 textos com reticências
+  PASS eventos-em-volta-da-perda/02-busca_investigador default: sem corte nem sobreposição · 0 textos com reticências
+  CONTROLE NEGATIVO: cortados 1 (esperado 1) · sobrepostos 1 (esperado 1) => REPROVADO como devia
+  cenas conferidas 108 · com problema 0
+
+CONSOLE (3 distintas): console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for produc | http 404: http://localhost:8771/favicon.ico | log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhos

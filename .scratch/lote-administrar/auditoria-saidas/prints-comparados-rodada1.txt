@@ -1,0 +1,7 @@
+iguais 286 · ruído de desenho (menos de 40 pixels com diferença forte) 4 · carregando (animação) 42 · DIFERENTES 6
+  DIFERENTE ('ler-a-linha-do-tempo/01-tentativa_investigador--desktop--light--empty.png', '52326 pixels, 13688 com diferença forte, caixa (384, 327, 1292, 468)')
+  DIFERENTE ('ler-a-linha-do-tempo/03-tentativa_secao_investigador--desktop--light--empty.png', '52326 pixels, 13688 com diferença forte, caixa (384, 327, 1292, 468)')
+  DIFERENTE ('achar-a-tentativa/03-tentativa_investigador--desktop--light--empty.png', '52326 pixels, 13688 com diferença forte, caixa (384, 327, 1292, 468)')
+  DIFERENTE ('ler-um-evento/03-tentativa_investigador--desktop--light--empty.png', '52326 pixels, 13688 com diferença forte, caixa (384, 327, 1292, 468)')
+  DIFERENTE ('codigo-em-duas-tentativas/01-tentativa_investigador--desktop--light--empty.png', '52325 pixels, 13684 com diferença forte, caixa (384, 327, 1292, 468)')
+  DIFERENTE ('codigo-em-duas-tentativas/02-tentativa_investigador--desktop--light--empty.png', '52323 pixels, 13689 com diferença forte, caixa (384, 327, 1292, 468)')

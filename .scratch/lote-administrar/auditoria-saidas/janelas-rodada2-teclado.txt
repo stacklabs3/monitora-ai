@@ -1,0 +1,114 @@
+== CONTROLES do conferidor de foco ==
+  negativo sem contorno: temContorno=false => REPROVADO como devia
+  negativo contorno #eee sobre #fff: 1.16:1 => REPROVADO como devia
+  negativo encoberto por uma camada: encoberto=true => REPROVADO como devia
+  positivo contorno #000 sobre #fff: 21:1, encoberto=false => passou
+MEDIDA VÁLIDA
+
+PASS [light] cadastrar aplicação: a janela abre (dialog «Cadastrar aplicação do Excurfly em produção»)
+PASS [light] cadastrar aplicação: foco inicial em input «ex.: API de parceiros» (esperado: input)
+PASS [light] cadastrar aplicação: Tab preso na janela (15 Tabs, 4 focáveis; fugas 0) · ordem: input «ex.: servidor novo» → button «Cancelar» → button «Cadastrar e gerar a chave» → input «ex.: API de parceiros»
+PASS [light] cadastrar aplicação: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [light] cadastrar aplicação: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [light] cadastrar aplicação: clique fora fecha (esperado: fecha)
+PASS [light] cadastrar aplicação: Esc fecha (esperado: fecha) · endereço /aplicacoes/nova → /aplicacoes
+PASS [light] cadastrar aplicação: fechada com Esc, o foco volta a quem abriu (button «Cadastrar aplicação»; esperado «Cadastrar aplicação»)
+PASS [light] mais uma chave (API): a janela abre (dialog «Gerar chave de envio para API em produção»)
+PASS [light] mais uma chave (API): foco inicial em input «ex.: servidor novo» (esperado: input)
+PASS [light] mais uma chave (API): Tab preso na janela (12 Tabs, 3 focáveis; fugas 0) · ordem: button «Cancelar» → button «Gerar a chave» → input «ex.: servidor novo»
+PASS [light] mais uma chave (API): foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [light] mais uma chave (API): foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [light] mais uma chave (API): clique fora fecha (esperado: fecha)
+PASS [light] mais uma chave (API): Esc fecha (esperado: fecha) · endereço /aplicacoes/api/chaves/nova → /aplicacoes
+PASS [light] mais uma chave (API): fechada com Esc, o foco volta a quem abriu (button «Gerar chave de envio para API»; esperado «Gerar chave de envio para API»)
+PASS [light] revogar (servidor antigo do Site): a janela abre (alertdialog «Revogar a chave “servidor antigo” da aplicação Site do Excur»)
+PASS [light] revogar (servidor antigo do Site): foco inicial em button «Cancelar» (esperado: Cancelar)
+PASS [light] revogar (servidor antigo do Site): Tab preso na janela (9 Tabs, 2 focáveis; fugas 0) · ordem: button «Revogar a chave» → button «Cancelar»
+PASS [light] revogar (servidor antigo do Site): foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [light] revogar (servidor antigo do Site): foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [light] revogar (servidor antigo do Site): clique fora fecha (esperado: fecha)
+PASS [light] revogar (servidor antigo do Site): Esc fecha (esperado: fecha) · endereço /aplicacoes/site/chaves/ex2b/revogar → /aplicacoes
+PASS [light] revogar (servidor antigo do Site): fechada com Esc, o foco volta a quem abriu (button «Revogar a chave servidor antigo de Site»; esperado «Revogar a chave servidor antigo de Site»)
+PASS [light] chave gerada: a janela abre (alertdialog «Chave de envio de API de parceiros em produção»)
+PASS [light] chave gerada: foco inicial em button «Copiar a chave» (esperado: Copiar a chave)
+PASS [light] chave gerada: Tab preso na janela (9 Tabs, 2 focáveis; fugas 0) · ordem: button «Já guardei a chave» → button «Copiar a chave»
+PASS [light] chave gerada: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [light] chave gerada: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [light] chave gerada: clique fora não fecha (esperado: não fecha)
+PASS [light] chave gerada: Esc não fecha (esperado: não fecha) · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada → /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS [light] declarar campo: a janela abre (dialog «Declarar o campo installmentCount do Excurfly»)
+INFO [light] declarar campo: foco inicial em dialog «Declarar o campo installmentCount do Excurfly Onde» (a janela inteira, sem contorno: o primeiro Tab leva ao primeiro controle)
+PASS [light] declarar campo: Tab preso na janela (39 Tabs, 12 focáveis; fugas 0) · ordem: radio «texto» → radio «número» → radio «data e hora» → radio «verdadeiro/falso» → radio «URL» → radio «código de busca» → radio «nenhum» → radio «campo de correlação» → radio «campo principal» → radio «campo de localização» → button «Cancelar» → button «Declarar o campo»
+PASS [light] declarar campo: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [light] declarar campo: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [light] declarar campo: clique fora fecha (esperado: fecha)
+PASS [light] declarar campo: Esc fecha (esperado: fecha) · endereço /catalogo/installmentCount/declarar → /catalogo
+PASS [light] declarar campo: fechada com Esc, o foco volta a quem abriu (button «Declarar o campo installmentCount»; esperado «Declarar o campo installmentCount»)
+PASS [light] atalhos do teclado: a janela abre (dialog «Atalhos do teclado»)
+PASS [light] atalhos do teclado: foco inicial em button «Fechar» (esperado: Fechar)
+PASS [light] atalhos do teclado: Tab preso na janela (6 Tabs, 1 focáveis; fugas 0) · ordem: button «Fechar»
+PASS [light] atalhos do teclado: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [light] atalhos do teclado: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [light] atalhos do teclado: clique fora fecha (esperado: fecha)
+PASS [light] atalhos do teclado: Esc fecha (esperado: fecha) · endereço /aplicacoes → /aplicacoes
+PASS [light] atalhos do teclado: fechada com Esc, o foco volta a quem abriu (button «Cadastrar aplicação»; esperado «Cadastrar aplicação»)
+PASS [light] revogar pelo teclado (Tab, Enter): chave revogada e foco em h1 «Aplicações e chaves de envio» (não pode ficar no body)
+PASS [light] revogar: Enter logo ao abrir cancela, não revoga (endereço /aplicacoes)
+PASS [light] declarar confirmado: foco em h1 «Catálogo de campos» (não pode ficar no body)
+PASS [light] chave gerada: "Já guardei a chave" pelo teclado fecha e o foco vai para button «Cadastrar aplicação» (não pode ficar no body)
+PASS [dark] cadastrar aplicação: a janela abre (dialog «Cadastrar aplicação do Excurfly em produção»)
+PASS [dark] cadastrar aplicação: foco inicial em input «ex.: API de parceiros» (esperado: input)
+PASS [dark] cadastrar aplicação: Tab preso na janela (15 Tabs, 4 focáveis; fugas 0) · ordem: input «ex.: servidor novo» → button «Cancelar» → button «Cadastrar e gerar a chave» → input «ex.: API de parceiros»
+PASS [dark] cadastrar aplicação: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [dark] cadastrar aplicação: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [dark] cadastrar aplicação: clique fora fecha (esperado: fecha)
+PASS [dark] cadastrar aplicação: Esc fecha (esperado: fecha) · endereço /aplicacoes/nova → /aplicacoes
+PASS [dark] cadastrar aplicação: fechada com Esc, o foco volta a quem abriu (button «Cadastrar aplicação»; esperado «Cadastrar aplicação»)
+PASS [dark] mais uma chave (API): a janela abre (dialog «Gerar chave de envio para API em produção»)
+PASS [dark] mais uma chave (API): foco inicial em input «ex.: servidor novo» (esperado: input)
+PASS [dark] mais uma chave (API): Tab preso na janela (12 Tabs, 3 focáveis; fugas 0) · ordem: button «Cancelar» → button «Gerar a chave» → input «ex.: servidor novo»
+PASS [dark] mais uma chave (API): foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [dark] mais uma chave (API): foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [dark] mais uma chave (API): clique fora fecha (esperado: fecha)
+PASS [dark] mais uma chave (API): Esc fecha (esperado: fecha) · endereço /aplicacoes/api/chaves/nova → /aplicacoes
+PASS [dark] mais uma chave (API): fechada com Esc, o foco volta a quem abriu (button «Gerar chave de envio para API»; esperado «Gerar chave de envio para API»)
+PASS [dark] revogar (servidor antigo do Site): a janela abre (alertdialog «Revogar a chave “servidor antigo” da aplicação Site do Excur»)
+PASS [dark] revogar (servidor antigo do Site): foco inicial em button «Cancelar» (esperado: Cancelar)
+PASS [dark] revogar (servidor antigo do Site): Tab preso na janela (9 Tabs, 2 focáveis; fugas 0) · ordem: button «Revogar a chave» → button «Cancelar»
+PASS [dark] revogar (servidor antigo do Site): foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [dark] revogar (servidor antigo do Site): foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [dark] revogar (servidor antigo do Site): clique fora fecha (esperado: fecha)
+PASS [dark] revogar (servidor antigo do Site): Esc fecha (esperado: fecha) · endereço /aplicacoes/site/chaves/ex2b/revogar → /aplicacoes
+PASS [dark] revogar (servidor antigo do Site): fechada com Esc, o foco volta a quem abriu (button «Revogar a chave servidor antigo de Site»; esperado «Revogar a chave servidor antigo de Site»)
+PASS [dark] chave gerada: a janela abre (alertdialog «Chave de envio de API de parceiros em produção»)
+PASS [dark] chave gerada: foco inicial em button «Copiar a chave» (esperado: Copiar a chave)
+PASS [dark] chave gerada: Tab preso na janela (9 Tabs, 2 focáveis; fugas 0) · ordem: button «Já guardei a chave» → button «Copiar a chave»
+PASS [dark] chave gerada: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [dark] chave gerada: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [dark] chave gerada: clique fora não fecha (esperado: não fecha)
+PASS [dark] chave gerada: Esc não fecha (esperado: não fecha) · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada → /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS [dark] declarar campo: a janela abre (dialog «Declarar o campo installmentCount do Excurfly»)
+INFO [dark] declarar campo: foco inicial em dialog «Declarar o campo installmentCount do Excurfly Onde» (a janela inteira, sem contorno: o primeiro Tab leva ao primeiro controle)
+PASS [dark] declarar campo: Tab preso na janela (39 Tabs, 12 focáveis; fugas 0) · ordem: radio «texto» → radio «número» → radio «data e hora» → radio «verdadeiro/falso» → radio «URL» → radio «código de busca» → radio «nenhum» → radio «campo de correlação» → radio «campo principal» → radio «campo de localização» → button «Cancelar» → button «Declarar o campo»
+PASS [dark] declarar campo: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [dark] declarar campo: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [dark] declarar campo: clique fora fecha (esperado: fecha)
+PASS [dark] declarar campo: Esc fecha (esperado: fecha) · endereço /catalogo/installmentCount/declarar → /catalogo
+PASS [dark] declarar campo: fechada com Esc, o foco volta a quem abriu (button «Declarar o campo installmentCount»; esperado «Declarar o campo installmentCount»)
+PASS [dark] atalhos do teclado: a janela abre (dialog «Atalhos do teclado»)
+PASS [dark] atalhos do teclado: foco inicial em button «Fechar» (esperado: Fechar)
+PASS [dark] atalhos do teclado: Tab preso na janela (6 Tabs, 1 focáveis; fugas 0) · ordem: button «Fechar»
+PASS [dark] atalhos do teclado: foco visível em toda parada (sem contorno 0; abaixo de 3:1 0)
+PASS [dark] atalhos do teclado: foco à vista e não encoberto (encobertas 0; fora da vista 0)
+PASS [dark] atalhos do teclado: clique fora fecha (esperado: fecha)
+PASS [dark] atalhos do teclado: Esc fecha (esperado: fecha) · endereço /aplicacoes → /aplicacoes
+PASS [dark] atalhos do teclado: fechada com Esc, o foco volta a quem abriu (button «Cadastrar aplicação»; esperado «Cadastrar aplicação»)
+PASS [dark] revogar pelo teclado (Tab, Enter): chave revogada e foco em h1 «Aplicações e chaves de envio» (não pode ficar no body)
+PASS [dark] revogar: Enter logo ao abrir cancela, não revoga (endereço /aplicacoes)
+PASS [dark] declarar confirmado: foco em h1 «Catálogo de campos» (não pode ficar no body)
+PASS [dark] chave gerada: "Já guardei a chave" pelo teclado fecha e o foco vai para button «Cadastrar aplicação» (não pode ficar no body)
+
+INDICADOR DE FOCO NAS JANELAS: light 90 paradas, menor 4.82:1 · dark 90 paradas, menor 8.26:1 (mínimo 3:1)
+
+
+falhas: 0

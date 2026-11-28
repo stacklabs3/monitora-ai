@@ -1,0 +1,6 @@
+CONTROLE NEGATIVO (dois arquivos plantados com desestruturação "...sobra"): ACUSADO como devia
+
+NOMES DECLARADOS NO TOPO DE MAIS DE UM SCRIPT: 20 · com valor diferente entre os arquivos (o último a carregar vence): 1
+  COLISÃO _excluded: ui.jsx = ["children", "onClick", "style", "className", "disabled"], | painel-casca.jsx = ["rotulo", "icone", "aoClicar", "disabled", "className"];
+  com o mesmo conteúdo em todos (auxiliares do Babel, inofensivos): _typeof, _toConsumableArray, _nonIterableSpread, _unsupportedIterableToArray, _iterableToArray, _arrayWithoutHoles, _arrayLikeToArray, ownKeys, _objectSpread, _defineProperty, _toPropertyKey, _toPrimitive, _extends, _slicedToArray, _nonIterableRest, _iterableToArrayLimit, _arrayWithHoles, _objectWithoutProperties, _objectWithoutPropertiesLoose
+  na página: window._excluded = ["rotulo","icone","aoClicar","disabled","className"]

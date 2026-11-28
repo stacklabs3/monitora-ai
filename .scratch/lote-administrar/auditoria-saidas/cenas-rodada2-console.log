@@ -1,0 +1,115 @@
+== CONTROLES no tema light ==
+  REPROVADO  2.42:1 (mínimo 4.5)  #99aaaa sobre #ffffff  «CONTROLE negativo fixo #9aa sobre #fff»
+  REPROVADO  1.92:1 (mínimo 4.5)  #51626a sobre #0e3b43  «CONTROLE negativo token muted sobre primary»
+  REPROVADO  2.11:1 (mínimo 4.5)  #b3b3b3 sobre #ffffff  «CONTROLE negativo preto com opacidade 0,3 sobre »
+  REPROVADO  1.87:1 (mínimo 4.5)  #555555 sobre #808080  «CONTROLE negativo cinza sobre preto 50% sobre br»
+  aprovado   21:1 (mínimo 4.5)  #000000 sobre #ffffff  «CONTROLE positivo preto sobre branco»
+  REPROVADO  1.36:1 (mínimo 3)  borda #dddddd fora #ffffff dentro #ffffff  «CONTROLE borda negativa»
+  aprovado   21:1 (mínimo 3)  borda #000000 fora #ffffff dentro #ffffff  «CONTROLE borda positiva»
+  REPROVADO  1.26:1 (mínimo 3)  borda #e5e5e5 fora #ffffff dentro #ffffff  «CONTROLE caixa de marcar negativa»
+== CONTROLES no tema dark ==
+  REPROVADO  2.42:1 (mínimo 4.5)  #99aaaa sobre #ffffff  «CONTROLE negativo fixo #9aa sobre #fff»
+  REPROVADO  2.05:1 (mínimo 4.5)  #9aabb0 sobre #e3f1ef  «CONTROLE negativo token muted sobre primary»
+  REPROVADO  2.11:1 (mínimo 4.5)  #b3b3b3 sobre #ffffff  «CONTROLE negativo preto com opacidade 0,3 sobre »
+  REPROVADO  1.87:1 (mínimo 4.5)  #555555 sobre #808080  «CONTROLE negativo cinza sobre preto 50% sobre br»
+  aprovado   21:1 (mínimo 4.5)  #000000 sobre #ffffff  «CONTROLE positivo preto sobre branco»
+  REPROVADO  1.36:1 (mínimo 3)  borda #dddddd fora #ffffff dentro #ffffff  «CONTROLE borda negativa»
+  aprovado   21:1 (mínimo 3)  borda #000000 fora #ffffff dentro #ffffff  «CONTROLE borda positiva»
+  REPROVADO  1.26:1 (mínimo 3)  borda #e5e5e5 fora #ffffff dentro #ffffff  «CONTROLE caixa de marcar negativa»
+MEDIDA VÁLIDA: os controles negativos (4 de texto, 2 de borda) reprovaram e os positivos passaram.
+
+ok   cadastro-aberto light: 96 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   cadastro-aberto dark: 96 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   cadastro-recusa-vazio light: 96 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   cadastro-recusa-vazio dark: 96 textos, menor 6.28:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   cadastro-recusa-repetido light: 96 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   cadastro-recusa-repetido dark: 96 textos, menor 6.28:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   cadastro-escrito light: 96 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   cadastro-escrito dark: 96 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/nova
+ok   mais-uma-chave light: 92 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api/chaves/nova
+ok   mais-uma-chave dark: 92 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api/chaves/nova
+ok   chave-gerada light: 114 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+ok   chave-gerada dark: 114 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+ok   chave-gerada-copiada light: 114 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+ok   chave-gerada-copiada dark: 114 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+ok   chave-guardada-aviso-de-feito light: 101 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a
+ok   chave-guardada-aviso-de-feito dark: 101 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/api-de-parceiros/chaves/ex7a
+ok   revogar-com-outra-ativa light: 96 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/site/chaves/ex2b/revogar
+ok   revogar-com-outra-ativa dark: 96 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/site/chaves/ex2b/revogar
+ok   revogar-a-unica-ativa light: 96 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/webhooks/chaves/ex4e/revogar
+ok   revogar-a-unica-ativa dark: 96 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/webhooks/chaves/ex4e/revogar
+ok   revogar-foco-no-botao-de-perigo light: 96 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/site/chaves/ex2b/revogar
+ok   revogar-foco-no-botao-de-perigo dark: 96 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/site/chaves/ex2b/revogar
+ok   revogada-aviso-de-feito light: 87 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/site/chaves/ex2b/revogada
+ok   revogada-aviso-de-feito dark: 87 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/site/chaves/ex2b/revogada
+ok   revogada-aplicacao-sem-chave-ativa light: 88 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/webhooks/chaves/ex4e/revogada
+ok   revogada-aplicacao-sem-chave-ativa dark: 88 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes/webhooks/chaves/ex4e/revogada
+ok   aplicacoes-de-homologacao light: 59 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/homologacao/administrador/aplicacoes
+ok   aplicacoes-de-homologacao dark: 59 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/homologacao/administrador/aplicacoes
+ok   aplicacoes-gerar-chave-no-limite-com-mouse-em-cima light: 85 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes
+ok   aplicacoes-gerar-chave-no-limite-com-mouse-em-cima dark: 85 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes
+ok   atalhos light: 98 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes
+ok   atalhos dark: 98 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/aplicacoes
+ok   declarar-aberto light: 241 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarar-aberto dark: 241 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarar-tipo-texto-com-buscas light: 243 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarar-tipo-texto-com-buscas dark: 243 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarar-papel-principal light: 242 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarar-papel-principal dark: 242 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarar-foco-na-caixa-de-marcar light: 243 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarar-foco-na-caixa-de-marcar dark: 243 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarar
+ok   declarado-aviso-de-feito light: 214 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarado/numero.exata-intervalo.nenhum
+ok   declarado-aviso-de-feito dark: 214 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarado/numero.exata-intervalo.nenhum
+ok   declarado-como-texto-principal light: 216 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarado/texto.exata-comeco-palavras.principal
+ok   declarado-como-texto-principal dark: 216 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo/installmentCount/declarado/texto.exata-comeco-palavras.principal
+ok   catalogo-procura-com-achado light: 49 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo
+ok   catalogo-procura-com-achado dark: 49 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo
+ok   catalogo-procura-sem-achado light: 38 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo
+ok   catalogo-procura-sem-achado dark: 38 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/catalogo
+ok   catalogo-do-investigador light: 195 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/investigador/catalogo
+ok   catalogo-do-investigador dark: 195 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/investigador/catalogo
+ok   catalogo-de-homologacao light: 116 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/homologacao/administrador/catalogo
+ok   catalogo-de-homologacao dark: 116 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/homologacao/administrador/catalogo
+ok   evento-com-ver-no-catalogo light: 208 textos, menor 5.49:1, reprovados 0 · #/painel/excurfly/producao/investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos
+ok   evento-com-ver-no-catalogo dark: 208 textos, menor 5.23:1, reprovados 0 · #/painel/excurfly/producao/investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos
+ok   saude-api-aberta light: 111 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/24h/api
+ok   saude-api-aberta dark: 111 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/24h/api
+ok   saude-webhooks-aberta light: 105 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/administrador/saude/24h/webhooks
+ok   saude-webhooks-aberta dark: 105 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/administrador/saude/24h/webhooks
+ok   saude-site-sem-problema light: 84 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/24h/site
+ok   saude-site-sem-problema dark: 84 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/24h/site
+ok   saude-api-na-ultima-hora light: 98 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/1h/api
+ok   saude-api-na-ultima-hora dark: 98 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/1h/api
+ok   saude-api-em-7-dias light: 111 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/7d/api
+ok   saude-api-em-7-dias dark: 111 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude/7d/api
+ok   saude-de-homologacao light: 60 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/homologacao/administrador/saude/24h/site
+ok   saude-de-homologacao dark: 60 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/homologacao/administrador/saude/24h/site
+ok   saude-foco-no-abrir light: 62 textos, menor 5.59:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude
+ok   saude-foco-no-abrir dark: 62 textos, menor 6.55:1, reprovados 0 · #/painel/excurfly/producao/investigador/saude
+
+RESUMO: light 4146 pares, menor 5.49:1 · dark 4146 pares, menor 5.23:1
+PARES REPROVADOS (0):
+BORDAS DE CAMPO (18):
+ok   3.92:1 borda #74838a fora #ffffff dentro #ffffff  select. «ExcurflyProduto de demonstração» (cadastro-aberto light)
+ok   12.17:1 borda #0e3b43 fora #ffffff dentro #ffffff  input. «ex.: API de parceiros» (cadastro-aberto light)
+ok   3.92:1 borda #74838a fora #ffffff dentro #ffffff  input. «ex.: servidor novo» (cadastro-aberto light)
+ok   4.27:1 borda #6e8188 fora #111c1e dentro #111c1e  select. «ExcurflyProduto de demonstração» (cadastro-aberto dark)
+ok   15.54:1 borda #e3f1ef fora #111c1e dentro #0e181a  input. «ex.: API de parceiros» (cadastro-aberto dark)
+ok   4.43:1 borda #6e8188 fora #111c1e dentro #0e181a  input. «ex.: servidor novo» (cadastro-aberto dark)
+ok   6.57:1 borda #b42318 fora #ffffff dentro #ffffff  input. «ex.: API de parceiros» (cadastro-recusa-vazio light)
+ok   6.52:1 borda #f87171 fora #111c1e dentro #0e181a  input. «ex.: API de parceiros» (cadastro-recusa-vazio dark)
+ok   3.92:1 borda #74838a fora #f6f8f9 dentro #ffffff  input. «Procurar um campo» (declarar-aberto light)
+ok   4.65:1 borda #6e8188 fora #0a1213 dentro #0e181a  input. «Procurar um campo» (declarar-aberto dark)
+ok   5.47:1 borda #0f766e fora #ffffff dentro #0f766e  span. «começoABC acha ABC234» (declarar-tipo-texto-com-buscas light)
+ok   9.22:1 borda #5ccfc0 fora #111c1e dentro #5ccfc0  span. «começoABC acha ABC234» (declarar-tipo-texto-com-buscas dark)
+ok   3.92:1 borda #74838a fora #ffffff dentro #ffffff  span. «começoABC acha ABC234» (declarar-foco-na-caixa-de-marcar light)
+ok   4.43:1 borda #6e8188 fora #111c1e dentro #0e181a  span. «começoABC acha ABC234» (declarar-foco-na-caixa-de-marcar dark)
+ok   12.17:1 borda #0e3b43 fora #f6f8f9 dentro #ffffff  input. «Procurar um campo» (catalogo-procura-com-achado light)
+ok   16.32:1 borda #e3f1ef fora #0a1213 dentro #0e181a  input. «Procurar um campo» (catalogo-procura-com-achado dark)
+ok   3.92:1 borda #74838a fora #f6f8f9 dentro #ffffff  div.caixa-de-campo «regexbusca lenta/» (evento-com-ver-no-catalogo light)
+ok   4.65:1 borda #6e8188 fora #0a1213 dentro #0e181a  div.caixa-de-campo «regexbusca lenta/» (evento-com-ver-no-catalogo dark)
+CONSOLE (3):
+  console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+  http 404: http://localhost:8771/favicon.ico
+  log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhost:8771/favicon.ico
+saida 0

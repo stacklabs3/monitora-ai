@@ -1,0 +1,30 @@
+CONTROLE NEGATIVO (aviso plantado com 3 eventos às 14:32; conta plantada 100 − 90 = 12): REPROVADOS como deviam
+CONTROLE POSITIVO (aviso aprovado, lido da tentativa R-1042): conferido logo abaixo
+
+PASS tentativa R-1042 mantém o aviso aprovado "2 eventos da aplicação API às 14:31, motivo fila cheia" · «dem faltar eventos nesta linha do tempo Houve perda de eventos neste período: 2 eventos da aplicação API às 14:31, motivo “fila cheia”. A execução webhooks-c44a»
+PASS tentativa R-1042 mantém "pode ter perdido mais depois de 14:52"
+PASS busca mantém "Dados até 14:58:41"
+PASS filtro da busca mantém amountCents "rápido desde 14:00" · «amountCents Valor em centavos número exata, intervalo rápido desde 14:00 paidAt Quando o pagamento foi confirm»
+PASS saúde (API, 24 h) lista a perda das 14:31: 2 eventos, fila cheia, execução api-7f3c · «14:31:07 api-7f3c 2 fila cheia Ver eventos em volta 13:00:04»
+PASS saúde mostra o mesmo "Dados até 14:58:41" · «Dados até 14:58:41 (evento aceito depois disso ainda não apa»
+PASS saúde (Webhooks) diz a mesma execução webhooks-c44a, o mesmo 14:52 e a mesma frase · «Ela parou de informar a situação às 14:52:10, sem avisar o encerramento. Pode ter perdido mais depois de 14:52. Esta perda não tem número: o»
+PASS a perda depois de 14:52 é sinalizada sem número
+PASS saúde (API, última hora): 2 perdas no período e "mais 120" fora dele, como o aviso da busca de 1 h · «Fora deste período, API informou mais 120 perdas de evento.»
+PASS API: "numerou até" − "servidor recebeu" = "faltando" em cada execução, e a soma dá 152 · api-7f3c: 2.591.993 − 2.591.841 = 152 ; api-9d02: 412.380 − 412.380 = 0
+PASS API: perdas informadas (122) + motivo desconhecido (30) = faltando (152) · «Faltando na numeração 152: numerou até 2.591.993, o servidor recebeu 2.591.841 Com motivo informado 122: fila cheia Motivo desconhecido 30: nenhuma pe»
+PASS Webhooks: "numerou até" − "servidor recebeu" = "faltando" em cada execução, e a soma dá 40 · webhooks-e90d: 2.591.972 − 2.591.972 = 0 ; webhooks-c44a: 18.460 − 18.420 = 40
+PASS Webhooks: perdas informadas (0) + motivo desconhecido (40) = faltando (40) · «Faltando na numeração 40: numerou até 18.460, o servidor recebeu 18.420 Com motivo informado 0: esta execução não informou perda Motivo desconhecido 4»
+PASS Site: "numerou até" − "servidor recebeu" = "faltando" em cada execução, e a soma dá 0 · site-b21a: 2.591.999 − 2.591.999 = 0
+PASS busca "em volta da perda": período 14:26–14:36 e filtro da aplicação API · « Período Intervalo 27/11/2026 14:26–14:36 (BRT, UTC−3) pela origem Aplicação é API garantida Adicionar filtro 1–100 de 4»
+AVISO busca "em volta da perda" diz que houve perda às 14:31 naquele período (quem chega da saúde vê por que está ali) · (não aparece)
+PASS aplicações: último envio da chave "servidor da API" é de hoje às 14:59, como o "último envio" da saúde · «servidor da API mk_prod_ex3f… 12/03/2026 10:14 por Pessoa Exemplo 27/11/2026 14:59 ativa Revogar teste de carg»
+PASS aplicações: último envio da chave "servidor novo" é de hoje às 14:59, como o "último envio" da saúde · «servidor novo mk_prod_ex5d… 20/11/2026 08:40 por Pessoa Exemplo 27/11/2026 14:59 ativa Revogar Webhooks 1 de 2»
+PASS aplicações: último envio da chave "servidor dos webhooks" é de hoje às 14:59, como o "último envio" da saúde · «servidor dos webhooks mk_prod_ex4e… 13/05/2026 11:05 por Segunda Pessoa 27/11/2026 14:59 ativa Revogar»
+PASS homologação: o Site "nunca enviou" na saúde e a chave dele "ainda não enviou" nas aplicações · «Site nunca enviou ainda sem dados ainda não enviou ainda sem»
+PASS catálogo depois de declarar: installmentCount "rápido desde 15:00" e amountCents "rápido desde 14:00"
+PASS declarar tira um campo dos não declarados (13 → 12)
+AVISO depois de declarar installmentCount, o catálogo do Investigador (mesma página, sem recarregar) o mostra declarado · #/painel/excurfly/producao/investigador/catalogo · «installmentCount não declarado API 27/11/2026 14:55 3 3 providerResponse não declarado API»
+AVISO depois de declarar installmentCount, o "Adicionar filtro" da busca o oferece como campo declarado · «installmentCount=3 providerLatencyMs=abc seatNumbers=[12,13] providerResponse={"code":402,»
+AVISO depois de cadastrar a API de parceiros, a saúde do envio (mesma página) a lista entre as aplicações · #/painel/excurfly/producao/administrador/saude · aplicações na saúde: «Aplicações 3 APLICAÇÃO SITUAÇÃ»
+
+falhas: 0 · avisos: 4

@@ -1,0 +1,6 @@
+1280×720 declarar como abre: janela y 26 a 695 · título y 51 a 73 · no centro do título está header.showcase-header · cabeçalho: position static, z-index 50, y 0 a 64
+1280×720 declarar com tipo texto: janela y 16 a 704 · título y 41 a 63 · no centro do título está header.showcase-header · cabeçalho: position static, z-index 50, y 0 a 64
+1280×720 declarar com tipo texto e papel que liga eventos: janela y 16 a 704 · título y 41 a 63 · no centro do título está header.showcase-header · cabeçalho: position static, z-index 50, y 0 a 64
+1440×900 declarar como abre: janela y 116 a 785 · título y 141 a 163 · no centro do título está h2. · cabeçalho: position static, z-index 50, y 0 a 64
+1440×900 declarar com tipo texto: janela y 96 a 804 · título y 121 a 143 · no centro do título está h2. · cabeçalho: position static, z-index 50, y 0 a 64
+1440×900 declarar com tipo texto e papel que liga eventos: janela y 57 a 843 · título y 82 a 104 · no centro do título está h2. · cabeçalho: position static, z-index 50, y 0 a 64

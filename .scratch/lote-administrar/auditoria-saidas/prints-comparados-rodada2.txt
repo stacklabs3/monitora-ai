@@ -1,0 +1,16 @@
+iguais 270 · ruído de desenho (menos de 40 pixels com diferença forte) 19 · carregando (animação) 49 · DIFERENTES 0
+-- detalhe da rodada 2 --
+ruído: 19 prints · mais pixels diferentes 70866 · mais pixels com diferença forte 0
+    ('cadastrar-aplicacao/03-aplicacao_nova_administrador--desktop--dark--default.png', 70866, 0, 1440)
+    ('revogar-chave/02-chave_passo_administrador--desktop--dark--default.png', 67719, 0, 1440)
+    ('revogar-chave/02-chave_passo_administrador--desktop--light--offline.png', 37291, 0, 1412)
+    ('cadastrar-aplicacao/03-aplicacao_nova_administrador--desktop--light--offline.png', 36506, 0, 1412)
+carregando: 49 prints · maior lado da caixa de diferença 1412 px · mais pixels diferentes 292087
+    ('cadastrar-aplicacao/03-aplicacao_nova_administrador--desktop--light--loading.png', 34866, 7, 1412)
+    ('cadastrar-aplicacao/04-chave_passo_administrador--desktop--light--loading.png', 35559, 92, 1412)
+    ('guardar-a-chave/01-chave_passo_administrador--desktop--light--loading.png', 35559, 92, 1412)
+    ('revogar-chave/02-chave_passo_administrador--desktop--light--loading.png', 35089, 38, 1412)
+CONTROLES (um print com retângulo plantado e uma cópia fiel):
+iguais 1 · ruído de desenho (menos de 40 pixels com diferença forte) 0 · carregando (animação) 0 · DIFERENTES 1
+  DIFERENTE ('revogar-chave/01-aplicacoes_administrador--desktop--dark--default.png', '3751 pixels, 3751 com diferença forte, caixa (300, 300, 421, 331)')
+

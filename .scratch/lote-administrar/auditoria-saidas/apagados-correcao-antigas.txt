@@ -1,0 +1,49 @@
+== `_excluded` global na página (Babel gera um por script, todos com o mesmo nome) ==
+  window._excluded  = ["children","onClick","style","className","disabled"]
+  window._excluded2 = ["variant","loading","disabled","compacto","className","children"]
+  esperado por Press (ui.jsx:18): ["children","onClick","style","className","disabled"]
+  scripts transpilados que declaram _excluded: ui.jsx: _excluded = ["children", "onClick", "style", "className", "disabled"] ; _excluded2 = ["variant", "loading", "disabled", "compacto", "className", "children"]
+
+CONTROLE NEGATIVO (botão aceso "Cadastrar aplicação", tem de ser acusado como "agiu"): ACUSADO como devia → endereço administrador/aplicacoes → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+CONTROLE POSITIVO (elemento apagado sem manipulador, não pode ser acusado): passou (nada mudou)
+MEDIDA VÁLIDA: o controle negativo foi acusado e o positivo passou.
+ok   entrar-no-painel/01-entrada disabled: 1 tipos de botão apagado, agiram 0
+ok   entrar-no-painel/01-entrada offline: 1 tipos de botão apagado, agiram 0
+ok   entrar-no-painel/02-segundo_fator disabled: 1 tipos de botão apagado, agiram 0
+ok   entrar-no-painel/02-segundo_fator offline: 1 tipos de botão apagado, agiram 0
+ok   entrar-no-painel/03-painel_investigador disabled: 24 tipos de botão apagado, agiram 0
+ok   entrar-no-painel/03-painel_investigador offline: 5 tipos de botão apagado, agiram 0
+ok   ver-como-administrador/02-painel_administrador disabled: 24 tipos de botão apagado, agiram 0
+ok   ver-como-administrador/02-painel_administrador offline: 5 tipos de botão apagado, agiram 0
+ok   buscar-eventos/02-busca_investigador disabled: 20 tipos de botão apagado, agiram 0
+ok   buscar-eventos/02-busca_investigador offline: 6 tipos de botão apagado, agiram 0
+ok   avisos-da-busca/01-busca_investigador disabled: 19 tipos de botão apagado, agiram 0
+ok   avisos-da-busca/01-busca_investigador offline: 7 tipos de botão apagado, agiram 0
+ok   avisos-da-busca/02-busca_investigador disabled: 14 tipos de botão apagado, agiram 0
+ok   avisos-da-busca/02-busca_investigador offline: 6 tipos de botão apagado, agiram 0
+ok   avisos-da-busca/03-busca_investigador disabled: 13 tipos de botão apagado, agiram 0
+ok   avisos-da-busca/03-busca_investigador offline: 5 tipos de botão apagado, agiram 0
+ok   ler-um-evento/02-evento_investigador disabled: 44 tipos de botão apagado, agiram 0
+ok   ler-um-evento/02-evento_investigador offline: 24 tipos de botão apagado, agiram 0
+ok   ler-um-evento/03-tentativa_investigador disabled: 20 tipos de botão apagado, agiram 0
+ok   ler-um-evento/03-tentativa_investigador offline: 1 tipos de botão apagado, agiram 0
+ok   ler-o-erro-do-evento/02-evento_secao_investigador disabled: 44 tipos de botão apagado, agiram 0
+ok   ler-o-erro-do-evento/02-evento_secao_investigador offline: 24 tipos de botão apagado, agiram 0
+ok   ler-o-erro-do-evento/03-evento_secao_investigador disabled: 44 tipos de botão apagado, agiram 0
+ok   ler-o-erro-do-evento/03-evento_secao_investigador offline: 24 tipos de botão apagado, agiram 0
+ok   filtrar-por-um-valor/02-busca_investigador disabled: 16 tipos de botão apagado, agiram 0
+ok   filtrar-por-um-valor/02-busca_investigador offline: 7 tipos de botão apagado, agiram 0
+ok   achar-a-tentativa/01-tentativas_investigador disabled: 9 tipos de botão apagado, agiram 0
+ok   achar-a-tentativa/01-tentativas_investigador offline: 2 tipos de botão apagado, agiram 0
+ok   achar-a-tentativa/02-tentativas_achadas_investigador disabled: 15 tipos de botão apagado, agiram 0
+ok   achar-a-tentativa/02-tentativas_achadas_investigador offline: 2 tipos de botão apagado, agiram 0
+ok   ler-a-linha-do-tempo/02-tentativa_evento_investigador disabled: 30 tipos de botão apagado, agiram 0
+ok   ler-a-linha-do-tempo/02-tentativa_evento_investigador offline: 6 tipos de botão apagado, agiram 0
+ok   ler-a-linha-do-tempo/03-tentativa_secao_investigador disabled: 20 tipos de botão apagado, agiram 0
+ok   ler-a-linha-do-tempo/03-tentativa_secao_investigador offline: 1 tipos de botão apagado, agiram 0
+ok   codigo-em-duas-tentativas/01-tentativa_investigador disabled: 10 tipos de botão apagado, agiram 0
+ok   codigo-em-duas-tentativas/01-tentativa_investigador offline: 2 tipos de botão apagado, agiram 0
+ok   codigo-em-duas-tentativas/02-tentativa_investigador disabled: 9 tipos de botão apagado, agiram 0
+ok   codigo-em-duas-tentativas/02-tentativa_investigador offline: 2 tipos de botão apagado, agiram 0
+
+RESUMO: 508 cliques reais em botões apagados · agiram 0

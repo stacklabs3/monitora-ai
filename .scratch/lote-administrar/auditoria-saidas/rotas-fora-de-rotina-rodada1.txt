@@ -1,0 +1,23 @@
+== producao/investigador/saude/1h
+   Período
+   Período
+== producao/administrador/saude/7d
+   Período
+   Período
+== producao/investigador/saude/30d
+   Período
+   Período
+== producao/administrador/saude/30d/api
+   Período
+   Período
+== producao/investigador/saude/xyz
+   Período
+   Período
+== producao/administrador/aplicacoes/nao-existe/chaves/zz/revogar
+== producao/administrador/catalogo/naoexiste/declarar
+== #/painel/demonstracao/producao/administrador/aplicacoes
+== #/painel/demonstracao/producao/investigador/saude
+   Período
+   Período
+   Período olhado
+== producao/investigador/aplicacoes

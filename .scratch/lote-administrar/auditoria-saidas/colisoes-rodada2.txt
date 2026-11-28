@@ -1,0 +1,5 @@
+CONTROLE NEGATIVO (dois arquivos plantados com desestruturação "...sobra"): ACUSADO como devia
+
+NOMES DECLARADOS NO TOPO DE MAIS DE UM SCRIPT: 17 · com valor diferente entre os arquivos (o último a carregar vence): 0
+  com o mesmo conteúdo em todos (auxiliares do Babel, inofensivos): _typeof, _toConsumableArray, _nonIterableSpread, _unsupportedIterableToArray, _iterableToArray, _arrayWithoutHoles, _arrayLikeToArray, ownKeys, _objectSpread, _defineProperty, _toPropertyKey, _toPrimitive, _extends, _slicedToArray, _nonIterableRest, _iterableToArrayLimit, _arrayWithHoles
+  na página: window._excluded = ["children","onClick","style","className","disabled"]

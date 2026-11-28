@@ -1,0 +1,411 @@
+telas distintas do lote: 18
+
+== CONTROLES no tema light ==
+  REPROVADO  2.42:1 (mínimo 4.5)  #99aaaa sobre #ffffff  «CONTROLE negativo fixo #9aa sobre #fff»
+  REPROVADO  1.92:1 (mínimo 4.5)  #51626a sobre #0e3b43  «CONTROLE negativo token muted sobre primary»
+  aprovado   4.51:1 (mínimo 4.5)  #b45309 sobre #fef3c7  «CONTROLE token warn sobre warn-soft»
+  aprovado   5.71:1 (mínimo 4.5)  #51626a sobre #fef3c7  «CONTROLE token muted sobre warn-soft»
+  aprovado   4.73:1 (mínimo 4.5)  #0f766e sobre #ddf3f0  «CONTROLE token accent sobre accent-soft»
+  REPROVADO  2.11:1 (mínimo 4.5)  #b3b3b3 sobre #ffffff  «CONTROLE negativo preto com opacidade 0,3 sobre »
+  REPROVADO  1.87:1 (mínimo 4.5)  #555555 sobre #808080  «CONTROLE negativo cinza sobre preto 50% sobre br»
+  aprovado   21:1 (mínimo 4.5)  #000000 sobre #ffffff  «CONTROLE positivo preto sobre branco»
+  => controle negativo fixo reprovou: true · negativos com tokens que reprovaram: 1 · negativo de opacidade reprovou: true · negativo de alfa em camadas reprovou: true · positivo passou: true (21:1)
+
+== CONTROLES no tema dark ==
+  REPROVADO  2.42:1 (mínimo 4.5)  #99aaaa sobre #ffffff  «CONTROLE negativo fixo #9aa sobre #fff»
+  REPROVADO  2.05:1 (mínimo 4.5)  #9aabb0 sobre #e3f1ef  «CONTROLE negativo token muted sobre primary»
+  aprovado   8.31:1 (mínimo 4.5)  #fbbf24 sobre #3a2a06  «CONTROLE token warn sobre warn-soft»
+  aprovado   5.83:1 (mínimo 4.5)  #9aabb0 sobre #3a2a06  «CONTROLE token muted sobre warn-soft»
+  aprovado   6.61:1 (mínimo 4.5)  #5ccfc0 sobre #123a37  «CONTROLE token accent sobre accent-soft»
+  REPROVADO  2.11:1 (mínimo 4.5)  #b3b3b3 sobre #ffffff  «CONTROLE negativo preto com opacidade 0,3 sobre »
+  REPROVADO  1.87:1 (mínimo 4.5)  #555555 sobre #808080  «CONTROLE negativo cinza sobre preto 50% sobre br»
+  aprovado   21:1 (mínimo 4.5)  #000000 sobre #ffffff  «CONTROLE positivo preto sobre branco»
+  => controle negativo fixo reprovou: true · negativos com tokens que reprovaram: 1 · negativo de opacidade reprovou: true · negativo de alfa em camadas reprovou: true · positivo passou: true (21:1)
+
+MEDIDA VÁLIDA: os controles negativos reprovaram e o positivo passou.
+ok   cadastrar-aplicacao/01-painel_administrador light default: 547 textos, menor 5.49:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light hover: 547 textos, menor 5.49:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light focus: 547 textos, menor 5.49:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light active: 547 textos, menor 4.98:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light disabled: 547 textos, menor 5.96:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light loading: 550 textos, menor 5.49:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light empty: 45 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light error: 34 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador light offline: 550 textos, menor 5.49:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark default: 547 textos, menor 5.23:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark hover: 547 textos, menor 5.23:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark focus: 547 textos, menor 5.23:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark active: 547 textos, menor 5.23:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark disabled: 547 textos, menor 7.3:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark loading: 550 textos, menor 5.23:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark empty: 45 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark error: 34 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/01-painel_administrador dark offline: 550 textos, menor 5.23:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light default: 86 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light hover: 86 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light focus: 86 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light active: 86 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light disabled: 86 textos, menor 5.96:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light loading: 88 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light empty: 33 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light error: 29 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador light offline: 89 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark default: 86 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark hover: 86 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark focus: 86 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark active: 86 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark disabled: 86 textos, menor 7.3:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark loading: 88 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark empty: 33 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark error: 29 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador dark offline: 89 textos, menor 5.83:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light default: 97 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light hover: 97 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light focus: 97 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light active: 97 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light disabled: 97 textos, menor 5.96:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light loading: 97 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light empty: 44 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light error: 100 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador light offline: 101 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark default: 97 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark hover: 97 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark focus: 97 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark active: 97 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark disabled: 97 textos, menor 7.3:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark loading: 97 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark empty: 44 textos, menor 6.28:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark error: 100 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador dark offline: 101 textos, menor 5.83:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light default: 115 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light hover: 115 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light focus: 115 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light active: 115 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light disabled: 115 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light loading: 101 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light empty: 115 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light error: 91 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador light offline: 119 textos, menor 5.59:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark default: 115 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark hover: 115 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark focus: 115 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark active: 115 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark disabled: 115 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark loading: 101 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark empty: 115 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark error: 91 textos, menor 6.55:1, reprovados 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador dark offline: 119 textos, menor 5.83:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light default: 102 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light hover: 102 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light focus: 102 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light active: 102 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light disabled: 102 textos, menor 5.96:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light loading: 104 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light empty: 102 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light error: 29 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador light offline: 105 textos, menor 5.59:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark default: 102 textos, menor 6.55:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark hover: 102 textos, menor 6.55:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark focus: 102 textos, menor 6.55:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark active: 102 textos, menor 6.55:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark disabled: 102 textos, menor 7.3:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark loading: 104 textos, menor 6.55:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark empty: 102 textos, menor 6.55:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark error: 29 textos, menor 6.55:1, reprovados 0
+ok   guardar-a-chave/02-chave_administrador dark offline: 105 textos, menor 5.83:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light default: 97 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light hover: 97 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light focus: 97 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light active: 97 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light disabled: 97 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light loading: 97 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light empty: 97 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light error: 100 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador light offline: 101 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark default: 97 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark hover: 97 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark focus: 97 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark active: 97 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark disabled: 97 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark loading: 97 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark empty: 97 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark error: 100 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/02-chave_passo_administrador dark offline: 101 textos, menor 5.83:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light default: 87 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light hover: 87 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light focus: 87 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light active: 87 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light disabled: 87 textos, menor 5.96:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light loading: 89 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light empty: 87 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light error: 29 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador light offline: 90 textos, menor 5.59:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark default: 87 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark hover: 87 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark focus: 87 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark active: 87 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark disabled: 87 textos, menor 7.3:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark loading: 89 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark empty: 87 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark error: 29 textos, menor 6.55:1, reprovados 0
+ok   revogar-chave/03-chave_passo_administrador dark offline: 90 textos, menor 5.83:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light default: 212 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light hover: 212 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light focus: 212 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light active: 212 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light disabled: 212 textos, menor 5.96:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light loading: 214 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light empty: 33 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light error: 27 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador light offline: 215 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark default: 212 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark hover: 212 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark focus: 212 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark active: 212 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark disabled: 212 textos, menor 7.3:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark loading: 214 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark empty: 33 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark error: 27 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/01-catalogo_administrador dark offline: 215 textos, menor 5.83:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light default: 241 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light hover: 241 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light focus: 241 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light active: 241 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light disabled: 241 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light loading: 241 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light empty: 241 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light error: 244 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador light offline: 245 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark default: 241 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark hover: 241 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark focus: 241 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark active: 241 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark disabled: 241 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark loading: 241 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark empty: 241 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark error: 244 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/02-catalogo_campo_administrador dark offline: 245 textos, menor 5.83:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light default: 214 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light hover: 214 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light focus: 214 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light active: 214 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light disabled: 214 textos, menor 5.96:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light loading: 240 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light empty: 214 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light error: 243 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador light offline: 217 textos, menor 5.59:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark default: 214 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark hover: 214 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark focus: 214 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark active: 214 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark disabled: 214 textos, menor 7.3:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark loading: 240 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark empty: 214 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark error: 243 textos, menor 6.55:1, reprovados 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador dark offline: 217 textos, menor 5.83:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light default: 213 textos, menor 5.49:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light hover: 214 textos, menor 5.49:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light focus: 214 textos, menor 5.49:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light active: 214 textos, menor 4.98:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light disabled: 213 textos, menor 5.96:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light loading: 90 textos, menor 5.49:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light empty: 100 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light error: 92 textos, menor 5.49:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador light offline: 216 textos, menor 5.49:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark default: 213 textos, menor 5.23:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark hover: 214 textos, menor 5.23:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark focus: 214 textos, menor 5.23:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark active: 214 textos, menor 5.23:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark disabled: 213 textos, menor 7.3:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark loading: 90 textos, menor 5.23:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark empty: 100 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark error: 92 textos, menor 5.23:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/01-evento_secao_investigador dark offline: 216 textos, menor 5.23:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light default: 195 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light hover: 195 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light focus: 195 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light active: 195 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light disabled: 195 textos, menor 5.96:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light loading: 197 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light empty: 29 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light error: 24 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador light offline: 198 textos, menor 5.59:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark default: 195 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark hover: 195 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark focus: 195 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark active: 195 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark disabled: 195 textos, menor 7.3:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark loading: 197 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark empty: 29 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark error: 24 textos, menor 6.55:1, reprovados 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador dark offline: 198 textos, menor 5.83:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light default: 543 textos, menor 5.49:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light hover: 543 textos, menor 5.49:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light focus: 543 textos, menor 5.49:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light active: 543 textos, menor 4.98:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light disabled: 543 textos, menor 5.96:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light loading: 546 textos, menor 5.49:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light empty: 41 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light error: 30 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador light offline: 546 textos, menor 5.49:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark default: 543 textos, menor 5.23:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark hover: 543 textos, menor 5.23:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark focus: 543 textos, menor 5.23:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark active: 543 textos, menor 5.23:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark disabled: 543 textos, menor 7.3:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark loading: 546 textos, menor 5.23:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark empty: 41 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark error: 30 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/01-painel_investigador dark offline: 546 textos, menor 5.23:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light default: 62 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light hover: 62 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light focus: 62 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light active: 62 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light disabled: 62 textos, menor 5.96:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light loading: 64 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light empty: 41 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light error: 32 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador light offline: 65 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark default: 62 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark hover: 62 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark focus: 62 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark active: 62 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark disabled: 62 textos, menor 7.3:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark loading: 64 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark empty: 41 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark error: 32 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/02-saude_investigador dark offline: 65 textos, menor 5.83:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light default: 111 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light hover: 111 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light focus: 111 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light active: 111 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light disabled: 111 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light loading: 113 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light empty: 41 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light error: 32 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador light offline: 114 textos, menor 5.59:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark default: 111 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark hover: 111 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark focus: 111 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark active: 111 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark disabled: 111 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark loading: 113 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark empty: 41 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark error: 32 textos, menor 6.55:1, reprovados 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador dark offline: 114 textos, menor 5.83:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light default: 66 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light hover: 66 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light focus: 66 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light active: 66 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light disabled: 66 textos, menor 5.96:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light loading: 68 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light empty: 46 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light error: 36 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador light offline: 69 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark default: 66 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark hover: 66 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark focus: 66 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark active: 66 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark disabled: 66 textos, menor 7.3:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark loading: 68 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark empty: 46 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark error: 36 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/01-saude_administrador dark offline: 69 textos, menor 5.83:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light default: 105 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light hover: 105 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light focus: 105 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light active: 105 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light disabled: 105 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light loading: 107 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light empty: 46 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light error: 36 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador light offline: 108 textos, menor 5.59:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark default: 105 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark hover: 105 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark focus: 105 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark active: 105 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark disabled: 105 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark loading: 107 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark empty: 46 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark error: 36 textos, menor 6.55:1, reprovados 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador dark offline: 108 textos, menor 5.83:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light default: 543 textos, menor 5.49:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light hover: 543 textos, menor 5.49:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light focus: 543 textos, menor 5.49:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light active: 543 textos, menor 4.98:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light disabled: 543 textos, menor 5.96:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light loading: 546 textos, menor 5.49:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light empty: 43 textos, menor 5.59:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light error: 31 textos, menor 5.59:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador light offline: 546 textos, menor 5.49:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark default: 543 textos, menor 5.23:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark hover: 543 textos, menor 5.23:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark focus: 543 textos, menor 5.23:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark active: 543 textos, menor 5.23:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark disabled: 543 textos, menor 7.3:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark loading: 546 textos, menor 5.23:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark empty: 43 textos, menor 6.55:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark error: 31 textos, menor 6.55:1, reprovados 0
+ok   eventos-em-volta-da-perda/02-busca_investigador dark offline: 546 textos, menor 5.23:1, reprovados 0
+
+== RESUMO POR TEMA (texto habilitado) ==
+light: 25923 pares medidos · menor razão 4.98:1 («14:58:39.359» #51626a sobre #d5e7ea, cadastrar-aplicacao/01-painel_administrador light active) · reprovados 0
+dark: 25923 pares medidos · menor razão 5.23:1 («14:58:40.074» #9aabb0 sobre #123a37, cadastrar-aplicacao/01-painel_administrador dark default) · reprovados 0
+
+== PARES REPROVADOS (distintos: 0) ==
+
+== TEXTO DE CONTROLE DESABILITADO ABAIXO DO MÍNIMO (isento pelo WCAG 1.4.3; pares distintos: 25) ==
+isento 3.28:1  #88908f sobre #ffffff  «Anterior»  div>nav>div.botao[button]  [973x; ex.: cadastrar-aplicacao/01-painel_administrador light default]  (light)
+isento 3.4:1  #7f8989 sobre #f6f8f9  «produção»  div>div[radiogroup]>div[radio]  [52x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.1:1  #9faaaf sobre #edf1f3  «homologação»  div>div[radiogroup]>div[radio]  [84x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.89:1  #fbfcfc sobre #829a9e  «Buscar»  div>div>div.botao[button]  [20x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.22:1  #a4adb2 sobre #fbfcfc  «Período»  div>div[button]>span  [20x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 3.34:1  #838c8c sobre #fbfcfc  «Última hora»  div>div[button]>span  [24x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.04:1  #a8b1b5 sobre #eef9f8  «14:58:40.074»  li>div.linha-de-evento[button]>span  [8x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.26:1  #9ea7ab sobre #f3f7f8  «INFO»  div.linha-de-evento[button]>span>span  [250x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 3.06:1  #88908f sobre #eef9f8  «Site»  li>div.linha-de-evento[button]>span  [8x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.19:1  #a8b1b5 sobre #ffffff  «14:58:39.359»  li>div.linha-de-evento[button]>span  [613x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.44:1  #cf8e89 sobre #fff2f1  «ERRO»  div.linha-de-evento[button]>span>span  [34x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.3:1  #bda180 sobre #fff8e3  «AVISO»  div.linha-de-evento[button]>span>span  [25x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isento 2.7:1  #59696d sobre #182629  «homologação»  div>div[radiogroup]>div[radio]  [84x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 2.73:1  #525f62 sobre #0e1719  «Período»  div>div[button]>span  [16x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 2.41:1  #566467 sobre #122b2b  «14:58:40.074»  li>div.linha-de-evento[button]>span  [8x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 3.1:1  #647174 sobre #182528  «INFO»  div.linha-de-evento[button]>span>span  [250x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 3.95:1  #7c8586 sobre #122b2b  «Site»  li>div.linha-de-evento[button]>span  [8x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 2.81:1  #566467 sobre #111c1e  «14:58:39.359»  li>div.linha-de-evento[button]>span  [610x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 3.19:1  #876162 sobre #261718  «ERRO»  div.linha-de-evento[button]>span>span  [34x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 3.56:1  #877836 sobre #262312  «AVISO»  div.linha-de-evento[button]>span>span  [25x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isento 2.85:1  #ffffff sobre #879da1  «Cadastrar e gerar a chave»  div[dialog]>div>div.botao[button]  [11x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador light disabled]  (light)
+isento 2.86:1  #566467 sobre #101a1c  «ex.: API de parceiros»  div[dialog]>label>input  [3x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador dark disabled]  (dark)
+isento 2.5:1  #ffffff sobre #da918c  «Revogar a chave»  div[alertdialog]>div>div.botao[button]  [3x; ex.: revogar-chave/02-chave_passo_administrador light disabled]  (light)
+isento 2.66:1  #161112 sobre #854748  «Revogar a chave»  div[alertdialog]>div>div.botao[button]  [3x; ex.: revogar-chave/02-chave_passo_administrador dark disabled]  (dark)
+isento 2.78:1  #525f62 sobre #0c1517  «Procurar um campo»  div>label>input  [4x; ex.: declarar-um-campo/01-catalogo_administrador dark disabled]  (dark)
+
+== BORDAS DE CAMPO (1.4.11, mínimo 3:1; distintas: 20) ==
+ok   3.92:1  borda #74838a · fora #ffffff · dentro #ffffff · 1px  select. «ExcurflyProduto de demonstração»  [144x; ex.: cadastrar-aplicacao/01-painel_administrador light default]  (light)
+ok   3.92:1  borda #74838a · fora #f6f8f9 · dentro #ffffff · 1px  div.caixa-de-campo «regexbusca lenta/»  [68x; ex.: cadastrar-aplicacao/01-painel_administrador light default]  (light)
+isen 3.92:1  borda #74838a · fora #ffffff · dentro #ffffff · 1px  select. «ExcurflyProduto de demonstração»  [18x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+isen 3.92:1  borda #74838a · fora #f6f8f9 · dentro #ffffff · 1px  div.caixa-de-campo «Buscar texto nos eventos»  [4x; ex.: cadastrar-aplicacao/01-painel_administrador light disabled]  (light)
+ok   4.27:1  borda #6e8188 · fora #111c1e · dentro #111c1e · 1px  select. «ExcurflyProduto de demonstração»  [144x; ex.: cadastrar-aplicacao/01-painel_administrador dark default]  (dark)
+ok   4.65:1  borda #6e8188 · fora #0a1213 · dentro #0e181a · 1px  div.caixa-de-campo «regexbusca lenta/»  [68x; ex.: cadastrar-aplicacao/01-painel_administrador dark default]  (dark)
+isen 4.27:1  borda #6e8188 · fora #111c1e · dentro #111c1e · 1px  select. «ExcurflyProduto de demonstração»  [18x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+isen 4.65:1  borda #6e8188 · fora #0a1213 · dentro #0e181a · 1px  div.caixa-de-campo «Buscar texto nos eventos»  [4x; ex.: cadastrar-aplicacao/01-painel_administrador dark disabled]  (dark)
+ok   12.17:1  borda #0e3b43 · fora #ffffff · dentro #ffffff · 1px  input. «ex.: API de parceiros»  [6x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador light default]  (light)
+ok   3.92:1  borda #74838a · fora #ffffff · dentro #ffffff · 1px  input. «ex.: servidor novo»  [7x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador light default]  (light)
+isen 3.92:1  borda #74838a · fora #ffffff · dentro #ffffff · 1px  input. «ex.: API de parceiros»  [4x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador light disabled]  (light)
+ok   6.57:1  borda #b42318 · fora #ffffff · dentro #ffffff · 1px  input. «ex.: API de parceiros»  [1x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador light empty]  (light)
+ok   15.54:1  borda #e3f1ef · fora #111c1e · dentro #0e181a · 1px  input. «ex.: API de parceiros»  [6x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador dark default]  (dark)
+ok   4.43:1  borda #6e8188 · fora #111c1e · dentro #0e181a · 1px  input. «ex.: servidor novo»  [7x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador dark default]  (dark)
+isen 4.35:1  borda #6e8188 · fora #111c1e · dentro #101a1c · 1px  input. «ex.: API de parceiros»  [4x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador dark disabled]  (dark)
+ok   6.52:1  borda #f87171 · fora #111c1e · dentro #0e181a · 1px  input. «ex.: API de parceiros»  [1x; ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador dark empty]  (dark)
+ok   3.92:1  borda #74838a · fora #f6f8f9 · dentro #ffffff · 1px  input. «Procurar um campo»  [28x; ex.: declarar-um-campo/01-catalogo_administrador light default]  (light)
+isen 3.8:1  borda #74838a · fora #f6f8f9 · dentro #fbfcfc · 1px  input. «Procurar um campo»  [4x; ex.: declarar-um-campo/01-catalogo_administrador light disabled]  (light)
+ok   4.65:1  borda #6e8188 · fora #0a1213 · dentro #0e181a · 1px  input. «Procurar um campo»  [28x; ex.: declarar-um-campo/01-catalogo_administrador dark default]  (dark)
+isen 4.65:1  borda #6e8188 · fora #0a1213 · dentro #0c1517 · 1px  input. «Procurar um campo»  [4x; ex.: declarar-um-campo/01-catalogo_administrador dark disabled]  (dark)
+
+== TEXTO SOBRE IMAGEM DE FUNDO (não medido com exatidão; 0) ==
+
+== CONSOLE DURANTE A MEDIDA (3 mensagens distintas) ==
+  console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for production - https://babeljs.io/docs/setup/
+  http 404: http://localhost:8771/favicon.ico
+  log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhost:8771/favicon.ico

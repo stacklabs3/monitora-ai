@@ -1,0 +1,22 @@
+CONTROLE REPROVADO como devia janela 900 · 4 paradas inteiras debaixo do aviso plantado, de 30
+PASS janela 900 · aplicações · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 900 · aplicações com a chave guardada · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 900 · catálogo de campos · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 1 em parte, de 30
+PASS janela 900 · catálogo do Investigador · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 900 · saúde do envio com a API aberta · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 900 · saúde do envio com os Webhooks abertos · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 1 em parte, de 30
+CONTROLE REPROVADO como devia janela 600 · 8 paradas inteiras debaixo do aviso plantado, de 30
+PASS janela 600 · aplicações · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 600 · aplicações com a chave guardada · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 600 · catálogo de campos · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 1 em parte, de 30
+PASS janela 600 · catálogo do Investigador · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 600 · saúde do envio com a API aberta · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 600 · saúde do envio com os Webhooks abertos · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 1 em parte, de 30
+CONTROLE REPROVADO como devia janela 440 · 9 paradas inteiras debaixo do aviso plantado, de 30
+PASS janela 440 · aplicações · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 440 · aplicações com a chave guardada · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 440 · catálogo de campos · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 440 · catálogo do Investigador · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 4 em parte, de 30
+PASS janela 440 · saúde do envio com a API aberta · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 2 em parte, de 30
+PASS janela 440 · saúde do envio com os Webhooks abertos · Shift+Tab 30 vezes a partir do último controle: 0 paradas inteiras debaixo do aviso fixo e 1 em parte, de 30
+falhas: 0

@@ -1,0 +1,22 @@
+
+== SALTO DE LAYOUT AO SAIR DO CARREGANDO ==
+  PASS cadastrar-aplicacao/01-painel_administrador: blocos 3→3 · topos iguais · alturas carregando 64,34,3612 · pronto 64,34,3563
+  WARN cadastrar-aplicacao/02-aplicacoes_administrador: blocos 6→5 · o bloco 4 muda de topo 269→432 · alturas carregando 32,88,35,198,182,132 · pronto 32,88,198,182,132
+  PASS cadastrar-aplicacao/03-aplicacao_nova_administrador: blocos 6→6 · topos iguais · alturas carregando 32,88,198,182,132,900 · pronto 32,88,198,182,132,900
+  WARN cadastrar-aplicacao/04-chave_passo_administrador: blocos 6→7 · o bloco 4 muda de topo 432→366 · alturas carregando 32,88,198,182,132,900 · pronto 32,88,132,198,182,132,918
+  WARN guardar-a-chave/02-chave_administrador: blocos 8→7 · o bloco 5 muda de topo 348→445 · alturas carregando 32,88,67,35,132,198,182,132 · pronto 32,88,67,132,198,182,132
+  PASS revogar-chave/02-chave_passo_administrador: blocos 6→6 · topos iguais · alturas carregando 32,88,198,182,132,900 · pronto 32,88,198,182,132,900
+  WARN revogar-chave/03-chave_passo_administrador: blocos 7→6 · o bloco 5 muda de topo 348→511 · alturas carregando 32,88,67,35,198,198,132 · pronto 32,88,67,198,198,132
+  WARN declarar-um-campo/01-catalogo_administrador: blocos 5→4 · o bloco 4 muda de topo 269→600 · alturas carregando 32,88,35,366,698 · pronto 32,88,366,698
+  PASS declarar-um-campo/02-catalogo_campo_administrador: blocos 5→5 · topos iguais · alturas carregando 32,88,366,698,900 · pronto 32,88,366,698,900
+  WARN declarar-um-campo/03-catalogo_declarado_administrador: blocos 5→5 · o bloco 4 muda de topo 600→320 · alturas carregando 32,88,366,698,900 · pronto 32,88,86,366,767
+  PASS ler-o-catalogo-como-investigador/01-evento_secao_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,684 · pronto 64,34,684
+  WARN ler-o-catalogo-como-investigador/02-catalogo_investigador: blocos 5→4 · o bloco 4 muda de topo 294→625 · alturas carregando 32,113,35,366,698 · pronto 32,113,366,698
+  PASS conferir-a-saude-do-envio/01-painel_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,3612 · pronto 64,34,3563
+  PASS conferir-a-saude-do-envio/02-saude_investigador: blocos 4→3 · topos iguais · alturas carregando 37,70,35,220 · pronto 37,70,220
+  WARN conferir-a-saude-do-envio/03-saude_aplicacao_investigador: blocos 5→4 · o bloco 4 muda de topo 256→426 · alturas carregando 37,70,35,205,385 · pronto 37,70,205,385
+  PASS execucao-que-sumiu/01-saude_administrador: blocos 4→3 · topos iguais · alturas carregando 37,70,35,220 · pronto 37,70,220
+  WARN execucao-que-sumiu/02-saude_aplicacao_administrador: blocos 5→4 · o bloco 4 muda de topo 256→441 · alturas carregando 37,70,35,220,437 · pronto 37,70,220,437
+  PASS eventos-em-volta-da-perda/02-busca_investigador: blocos 3→3 · topos iguais · alturas carregando 64,34,3579 · pronto 64,34,3530
+
+CONSOLE (3 distintas): console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for produc | http 404: http://localhost:8771/favicon.ico | log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhos

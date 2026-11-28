@@ -1,0 +1,31 @@
+FAIL cadastrar-aplicacao/01-painel_administrador: 16 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+FAIL cadastrar-aplicacao/02-aplicacoes_administrador: 14 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+PASS cadastrar-aplicacao/03-aplicacao_nova_administrador: 15 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+FAIL cadastrar-aplicacao/04-chave_passo_administrador: 16 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 9 → radio «homologação» ; radio «Investigador» ; button «Tema escuro» ; button «Atalhos do teclado» ; button «Busca de eventos» ; button «Tentativas» ; button «Saúde do envio» ; button «Catálogo de campos» ; button «Configurar alertas» · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+FAIL guardar-a-chave/02-chave_administrador: 14 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+PASS revogar-chave/02-chave_passo_administrador: 15 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+FAIL revogar-chave/03-chave_passo_administrador: 14 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+FAIL declarar-um-campo/01-catalogo_administrador: 14 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":500,"podeRolar":512,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":6} 
+PASS declarar-um-campo/02-catalogo_campo_administrador: 25 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":500,"podeRolar":512,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":6} 
+FAIL declarar-um-campo/03-catalogo_declarado_administrador: 14 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":500,"podeRolar":679,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":6} 
+PASS ler-o-catalogo-como-investigador/01-evento_secao_investigador: 20 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} aviso em y 78–164
+PASS ler-o-catalogo-como-investigador/02-catalogo_investigador: 11 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":500,"podeRolar":537,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":5} 
+PASS conferir-a-saude-do-envio/01-painel_investigador: 13 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+PASS conferir-a-saude-do-envio/02-saude_investigador: 11 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+PASS conferir-a-saude-do-envio/03-saude_aplicacao_investigador: 12 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+FAIL execucao-que-sumiu/01-saude_administrador: 14 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+FAIL execucao-que-sumiu/02-saude_aplicacao_administrador: 15 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 1 → button «Configurar alertas» · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+PASS eventos-em-volta-da-perda/02-busca_investigador: 13 controles habilitados (amostra por tipo) · sem efeito e sem aria-disabled: 0 · aviso fixo: {"rolou":0,"podeRolar":0,"avisoGrudou":78,"alturaDoAviso":86,"cobertos":[],"outrosGrudados":0} 
+
+RESUMO sem internet: 192 controles clicados · 17 sem efeito e sem aria-disabled · elementos com aria-disabled nas telas: 477 · itens de menu da casca sem destino ainda (fora do lote, à parte): 15 cliques em button «Alertas»
+  INERTE button «Configurar alertas» em 9 telas (ex.: cadastrar-aplicacao/01-painel_administrador)
+  INERTE radio «homologação» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+  INERTE radio «Investigador» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+  INERTE button «Tema escuro» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+  INERTE button «Atalhos do teclado» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+  INERTE button «Busca de eventos» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+  INERTE button «Tentativas» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+  INERTE button «Saúde do envio» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+  INERTE button «Catálogo de campos» em 1 telas (ex.: cadastrar-aplicacao/04-chave_passo_administrador)
+CONTROLE NEGATIVO (botão sem efeito): REPROVADO como devia (sem efeito)
+CONTROLE POSITIVO (botão que muda a tela): passou (efeito detectado)

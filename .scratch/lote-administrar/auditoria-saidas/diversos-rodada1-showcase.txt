@@ -1,0 +1,11 @@
+
+== MODO SHOWCASE ==
+  PASS [painel light] rotinas 18/18 · quadros 47/47 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+    títulos: Entrar no painel · meta de 3 toques | Ver o painel como Administrador · meta de 1 toques | Buscar eventos · meta de 3 toques | Ler os avisos da busca · meta de 3 toques | Abrir e ler um evento · meta de 3 toques | Ler os atributos e o erro de um evento · meta de 3 toques | Filtrar por um valor do evento · meta de 3 toques | Achar a tentativa e ler a linha do tempo · meta de 3 toques | Ler um evento da linha do tempo e o que fica à parte · meta de 3 toques | Ler o código ligado a duas tentativas · meta de 3 toques | Cadastrar uma aplicação e gerar a chave de envio · meta de 3 toques | Copiar a chave de envio, mostrada uma vez só · meta de 2 toques | Revogar uma chave de envio · meta de 2 toqu
+  PASS [painel dark] rotinas 18/18 · quadros 47/47 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [celular light] rotinas 1/1 · quadros 3/3 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [celular dark] rotinas 1/1 · quadros 3/3 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [telegram light] rotinas 1/1 · quadros 4/4 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+  PASS [telegram dark] rotinas 1/1 · quadros 4/4 · erros de render 0 · quadros vazios 0 · console 0 · corpo 1440/1440
+
+CONSOLE (3 distintas): console.warning: You are using the in-browser Babel transformer. Be sure to precompile your scripts for produc | http 404: http://localhost:8771/favicon.ico | log.error: Failed to load resource: the server responded with a status of 404 (File not found) http://localhos

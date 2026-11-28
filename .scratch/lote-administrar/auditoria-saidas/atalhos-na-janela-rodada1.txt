@@ -1,0 +1,12 @@
+CONTROLE (sem janela aberta, "?" abre os atalhos): janelas 1 «Atalhos do teclado» => o ensaio enxerga o atalho agir
+PASS cadastro, foco no campo do nome · tecla "?": janelas 1 → 1 «Cadastrar aplicação do Excurfly em produ» · foco «ex.: API de parceiros» → «ex.: API de parceiros» · endereço /aplicacoes/nova · campo ficou com «?»
+PASS cadastro, foco no campo do nome · tecla "/": janelas 1 → 1 «Cadastrar aplicação do Excurfly em produ» · foco «ex.: API de parceiros» → «ex.: API de parceiros» · endereço /aplicacoes/nova · campo ficou com «/»
+FAIL revogar, foco em Cancelar · tecla "?": janelas 1 → 2 «Revogar a chave “servidor antigo” da apl | Atalhos do teclado» · foco «Cancelar» → «Fechar» · endereço /aplicacoes/site/chaves/ex2b/revogar
+PASS revogar, foco em Cancelar · tecla "/": janelas 1 → 1 «Revogar a chave “servidor antigo” da apl» · foco «Cancelar» → «Cancelar» · endereço /aplicacoes/site/chaves/ex2b/revogar
+FAIL chave gerada, foco em Copiar · tecla "?": janelas 1 → 2 «Chave de envio de API de parceiros em pr | Atalhos do teclado» · foco «Copiar a chave» → «Fechar» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS chave gerada, foco em Copiar · tecla "/": janelas 1 → 1 «Chave de envio de API de parceiros em pr» · foco «Copiar a chave» → «Copiar a chave» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+FAIL declarar, foco na janela · tecla "?": janelas 1 → 2 «Declarar o campo installmentCount do Exc | Atalhos do teclado» · foco «Declarar o campo installmentCount do Exc» → «Fechar» · endereço /catalogo/installmentCount/declarar
+PASS declarar, foco na janela · tecla "/": janelas 1 → 1 «Declarar o campo installmentCount do Exc» · foco «Declarar o campo installmentCount do Exc» → «Declarar o campo installmentCount do Exc» · endereço /catalogo/installmentCount/declarar
+FAIL revogar com os atalhos por cima: Tab três vezes → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar · depois de um Esc: janelas 0 «» · endereço /aplicacoes
+PASS chave gerada com os atalhos por cima: Tab três vezes → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar · depois de um Esc: janelas 1 «Chave de envio de API de parceiros em pr» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+falhas: 4

@@ -1,0 +1,138 @@
+chaves no dicionario 640 usadas literais 509
+USADA E INEXISTENTE: []
+dinamicas: 76
+   aplicacoes.jsx:249 ehCadastro ? 'aplicacaoNovaFalhaTitulo' : 'chaveNovaFalhaTit
+   aplicacoes.jsx:250 ehCadastro ? 'aplicacaoNovaFalhaCorpo' : 'chaveNovaFalhaCorp
+   aplicacoes.jsx:267 ehCadastro ? 'aplicacaoNovaSemInternet' : 'chaveNovaSemInter
+   aplicacoes.jsx:271 ehCadastro ? 'aplicacaoNovaConfirmar' : 'chaveNovaConfirmar'
+   aplicacoes.jsx:358 ehAUnicaAtiva ? 'chaveRevogarConsequenciaUnica' : 'chaveRevo
+   busca.jsx:317 campo.chaveDoRotulo
+   busca.jsx:322 opcao.chaveDoRotulo
+   busca.jsx:331 operador.chave
+   busca.jsx:419 periodoPronto.chave
+   busca.jsx:438 chaveDoErro
+   busca.jsx:470 modoRegex ? 'buscaCampoRegex' : 'buscaCampo'
+   busca.jsx:515 garantida ? 'etiquetaBuscaGarantida' : 'etiquetaBuscaLenta'
+   busca.jsx:523 chaveDaRecusa
+   busca.jsx:546 periodo.chave
+   busca.jsx:549 busca.base === 'recebimento' ? 'periodoPeloRecebimento' : 'p
+   busca.jsx:552 busca.base === 'recebimento' ? 'periodoBaseCurtaRecebimento'
+   busca.jsx:568 CHAVE_DO_PAPEL[campo.papel]
+   busca.jsx:587 CHAVE_DO_TIPO[campo.tipo]
+   busca.jsx:588 CHAVE_DA_BUSCA_PERMITIDA[buscaPermitida]
+   busca.jsx:626 chaveDoErro
+   busca.jsx:637 CHAVE_DO_TIPO[campo.tipo]
+   busca.jsx:637 CHAVE_DO_PAPEL[campo.papel]
+   busca.jsx:651 OPERADORES[codigo].chave
+   busca.jsx:655 OPERADORES[codigoDoOperador].chave
+   busca.jsx:845 peloRecebimento ? 'buscaColunaRecebimento' : 'buscaColunaHor
+   busca.jsx:955 peloRecebimento ? 'periodoPeloRecebimento' : 'periodoPelaOri
+   busca.jsx:1124 temEventoAberto ? 'eventoSemInternetContinua' : 'buscaSemInt
+   busca.jsx:1125 temEventoAberto ? 'eventoSemInternetEspera' : 'buscaSemInter
+   catalogo.jsx:139 CHAVE_DA_BUSCA_PERMITIDA[buscaPermitida]
+   catalogo.jsx:142 CHAVE_DA_BUSCA_PERMITIDA[buscaPermitida]
+   catalogo.jsx:143 chaveDoExemploDaBusca(tipo
+   catalogo.jsx:276 CHAVE_DO_TIPO[campo.tipo]
+   catalogo.jsx:280 CHAVE_DO_PAPEL[campo.papel]
+   catalogo.jsx:310 procurando ? 'catalogoNenhumComEsseNome' : 'catalogoDeclarad
+   catalogo.jsx:378 campo.eventos === 1 ? 'contagemDeUmEvento' : 'contagemDeEven
+   catalogo.jsx:387 CHAVE_DO_TIPO[tipo]
+   catalogo.jsx:391 CHAVE_DO_TIPO[tipoSugerido]
+   catalogo.jsx:407 foraDoLimite ? 'catalogoPalavrasNoLimite' : 'catalogoPalavra
+   catalogo.jsx:412 CHAVE_DA_BUSCA_PERMITIDA[buscaOpcional]
+   catalogo.jsx:413 chaveDoExemploDaBusca(tipoEscolhido
+   catalogo.jsx:422 CHAVE_DO_TIPO[tipoEscolhido]
+   catalogo.jsx:431 CHAVE_DO_PAPEL_A_ESCOLHER[papel]
+   catalogo.jsx:434 CHAVE_DA_EXPLICACAO_DO_PAPEL[papelEscolhido]
+   catalogo.jsx:579 CHAVE_DO_TIPO[campoDeclaradoAgora.tipo]
+   evento.jsx:205 CHAVE_DA_MARCA[marca]
+   evento.jsx:243 ehPrincipal ? 'etiquetaCampoPrincipal' : 'papelCampoDeCorrel
+   evento.jsx:274 CHAVE_DO_TIPO[linha.campo.tipo]
+   evento.jsx:276 chaveDoMotivo
+   evento.jsx:292 chaveDoRotuloAcessivel
+   evento.jsx:296 OPERADORES[codigoDoOperador].chave
+   evento.jsx:319 CHAVE_DO_TIPO[campo.tipo]
+   evento.jsx:319 CHAVE_DO_PAPEL[campo.papel] || 'papelCampoPesquisavel'
+   evento.jsx:407 chaveDaNota
+   evento.jsx:427 inteira ? 'eventoPilhaRecolher' : 'eventoPilhaMostrarTudo'
+   evento.jsx:512 chaveDeVoltar
+   evento.jsx:585 chavesDeTexto.posicao
+   evento.jsx:621 secaoDoEvento.chave
+   evento.jsx:631 chavesDeTexto.corpoDaFalha
+   painel-casca.jsx:197 chaveDoTexto
+   saude.jsx:136 CHAVE_DA_SITUACAO_DE_EXECUCAO[situacao]
+   saude.jsx:165 aplicacao.nuncaEnviou ? 'saudeAindaSemDados' : 'saudePerdasN
+   saude.jsx:170 aplicacao.nuncaEnviou ? 'saudeAindaSemDados' : 'saudeFaltand
+   saude.jsx:241 CHAVE_DA_SITUACAO_DE_EXECUCAO[situacao]
+   saude.jsx:243 situacao === 'encerrou' ? 'saudeEncerradaEm' : 'saudeUltimoI
+   saude.jsx:499 periodoPronto.chave
+   saude.jsx:534 papel === 'administrador' ? 'saudeVazioPassoDoAdministrador'
+   tentativa.jsx:294 chaveDoQueContinua
+   tentativa.jsx:294 chaveDoQueEspera
+   tentativa.jsx:301 chaveDaMensagem
+   tentativa.jsx:303 chaveDoComplemento
+   tentativa.jsx:318 chaveDoRotulo
+   tentativa.jsx:319 chaveDoRotulo
+   tentativa.jsx:526 ehCampoPrincipal ? 'tentativasAbrirLinhaDoTempo' : 'tentativ
+   tentativa.jsx:560 achado.tentativas.length === 1 ? 'tentativasContagemUma' : '
+   tentativa.jsx:732 perda.quantidade === 1 ? 'avisoPerdaItemUm' : 'avisoPerdaIte
+   ui.jsx:302 coresDoNivel.chave
+chaves nao citadas literalmente (podem ser dinamicas): 0 
+AVOID? [chave] menuAplicacoes: Aplicações e chaves de envio
+AVOID? [grupo] buscaRegexErroReferencia: Regex recusada: ela usa referência a um grupo anterior (\1), e o tempo dessa busca é imprevisível.
+AVOID? [url] tipoUrl: URL
+AVOID? [url] campoUrl: URL
+AVOID? [chave] aplicacoesTitulo: Aplicações e chaves de envio
+AVOID? [chave] aplicacoesFatoChavesAtivas: Chaves de envio ativas
+AVOID? [chave] aplicacoesComoFunciona: Cada aplicação tem a sua chave de envio em cada ambiente: a de {ambiente} não vale nos outros. A chave fica no
+AVOID? [chave] aplicacaoChavesAtivas: {ativas} de {limite} chaves ativas
+AVOID? [chave] aplicacaoSemChaveAtiva: Sem chave ativa: esta aplicação não consegue enviar eventos de {ambiente}.
+AVOID? [chave] chaveGerar: Gerar chave
+AVOID? [chave] chaveGerarPara: Gerar chave de envio para {aplicacao}
+AVOID? [chave] chaveLimiteNota: Limite de {limite} chaves ativas. Revogue uma para gerar outra.
+AVOID? [chave] chavesTabela: Chaves de envio de {aplicacao}
+AVOID? [chave] chaveColunaChave: Chave de envio
+AVOID? [chave] chaveRevogarRotulo: Revogar a chave {chave} de {aplicacao}
+AVOID? [chave] aplicacoesVazioCorpo: Sem aplicação e chave de envio, nenhum evento de {ambiente} chega ao Monitora AI. O painel olhou só o que está
+AVOID? [chave] aplicacoesVazioCta: Criar a primeira chave de envio
+AVOID? [chave] aplicacoesErroCorpo: O servidor não respondeu. Nenhuma aplicação ou chave foi alterada.
+AVOID? [chave] aplicacoesSemInternetContinua: A lista de aplicações e chaves de envio continua legível.
+AVOID? [chave] aplicacoesSemInternetEspera: Cadastrar aplicação, gerar chave e revogar chave esperam a conexão voltar.
+AVOID? [chave] aplicacaoNovaAmbienteNota: A aplicação e a chave de envio valem só em {ambiente}, o ambiente escolhido no topo do painel. Para outro ambi
+AVOID? [chave] chaveApelido: Apelido da chave (opcional)
+AVOID? [chave] chaveApelidoDica: Ajuda a saber qual chave é qual quando houver duas.
+AVOID? [chave] aplicacaoNovaProximoPasso: Ao cadastrar, o painel gera a primeira chave de envio e mostra a chave inteira uma vez só.
+AVOID? [chave] aplicacaoNovaConfirmar: Cadastrar e gerar a chave
+AVOID? [chave] aplicacaoNovaErroRepetido: Já existe a aplicação {aplicacao} em {ambiente}. Para dar outra chave a ela, feche e use “Gerar chave”.
+AVOID? [chave] chaveNovaTitulo: Gerar chave de envio para {aplicacao} em {ambiente}
+AVOID? [chave] chaveNovaNota: A chave nova vale junto com a atual. Troque a chave no servidor da aplicação e, quando a antiga parar de envia
+AVOID? [chave] chaveNovaConfirmar: Gerar a chave
+AVOID? [chave] chaveNovaFalhaTitulo: Não deu para gerar a chave
+AVOID? [chave] chaveNovaFalhaCorpo: O servidor não respondeu. Nenhuma chave foi criada.
+AVOID? [chave] chaveNovaSemInternet: Sem internet: gerar a chave espera a conexão voltar.
+AVOID? [chave] chaveGerando: Gerando a chave…
+AVOID? [chave] chaveGeradaTitulo: Chave de envio de {aplicacao} em {ambiente}
+AVOID? [chave] chaveGeradaAvisoTitulo: Esta é a única vez que a chave aparece inteira
+AVOID? [chave] chaveGeradaAvisoCorpo: O Monitora AI não guarda a chave inteira. Depois de fechar, o painel mostra só o começo. Se você perder a chav
+AVOID? [chave] chaveGeradaRotulo: Chave de envio
+AVOID? [chave] chaveCopiar: Copiar a chave
+AVOID? [chave] chaveGeradaFechar: Já guardei a chave
+AVOID? [chave] chaveGeradaSoFechaPeloBotao: Esta janela só fecha por este botão, para a chave não se perder num toque sem querer.
+AVOID? [chave] chaveGeradaSemInternet: Sem internet: a chave já gerada continua aqui. Copiar e fechar funcionam.
+AVOID? [chave] chaveGuardadaTitulo: Chave de envio gerada para {aplicacao}
+AVOID? [chave] chaveRevogarTitulo: Revogar a chave “{chave}” da aplicação {aplicacao} do {produto} em {ambiente}?
+AVOID? [chave] chaveRevogarConsequenciaUnica: A aplicação {aplicacao} para de enviar eventos de {ambiente} na hora: esta é a única chave ativa dela.
+AVOID? [chave] chaveRevogarConsequenciaComOutra: Quem ainda envia com esta chave para de enviar eventos na hora. A outra chave ativa de {aplicacao} continua va
+AVOID? [chave] chaveRevogarNaoVolta: Não dá para desfazer: chave revogada não volta. A revogação fica na auditoria.
+AVOID? [chave] chaveRevogarConfirmar: Revogar a chave
+AVOID? [chave] chaveRevogarFalhaTitulo: Não deu para revogar a chave
+AVOID? [chave] chaveRevogarFalhaCorpo: O servidor não respondeu. A chave continua ativa.
+AVOID? [chave] chaveRevogarSemInternet: Sem internet: revogar espera a conexão voltar. A chave continua ativa.
+AVOID? [chave] chaveRevogadaTitulo: Chave “{chave}” de {aplicacao} revogada
+AVOID? [histórico] catalogoComoFunciona: Campo declarado é campo pesquisável: filtra a busca de eventos por busca garantida. Campo não declarado aparec
+AVOID? [chave] catalogoVazioCta: Ver aplicações e chaves de envio
+AVOID? [cliente] catalogoPapelExplicaLocalizacao: Campo de localização: acha tentativas sem ligar eventos entre si, como cliente ou viagem.
+AVOID? [histórico] catalogoDeclaradoCorpo: Os eventos novos já filtram por {campo} ({tipo}; {buscas}). Os anteriores às {horario} só saem por busca lenta
+AVOID? [chave] saudeNuncaEnviouCorpo: Nenhuma execução desta aplicação informou a situação. Sem envio, o painel não sabe de perda nem de lacuna. A c
+AVOID? [chave] saudeVazioPassoDoInvestigador: Próximo passo: olhe um período maior ou peça ao Administrador do produto para conferir as aplicações e as chav
+AVOID? [chave] saudeVazioPassoDoAdministrador: Próximo passo: olhe um período maior ou confira se as aplicações têm chave de envio ativa.

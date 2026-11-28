@@ -1,0 +1,63 @@
+CONTROLE NEGATIVO: 8 achados (esperado: 3 nomes de uma letra [n, v, a], 3 textos, 1 cor)
+  CONTROLE NOME-DE-UMA-LETRA controle-negativo.jsx:1 variável «n»
+  CONTROLE NOME-DE-UMA-LETRA controle-negativo.jsx:1 parâmetro «v»
+  CONTROLE NOME-DE-UMA-LETRA controle-negativo.jsx:1 variável (desestruturação) «a»
+  CONTROLE TEXTO-NO-JSX controle-negativo.jsx:1 atributo title=«Fechar a janela»
+  CONTROLE COR-SOLTA controle-negativo.jsx:1 «#ff0000»
+  CONTROLE TEXTO-NO-JSX controle-negativo.jsx:1 «Texto solto na tela»
+  CONTROLE TEXTO-NO-JSX controle-negativo.jsx:1 literal como filho «Sim, tem»
+  CONTROLE COR-SOLTA controle-negativo.jsx:1 «#ff0000»
+CONTROLE POSITIVO: 0 achados (esperado: 0)
+
+ACHADOS NOS ARQUIVOS (51):
+  NOME-DE-UMA-LETRA catalogo.jsx:? parâmetro «n»
+  NOME-DE-UMA-LETRA catalogo.jsx:? variável «e»
+  NOME-DE-UMA-LETRA catalogo.jsx:? variável «t»
+  NOME-DE-UMA-LETRA catalogo.jsx:? variável «r»
+  NOME-DE-UMA-LETRA saude.jsx:? parâmetro «n»
+  NOME-DE-UMA-LETRA saude.jsx:? variável «e»
+  NOME-DE-UMA-LETRA saude.jsx:? variável «t»
+  NOME-DE-UMA-LETRA saude.jsx:? variável «r»
+  NOME-DE-UMA-LETRA busca.jsx:? parâmetro «n»
+  NOME-DE-UMA-LETRA busca.jsx:? variável «e»
+  NOME-DE-UMA-LETRA busca.jsx:? variável «t»
+  NOME-DE-UMA-LETRA busca.jsx:? variável «r»
+  NOME-DE-UMA-LETRA tentativa.jsx:? parâmetro «n»
+  NOME-DE-UMA-LETRA tentativa.jsx:? variável «e»
+  NOME-DE-UMA-LETRA tentativa.jsx:? variável «t»
+  NOME-DE-UMA-LETRA tentativa.jsx:? variável «r»
+  TEXTO-NO-JSX app.jsx:85 «Render error em "»
+  NOME-DE-UMA-LETRA ui.jsx:? parâmetro «n»
+  NOME-DE-UMA-LETRA ui.jsx:? variável «e»
+  NOME-DE-UMA-LETRA ui.jsx:? variável «t»
+  NOME-DE-UMA-LETRA ui.jsx:? variável «r»
+  NOME-DE-UMA-LETRA icons.jsx:? parâmetro «n»
+  NOME-DE-UMA-LETRA icons.jsx:? variável «e»
+  NOME-DE-UMA-LETRA icons.jsx:? variável «t»
+  NOME-DE-UMA-LETRA icons.jsx:? variável «r»
+  NOME-DE-UMA-LETRA painel-casca.jsx:? parâmetro «n»
+  NOME-DE-UMA-LETRA painel-casca.jsx:? variável «e»
+  NOME-DE-UMA-LETRA painel-casca.jsx:? variável «t»
+  NOME-DE-UMA-LETRA painel-casca.jsx:? variável «r»
+  COR-SOLTA device.jsx:24 «#F5F5F7»
+  COR-SOLTA device.jsx:24 «#1A1A1F»
+  COR-SOLTA device.jsx:29 «#0A0A0E»
+  TEXTO-NO-JSX device.jsx:42 «9:41»
+  TEXTO-NO-JSX device.jsx:43 «● ● ● 100%»
+  COR-SOLTA device.jsx:48 «#0A0A0E»
+  COR-SOLTA device.jsx:48 «#0A0A0E»
+  COR-SOLTA device.jsx:48 «#0A0A0E»
+  COR-SOLTA device.jsx:29 «#0A0A0E»
+  COR-SOLTA device.jsx:48 «#0A0A0E»
+  COR-SOLTA device.jsx:68 «#F5F5F7»
+  COR-SOLTA device.jsx:68 «#1A1A1F»
+  COR-SOLTA device.jsx:73 «#1A1A1F»
+  TEXTO-NO-JSX device.jsx:86 «9:41»
+  TEXTO-NO-JSX device.jsx:87 «● ● 100%»
+  COR-SOLTA device.jsx:73 «#1A1A1F»
+  COR-SOLTA device.jsx:111 «#1A1A1F»
+  COR-SOLTA device.jsx:111 «#1A1A1F»
+  COR-SOLTA device.jsx:131 «#0A0A0E»
+  COR-SOLTA device.jsx:131 «#0A0A0E»
+  COR-SOLTA device.jsx:151 «#1A1A1F»
+  COR-SOLTA device.jsx:151 «#1A1A1F»

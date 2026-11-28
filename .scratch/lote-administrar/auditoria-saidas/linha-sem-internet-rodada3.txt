@@ -1,0 +1,11 @@
+antes da correção (37378b1) (v=22) · busca · default: 9 linhas de evento · com aria-disabled 0 · com o motivo no title 0 · apagados na tela 4 · clique na primeira linha: abre
+antes da correção (37378b1) (v=22) · busca · offline: 9 linhas de evento · com aria-disabled 9 · com o motivo no title 9 · apagados na tela 17 · clique na primeira linha: não abre
+antes da correção (37378b1) (v=22) · tentativa · default: 14 linhas de evento · com aria-disabled 0 · com o motivo no title 0 · apagados na tela 0 · clique na primeira linha: abre
+antes da correção (37378b1) (v=22) · tentativa · offline: 14 linhas de evento · com aria-disabled 14 · com o motivo no title 14 · apagados na tela 15 · clique na primeira linha: não abre
+hoje (7db1aa4) (v=24) · busca · default: 9 linhas de evento · com aria-disabled 0 · com o motivo no title 0 · apagados na tela 4 · clique na primeira linha: abre
+hoje (7db1aa4) (v=24) · busca · offline: 9 linhas de evento · com aria-disabled 9 · com o motivo no title 9 · apagados na tela 17 · clique na primeira linha: não abre
+hoje (7db1aa4) (v=24) · tentativa · default: 14 linhas de evento · com aria-disabled 0 · com o motivo no title 0 · apagados na tela 0 · clique na primeira linha: abre
+hoje (7db1aa4) (v=24) · tentativa · offline: 14 linhas de evento · com aria-disabled 14 · com o motivo no title 14 · apagados na tela 15 · clique na primeira linha: não abre
+PASS busca sem internet: hoje 9 de 9 linhas com aria-disabled (antes 9 de 9) · controle negativo (a versão de antes mostra o atributo): viu · controle positivo (com internet, zero nas duas): passou
+PASS tentativa sem internet: hoje 14 de 14 linhas com aria-disabled (antes 14 de 14) · controle negativo (a versão de antes mostra o atributo): viu · controle positivo (com internet, zero nas duas): passou
+MEDIDA VÁLIDA · falhas: 0

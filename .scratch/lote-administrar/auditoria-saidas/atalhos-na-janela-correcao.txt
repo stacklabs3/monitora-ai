@@ -1,0 +1,12 @@
+CONTROLE (sem janela aberta, "?" abre os atalhos): janelas 1 «Atalhos do teclado» => o ensaio enxerga o atalho agir
+PASS cadastro, foco no campo do nome · tecla "?": janelas 1 → 1 «Cadastrar aplicação do Excurfly em produ» · foco «ex.: API de parceiros» → «ex.: API de parceiros» · endereço /aplicacoes/nova · campo ficou com «?»
+PASS cadastro, foco no campo do nome · tecla "/": janelas 1 → 1 «Cadastrar aplicação do Excurfly em produ» · foco «ex.: API de parceiros» → «ex.: API de parceiros» · endereço /aplicacoes/nova · campo ficou com «/»
+PASS revogar, foco em Cancelar · tecla "?": janelas 1 → 1 «Revogar a chave “servidor antigo” da apl» · foco «Cancelar» → «Cancelar» · endereço /aplicacoes/site/chaves/ex2b/revogar
+PASS revogar, foco em Cancelar · tecla "/": janelas 1 → 1 «Revogar a chave “servidor antigo” da apl» · foco «Cancelar» → «Cancelar» · endereço /aplicacoes/site/chaves/ex2b/revogar
+PASS chave gerada, foco em Copiar · tecla "?": janelas 1 → 1 «Chave de envio de API de parceiros em pr» · foco «Copiar a chave» → «Copiar a chave» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS chave gerada, foco em Copiar · tecla "/": janelas 1 → 1 «Chave de envio de API de parceiros em pr» · foco «Copiar a chave» → «Copiar a chave» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS declarar, foco na janela · tecla "?": janelas 1 → 1 «Declarar o campo installmentCount do Exc» · foco «Declarar o campo installmentCount do Exc» → «Declarar o campo installmentCount do Exc» · endereço /catalogo/installmentCount/declarar
+PASS declarar, foco na janela · tecla "/": janelas 1 → 1 «Declarar o campo installmentCount do Exc» · foco «Declarar o campo installmentCount do Exc» → «Declarar o campo installmentCount do Exc» · endereço /catalogo/installmentCount/declarar
+FAIL revogar com os atalhos por cima: Tab três vezes → «Revogar a chave “servidor » › Cancelar → «Revogar a chave “servidor » › Revogar a chave → «Revogar a chave “servidor » › Cancelar → «Revogar a chave “servidor » › Revogar a chave · depois de um Esc: janelas 0 «» · endereço /aplicacoes
+FAIL chave gerada com os atalhos por cima: Tab três vezes → «Chave de envio de API de p» › Copiar a chave → «Chave de envio de API de p» › Já guardei a chave → «Chave de envio de API de p» › Copiar a chave → «Chave de envio de API de p» › Já guardei a chave · depois de um Esc: janelas 1 «Chave de envio de API de parceiros em pr» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+falhas: 2

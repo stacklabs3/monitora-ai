@@ -1,0 +1,685 @@
+== `_excluded` global na página (Babel gera um por script, todos com o mesmo nome) ==
+  window._excluded  = ["rotulo","icone","aoClicar","disabled","className"]
+  window._excluded2 = ["variant","loading","disabled","compacto","className","children"]
+  esperado por Press (ui.jsx:18): ["children","onClick","style","className","disabled"]
+  scripts transpilados que declaram _excluded: ui.jsx: _excluded = ["children", "onClick", "style", "className", "disabled"] ; _excluded2 = ["variant", "loading", "disabled", "compacto", "className", "children"] || painel-casca.jsx: _excluded = ["rotulo", "icone", "aoClicar", "disabled", "className"]
+
+CONTROLE NEGATIVO (botão aceso "Cadastrar aplicação", tem de ser acusado como "agiu"): ACUSADO como devia → endereço administrador/aplicacoes → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+CONTROLE POSITIVO (elemento apagado sem manipulador, não pode ser acusado): passou (nada mudou)
+MEDIDA VÁLIDA: o controle negativo foi acusado e o positivo passou.
+FAIL entrar-no-painel/01-entrada disabled: 1 tipos de botão apagado, agiram 1
+       button «Entrar» ⇒ endereço #/entrada/painel → #/segundo-fator/painel · texto da tela · valor de campo
+FAIL entrar-no-painel/01-entrada offline: 1 tipos de botão apagado, agiram 1
+       button «Entrar» ⇒ endereço #/entrada/painel → #/segundo-fator/painel · texto da tela · valor de campo
+FAIL entrar-no-painel/02-segundo_fator disabled: 1 tipos de botão apagado, agiram 1
+       button «Confirmar» ⇒ endereço #/segundo-fator/painel → investigador · texto da tela · valor de campo · marcado/aberto
+FAIL entrar-no-painel/02-segundo_fator offline: 1 tipos de botão apagado, agiram 1
+       button «Confirmar» ⇒ endereço #/segundo-fator/painel → investigador · texto da tela · valor de campo · marcado/aberto
+FAIL entrar-no-painel/03-painel_investigador disabled: 24 tipos de botão apagado, agiram 7
+       radio «homologação» ⇒ endereço investigador → #/painel/excurfly/homologacao/investigador · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador → administrador · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador → investigador/eventos/p=1h;pg=2 · texto da tela
+FAIL entrar-no-painel/03-painel_investigador offline: 18 tipos de botão apagado, agiram 3
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Próxima» ⇒ endereço investigador → investigador/eventos/p=1h;pg=2 · texto da tela
+FAIL ver-como-administrador/02-painel_administrador disabled: 24 tipos de botão apagado, agiram 7
+       radio «homologação» ⇒ endereço administrador → #/painel/excurfly/homologacao/administrador · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador → investigador · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço administrador → administrador/eventos/p=1h;pg=2 · texto da tela
+FAIL ver-como-administrador/02-painel_administrador offline: 18 tipos de botão apagado, agiram 3
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Próxima» ⇒ endereço administrador → administrador/eventos/p=1h;pg=2 · texto da tela
+FAIL buscar-eventos/02-busca_investigador disabled: 20 tipos de botão apagado, agiram 8
+       radio «homologação» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042 → #/painel/excurfly/homologacao/investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042 → administrador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042 → investigador · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042 → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2
+FAIL buscar-eventos/02-busca_investigador offline: 14 tipos de botão apagado, agiram 4
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042 → investigador · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042 → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2
+FAIL avisos-da-busca/01-busca_investigador disabled: 19 tipos de botão apagado, agiram 9
+       radio «homologação» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → #/painel/excurfly/homologacao/investigador/eventos/p=24h;f=amountCents:i:1000,5000 · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → administrador/eventos/p=24h;f=amountCents:i:1000,5000 · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Últimas 24 h 26/11/2026 15:00 – 27/11/2026 15:00 (BR» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “amountCents entre 1000 e 5000”» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → investigador/eventos/p=24h · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Buscar antes das 14:00 (busca lenta)» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → investigador/eventos/p=i.202611261500.202611271400;f=amountCents:i:1000,5000;lenta=1 · texto da tela
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → investigador/eventos/p=24h;f=amountCents:i:1000,5000;pg=2 · texto da tela
+FAIL avisos-da-busca/01-busca_investigador offline: 13 tipos de botão apagado, agiram 5
+       button «Período Últimas 24 h 26/11/2026 15:00 – 27/11/2026 15:00 (BR» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “amountCents entre 1000 e 5000”» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → investigador/eventos/p=24h · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Buscar antes das 14:00 (busca lenta)» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → investigador/eventos/p=i.202611261500.202611271400;f=amountCents:i:1000,5000;lenta=1 · texto da tela
+       button «Próxima» ⇒ endereço investigador/eventos/p=24h;f=amountCents:i:1000,5000 → investigador/eventos/p=24h;f=amountCents:i:1000,5000;pg=2 · texto da tela
+FAIL avisos-da-busca/02-busca_investigador disabled: 14 tipos de botão apagado, agiram 9
+       radio «homologação» ⇒ endereço investigador/eventos/p=24h;q=limite → #/painel/excurfly/homologacao/investigador/eventos/p=24h;q=limite · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=24h;q=limite → administrador/eventos/p=24h;q=limite · texto da tela · marcado/aberto
+       button «Limpar o texto» ⇒ valor de campo
+       button «regex» ⇒ marcado/aberto
+       button «Período Últimas 24 h 26/11/2026 15:00 – 27/11/2026 15:00 (BR» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Reduzir para a última hora» ⇒ endereço investigador/eventos/p=24h;q=limite → investigador/eventos/p=1h;q=limite · texto da tela
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=24h;q=limite → investigador/eventos/p=24h;q=limite;pg=2
+FAIL avisos-da-busca/02-busca_investigador offline: 7 tipos de botão apagado, agiram 4
+       button «Período Últimas 24 h 26/11/2026 15:00 – 27/11/2026 15:00 (BR» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Reduzir para a última hora» ⇒ endereço investigador/eventos/p=24h;q=limite → investigador/eventos/p=1h;q=limite · texto da tela
+       button «Próxima» ⇒ endereço investigador/eventos/p=24h;q=limite → investigador/eventos/p=24h;q=limite;pg=2
+FAIL avisos-da-busca/03-busca_investigador disabled: 13 tipos de botão apagado, agiram 8
+       radio «homologação» ⇒ endereço investigador/eventos/p=1h;q=limite → #/painel/excurfly/homologacao/investigador/eventos/p=1h;q=limite · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=1h;q=limite → administrador/eventos/p=1h;q=limite · texto da tela · marcado/aberto
+       button «Limpar o texto» ⇒ valor de campo
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;q=limite → investigador/eventos/p=1h;q=limite;pg=2
+FAIL avisos-da-busca/03-busca_investigador offline: 6 tipos de botão apagado, agiram 3
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;q=limite → investigador/eventos/p=1h;q=limite;pg=2
+FAIL ler-um-evento/02-evento_investigador disabled: 44 tipos de botão apagado, agiram 30
+       radio «homologação» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → #/painel/excurfly/homologacao/investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → administrador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador · texto da tela · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Anterior» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2 · texto da tela · marcado/aberto
+       button «Copiar link do evento» ⇒ texto da tela
+       button «Horários» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/horarios · marcado/aberto
+       button «Origem» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/origem · marcado/aberto
+       button «Vínculos» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/vinculos · marcado/aberto
+       button «Atributos» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos · marcado/aberto
+       button «Erro» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro · marcado/aberto
+       button «Abrir a tentativa R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/tentativas/reservationId/R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId não é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=reservationId:n:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: accountId é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:e:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: accountId não é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:n:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:e:4500 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents não é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:n:4500 · texto da tela · marcado/aberto
+       button «Filtrar: method é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       button «Filtrar: method não é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:n:cartao · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:e:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument não é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:n:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Mostrar tudo» ⇒ texto da tela · marcado/aberto
+       button «Copiar a pilha» ⇒ texto da tela
+FAIL ler-um-evento/02-evento_investigador offline: 32 tipos de botão apagado, agiram 20
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador · texto da tela · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Anterior» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2 · texto da tela · marcado/aberto
+       button «Abrir a tentativa R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/tentativas/reservationId/R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId não é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=reservationId:n:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: accountId é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:e:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: accountId não é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:n:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:e:4500 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents não é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:n:4500 · texto da tela · marcado/aberto
+       button «Filtrar: method é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       button «Filtrar: method não é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:n:cartao · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:e:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument não é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06 → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:n:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Mostrar tudo» ⇒ texto da tela · marcado/aberto
+       button «Copiar a pilha» ⇒ texto da tela
+FAIL ler-um-evento/03-tentativa_investigador disabled: 20 tipos de botão apagado, agiram 4
+       radio «homologação» ⇒ endereço investigador/tentativas/reservationId/R-1042 → #/painel/excurfly/homologacao/investigador/tentativas · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/tentativas/reservationId/R-1042 → administrador/tentativas/reservationId/R-1042 · texto da tela · marcado/aberto
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1042 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Mesmo horário, sem vínculo» ⇒ endereço investigador/tentativas/reservationId/R-1042 → investigador/tentativas/reservationId/R-1042/secao/sem-vinculo
+FAIL ler-um-evento/03-tentativa_investigador offline: 14 tipos de botão apagado, agiram 1
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1042 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+FAIL ler-o-erro-do-evento/02-evento_secao_investigador disabled: 44 tipos de botão apagado, agiram 29
+       radio «homologação» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → #/painel/excurfly/homologacao/investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → administrador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador · texto da tela · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Anterior» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2 · texto da tela · marcado/aberto
+       button «Copiar link do evento» ⇒ texto da tela
+       button «Horários» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/horarios
+       button «Origem» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/origem
+       button «Vínculos» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/vinculos
+       button «Erro» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro
+       button «Abrir a tentativa R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/tentativas/reservationId/R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId não é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=reservationId:n:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: accountId é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:e:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: accountId não é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:n:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:e:4500 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents não é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:n:4500 · texto da tela · marcado/aberto
+       button «Filtrar: method é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       button «Filtrar: method não é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:n:cartao · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:e:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument não é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:n:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Mostrar tudo» ⇒ texto da tela · marcado/aberto
+       button «Copiar a pilha» ⇒ texto da tela
+FAIL ler-o-erro-do-evento/02-evento_secao_investigador offline: 32 tipos de botão apagado, agiram 20
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador · texto da tela · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Anterior» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2 · texto da tela · marcado/aberto
+       button «Abrir a tentativa R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/tentativas/reservationId/R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId não é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=reservationId:n:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: accountId é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:e:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: accountId não é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:n:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:e:4500 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents não é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:n:4500 · texto da tela · marcado/aberto
+       button «Filtrar: method é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       button «Filtrar: method não é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:n:cartao · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:e:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument não é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:n:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Mostrar tudo» ⇒ texto da tela · marcado/aberto
+       button «Copiar a pilha» ⇒ texto da tela
+FAIL ler-o-erro-do-evento/03-evento_secao_investigador disabled: 44 tipos de botão apagado, agiram 29
+       radio «homologação» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → #/painel/excurfly/homologacao/investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → administrador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador · texto da tela · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Anterior» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2 · texto da tela · marcado/aberto
+       button «Copiar link do evento» ⇒ texto da tela
+       button «Horários» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/horarios
+       button «Origem» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/origem
+       button «Vínculos» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/vinculos
+       button «Atributos» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/atributos
+       button «Abrir a tentativa R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/tentativas/reservationId/R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId não é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=reservationId:n:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: accountId é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:e:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: accountId não é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:n:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:e:4500 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents não é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:n:4500 · texto da tela · marcado/aberto
+       button «Filtrar: method é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       button «Filtrar: method não é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:n:cartao · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:e:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument não é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:n:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Mostrar tudo» ⇒ texto da tela · marcado/aberto
+       button «Copiar a pilha» ⇒ texto da tela
+FAIL ler-o-erro-do-evento/03-evento_secao_investigador offline: 32 tipos de botão apagado, agiram 20
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador · texto da tela · marcado/aberto
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Anterior» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;pg=2 · texto da tela · marcado/aberto
+       button «Abrir a tentativa R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/tentativas/reservationId/R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: reservationId não é R-1042» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=reservationId:n:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: accountId é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:e:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: accountId não é conta-7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=accountId:n:conta-7 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:e:4500 · texto da tela · marcado/aberto
+       button «Filtrar: amountCents não é 4500» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=amountCents:n:4500 · texto da tela · marcado/aberto
+       button «Filtrar: method é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       button «Filtrar: method não é cartao» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:n:cartao · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:e:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Filtrar: buyerDocument não é cb_51c0e7» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042/evento/ev-1042-06/erro → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=buyerDocument:n:cb_51c0e7 · texto da tela · marcado/aberto
+       button «Mostrar tudo» ⇒ texto da tela · marcado/aberto
+       button «Copiar a pilha» ⇒ texto da tela
+FAIL filtrar-por-um-valor/02-busca_investigador disabled: 16 tipos de botão apagado, agiram 9
+       radio «homologação» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → #/painel/excurfly/homologacao/investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → administrador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → investigador/eventos/p=1h;f=method:e:cartao · texto da tela
+       button «Remover o filtro “method é cartao”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao;pg=2
+FAIL filtrar-por-um-valor/02-busca_investigador offline: 10 tipos de botão apagado, agiram 5
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “reservationId é R-1042”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → investigador/eventos/p=1h;f=method:e:cartao · texto da tela
+       button «Remover o filtro “method é cartao”» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao → investigador/eventos/p=1h;f=reservationId:e:R-1042;f=method:e:cartao;pg=2
+FAIL achar-a-tentativa/01-tentativas_investigador disabled: 9 tipos de botão apagado, agiram 5
+       radio «homologação» ⇒ endereço investigador/tentativas → #/painel/excurfly/homologacao/investigador/tentativas · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/tentativas → administrador/tentativas · texto da tela · marcado/aberto
+       radio «viagem» ⇒ texto da tela · marcado/aberto
+       radio «reservationId» ⇒ texto da tela · marcado/aberto
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+FAIL achar-a-tentativa/01-tentativas_investigador offline: 2 tipos de botão apagado, agiram 1
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+FAIL achar-a-tentativa/02-tentativas_achadas_investigador disabled: 15 tipos de botão apagado, agiram 6
+       radio «homologação» ⇒ endereço investigador/tentativas/por/cliente/conta-7/1h → #/painel/excurfly/homologacao/investigador/tentativas/por/cliente/conta-7/1h · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/tentativas/por/cliente/conta-7/1h → administrador/tentativas/por/cliente/conta-7/1h · texto da tela · marcado/aberto
+       radio «viagem» ⇒ texto da tela · marcado/aberto
+       radio «reservationId» ⇒ texto da tela · marcado/aberto
+       button «Limpar o texto» ⇒ valor de campo
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+FAIL achar-a-tentativa/02-tentativas_achadas_investigador offline: 7 tipos de botão apagado, agiram 1
+       button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+FAIL ler-a-linha-do-tempo/02-tentativa_evento_investigador disabled: 30 tipos de botão apagado, agiram 12
+       radio «homologação» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → #/painel/excurfly/homologacao/investigador/tentativas · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → administrador/tentativas/reservationId/R-1042/evento/ev-1042-05 · texto da tela · marcado/aberto
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Linha do tempo» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/tentativas/reservationId/R-1042 · texto da tela
+       button «Mesmo horário, sem vínculo» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/tentativas/reservationId/R-1042/secao/sem-vinculo · texto da tela
+       button «Copiar link do evento» ⇒ texto da tela
+       button «Horários» ⇒ marcado/aberto
+       button «Origem» ⇒ marcado/aberto
+       button «Vínculos» ⇒ marcado/aberto
+       button «Atributos» ⇒ marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/eventos/p=1h;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/eventos/p=1h;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+FAIL ler-a-linha-do-tempo/02-tentativa_evento_investigador offline: 19 tipos de botão apagado, agiram 3
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId é T-900» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/eventos/p=1h;f=pspTxId:e:T-900 · texto da tela · marcado/aberto
+       button «Filtrar: pspTxId não é T-900» ⇒ endereço investigador/tentativas/reservationId/R-1042/evento/ev-1042-05 → investigador/eventos/p=1h;f=pspTxId:n:T-900 · texto da tela · marcado/aberto
+FAIL ler-a-linha-do-tempo/03-tentativa_secao_investigador disabled: 20 tipos de botão apagado, agiram 4
+       radio «homologação» ⇒ endereço investigador/tentativas/reservationId/R-1042/secao/sem-vinculo → #/painel/excurfly/homologacao/investigador/tentativas · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/tentativas/reservationId/R-1042/secao/sem-vinculo → administrador/tentativas/reservationId/R-1042/secao/sem-vinculo · texto da tela · marcado/aberto
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1042/secao/sem-vinculo → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+       button «Linha do tempo» ⇒ endereço investigador/tentativas/reservationId/R-1042/secao/sem-vinculo → investigador/tentativas/reservationId/R-1042
+FAIL ler-a-linha-do-tempo/03-tentativa_secao_investigador offline: 14 tipos de botão apagado, agiram 1
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1042/secao/sem-vinculo → investigador/eventos/p=1h;f=reservationId:e:R-1042 · texto da tela · marcado/aberto
+FAIL codigo-em-duas-tentativas/01-tentativa_investigador disabled: 10 tipos de botão apagado, agiram 4
+       radio «homologação» ⇒ endereço investigador/tentativas/reservationId/R-1046 → #/painel/excurfly/homologacao/investigador/tentativas · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/tentativas/reservationId/R-1046 → administrador/tentativas/reservationId/R-1046 · texto da tela · marcado/aberto
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1046 → investigador/eventos/p=1h;f=reservationId:e:R-1046 · texto da tela · marcado/aberto
+       button «Abrir a tentativa R-1047» ⇒ endereço investigador/tentativas/reservationId/R-1046 → investigador/tentativas/reservationId/R-1047 · texto da tela
+FAIL codigo-em-duas-tentativas/01-tentativa_investigador offline: 6 tipos de botão apagado, agiram 2
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1046 → investigador/eventos/p=1h;f=reservationId:e:R-1046 · texto da tela · marcado/aberto
+       button «Abrir a tentativa R-1047» ⇒ endereço investigador/tentativas/reservationId/R-1046 → investigador/tentativas/reservationId/R-1047 · texto da tela
+FAIL codigo-em-duas-tentativas/02-tentativa_investigador disabled: 9 tipos de botão apagado, agiram 4
+       radio «homologação» ⇒ endereço investigador/tentativas/reservationId/R-1047 → #/painel/excurfly/homologacao/investigador/tentativas · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/tentativas/reservationId/R-1047 → administrador/tentativas/reservationId/R-1047 · texto da tela · marcado/aberto
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1047 → investigador/eventos/p=1h;f=reservationId:e:R-1047 · texto da tela · marcado/aberto
+       button «Abrir a tentativa R-1046» ⇒ endereço investigador/tentativas/reservationId/R-1047 → investigador/tentativas/reservationId/R-1046 · texto da tela
+FAIL codigo-em-duas-tentativas/02-tentativa_investigador offline: 5 tipos de botão apagado, agiram 2
+       button «Ver estes eventos na busca» ⇒ endereço investigador/tentativas/reservationId/R-1047 → investigador/eventos/p=1h;f=reservationId:e:R-1047 · texto da tela · marcado/aberto
+       button «Abrir a tentativa R-1046» ⇒ endereço investigador/tentativas/reservationId/R-1047 → investigador/tentativas/reservationId/R-1046 · texto da tela
+FAIL cadastrar-aplicacao/02-aplicacoes_administrador default: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/nova
+FAIL cadastrar-aplicacao/02-aplicacoes_administrador disabled: 12 tipos de botão apagado, agiram 10
+       radio «homologação» ⇒ endereço administrador/aplicacoes → #/painel/excurfly/homologacao/administrador/aplicacoes · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/aplicacoes → investigador · texto da tela · marcado/aberto
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/api/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/api/chaves/ex3f/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/nova
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/ex2b/revogar · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/ex5d/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/webhooks/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/webhooks/chaves/ex4e/revogar · janelas 0 → 1 · texto da tela
+FAIL cadastrar-aplicacao/02-aplicacoes_administrador loading: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/nova
+FAIL cadastrar-aplicacao/02-aplicacoes_administrador offline: 8 tipos de botão apagado, agiram 8
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/api/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/api/chaves/ex3f/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/nova
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/ex2b/revogar · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/site/chaves/ex5d/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/webhooks/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes → administrador/aplicacoes/webhooks/chaves/ex4e/revogar · janelas 0 → 1 · texto da tela
+ok   cadastrar-aplicacao/02-aplicacoes_administrador error: 0 tipos de botão apagado, agiram 0
+ok   cadastrar-aplicacao/02-aplicacoes_administrador empty: 0 tipos de botão apagado, agiram 0
+FAIL cadastrar-aplicacao/03-aplicacao_nova_administrador default: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+FAIL cadastrar-aplicacao/03-aplicacao_nova_administrador disabled: 14 tipos de botão apagado, agiram 13
+       radio «produção» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       radio «homologação» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       radio «Investigador» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       radio «Administrador» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Cancelar» (na janela) ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+FAIL cadastrar-aplicacao/03-aplicacao_nova_administrador loading: 2 tipos de botão apagado, agiram 2
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Gerando a chave…» (na janela) ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada · texto da tela · valor de campo
+FAIL cadastrar-aplicacao/03-aplicacao_nova_administrador offline: 9 tipos de botão apagado, agiram 8
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+FAIL cadastrar-aplicacao/03-aplicacao_nova_administrador error: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/nova → administrador/aplicacoes · janelas 1 → 0 · texto da tela · valor de campo
+ok   cadastrar-aplicacao/03-aplicacao_nova_administrador empty: 0 tipos de botão apagado, agiram 0
+ok   cadastrar-aplicacao/04-chave_passo_administrador default: 1 tipos de botão apagado, agiram 0
+FAIL cadastrar-aplicacao/04-chave_passo_administrador disabled: 16 tipos de botão apagado, agiram 2
+       button «Copiar a chave» (na janela) ⇒ texto da tela
+       button «Já guardei a chave» (na janela) ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada → administrador/aplicacoes/api-de-parceiros/chaves/ex7a · janelas 1 → 0 · texto da tela
+FAIL cadastrar-aplicacao/04-chave_passo_administrador loading: 3 tipos de botão apagado, agiram 2
+       button «Copiar a chave» (na janela) ⇒ texto da tela
+       button «Já guardei a chave» (na janela) ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada → administrador/aplicacoes/api-de-parceiros/chaves/ex7a · janelas 1 → 0 · texto da tela
+ok   cadastrar-aplicacao/04-chave_passo_administrador offline: 10 tipos de botão apagado, agiram 0
+FAIL cadastrar-aplicacao/04-chave_passo_administrador error: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a/gerada → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+ok   cadastrar-aplicacao/04-chave_passo_administrador empty: 1 tipos de botão apagado, agiram 0
+FAIL guardar-a-chave/02-chave_administrador default: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/nova · texto da tela
+FAIL guardar-a-chave/02-chave_administrador disabled: 14 tipos de botão apagado, agiram 12
+       radio «homologação» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → #/painel/excurfly/homologacao/administrador/aplicacoes · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → investigador · texto da tela · marcado/aberto
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+       button «Gerar chave de envio para API de parceiros» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api-de-parceiros/chaves/nova · texto da tela
+       button «Revogar a chave mk_prod_ex7a… de API de parceiros» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api-de-parceiros/chaves/ex7a/revogar · texto da tela
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api/chaves/ex3f/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/nova · texto da tela
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/ex2b/revogar · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/ex5d/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/webhooks/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/webhooks/chaves/ex4e/revogar · janelas 0 → 1 · texto da tela
+FAIL guardar-a-chave/02-chave_administrador loading: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/nova · texto da tela
+FAIL guardar-a-chave/02-chave_administrador offline: 10 tipos de botão apagado, agiram 10
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+       button «Gerar chave de envio para API de parceiros» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api-de-parceiros/chaves/nova · texto da tela
+       button «Revogar a chave mk_prod_ex7a… de API de parceiros» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api-de-parceiros/chaves/ex7a/revogar · texto da tela
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/api/chaves/ex3f/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/nova · texto da tela
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/ex2b/revogar · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/ex5d/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/webhooks/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/webhooks/chaves/ex4e/revogar · janelas 0 → 1 · texto da tela
+ok   guardar-a-chave/02-chave_administrador error: 0 tipos de botão apagado, agiram 0
+FAIL guardar-a-chave/02-chave_administrador empty: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/api-de-parceiros/chaves/ex7a → administrador/aplicacoes/site/chaves/nova · texto da tela
+FAIL revogar-chave/02-chave_passo_administrador default: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+FAIL revogar-chave/02-chave_passo_administrador disabled: 14 tipos de botão apagado, agiram 13
+       radio «produção» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       radio «homologação» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       radio «Investigador» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       radio «Administrador» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Cancelar» (na janela) ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+FAIL revogar-chave/02-chave_passo_administrador loading: 2 tipos de botão apagado, agiram 2
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogando…» (na janela) ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes/site/chaves/ex2b/revogada · janelas 1 → 0 · texto da tela
+FAIL revogar-chave/02-chave_passo_administrador offline: 9 tipos de botão apagado, agiram 8
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor antigo de Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+FAIL revogar-chave/02-chave_passo_administrador error: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+FAIL revogar-chave/02-chave_passo_administrador empty: 1 tipos de botão apagado, agiram 1
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogar → administrador/aplicacoes · janelas 1 → 0 · texto da tela
+ok   revogar-chave/03-chave_passo_administrador default: 0 tipos de botão apagado, agiram 0
+FAIL revogar-chave/03-chave_passo_administrador disabled: 11 tipos de botão apagado, agiram 9
+       radio «homologação» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → #/painel/excurfly/homologacao/administrador/aplicacoes · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → investigador · texto da tela · marcado/aberto
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/api/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/api/chaves/ex3f/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/site/chaves/nova · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/site/chaves/ex5d/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/webhooks/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/webhooks/chaves/ex4e/revogar · janelas 0 → 1 · texto da tela
+ok   revogar-chave/03-chave_passo_administrador loading: 0 tipos de botão apagado, agiram 0
+FAIL revogar-chave/03-chave_passo_administrador offline: 7 tipos de botão apagado, agiram 7
+       button «Cadastrar aplicação» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/nova · janelas 0 → 1 · texto da tela · valor de campo
+       button «Gerar chave de envio para API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/api/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor da API de API» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/api/chaves/ex3f/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/site/chaves/nova · texto da tela
+       button «Revogar a chave servidor novo de Site» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/site/chaves/ex5d/revogar · janelas 0 → 1 · texto da tela
+       button «Gerar chave de envio para Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/webhooks/chaves/nova · janelas 0 → 1 · texto da tela
+       button «Revogar a chave servidor dos webhooks de Webhooks» ⇒ endereço administrador/aplicacoes/site/chaves/ex2b/revogada → administrador/aplicacoes/webhooks/chaves/ex4e/revogar · janelas 0 → 1 · texto da tela
+ok   revogar-chave/03-chave_passo_administrador error: 0 tipos de botão apagado, agiram 0
+ok   revogar-chave/03-chave_passo_administrador empty: 0 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/01-catalogo_administrador default: 0 tipos de botão apagado, agiram 0
+FAIL declarar-um-campo/01-catalogo_administrador disabled: 17 tipos de botão apagado, agiram 2
+       radio «homologação» ⇒ endereço administrador/catalogo → #/painel/excurfly/homologacao/administrador/catalogo · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/catalogo → investigador/catalogo · texto da tela · marcado/aberto
+ok   declarar-um-campo/01-catalogo_administrador loading: 0 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/01-catalogo_administrador offline: 13 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/01-catalogo_administrador error: 0 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/01-catalogo_administrador empty: 0 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/02-catalogo_campo_administrador default: 0 tipos de botão apagado, agiram 0
+FAIL declarar-um-campo/02-catalogo_campo_administrador disabled: 29 tipos de botão apagado, agiram 18
+       radio «produção» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       radio «homologação» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo attempt» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo durationMs» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo installmentCount» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo providerResponse» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo reason» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo results» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo seatNumbers» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo seats» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo seatsLeft» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo signInMethod» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo status» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo statusCode» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo step» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Cancelar» (na janela) ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+ok   declarar-um-campo/02-catalogo_campo_administrador loading: 11 tipos de botão apagado, agiram 0
+FAIL declarar-um-campo/02-catalogo_campo_administrador offline: 14 tipos de botão apagado, agiram 13
+       button «Declarar o campo attempt» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo durationMs» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo installmentCount» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo providerResponse» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo reason» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo results» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo seatNumbers» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo seats» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo seatsLeft» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo signInMethod» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo status» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo statusCode» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+       button «Declarar o campo step» ⇒ endereço administrador/catalogo/installmentCount/declarar → administrador/catalogo · janelas 1 → 0 · texto da tela · marcado/aberto
+ok   declarar-um-campo/02-catalogo_campo_administrador error: 0 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/02-catalogo_campo_administrador empty: 0 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador default: 0 tipos de botão apagado, agiram 0
+FAIL declarar-um-campo/03-catalogo_declarado_administrador disabled: 16 tipos de botão apagado, agiram 2
+       radio «homologação» ⇒ endereço administrador/catalogo/installmentCount/declarado/numero.exata-intervalo.nenhum → #/painel/excurfly/homologacao/administrador/catalogo · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/catalogo/installmentCount/declarado/numero.exata-intervalo.nenhum → investigador/catalogo · texto da tela · marcado/aberto
+ok   declarar-um-campo/03-catalogo_declarado_administrador loading: 11 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador offline: 12 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador error: 0 tipos de botão apagado, agiram 0
+ok   declarar-um-campo/03-catalogo_declarado_administrador empty: 0 tipos de botão apagado, agiram 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador default: 0 tipos de botão apagado, agiram 0
+FAIL ler-o-catalogo-como-investigador/02-catalogo_investigador disabled: 4 tipos de botão apagado, agiram 2
+       radio «homologação» ⇒ endereço investigador/catalogo → #/painel/excurfly/homologacao/investigador/catalogo · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/catalogo → administrador/catalogo · texto da tela · marcado/aberto
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador loading: 0 tipos de botão apagado, agiram 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador offline: 0 tipos de botão apagado, agiram 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador error: 0 tipos de botão apagado, agiram 0
+ok   ler-o-catalogo-como-investigador/02-catalogo_investigador empty: 0 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/02-saude_investigador default: 0 tipos de botão apagado, agiram 0
+FAIL conferir-a-saude-do-envio/02-saude_investigador disabled: 11 tipos de botão apagado, agiram 2
+       radio «homologação» ⇒ endereço investigador/saude → #/painel/excurfly/homologacao/investigador/saude/24h · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/saude → administrador/saude/24h · texto da tela · marcado/aberto
+ok   conferir-a-saude-do-envio/02-saude_investigador loading: 0 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/02-saude_investigador offline: 7 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/02-saude_investigador error: 0 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/02-saude_investigador empty: 0 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador default: 0 tipos de botão apagado, agiram 0
+FAIL conferir-a-saude-do-envio/03-saude_aplicacao_investigador disabled: 11 tipos de botão apagado, agiram 2
+       radio «homologação» ⇒ endereço investigador/saude/24h/api → #/painel/excurfly/homologacao/investigador/saude/24h · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/saude/24h/api → administrador/saude/24h · texto da tela · marcado/aberto
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador loading: 0 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador offline: 7 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador error: 0 tipos de botão apagado, agiram 0
+ok   conferir-a-saude-do-envio/03-saude_aplicacao_investigador empty: 0 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/01-saude_administrador default: 0 tipos de botão apagado, agiram 0
+FAIL execucao-que-sumiu/01-saude_administrador disabled: 11 tipos de botão apagado, agiram 2
+       radio «homologação» ⇒ endereço administrador/saude → #/painel/excurfly/homologacao/administrador/saude/24h · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/saude → investigador/saude/24h · texto da tela · marcado/aberto
+ok   execucao-que-sumiu/01-saude_administrador loading: 0 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/01-saude_administrador offline: 7 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/01-saude_administrador error: 0 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/01-saude_administrador empty: 0 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador default: 0 tipos de botão apagado, agiram 0
+FAIL execucao-que-sumiu/02-saude_aplicacao_administrador disabled: 10 tipos de botão apagado, agiram 2
+       radio «homologação» ⇒ endereço administrador/saude/24h/webhooks → #/painel/excurfly/homologacao/administrador/saude/24h · texto da tela · marcado/aberto
+       radio «Investigador» ⇒ endereço administrador/saude/24h/webhooks → investigador/saude/24h · texto da tela · marcado/aberto
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador loading: 0 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador offline: 6 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador error: 0 tipos de botão apagado, agiram 0
+ok   execucao-que-sumiu/02-saude_aplicacao_administrador empty: 0 tipos de botão apagado, agiram 0
+ok   eventos-em-volta-da-perda/02-busca_investigador default: 1 tipos de botão apagado, agiram 0
+FAIL eventos-em-volta-da-perda/02-busca_investigador disabled: 17 tipos de botão apagado, agiram 8
+       radio «homologação» ⇒ endereço investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API → #/painel/excurfly/homologacao/investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API · texto da tela · marcado/aberto
+       radio «Administrador» ⇒ endereço investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API → administrador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API · texto da tela · marcado/aberto
+       button «regex» ⇒ marcado/aberto
+       button «Período Intervalo 27/11/2026 14:26–14:36 (BRT, UTC−3) pela o» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “Aplicação é API”» ⇒ endereço investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API → investigador/eventos/p=i.202611271426.202611271436 · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Quebrar linha» ⇒ texto da tela · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API → investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API;pg=2 · texto da tela
+ok   eventos-em-volta-da-perda/02-busca_investigador loading: 1 tipos de botão apagado, agiram 0
+FAIL eventos-em-volta-da-perda/02-busca_investigador offline: 11 tipos de botão apagado, agiram 4
+       button «Período Intervalo 27/11/2026 14:26–14:36 (BRT, UTC−3) pela o» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Remover o filtro “Aplicação é API”» ⇒ endereço investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API → investigador/eventos/p=i.202611271426.202611271436 · texto da tela
+       button «Adicionar filtro» ⇒ janelas 0 → 1 · texto da tela · valor de campo · marcado/aberto
+       button «Próxima» ⇒ endereço investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API → investigador/eventos/p=i.202611271426.202611271436;f=aplicacao:e:API;pg=2 · texto da tela
+ok   eventos-em-volta-da-perda/02-busca_investigador error: 0 tipos de botão apagado, agiram 0
+ok   eventos-em-volta-da-perda/02-busca_investigador empty: 0 tipos de botão apagado, agiram 0
+
+RESUMO: 1009 cliques reais em botões apagados · agiram 460
+  AGIU ANTIGA button «Entrar» em 2 cenas (ex.: entrar-no-painel/01-entrada disabled ; entrar-no-painel/01-entrada offline)
+  AGIU ANTIGA button «Confirmar» em 2 cenas (ex.: entrar-no-painel/02-segundo_fator disabled ; entrar-no-painel/02-segundo_fator offline)
+  AGIU ANTIGA radio «homologação» em 17 cenas (ex.: entrar-no-painel/03-painel_investigador disabled ; ver-como-administrador/02-painel_administrador disabled ; buscar-eventos/02-busca_investigador disabled)
+  AGIU ANTIGA radio «Administrador» em 16 cenas (ex.: entrar-no-painel/03-painel_investigador disabled ; buscar-eventos/02-busca_investigador disabled ; avisos-da-busca/01-busca_investigador disabled)
+  AGIU ANTIGA button «regex» em 10 cenas (ex.: entrar-no-painel/03-painel_investigador disabled ; ver-como-administrador/02-painel_administrador disabled ; buscar-eventos/02-busca_investigador disabled)
+  AGIU ANTIGA button «Período Última hora 27/11/2026 14:00–15:00 (BRT, UTC−3) pela» em 20 cenas (ex.: entrar-no-painel/03-painel_investigador disabled ; entrar-no-painel/03-painel_investigador offline ; ver-como-administrador/02-painel_administrador disabled)
+  AGIU ANTIGA button «Adicionar filtro» em 20 cenas (ex.: entrar-no-painel/03-painel_investigador disabled ; entrar-no-painel/03-painel_investigador offline ; ver-como-administrador/02-painel_administrador disabled)
+  AGIU ANTIGA button «Quebrar linha» em 10 cenas (ex.: entrar-no-painel/03-painel_investigador disabled ; ver-como-administrador/02-painel_administrador disabled ; buscar-eventos/02-busca_investigador disabled)
+  AGIU ANTIGA button «Próxima» em 20 cenas (ex.: entrar-no-painel/03-painel_investigador disabled ; entrar-no-painel/03-painel_investigador offline ; ver-como-administrador/02-painel_administrador disabled)
+  AGIU ANTIGA radio «Investigador» em 1 cenas (ex.: ver-como-administrador/02-painel_administrador disabled)
+  AGIU ANTIGA button «Remover o filtro “reservationId é R-1042”» em 10 cenas (ex.: buscar-eventos/02-busca_investigador disabled ; buscar-eventos/02-busca_investigador offline ; ler-um-evento/02-evento_investigador disabled)
+  AGIU ANTIGA button «Período Últimas 24 h 26/11/2026 15:00 – 27/11/2026 15:00 (BR» em 4 cenas (ex.: avisos-da-busca/01-busca_investigador disabled ; avisos-da-busca/01-busca_investigador offline ; avisos-da-busca/02-busca_investigador disabled)
+  AGIU ANTIGA button «Remover o filtro “amountCents entre 1000 e 5000”» em 2 cenas (ex.: avisos-da-busca/01-busca_investigador disabled ; avisos-da-busca/01-busca_investigador offline)
+  AGIU ANTIGA button «Buscar antes das 14:00 (busca lenta)» em 2 cenas (ex.: avisos-da-busca/01-busca_investigador disabled ; avisos-da-busca/01-busca_investigador offline)
+  AGIU ANTIGA button «Limpar o texto» em 3 cenas (ex.: avisos-da-busca/02-busca_investigador disabled ; avisos-da-busca/03-busca_investigador disabled ; achar-a-tentativa/02-tentativas_achadas_investigador disabled)
+  AGIU ANTIGA button «Reduzir para a última hora» em 2 cenas (ex.: avisos-da-busca/02-busca_investigador disabled ; avisos-da-busca/02-busca_investigador offline)
+  AGIU ANTIGA button «Anterior» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Copiar link do evento» em 4 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-o-erro-do-evento/02-evento_secao_investigador disabled ; ler-o-erro-do-evento/03-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Horários» em 4 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-o-erro-do-evento/02-evento_secao_investigador disabled ; ler-o-erro-do-evento/03-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Origem» em 4 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-o-erro-do-evento/02-evento_secao_investigador disabled ; ler-o-erro-do-evento/03-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Vínculos» em 4 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-o-erro-do-evento/02-evento_secao_investigador disabled ; ler-o-erro-do-evento/03-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Atributos» em 3 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-o-erro-do-evento/03-evento_secao_investigador disabled ; ler-a-linha-do-tempo/02-tentativa_evento_investigador disabled)
+  AGIU ANTIGA button «Erro» em 2 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Abrir a tentativa R-1042» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: reservationId é R-1042» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: reservationId não é R-1042» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: pspTxId é T-900» em 8 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: pspTxId não é T-900» em 8 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: accountId é conta-7» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: accountId não é conta-7» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: amountCents é 4500» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: amountCents não é 4500» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: method é cartao» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: method não é cartao» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: buyerDocument é cb_51c0e7» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Filtrar: buyerDocument não é cb_51c0e7» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Mostrar tudo» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Copiar a pilha» em 6 cenas (ex.: ler-um-evento/02-evento_investigador disabled ; ler-um-evento/02-evento_investigador offline ; ler-o-erro-do-evento/02-evento_secao_investigador disabled)
+  AGIU ANTIGA button «Ver estes eventos na busca» em 10 cenas (ex.: ler-um-evento/03-tentativa_investigador disabled ; ler-um-evento/03-tentativa_investigador offline ; ler-a-linha-do-tempo/02-tentativa_evento_investigador disabled)
+  AGIU ANTIGA button «Mesmo horário, sem vínculo» em 2 cenas (ex.: ler-um-evento/03-tentativa_investigador disabled ; ler-a-linha-do-tempo/02-tentativa_evento_investigador disabled)
+  AGIU ANTIGA button «Remover o filtro “method é cartao”» em 2 cenas (ex.: filtrar-por-um-valor/02-busca_investigador disabled ; filtrar-por-um-valor/02-busca_investigador offline)
+  AGIU ANTIGA radio «viagem» em 2 cenas (ex.: achar-a-tentativa/01-tentativas_investigador disabled ; achar-a-tentativa/02-tentativas_achadas_investigador disabled)
+  AGIU ANTIGA radio «reservationId» em 2 cenas (ex.: achar-a-tentativa/01-tentativas_investigador disabled ; achar-a-tentativa/02-tentativas_achadas_investigador disabled)
+  AGIU ANTIGA button «Linha do tempo» em 2 cenas (ex.: ler-a-linha-do-tempo/02-tentativa_evento_investigador disabled ; ler-a-linha-do-tempo/03-tentativa_secao_investigador disabled)
+  AGIU ANTIGA button «Abrir a tentativa R-1047» em 2 cenas (ex.: codigo-em-duas-tentativas/01-tentativa_investigador disabled ; codigo-em-duas-tentativas/01-tentativa_investigador offline)
+  AGIU ANTIGA button «Abrir a tentativa R-1046» em 2 cenas (ex.: codigo-em-duas-tentativas/02-tentativa_investigador disabled ; codigo-em-duas-tentativas/02-tentativa_investigador offline)
+  AGIU NOVA button «Gerar chave de envio para Site» em 23 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador default ; cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador loading)
+  AGIU NOVA radio «homologação» em 14 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled ; guardar-a-chave/02-chave_administrador disabled)
+  AGIU NOVA radio «Investigador» em 10 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled ; guardar-a-chave/02-chave_administrador disabled)
+  AGIU NOVA button «Cadastrar aplicação» em 10 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador offline ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled)
+  AGIU NOVA button «Gerar chave de envio para API» em 10 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador offline ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled)
+  AGIU NOVA button «Revogar a chave servidor da API de API» em 10 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador offline ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled)
+  AGIU NOVA button «Revogar a chave servidor antigo de Site» em 8 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador offline ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled)
+  AGIU NOVA button «Revogar a chave servidor novo de Site» em 10 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador offline ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled)
+  AGIU NOVA button «Gerar chave de envio para Webhooks» em 10 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador offline ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled)
+  AGIU NOVA button «Revogar a chave servidor dos webhooks de Webhooks» em 10 cenas (ex.: cadastrar-aplicacao/02-aplicacoes_administrador disabled ; cadastrar-aplicacao/02-aplicacoes_administrador offline ; cadastrar-aplicacao/03-aplicacao_nova_administrador disabled)
+  AGIU NOVA radio «produção» em 3 cenas (ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador disabled ; revogar-chave/02-chave_passo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador disabled)
+  AGIU NOVA radio «Administrador» em 7 cenas (ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador disabled ; revogar-chave/02-chave_passo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador disabled)
+  AGIU NOVA button «Cancelar» (na janela) em 3 cenas (ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador disabled ; revogar-chave/02-chave_passo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador disabled)
+  AGIU NOVA button «Gerando a chave…» (na janela) em 1 cenas (ex.: cadastrar-aplicacao/03-aplicacao_nova_administrador loading)
+  AGIU NOVA button «Copiar a chave» (na janela) em 2 cenas (ex.: cadastrar-aplicacao/04-chave_passo_administrador disabled ; cadastrar-aplicacao/04-chave_passo_administrador loading)
+  AGIU NOVA button «Já guardei a chave» (na janela) em 2 cenas (ex.: cadastrar-aplicacao/04-chave_passo_administrador disabled ; cadastrar-aplicacao/04-chave_passo_administrador loading)
+  AGIU NOVA button «Gerar chave de envio para API de parceiros» em 2 cenas (ex.: guardar-a-chave/02-chave_administrador disabled ; guardar-a-chave/02-chave_administrador offline)
+  AGIU NOVA button «Revogar a chave mk_prod_ex7a… de API de parceiros» em 2 cenas (ex.: guardar-a-chave/02-chave_administrador disabled ; guardar-a-chave/02-chave_administrador offline)
+  AGIU NOVA button «Revogando…» (na janela) em 1 cenas (ex.: revogar-chave/02-chave_passo_administrador loading)
+  AGIU NOVA button «Declarar o campo attempt» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo durationMs» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo installmentCount» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo providerResponse» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo reason» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo results» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo seatNumbers» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo seats» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo seatsLeft» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo signInMethod» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo status» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo statusCode» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «Declarar o campo step» em 2 cenas (ex.: declarar-um-campo/02-catalogo_campo_administrador disabled ; declarar-um-campo/02-catalogo_campo_administrador offline)
+  AGIU NOVA button «regex» em 1 cenas (ex.: eventos-em-volta-da-perda/02-busca_investigador disabled)
+  AGIU NOVA button «Período Intervalo 27/11/2026 14:26–14:36 (BRT, UTC−3) pela o» em 2 cenas (ex.: eventos-em-volta-da-perda/02-busca_investigador disabled ; eventos-em-volta-da-perda/02-busca_investigador offline)
+  AGIU NOVA button «Remover o filtro “Aplicação é API”» em 2 cenas (ex.: eventos-em-volta-da-perda/02-busca_investigador disabled ; eventos-em-volta-da-perda/02-busca_investigador offline)
+  AGIU NOVA button «Adicionar filtro» em 2 cenas (ex.: eventos-em-volta-da-perda/02-busca_investigador disabled ; eventos-em-volta-da-perda/02-busca_investigador offline)
+  AGIU NOVA button «Quebrar linha» em 1 cenas (ex.: eventos-em-volta-da-perda/02-busca_investigador disabled)
+  AGIU NOVA button «Próxima» em 2 cenas (ex.: eventos-em-volta-da-perda/02-busca_investigador disabled ; eventos-em-volta-da-perda/02-busca_investigador offline)
+
+CAUSA: com window._excluded reposto para a lista de Press, o clique em button «Entrar» NÃO age mais (a colisão é a causa)

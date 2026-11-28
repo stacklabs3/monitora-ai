@@ -1,0 +1,24 @@
+CONTROLE NEGATIVO janela plantada a 2400 px do topo: REPROVADO como devia ({"aberta":true,"topo":2400,"base":2600,"alturaDaJanelaDoNavegador":900,"alturaDaPagina":2600,"rolagemDaPagina":0,"porcentagemAVista":0,"foraDaVista":["CONTROLE"],"comFoco":"Monitora AI Produto Excurfly P","focoAVista":true})
+PASS CONTROLE POSITIVO: revogar em 1440×900 com os dados do cenário: janela de y 274 a 626 numa janela de navegador de 900 px (página de 900 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Cancelar» à vista
+MEDIDA VÁLIDA
+
+PASS 1440×900 aplicações: "Revogar" da última aplicação (Webhooks): janela de y 274 a 626 numa janela de navegador de 900 px (página de 900 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Cancelar» à vista
+PASS 1440×900 aplicações: "Cadastrar aplicação": janela de y 233 a 667 numa janela de navegador de 900 px (página de 900 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «INPUT» à vista
+PASS 1440×900 chave gerada (4 aplicações na lista): janela de y 224 a 694 numa janela de navegador de 900 px (página de 918 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Copiar a chave» à vista
+PASS 1440×900 chave gerada, sem internet: janela de y 257 a 760 numa janela de navegador de 900 px (página de 1016 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Copiar a chave» à vista
+PASS 1440×900 catálogo: "Declarar" installmentCount: janela de y 116 a 785 numa janela de navegador de 900 px (página de 900 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Declarar o campo installmentCo» à vista
+PASS 1440×900 catálogo: "Declarar" do último campo não declarado da lista: janela de y 92 a 808 numa janela de navegador de 900 px (página de 900 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Declarar o campo step do Excur» à vista
+PASS 1440×900 abertura da busca (página longa): janela de atalhos com "?": janela de y 148 a 497 numa janela de navegador de 900 px (página de 3779 px, rolada 1567) · 100% à vista · controles fora da vista: nenhum · foco em «Fechar» à vista
+PASS 1280×720 aplicações: "Revogar" da última aplicação (Webhooks): janela de y 155 a 507 numa janela de navegador de 720 px (página de 778 px, rolada 58) · 100% à vista · controles fora da vista: nenhum · foco em «Cancelar» à vista
+PASS 1280×720 aplicações: "Cadastrar aplicação": janela de y 172 a 606 numa janela de navegador de 720 px (página de 778 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «INPUT» à vista
+PASS 1280×720 chave gerada (4 aplicações na lista): janela de y 227 a 697 numa janela de navegador de 720 px (página de 923 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Copiar a chave» à vista
+FAIL 1280×720 chave gerada, sem internet: janela de y 259 a 762 numa janela de navegador de 720 px (página de 1021 px, rolada 0) · 92% à vista · controles fora da vista: Já guardei a chave · foco em «Copiar a chave» à vista
+PASS 1280×720 catálogo: "Declarar" installmentCount: janela de y 26 a 695 numa janela de navegador de 720 px (página de 720 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Declarar o campo installmentCo» à vista
+PASS 1280×720 catálogo: "Declarar" do último campo não declarado da lista: janela de y 5 a 720 numa janela de navegador de 720 px (página de 720 px, rolada 0) · 100% à vista · controles fora da vista: nenhum · foco em «Declarar o campo step do Excur» FORA da vista
+PASS 1280×720 abertura da busca (página longa): janela de atalhos com "?": janela de y 58 a 407 numa janela de navegador de 720 px (página de 3779 px, rolada 1657) · 100% à vista · controles fora da vista: nenhum · foco em «Fechar» à vista
+
+Lista longa: 12 aplicações em produção (9 acrescentadas na memória da página, sem tocar em arquivo)
+FAIL 1440×900 lista longa: "Revogar" da última aplicação: janela de y -283 a 69 numa janela de navegador de 900 px (página de 2070 px, rolada 1142) · 20% à vista · controles fora da vista: nenhum · foco em «Cancelar» à vista
+PASS 1440×900 lista longa: "Cadastrar aplicação" (botão no topo da página): janela de y 292 a 726 numa janela de navegador de 900 px (página de 2070 px, rolada 526) · 100% à vista · controles fora da vista: nenhum · foco em «INPUT» à vista
+
+falhas: 2

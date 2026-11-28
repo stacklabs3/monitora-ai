@@ -1,0 +1,17 @@
+CONTROLE (sem janela aberta, "?" abre os atalhos): janelas 1 «Atalhos do teclado» => o ensaio enxerga o atalho agir
+PASS cadastro, foco no campo do nome · tecla "?": janelas 1 → 1 «Cadastrar aplicação do Excurfly em produ» · foco «ex.: API de parceiros» → «ex.: API de parceiros» · endereço /aplicacoes/nova · campo ficou com «?»
+PASS cadastro, foco no campo do nome · tecla "/": janelas 1 → 1 «Cadastrar aplicação do Excurfly em produ» · foco «ex.: API de parceiros» → «ex.: API de parceiros» · endereço /aplicacoes/nova · campo ficou com «/»
+PASS revogar, foco em Cancelar · tecla "?": janelas 1 → 1 «Revogar a chave “servidor antigo” da apl» · foco «Cancelar» → «Cancelar» · endereço /aplicacoes/site/chaves/ex2b/revogar
+PASS revogar, foco em Cancelar · tecla "/": janelas 1 → 1 «Revogar a chave “servidor antigo” da apl» · foco «Cancelar» → «Cancelar» · endereço /aplicacoes/site/chaves/ex2b/revogar
+PASS chave gerada, foco em Copiar · tecla "?": janelas 1 → 1 «Chave de envio de API de parceiros em pr» · foco «Copiar a chave» → «Copiar a chave» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS chave gerada, foco em Copiar · tecla "/": janelas 1 → 1 «Chave de envio de API de parceiros em pr» · foco «Copiar a chave» → «Copiar a chave» · endereço /aplicacoes/api-de-parceiros/chaves/ex7a/gerada
+PASS declarar, foco na janela · tecla "?": janelas 1 → 1 «Declarar o campo installmentCount do Exc» · foco «Declarar o campo installmentCount do Exc» → «Declarar o campo installmentCount do Exc» · endereço /catalogo/installmentCount/declarar
+PASS declarar, foco na janela · tecla "/": janelas 1 → 1 «Declarar o campo installmentCount do Exc» · foco «Declarar o campo installmentCount do Exc» → «Declarar o campo installmentCount do Exc» · endereço /catalogo/installmentCount/declarar
+ENSAIO revogar aberta pelo clique, "?" e "/" pelo teclado: ao abrir 1 janela · depois de "?" e "/" 1 janela(s) «Revogar a chave “servidor da API” da apl» · Tab três vezes → «Revogar a chave “servidor » › Cancelar → «Revogar a chave “servidor » › Revogar a chave → «Revogar a chave “servidor » › Cancelar → «Revogar a chave “servidor » › Revogar a chave · depois de um Esc: 0 janela(s) «» · endereço /aplicacoes · foco de volta em quem abriu: sim («Revogar a chave servidor da API de API»)
+PASS com uma janela aberta, "?" e "/" não abrem outra; 1 aria-modal; Esc fecha só ela e devolve o foco
+CONTROLE NEGATIVO atalhos abertos à força por cima de revogar: ao abrir 1 janela · depois de "?" e "/" 2 janela(s) «Revogar a chave “servidor da API” da apl | Atalhos do teclado» · Tab três vezes → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar → «Atalhos do teclado» › Fechar · depois de um Esc: 1 janela(s) «Revogar a chave “servidor da API” da apl» · endereço /aplicacoes/api/chaves/ex3f/revogar · foco de volta em quem abriu: não («Cancelar»)
+CONTROLE NEGATIVO: REPROVADO como devia (o ensaio acusa 2 janelas)
+PASS empilhadas à força, um Esc fecha só a de cima: sobrou 1 «Revogar a chave “servidor da API” da apl»
+PASS chave gerada: depois de "?" e "/" 1 janela · depois de um Esc 1 «Chave de envio de API de parceiros em pr» (esta só fecha pelo botão)
+MEDIDA VÁLIDA: o controle positivo (sem janela, "?" abre os atalhos) passou e o negativo (atalhos à força por cima) reprovou.
+falhas: 0
