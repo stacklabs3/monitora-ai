@@ -33,7 +33,7 @@ Decidido em [Definir módulos e seams principais](https://github.com/stacklabs3/
 - **Entradas HTTP:** as duas são finas e só traduzem. Os módulos se testam pela interface, sem rede, e o contrato `/v1` muda num lugar só.
 - **Auditoria:** consulta, acesso, catálogo e retenção registram por ela, nunca direto no cadastro, para que a máscara do termo e o "sem edição" valham num lugar.
 - **Canal de alerta:** sem seam enquanto houver um canal só. Ela nasce quando [Escolher os canais de alerta](https://github.com/stacklabs3/monitora-ai/issues/31) pedir um segundo, porque uma seam com um adaptador é hipotética.
-- **Cadastro:** a tecnologia se escolhe em ticket próprio no [Mapa: arquitetura da plataforma](https://github.com/stacklabs3/monitora-ai/issues/18). A guarda de eventos continua só dos eventos.
+- **Cadastro:** fica em SQLite, embutido no servidor, e só o módulo de cadastro conhece SQL ([ADR 0009](0009-cadastro-em-sqlite-embutido.md)). A guarda de eventos continua só dos eventos.
 
 ## Opções recusadas
 
