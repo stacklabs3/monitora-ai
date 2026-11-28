@@ -64,6 +64,10 @@ _Avoid_: Descarte, quando se fala do resultado
 Um aviso enviado a uma pessoa, fora do painel, quando os eventos de uma ou mais aplicações atendem a uma condição combinada, como muitos erros ou reinícios seguidos.
 _Avoid_: Notificação, alarme, monitor
 
+**Canal de alerta**:
+O meio, fora do painel, por onde um alerta chega à pessoa, como o Telegram.
+_Avoid_: Integração, provedor, mensageiro
+
 **Chave de envio**:
 A credencial que identifica uma aplicação de um produto em um ambiente ao enviar eventos.
 _Avoid_: Token, API key
