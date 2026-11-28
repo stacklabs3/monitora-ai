@@ -319,7 +319,9 @@ def candidatas_de_triagem(retrato: Dict[str, Any], configuracao: Dict[str, Any])
 
 def candidatas_de_avaliacao(retrato: Dict[str, Any], configuracao: Dict[str, Any], estado: Dict[str, Any]) -> List[Dict[str, Any]]:
     """Mapas, specs e grillings avulsos: cada execução avalia um e resolve no máximo um ticket (M7)."""
-    em_spec = {str(frente["mapa"]) for frente in estado["specs"]}  # mapa que já virou spec não volta à rotação
+    # Mapa com spec em curso não volta à rotação; com a frente feita, volta para a avaliação fechá-lo
+    # (mapa inicial aberto trava o código, AGENTS.md, regra 1).
+    em_spec = {str(frente["mapa"]) for frente in estado["specs"] if frente.get("etapa") != "feito"}
     horas_parado = configuracao["horas_para_reavaliar_parado"]
     candidatas = []
     for issue in retrato["issues_abertas"].values():
