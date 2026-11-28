@@ -19,7 +19,9 @@ O do método (`AGENTS.md`, *CI por lote*; `docs/agents/orquestracao.md`, *O cicl
    A issue que o Matheus manda rodar numa fila de ajustes (`issues_de_ajustes` da configuração) não
    vai para o planejador. Quando não há candidata para o par, ela abre a fila `ajustes-issues-<n>`, só
    dela, que confere item a item o que ainda vale e fecha a issue no merge.
-2. **Abrir o lote** (Matheus, 24/11): com a `main` verde, a Torre grava em `codigo.lote` do estado as
+2. **Abrir o lote** (Matheus, 24/11): só com os mapas iniciais de Protótipo, Arquitetura, Fases e Regras de
+   código fechados (`AGENTS.md`, regra 1; o de Infra não trava). Com um deles aberto não há candidata de
+   código, e o ensaio mostra quais travam (`mapas iniciais que travam o código`). Com a `main` verde, a Torre grava em `codigo.lote` do estado as
    `tamanho_do_lote` (10) candidatas mais antigas; as que o planejador deixou de fora no lote anterior
    vão por último. As issues de `prioridade_do_lote` da configuração passam à frente, na ordem dela
    (Matheus, 24/11: o que afeta o uso vai primeiro). Issue que fica `ready-for-agent` depois disso espera o lote seguinte. Quando as

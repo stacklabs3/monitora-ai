@@ -221,7 +221,22 @@ def issues_de_ajustes_abertas(retrato: Dict[str, Any], configuracao: Dict[str, A
     return sorted(abertas, key=lambda issue: issue["numero"])
 
 
+# AGENTS.md, regra 1: issue de implementação só se ativa com Protótipo, Arquitetura, Fases e Regras de código
+# fechados (Infra não trava). Com um deles aberto, o watchdog do `ativar-issue` barra a fila.
+ROTULOS_DOS_MAPAS_INICIAIS_QUE_TRAVAM = ["mapa-inicial:prototipo", "mapa-inicial:arquitetura", "mapa-inicial:fases",
+                                         "mapa-inicial:regras-de-codigo"]
+
+
+def mapas_iniciais_que_travam(retrato: Dict[str, Any]) -> List[int]:
+    """Os mapas iniciais abertos que impedem ativar issue de implementação."""
+    return sorted(int(issue["numero"]) for issue in retrato["issues_abertas"].values()
+                  if any(rotulo in ROTULOS_DOS_MAPAS_INICIAIS_QUE_TRAVAM for rotulo in issue["rotulos"]))
+
+
 def candidatas_de_codigo(retrato: Dict[str, Any], configuracao: Dict[str, Any], estado: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """As issues que podem entrar num lote; nenhuma enquanto um mapa inicial que trava estiver aberto."""
+    if mapas_iniciais_que_travam(retrato):
+        return []
     em_fila = set()
     for fila in (estado["codigo"].get("par") or {}).get("filas", []):
         em_fila.update(fila["issues"])
@@ -1717,6 +1732,7 @@ def imprimir_ensaio(estado: Dict[str, Any], retrato: Dict[str, Any], configuraca
     for nome, pr in retrato["prs_das_integracoes"].items():
         print(f"  PR de {nome}: {pr}")
     print("specs:", estado["specs"])
+    print("mapas iniciais que travam o código:", mapas_iniciais_que_travam(retrato))
     print("candidatas de código:", [issue["numero"] for issue in candidatas_de_codigo(retrato, configuracao, estado)])
     print("candidatas do lote:", [issue["numero"] for issue in candidatas_do_lote(retrato, configuracao, estado)])
     print("candidatas de triagem:", [issue["numero"] for issue in candidatas_de_triagem(retrato, configuracao)])
