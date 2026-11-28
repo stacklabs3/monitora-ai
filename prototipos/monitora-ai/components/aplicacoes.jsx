@@ -240,6 +240,14 @@ const JanelaDePedirChave = ({ traduzir, aplicacao, nomeDoProduto, nomeDoAmbiente
       titulo={ehCadastro
         ? traduzir('aplicacaoNovaTitulo', { produto: nomeDoProduto, ambiente: nomeDoAmbiente })
         : traduzir('chaveNovaTitulo', { aplicacao: aplicacao.nome, ambiente: nomeDoAmbiente })}
+      acoes={(
+        <div style={ESTILO_DO_RODAPE_DA_JANELA}>
+          <Button variant="secondary" disabled={estado === 'disabled'} onClick={aoFechar}>{traduzir('cancelar')}</Button>
+          <Button variant="primary" loading={gerando} disabled={parado || semInternet} className={classeDoBotao} onClick={aoConfirmar}>
+            {gerando ? traduzir('chaveGerando') : traduzir(ehCadastro ? 'aplicacaoNovaConfirmar' : 'chaveNovaConfirmar')}
+          </Button>
+        </div>
+      )}
     >
       <p style={{ ...ESTILO_DO_TEXTO_DE_APOIO, fontSize: 13 }}>
         {ehCadastro ? traduzir('aplicacaoNovaAmbienteNota', { ambiente: nomeDoAmbiente }) : traduzir('chaveNovaNota')}
@@ -265,12 +273,6 @@ const JanelaDePedirChave = ({ traduzir, aplicacao, nomeDoProduto, nomeDoAmbiente
       />
       {ehCadastro && <p style={ESTILO_DO_TEXTO_DE_APOIO}>{traduzir('aplicacaoNovaProximoPasso')}</p>}
       {semInternet && <p role="status" style={ESTILO_DA_NOTA_DE_ESPERA}>{traduzir(ehCadastro ? 'aplicacaoNovaSemInternet' : 'chaveNovaSemInternet')}</p>}
-      <div style={ESTILO_DO_RODAPE_DA_JANELA}>
-        <Button variant="secondary" disabled={estado === 'disabled'} onClick={aoFechar}>{traduzir('cancelar')}</Button>
-        <Button variant="primary" loading={gerando} disabled={parado || semInternet} className={classeDoBotao} onClick={aoConfirmar}>
-          {gerando ? traduzir('chaveGerando') : traduzir(ehCadastro ? 'aplicacaoNovaConfirmar' : 'chaveNovaConfirmar')}
-        </Button>
-      </div>
     </JanelaDeDialogo>
   );
 };
@@ -285,20 +287,32 @@ const JanelaDaChaveGerada = ({ traduzir, nomeDaAplicacao, idDoAmbiente, nomeDoAm
 
   if (estado === 'error') {
     return (
-      <JanelaDeDialogo papel="alertdialog" largura={LARGURA_DA_JANELA_DA_CHAVE} titulo={titulo} aoFechar={aoFechar}>
+      <JanelaDeDialogo
+        papel="alertdialog" largura={LARGURA_DA_JANELA_DA_CHAVE} titulo={titulo} aoFechar={aoFechar}
+        acoes={(
+          <div style={ESTILO_DO_RODAPE_DA_JANELA}>
+            <Button variant="secondary" data-foco-inicial onClick={aoFechar}>{traduzir('fechar')}</Button>
+          </div>
+        )}
+      >
         <AvisoDeErro
           titulo={traduzir('chaveNovaFalhaTitulo')} corpo={traduzir('chaveNovaFalhaCorpo')}
           acao={<div><Button variant="secondary" compacto onClick={aoTentarDeNovo}>{traduzir('tentarDeNovo')}</Button></div>}
         />
-        <div style={ESTILO_DO_RODAPE_DA_JANELA}>
-          <Button variant="secondary" data-foco-inicial onClick={aoFechar}>{traduzir('fechar')}</Button>
-        </div>
       </JanelaDeDialogo>
     );
   }
 
   return (
-    <JanelaDeDialogo papel="alertdialog" largura={LARGURA_DA_JANELA_DA_CHAVE} titulo={titulo}>
+    <JanelaDeDialogo
+      papel="alertdialog" largura={LARGURA_DA_JANELA_DA_CHAVE} titulo={titulo}
+      acoes={(
+        <div style={{ ...ESTILO_DO_RODAPE_DA_JANELA, flexWrap: 'nowrap' }}>
+          <span style={{ ...ESTILO_DO_TEXTO_DE_APOIO, flex: 1 }}>{traduzir('chaveGeradaSoFechaPeloBotao')}</span>
+          <Button variant="primary" disabled={gerando || desabilitado} onClick={aoGuardar}>{traduzir('chaveGeradaFechar')}</Button>
+        </div>
+      )}
+    >
       <AvisoDeAtencao titulo={traduzir('chaveGeradaAvisoTitulo')} corpo={traduzir('chaveGeradaAvisoCorpo')} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
         <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--muted)' }}>{traduzir('chaveGeradaRotulo')}</span>
@@ -328,10 +342,6 @@ const JanelaDaChaveGerada = ({ traduzir, nomeDaAplicacao, idDoAmbiente, nomeDoAm
         [traduzir('chaveFatoComeco'), gerando ? '…' : <CodigoEmDestaque>{traduzir('chaveComeco', { comeco: comecoDaChave(idDoAmbiente, chaveGerada) })}</CodigoEmDestaque>],
       ]} />
       {estado === 'offline' && <p role="status" style={ESTILO_DA_NOTA_DE_ESPERA}>{traduzir('chaveGeradaSemInternet')}</p>}
-      <div style={{ ...ESTILO_DO_RODAPE_DA_JANELA, flexWrap: 'nowrap' }}>
-        <span style={{ ...ESTILO_DO_TEXTO_DE_APOIO, flex: 1 }}>{traduzir('chaveGeradaSoFechaPeloBotao')}</span>
-        <Button variant="primary" disabled={gerando || desabilitado} onClick={aoGuardar}>{traduzir('chaveGeradaFechar')}</Button>
-      </div>
     </JanelaDeDialogo>
   );
 };
@@ -347,6 +357,14 @@ const JanelaDeRevogar = ({ traduzir, aplicacao, chave, idDoAmbiente, nomeDoProdu
     <JanelaDeDialogo
       papel="alertdialog" largura={LARGURA_DA_JANELA_DE_PEDIDO} aoFechar={aoFechar}
       titulo={traduzir('chaveRevogarTitulo', { chave: nomeDaChave(traduzir, idDoAmbiente, chave), aplicacao: aplicacao.nome, produto: nomeDoProduto, ambiente: nomeDoAmbiente })}
+      acoes={(
+        <div style={ESTILO_DO_RODAPE_DA_JANELA}>
+          <Button variant="secondary" data-foco-inicial disabled={desabilitado} onClick={aoFechar}>{traduzir('cancelar')}</Button>
+          <Button variant="danger" loading={revogando} disabled={desabilitado || semInternet} className={classeDoBotao} onClick={aoRevogar}>
+            {revogando ? traduzir('chaveRevogando') : traduzir('chaveRevogarConfirmar')}
+          </Button>
+        </div>
+      )}
     >
       {estado === 'error' && (
         <AvisoDeErro
@@ -364,12 +382,6 @@ const JanelaDeRevogar = ({ traduzir, aplicacao, chave, idDoAmbiente, nomeDoProdu
       ]} />
       <p style={{ ...ESTILO_DO_TEXTO_DE_APOIO, fontSize: 13 }}>{traduzir('chaveRevogarNaoVolta')}</p>
       {semInternet && <p role="status" style={ESTILO_DA_NOTA_DE_ESPERA}>{traduzir('chaveRevogarSemInternet')}</p>}
-      <div style={ESTILO_DO_RODAPE_DA_JANELA}>
-        <Button variant="secondary" data-foco-inicial disabled={desabilitado} onClick={aoFechar}>{traduzir('cancelar')}</Button>
-        <Button variant="danger" loading={revogando} disabled={desabilitado || semInternet} className={classeDoBotao} onClick={aoRevogar}>
-          {revogando ? traduzir('chaveRevogando') : traduzir('chaveRevogarConfirmar')}
-        </Button>
-      </div>
     </JanelaDeDialogo>
   );
 };
@@ -445,9 +457,20 @@ const TelaAplicacoes = ({ lang, estado, params }) => {
 
   const lembrarQuemAbriu = () => { quemAbriuAJanelaRef.current = document.activeElement; };
   const voltarALista = () => navigate(rotasDoPapel.aplicacoes, ondeEstou);
-  const abrirCadastro = () => { lembrarQuemAbriu(); navigate(rotasDoPapel.aplicacaoNova, { ...ondeEstou, passo: PASSO_NOVA }); };
-  const abrirPedidoDeChave = (aplicacao) => { lembrarQuemAbriu(); navigate(rotasDoPapel.chave, { ...ondeEstou, aplicacao: aplicacao.id, chave: PASSO_NOVA }); };
+  /* Cada ação confere de novo se pode agir: o botão apagado é a primeira guarda, não a única. */
+  const pedidoEmAndamento = estado === 'loading' && Boolean(janela);
+  const abrirCadastro = () => {
+    if (indisponivel) return;
+    lembrarQuemAbriu();
+    navigate(rotasDoPapel.aplicacaoNova, { ...ondeEstou, passo: PASSO_NOVA });
+  };
+  const abrirPedidoDeChave = (aplicacao) => {
+    if (indisponivel || aplicacao.chavesAtivas >= LIMITE_DE_CHAVES_ATIVAS) return;
+    lembrarQuemAbriu();
+    navigate(rotasDoPapel.chave, { ...ondeEstou, aplicacao: aplicacao.id, chave: PASSO_NOVA });
+  };
   const abrirRevogar = (aplicacao, chave) => {
+    if (indisponivel) return;
     lembrarQuemAbriu();
     navigate(rotasDoPapel.passoDaChave, { ...ondeEstou, aplicacao: aplicacao.id, chave: chave.id, passo: PASSO_REVOGAR });
   };
@@ -463,7 +486,7 @@ const TelaAplicacoes = ({ lang, estado, params }) => {
     document.querySelector('[aria-modal="true"] input')?.focus();
   };
   const cadastrar = () => {
-    if (indisponivel) return;
+    if (indisponivel || pedidoEmAndamento) return;
     const nomeDaAplicacao = nomeEscrito.trim();
     if (!nomeDaAplicacao) { recusarONome(traduzir('aplicacaoNovaErroVazio')); return; }
     const codigoDaAplicacao = codigoDoNomeDaAplicacao(nomeDaAplicacao);
@@ -471,10 +494,13 @@ const TelaAplicacoes = ({ lang, estado, params }) => {
     if (aplicacaoRepetida) { recusarONome(traduzir('aplicacaoNovaErroRepetido', { aplicacao: aplicacaoRepetida.nome, ambiente: nomeDoAmbiente })); return; }
     gerarAChave(codigoDaAplicacao, nomeDaAplicacao);
   };
-  const pedirMaisUmaChave = () => { if (!indisponivel) gerarAChave(aplicacaoDoEndereco.id, null); };
-  const guardarAChave = () => navigate(rotasDoPapel.chave, { ...ondeEstou, aplicacao: idDaAplicacao, chave: idDaChave });
+  const pedirMaisUmaChave = () => { if (!indisponivel && !pedidoEmAndamento) gerarAChave(aplicacaoDoEndereco.id, null); };
+  const guardarAChave = () => {
+    if (desabilitado || pedidoEmAndamento) return;
+    navigate(rotasDoPapel.chave, { ...ondeEstou, aplicacao: idDaAplicacao, chave: idDaChave });
+  };
   const revogar = () => {
-    if (indisponivel) return;
+    if (indisponivel || pedidoEmAndamento) return;
     navigate(rotasDoPapel.passoDaChave, { ...ondeEstou, aplicacao: idDaAplicacao, chave: idDaChave, passo: PASSO_REVOGADA });
   };
 

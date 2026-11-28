@@ -532,7 +532,7 @@ const TRANSLATIONS = {
     catalogoFatoPorPalavras: 'Com busca por palavras',
     catalogoFatoNaoDeclarados: 'Não declarados em {ambiente}',
     catalogoContaComLimite: '{quantidade} de {limite}',
-    catalogoComoFunciona: 'Campo declarado é campo pesquisável: filtra a busca de eventos por busca garantida. Campo não declarado aparece ao abrir o evento, mas não filtra. Declarar vale para os eventos novos; os antigos não são reprocessados. Cada declaração fica no histórico e na auditoria, com quem fez e quando.',
+    catalogoComoFunciona: 'Campo declarado é campo pesquisável: filtra a busca de eventos por busca garantida. Campo não declarado aparece ao abrir o evento, mas não filtra. Declarar vale para os eventos novos; os antigos não são reprocessados. Cada declaração fica na auditoria, com quem fez e quando.',
     catalogoSoLeitura: 'Você está vendo como Investigador: aqui o catálogo de campos é só para ler. Quem declara um campo é o Administrador do produto.',
     catalogoNaoDeclaradosTitulo: 'Campos não declarados',
     catalogoNaoDeclaradosNota: 'Atributos que as aplicações enviaram em {ambiente} e que ainda não foram declarados. Aparecem ao abrir o evento; só filtram depois de declarados.',
@@ -596,7 +596,7 @@ const TRANSLATIONS = {
     catalogoDeclararFalhaCorpo: 'O servidor não respondeu. Nada foi declarado, e o que você escolheu continua aqui.',
     catalogoDeclararSemInternet: 'Sem internet: declarar espera a conexão voltar. O que você escolheu continua aqui.',
     catalogoDeclaradoTitulo: '{campo} declarado: rápido desde {horario}',
-    catalogoDeclaradoCorpo: 'Os eventos novos já filtram por {campo} ({tipo}; {buscas}). Os anteriores às {horario} só saem por busca lenta, até 1 dia por vez; nada foi reprocessado. A declaração ficou no histórico e na auditoria, com quem fez e quando.',
+    catalogoDeclaradoCorpo: 'Os eventos novos já filtram por {campo} ({tipo}; {buscas}). Os anteriores às {horario} só saem por busca lenta, até 1 dia por vez; nada foi reprocessado. A declaração ficou na auditoria, com quem fez e quando.',
     catalogoDeclaradoCorrelacao: 'Como campo de correlação, ele liga eventos desde as {horario}: podem faltar eventos antigos nas tentativas.',
 
     // Saúde do envio (os dois papéis, só leitura): as aplicações

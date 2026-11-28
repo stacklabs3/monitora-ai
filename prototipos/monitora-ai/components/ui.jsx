@@ -21,6 +21,9 @@ const Press = React.forwardRef(({ children, onClick, style, className, disabled,
     <div
       ref={referencia}
       role="button"
+      className={className}
+      /* O que sobra vem antes: nada do que quem chama passar troca a guarda do apagado. */
+      {...rest}
       tabIndex={disabled ? -1 : 0}
       onPointerDown={() => !disabled && setDown(true)}
       onPointerUp={() => setDown(false)}
@@ -30,8 +33,6 @@ const Press = React.forwardRef(({ children, onClick, style, className, disabled,
         if ((evento.key === 'Enter' || evento.key === ' ') && !disabled && onClick) { evento.preventDefault(); onClick(); }
       }}
       aria-disabled={disabled || undefined}
-      className={className}
-      {...rest}
       style={{
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.5 : 1,
@@ -444,7 +445,12 @@ const AvisoDeAtencao = ({ titulo, corpo, acao, tom = 'atencao' }) => {
    pessoa não pode perder por um toque sem querer. Devolver o foco é de quem abriu. */
 const SELETOR_DE_FOCAVEIS = 'input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]';
 
-const JanelaDeDialogo = ({ titulo, largura = 480, papel = 'dialog', aoFechar, children }) => {
+/* O véu fica preso à área que a pessoa vê (não à página inteira), e a janela nunca passa
+   dela: o título e as `acoes` (os botões do rodapé) ficam sempre à vista e o miolo rola por
+   dentro. Abaixo da altura mínima, quem rola é o véu. */
+const ALTURA_MINIMA_DA_JANELA_DE_DIALOGO = 320;
+
+const JanelaDeDialogo = ({ titulo, largura = 480, papel = 'dialog', aoFechar, acoes, children }) => {
   const janelaRef = useRef(null);
   const aoFecharRef = useRef(aoFechar);
   const idDoTitulo = React.useId();
@@ -454,6 +460,9 @@ const JanelaDeDialogo = ({ titulo, largura = 480, papel = 'dialog', aoFechar, ch
     const janela = janelaRef.current;
     if (!janela.contains(document.activeElement)) (janela.querySelector('[data-foco-inicial]') || janela).focus();
     const teclar = (eventoDeTeclado) => {
+      /* Só a janela de cima responde ao teclado: um Esc nunca fecha duas. */
+      const janelasAbertas = document.querySelectorAll('[aria-modal="true"]');
+      if (janelasAbertas[janelasAbertas.length - 1] !== janela) return;
       if (eventoDeTeclado.key === 'Escape' && aoFecharRef.current) { aoFecharRef.current(); return; }
       if (eventoDeTeclado.key !== 'Tab') return;
       const focaveis = [...janela.querySelectorAll(SELETOR_DE_FOCAVEIS)];
@@ -471,21 +480,29 @@ const JanelaDeDialogo = ({ titulo, largura = 480, papel = 'dialog', aoFechar, ch
 
   return (
     <div style={{
-      position: 'absolute', inset: 0, background: 'var(--veu)', zIndex: 20,
-      display: 'grid', placeItems: 'center', padding: 'var(--space-4)',
+      position: 'fixed', inset: 0, background: 'var(--veu)', zIndex: 20,
+      display: 'flex', padding: 'var(--space-4)', overflowY: 'auto',
     }} onClick={() => aoFechar && aoFechar()}>
       <div
         ref={janelaRef} role={papel} aria-modal="true" aria-labelledby={idDoTitulo} tabIndex={-1}
         onClick={(eventoDeClique) => eventoDeClique.stopPropagation()}
         style={{
-          width: largura, maxWidth: '100%', background: 'var(--surface)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)',
+          width: largura, maxWidth: '100%', maxHeight: `max(100%, ${ALTURA_MINIMA_DA_JANELA_DE_DIALOGO}px)`, margin: 'auto',
+          background: 'var(--surface)', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)',
           border: '1px solid var(--border)', padding: 'var(--space-5)', display: 'flex', flexDirection: 'column', gap: 'var(--space-4)',
           /* O foco na janela inteira é só o ponto de partida do teclado: não ganha contorno. */
           outline: 'none',
         }}
       >
         <h2 id={idDoTitulo} style={{ margin: 0, fontSize: 17, fontWeight: 800, lineHeight: 1.3 }}>{titulo}</h2>
-        {children}
+        {/* O miolo rola; a folga em volta (devolvida pela margem negativa) guarda o contorno de foco do corte. */}
+        <div style={{
+          display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', minHeight: 0, overflowY: 'auto',
+          margin: 'calc(-1 * var(--space-1)) calc(-1 * var(--space-5))', padding: 'var(--space-1) var(--space-5)',
+        }}>
+          {children}
+        </div>
+        {acoes}
       </div>
     </div>
   );

@@ -112,10 +112,13 @@ const RotuloDoControle = ({ children, paraId }) => (
   <label htmlFor={paraId} style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--muted)' }}>{children}</label>
 );
 
-const BotaoDeIcone = ({ rotulo, icone: Icone, aoClicar, disabled, className, ...resto }) => (
+/* Sem desestruturação com resto: cada script do protótipo roda no escopo global, e o
+   auxiliar que o Babel gera para o resto (`_excluded`) só pode nascer em `ui.jsx`; um
+   segundo, aqui, trocaria a lista de `Press`. O que o botão repassa vem pelo nome. */
+const BotaoDeIcone = ({ rotulo, icone: Icone, aoClicar, disabled, className, abreJanela }) => (
   <Press
     aria-label={rotulo} title={rotulo} onClick={aoClicar} disabled={disabled}
-    className={className ? `botao ${className}` : 'botao'} {...resto}
+    className={className ? `botao ${className}` : 'botao'} aria-haspopup={abreJanela ? 'dialog' : undefined}
     style={{
       width: LADO_DO_BOTAO_DE_ICONE, height: LADO_DO_BOTAO_DE_ICONE, display: 'grid', placeItems: 'center',
       borderRadius: 'var(--radius-md)', border: '1px solid var(--border)',
@@ -174,7 +177,7 @@ const BarraDoPainel = ({ traduzir, params, papel, desabilitado, abrirAtalhos, ao
           rotulo={temaEscuro ? traduzir('cascaTemaClaro') : traduzir('cascaTemaEscuro')}
           icone={temaEscuro ? IconSun : IconMoon} aoClicar={pedirTrocaDeTema}
         />
-        <BotaoDeIcone rotulo={traduzir('cascaAtalhos')} icone={IconKeyboard} aoClicar={abrirAtalhos} aria-haspopup="dialog" />
+        <BotaoDeIcone rotulo={traduzir('cascaAtalhos')} icone={IconKeyboard} aoClicar={abrirAtalhos} abreJanela />
         <span aria-label={PESSOA_EXEMPLO.nome} title={PESSOA_EXEMPLO.nome} style={{
           width: 32, height: 32, borderRadius: 'var(--radius-full)', display: 'grid', placeItems: 'center',
           background: 'var(--primary-soft)', color: 'var(--fg)', fontSize: 12, fontWeight: 800,
@@ -189,7 +192,10 @@ const JanelaDeAtalhos = ({ traduzir, fechar }) => {
     ['/', 'atalhoBusca'], ['↑ ↓', 'atalhoSetas'], ['Enter', 'atalhoEnter'], ['Esc', 'atalhoEsc'], ['?', 'atalhoAjuda'],
   ];
   return (
-    <JanelaDeDialogo titulo={traduzir('atalhosTitulo')} largura={LARGURA_DA_JANELA_DE_ATALHOS} aoFechar={fechar}>
+    <JanelaDeDialogo
+      titulo={traduzir('atalhosTitulo')} largura={LARGURA_DA_JANELA_DE_ATALHOS} aoFechar={fechar}
+      acoes={<Button variant="secondary" data-foco-inicial onClick={fechar}>{traduzir('fechar')}</Button>}
+    >
       <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 'var(--space-2) var(--space-4)', alignItems: 'center' }}>
         {atalhos.map(([tecla, chaveDoTexto]) => (
           <React.Fragment key={chaveDoTexto}>
@@ -199,7 +205,6 @@ const JanelaDeAtalhos = ({ traduzir, fechar }) => {
         ))}
       </dl>
       <p style={{ margin: 0, fontSize: 12.5, color: 'var(--muted)', lineHeight: 1.45 }}>{traduzir('atalhosNota')}</p>
-      <Button variant="secondary" data-foco-inicial onClick={fechar}>{traduzir('fechar')}</Button>
     </JanelaDeDialogo>
   );
 };
@@ -230,6 +235,8 @@ const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaR
     const teclar = (eventoDeTeclado) => {
       if (eventoDeTeclado.key === 'Escape') return;
       if (ehCampoDeDigitar(document.activeElement)) return;
+      /* Com uma janela de diálogo aberta, o teclado é dela: os atalhos da casca esperam. */
+      if (document.querySelector('[aria-modal="true"]')) return;
       if (eventoDeTeclado.key === '/') { eventoDeTeclado.preventDefault(); campoDeBuscaRef?.current?.focus(); }
       if (eventoDeTeclado.key === '?') { eventoDeTeclado.preventDefault(); abrirAtalhos(); }
     };

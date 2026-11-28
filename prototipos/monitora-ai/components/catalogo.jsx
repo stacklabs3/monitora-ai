@@ -366,7 +366,17 @@ const JanelaDeDeclarar = ({ traduzir, campo, declaracaoPedida, nomeDoProduto, ca
   const confirmar = () => aoDeclarar({ tipo: tipoEscolhido, buscas: [...buscasDoTipo.fixas, ...buscasOpcionais], papel: papelEscolhido });
 
   return (
-    <JanelaDeDialogo largura={LARGURA_DA_JANELA_DE_DECLARAR} aoFechar={aoFechar} titulo={traduzir('catalogoDeclararTitulo', { campo: campo.nome, produto: nomeDoProduto })}>
+    <JanelaDeDialogo
+      largura={LARGURA_DA_JANELA_DE_DECLARAR} aoFechar={aoFechar} titulo={traduzir('catalogoDeclararTitulo', { campo: campo.nome, produto: nomeDoProduto })}
+      acoes={(
+        <div style={ESTILO_DO_RODAPE_DA_JANELA}>
+          <Button variant="secondary" disabled={estado === 'disabled'} onClick={aoFechar}>{traduzir('cancelar')}</Button>
+          <Button variant="primary" loading={declarando} disabled={parado || semInternet} className={classeDoBotao} onClick={confirmar}>
+            {declarando ? traduzir('catalogoDeclarando') : traduzir('catalogoDeclararConfirmar')}
+          </Button>
+        </div>
+      )}
+    >
       {estado === 'error' && (
         <AvisoDeErro
           titulo={traduzir('catalogoDeclararFalhaTitulo')} corpo={traduzir('catalogoDeclararFalhaCorpo')}
@@ -444,12 +454,6 @@ const JanelaDeDeclarar = ({ traduzir, campo, declaracaoPedida, nomeDoProduto, ca
         )}
       />
       {semInternet && <p role="status" style={ESTILO_DA_NOTA_DE_ESPERA}>{traduzir('catalogoDeclararSemInternet')}</p>}
-      <div style={ESTILO_DO_RODAPE_DA_JANELA}>
-        <Button variant="secondary" disabled={estado === 'disabled'} onClick={aoFechar}>{traduzir('cancelar')}</Button>
-        <Button variant="primary" loading={declarando} disabled={parado || semInternet} className={classeDoBotao} onClick={confirmar}>
-          {declarando ? traduzir('catalogoDeclarando') : traduzir('catalogoDeclararConfirmar')}
-        </Button>
-      </div>
     </JanelaDeDialogo>
   );
 };
