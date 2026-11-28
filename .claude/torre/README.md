@@ -152,7 +152,7 @@ Configuração (exclusões, limites, a semente da primeira volta): `.claude/torr
   causou (M8) e entra no status; nunca vira nova tentativa por outro caminho.
 - Não abre `ready-for-human`, `depois-do-lancamento`, `needs-info`, `wayfinder:prototype`, nem as
   issues de `issues_fora` da configuração (#2293, #2294, #1530–#1534, #2369, #2307, #2420).
-- Não decide dinheiro, credenciais, painel do Asaas nem contas externas: isso vai para *Para o Matheus*.
+- Não decide dinheiro, credenciais nem contas externas (AWS, Meta): isso vai para *Para o Matheus*.
 
 ## Melhorias em teste (M1–M8)
 
