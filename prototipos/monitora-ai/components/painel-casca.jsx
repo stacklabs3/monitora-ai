@@ -1,8 +1,8 @@
 // Monitora AI — Casca do painel no computador.
 // Produto e ambiente sempre à vista; seletor de papel; menu das rotinas; tema; atalhos de
 // teclado. O miolo de cada rotina entra como filho da CascaDoPainel: a busca de eventos
-// está em busca.jsx; o detalhe do evento e a tentativa chegam nos próximos tickets do
-// lote Investigar, pelo /integrar-ao-prototipo.
+// está em busca.jsx, o detalhe do evento em evento.jsx e a tentativa (por enquanto um
+// miolo provisório) em tentativa.jsx.
 
 const LARGURA_DO_MENU_DO_PAINEL = 236;
 const LARGURA_DA_JANELA_DE_ATALHOS = 420;
@@ -55,15 +55,16 @@ const SecaoDoMenu = ({ titulo, children }) => (
   </div>
 );
 
-const MenuDoPainel = ({ traduzir, papel }) => (
+/* `itemAtual` diz em que rotina a pessoa está: 'busca' ou 'tentativas'. */
+const MenuDoPainel = ({ traduzir, papel, itemAtual }) => (
   <nav aria-label={traduzir('cascaMenu')} style={{
     width: LARGURA_DO_MENU_DO_PAINEL, flexShrink: 0, padding: 'var(--space-3)',
     borderRight: '1px solid var(--border)', background: 'var(--surface)',
     display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', overflowY: 'auto',
   }}>
     <SecaoDoMenu titulo={traduzir('menuInvestigar')}>
-      <ItemDoMenu icone={IconSearch} rotulo={traduzir('menuBusca')} atual />
-      <ItemDoMenu icone={IconBranch} rotulo={traduzir('menuTentativas')} />
+      <ItemDoMenu icone={IconSearch} rotulo={traduzir('menuBusca')} atual={itemAtual === 'busca'} />
+      <ItemDoMenu icone={IconBranch} rotulo={traduzir('menuTentativas')} atual={itemAtual === 'tentativas'} />
       <ItemDoMenu icone={IconActivity} rotulo={traduzir('menuSaude')} />
       <ItemDoMenu icone={IconBell} rotulo={traduzir('menuAlertas')} />
     </SecaoDoMenu>
@@ -81,9 +82,10 @@ const RotuloDoControle = ({ children, paraId }) => (
   <label htmlFor={paraId} style={{ fontSize: 11.5, fontWeight: 700, color: 'var(--muted)' }}>{children}</label>
 );
 
-const BotaoDeIcone = ({ rotulo, icone: Icone, aoClicar, disabled, ...resto }) => (
+const BotaoDeIcone = ({ rotulo, icone: Icone, aoClicar, disabled, className, ...resto }) => (
   <Press
-    aria-label={rotulo} title={rotulo} onClick={aoClicar} disabled={disabled} {...resto}
+    aria-label={rotulo} title={rotulo} onClick={aoClicar} disabled={disabled}
+    className={className ? `botao ${className}` : 'botao'} {...resto}
     style={{
       width: LADO_DO_BOTAO_DE_ICONE, height: LADO_DO_BOTAO_DE_ICONE, display: 'grid', placeItems: 'center',
       borderRadius: 'var(--radius-md)', border: '1px solid var(--border)',
@@ -187,7 +189,7 @@ const JanelaDeAtalhos = ({ traduzir, fechar }) => {
 
 /* A moldura de toda rotina do painel no computador. `campoDeBuscaRef` é o campo que o
    atalho "/" foca; `aoMudar` recebe a troca de produto, ambiente ou papel. */
-const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaRef, children }) => {
+const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaRef, itemAtual = 'busca', children }) => {
   const [atalhosAbertos, setAtalhosAbertos] = useState(false);
   const desabilitado = estado === 'disabled';
 
@@ -209,7 +211,7 @@ const CascaDoPainel = ({ traduzir, estado, params, papel, aoMudar, campoDeBuscaR
         abrirAtalhos={() => setAtalhosAbertos(true)} aoMudar={aoMudar}
       />
       <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
-        <MenuDoPainel traduzir={traduzir} papel={papel} />
+        <MenuDoPainel traduzir={traduzir} papel={papel} itemAtual={itemAtual} />
         <main style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 'var(--space-3)', padding: 'var(--space-4) var(--space-5)', overflowY: 'auto' }}>
           {children}
         </main>

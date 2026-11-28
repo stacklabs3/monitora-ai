@@ -47,8 +47,10 @@ const Press = React.forwardRef(({ children, onClick, style, className, disabled,
 });
 
 /* ---------- Button variants ---------- */
-/* `compacto` é o botão das barras densas do painel (paginação, ação de um aviso). */
-const Button = React.forwardRef(({ variant = 'primary', loading, disabled, compacto, children, ...rest }, referencia) => {
+/* `compacto` é o botão das barras densas do painel (paginação, ação de um aviso).
+   A classe `botao` dá o realce de passar o mouse e de apertar (index.html); `className`
+   soma as variantes que o grupo Estado força na conferência (`botao--hover`…). */
+const Button = React.forwardRef(({ variant = 'primary', loading, disabled, compacto, className, children, ...rest }, referencia) => {
   const styles = {
     primary: {
       background: 'var(--primary)',
@@ -75,6 +77,7 @@ const Button = React.forwardRef(({ variant = 'primary', loading, disabled, compa
     <Press
       ref={referencia}
       disabled={disabled || loading}
+      className={className ? `botao ${className}` : 'botao'}
       {...rest}
       style={{
         ...styles[variant],
@@ -406,6 +409,114 @@ const Tecla = ({ children }) => (
     border: '1px solid var(--border-strong)', background: 'var(--surface-2)',
     fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 700, color: 'var(--fg)',
   }}>{children}</kbd>
+);
+
+/* ---------- Etiqueta ----------
+   Marca curta ao lado de um valor ou de um campo. O texto diz tudo; o tom é reforço.
+   `podeQuebrar` serve à etiqueta longa, que precisa caber numa coluna estreita. */
+const TONS_DA_ETIQUETA = {
+  ok: { fundo: 'var(--ok-soft)', texto: 'var(--ok-fg)' },
+  atencao: { fundo: 'var(--warn-soft)', texto: 'var(--nivel-aviso-fg)' },
+  destaque: { fundo: 'var(--accent-soft)', texto: 'var(--fg)' },
+  neutro: { fundo: 'var(--surface-2)', texto: 'var(--fg)' },
+};
+
+const Etiqueta = ({ tom = 'neutro', podeQuebrar, children }) => {
+  const coresDoTom = TONS_DA_ETIQUETA[tom] || TONS_DA_ETIQUETA.neutro;
+  return (
+    <span style={{
+      fontSize: 11, fontWeight: 800, padding: '1px var(--space-2)',
+      borderRadius: podeQuebrar ? 'var(--radius-sm)' : 'var(--radius-full)',
+      whiteSpace: podeQuebrar ? 'normal' : 'nowrap',
+      background: coresDoTom.fundo, color: coresDoTom.texto,
+    }}>{children}</span>
+  );
+};
+
+/* ---------- Dica ao passar o mouse ou focar ----------
+   A explicação aparece com o mouse e com o foco do teclado, some com Esc e fica ligada ao
+   alvo por `aria-describedby`: leitor de tela lê a dica junto do alvo (não depende de
+   `title`). `mostrar` deixa a dica aberta, para a conferência dos estados. */
+const LARGURA_DA_DICA = 280;
+
+const ComDica = ({ dica, alinharADireita, mostrar, children }) => {
+  const [visivel, setVisivel] = useState(false);
+  const idDaDica = React.useId();
+  const aberta = visivel || Boolean(mostrar);
+  return (
+    <span
+      style={{ position: 'relative', display: 'inline-flex' }}
+      onMouseEnter={() => setVisivel(true)} onMouseLeave={() => setVisivel(false)}
+      onFocus={() => setVisivel(true)} onBlur={() => setVisivel(false)}
+      onKeyDown={(eventoDeTeclado) => {
+        if (eventoDeTeclado.key !== 'Escape' || !visivel) return;
+        eventoDeTeclado.stopPropagation();
+        setVisivel(false);
+      }}
+    >
+      <span
+        tabIndex={0} role="note" aria-describedby={idDaDica}
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--space-1)', borderRadius: 'var(--radius-sm)', cursor: 'help' }}
+      >
+        {children}
+      </span>
+      <span role="tooltip" id={idDaDica} style={{
+        display: aberta ? 'block' : 'none', position: 'absolute', bottom: 'calc(100% + var(--space-1))', zIndex: 8,
+        left: alinharADireita ? 'auto' : 0, right: alinharADireita ? 0 : 'auto', width: LARGURA_DA_DICA,
+        padding: 'var(--space-2) var(--space-3)', borderRadius: 'var(--radius-md)', boxShadow: 'var(--shadow-lg)',
+        background: 'var(--toast-bg)', color: 'var(--toast-fg)',
+        fontSize: 12.5, fontWeight: 600, lineHeight: 1.4, textAlign: 'left', whiteSpace: 'normal',
+      }}>{dica}</span>
+    </span>
+  );
+};
+
+/* ---------- Botão de copiar ----------
+   Copia um texto e confirma no próprio botão, com a confirmação anunciada a leitor de
+   tela. No protótipo a confirmação aparece sempre; no painel, só quando o navegador aceita. */
+const SEGUNDOS_DA_CONFIRMACAO_DE_COPIA = 2;
+
+const BotaoDeCopiar = ({ rotulo, rotuloCopiado, texto, disabled, className }) => {
+  const [copiado, setCopiado] = useState(false);
+  useEffect(() => {
+    if (!copiado) return undefined;
+    const temporizador = setTimeout(() => setCopiado(false), SEGUNDOS_DA_CONFIRMACAO_DE_COPIA * 1000);
+    return () => clearTimeout(temporizador);
+  }, [copiado]);
+  const copiar = () => {
+    try {
+      const copia = navigator.clipboard?.writeText(texto);
+      copia?.catch(() => {});
+    } catch { /* sem área de transferência neste navegador */ }
+    setCopiado(true);
+  };
+  return (
+    <React.Fragment>
+      <Button variant="secondary" compacto disabled={disabled} className={className} onClick={copiar}>
+        {copiado ? <IconCheck size={14} /> : <IconCopy size={14} />}
+        {copiado ? rotuloCopiado : rotulo}
+      </Button>
+      <span role="status" aria-live="polite" className="so-leitor">{copiado ? rotuloCopiado : ''}</span>
+    </React.Fragment>
+  );
+};
+
+/* ---------- Lista de fatos ----------
+   Pares "nome: valor" alinhados (o que a busca olhou, os horários de um evento).
+   `emCaixa` destaca a lista do resto, como no estado vazio. */
+const ListaDeFatos = ({ fatos, emCaixa }) => (
+  <dl style={{
+    margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 'var(--space-2) var(--space-4)',
+    textAlign: 'left', fontSize: 13,
+    ...(emCaixa ? { padding: 'var(--space-3) var(--space-4)', background: 'var(--surface-2)', borderRadius: 'var(--radius-md)' } : {}),
+  }}>
+    {fatos.map(([nomeDoFato, valorDoFato]) => (
+      <React.Fragment key={nomeDoFato}>
+        <dt style={{ fontWeight: 700, color: 'var(--muted)' }}>{nomeDoFato}</dt>
+        <dd style={{ margin: 0, minWidth: 0 }}>{valorDoFato}</dd>
+      </React.Fragment>
+    ))}
+  </dl>
 );
 
 /* ---------- Animation keyframes injection ---------- */

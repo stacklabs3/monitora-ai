@@ -14,6 +14,16 @@ const ROUTES = {
      PAINEL_* acima são a abertura da busca: última hora, sem filtro. */
   BUSCA_INVESTIGADOR:   '#/painel/:produto/:ambiente/investigador/eventos/:busca',
   BUSCA_ADMINISTRADOR:  '#/painel/:produto/:ambiente/administrador/eventos/:busca',
+  /* O evento aberto ao lado da lista também mora no endereço: o link reabre a mesma busca
+     com o mesmo evento aberto. */
+  EVENTO_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/eventos/:busca/evento/:idDoEvento',
+  EVENTO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/eventos/:busca/evento/:idDoEvento',
+  /* O evento aberto já rolado até uma seção (atributos, erro…). */
+  EVENTO_SECAO_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/eventos/:busca/evento/:idDoEvento/:secao',
+  EVENTO_SECAO_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/eventos/:busca/evento/:idDoEvento/:secao',
+  /* A tentativa: tudo que se liga a um valor de um campo principal. */
+  TENTATIVA_INVESTIGADOR:  '#/painel/:produto/:ambiente/investigador/tentativas/:campo/:valor',
+  TENTATIVA_ADMINISTRADOR: '#/painel/:produto/:ambiente/administrador/tentativas/:campo/:valor',
   ALERTA_NO_CELULAR:    '#/alerta/:idDoAlerta',
   MENSAGEM_DO_ALERTA:   '#/telegram/:idDoAlerta',
 };

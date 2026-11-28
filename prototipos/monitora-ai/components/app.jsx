@@ -26,6 +26,13 @@ const SCREEN_MAP = {
   PAINEL_ADMINISTRADOR: TelaPainelAdministrador,
   BUSCA_INVESTIGADOR: TelaPainelInvestigador,
   BUSCA_ADMINISTRADOR: TelaPainelAdministrador,
+  /* O evento abre ao lado da lista: é a mesma tela da busca, com `idDoEvento` nos params. */
+  EVENTO_INVESTIGADOR: TelaPainelInvestigador,
+  EVENTO_ADMINISTRADOR: TelaPainelAdministrador,
+  EVENTO_SECAO_INVESTIGADOR: TelaPainelInvestigador,
+  EVENTO_SECAO_ADMINISTRADOR: TelaPainelAdministrador,
+  TENTATIVA_INVESTIGADOR: TelaTentativaInvestigador,
+  TENTATIVA_ADMINISTRADOR: TelaTentativaAdministrador,
   ALERTA_NO_CELULAR: TelaAlertaNoCelular,
   MENSAGEM_DO_ALERTA: TelaMensagemDoAlerta,
 };

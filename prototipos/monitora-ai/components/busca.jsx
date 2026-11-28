@@ -2,7 +2,8 @@
 // Produto, ambiente e período sempre à vista; filtro por clique, em fichas; página de 100
 // eventos; avisos de busca lenta, resultado parcial, "rápido desde" e nada encontrado.
 // A busca inteira mora no endereço: o link reabre a mesma busca.
-// O detalhe do evento e a tentativa são as próximas rotinas: aqui a linha só se seleciona.
+// Enter ou clique numa linha abre o evento ao lado da lista (evento.jsx); o evento aberto
+// também mora no endereço.
 
 const EVENTOS_POR_PAGINA = 100;
 const LIMITE_DE_EVENTOS_DA_BUSCA = 5000;
@@ -20,6 +21,15 @@ const LARGURA_DO_PAINEL_DE_PERIODO = 540;
 const ALTURA_MAXIMA_DA_LISTA_DE_CAMPOS = 328;
 const COLUNAS_DA_LISTA = { semData: '112px 64px 84px 1fr', comData: '156px 64px 84px 1fr' };
 const COLUNAS_DO_CATALOGO = '1fr 112px 136px 136px';
+/* Com um evento aberto, a lista e o evento dividem o que sobra da tela, cada um com a
+   sua rolagem. */
+const COLUNAS_COM_EVENTO_ABERTO = 'minmax(0, 5fr) minmax(0, 7fr)';
+const ALTURA_MINIMA_COM_EVENTO_ABERTO = 520;
+
+const ROTAS_DO_PAPEL = {
+  investigador: { abertura: 'PAINEL_INVESTIGADOR', busca: 'BUSCA_INVESTIGADOR', evento: 'EVENTO_INVESTIGADOR', eventoNaSecao: 'EVENTO_SECAO_INVESTIGADOR', tentativa: 'TENTATIVA_INVESTIGADOR' },
+  administrador: { abertura: 'PAINEL_ADMINISTRADOR', busca: 'BUSCA_ADMINISTRADOR', evento: 'EVENTO_ADMINISTRADOR', eventoNaSecao: 'EVENTO_SECAO_ADMINISTRADOR', tentativa: 'TENTATIVA_ADMINISTRADOR' },
+};
 
 const PERIODOS_PRONTOS = [
   { id: '1h', chave: 'periodoUltimaHora', duracao: MILISSEGUNDOS_POR_HORA },
@@ -208,9 +218,18 @@ const filtroAceitaEvento = (filtro, campo, evento) => {
   return operador.nega ? !confere : confere;
 };
 
+/* Lista e JSON com níveis viram texto como a aplicação mandou. */
+const textoDoValorDoAtributo = (valorDoAtributo) => (valorDoAtributo !== null && typeof valorDoAtributo === 'object'
+  ? JSON.stringify(valorDoAtributo)
+  : String(valorDoAtributo));
+
 /* Texto livre e regex olham a mensagem e os valores dos atributos. Não alcançam nome de
    campo, valor mascarado nem código de busca. */
-const textosAlcancadosDoEvento = (evento) => [evento.mensagem, ...Object.values(evento.atributos || {}).map(String)];
+const textosAlcancadosDoEvento = (evento) => [evento.mensagem, ...Object.values(evento.atributos || {}).map(textoDoValorDoAtributo)];
+
+/* Só o Excurfly em produção tem eventos neste protótipo. */
+const eventosDoAmbiente = (idDoProduto, idDoAmbiente) =>
+  (idDoProduto === 'excurfly' && idDoAmbiente === 'producao' ? EVENTOS_DO_EXCURFLY : []);
 
 const criarConferenciaDoTexto = (busca) => {
   if (!busca.texto) return null;
@@ -256,9 +275,7 @@ const calcularResultado = ({ idDoProduto, idDoAmbiente, busca, catalogo }) => {
 
   const instanteDoEvento = (evento) => (busca.base === 'recebimento' ? evento.recebidoEm : evento.origemEm);
   const confereOTexto = criarConferenciaDoTexto(busca);
-  const eventosDoAmbiente = idDoProduto === 'excurfly' && idDoAmbiente === 'producao' ? EVENTOS_DO_EXCURFLY : [];
-
-  const eventosEncontrados = eventosDoAmbiente.filter((evento) => {
+  const eventosEncontrados = eventosDoAmbiente(idDoProduto, idDoAmbiente).filter((evento) => {
     const instante = instanteDoEvento(evento);
     if (instante < inicioOlhado || instante > periodo.fim || evento.recebidoEm > RELOGIO_DO_PAINEL.dadosAte) return false;
     if (!filtrosComCampo.every((filtroComCampo) => filtroAceitaEvento(filtroComCampo.filtro, filtroComCampo.campo, evento))) return false;
@@ -316,18 +333,12 @@ const textoDoFiltro = (traduzir, campo, filtro) => {
 
 /* O começo do que a aplicação mandou junto: atributos e valores mascarados, como vieram. */
 const resumoDosAtributos = (evento) => Object.entries({ ...(evento.atributos || {}), ...(evento.mascarados || {}) })
-  .map(([nomeDoAtributo, valorDoAtributo]) => `${nomeDoAtributo}=${valorDoAtributo}`).join('  ');
+  .map(([nomeDoAtributo, valorDoAtributo]) => `${nomeDoAtributo}=${textoDoValorDoAtributo(valorDoAtributo)}`).join('  ');
 
 /* ---------- Peças ---------- */
 
 /* Diz, em texto, se a busca é garantida ou lenta. A cor é reforço. */
-const EtiquetaDaBusca = ({ garantida, children }) => (
-  <span style={{
-    fontSize: 11, fontWeight: 800, padding: '1px var(--space-2)', borderRadius: 'var(--radius-full)', whiteSpace: 'nowrap',
-    background: garantida ? 'var(--ok-soft)' : 'var(--warn-soft)',
-    color: garantida ? 'var(--ok-fg)' : 'var(--nivel-aviso-fg)',
-  }}>{children}</span>
-);
+const EtiquetaDaBusca = ({ garantida, children }) => <Etiqueta tom={garantida ? 'ok' : 'atencao'}>{children}</Etiqueta>;
 
 const textoDaEtiquetaDoCampo = (traduzir, campo, buscaLenta) => {
   if (buscaLenta) return traduzir('fichaLenta');
@@ -830,16 +841,39 @@ const textoDaContagemDeEventos = (traduzir, resultado) => (resultado.passouDoLim
   ? traduzir('buscaContagemAcimaDoLimite', { primeiro: formatarQuantidade(resultado.primeiro), ultimo: formatarQuantidade(resultado.ultimo), limite: formatarQuantidade(LIMITE_DE_EVENTOS_DA_BUSCA) })
   : traduzir('buscaContagem', { primeiro: formatarQuantidade(resultado.primeiro), ultimo: formatarQuantidade(resultado.ultimo), total: formatarQuantidade(resultado.total) }));
 
-const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebimento }) => {
+/* `idDoEventoAberto` é o evento aberto ao lado: a linha dele fica marcada, as setas
+   trocam o evento aberto e Esc fecha, devolvendo o foco à linha. */
+const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebimento, idDoEventoAberto, eventoAbertoExiste, aoAbrir, aoFechar }) => {
   const [indiceSelecionado, setIndiceSelecionado] = useState(0);
   const linhasRef = useRef([]);
+  const idDoEventoAbertoAntesRef = useRef(idDoEventoAberto);
   const desabilitado = estado === 'disabled';
   const colunas = resultado.mostrarData ? COLUNAS_DA_LISTA.comData : COLUNAS_DA_LISTA.semData;
   const estadoDemonstrado = ['hover', 'focus', 'active'].includes(estado) ? estado : null;
+  const indiceDoEventoAberto = resultado.eventos.findIndex((evento) => evento.id === idDoEventoAberto);
 
   useEffect(() => { setIndiceSelecionado(0); }, [resultado]);
 
+  /* A linha do evento aberto fica à vista; ao fechar, o foco volta para ela. */
+  useEffect(() => {
+    const idDoEventoAbertoAntes = idDoEventoAbertoAntesRef.current;
+    idDoEventoAbertoAntesRef.current = idDoEventoAberto;
+    if (idDoEventoAberto) {
+      if (indiceDoEventoAberto >= 0) {
+        setIndiceSelecionado(indiceDoEventoAberto);
+        linhasRef.current[indiceDoEventoAberto]?.scrollIntoView({ block: 'nearest' });
+      }
+      return;
+    }
+    const indiceDoEventoFechado = resultado.eventos.findIndex((evento) => evento.id === idDoEventoAbertoAntes);
+    if (indiceDoEventoFechado >= 0) {
+      setIndiceSelecionado(indiceDoEventoFechado);
+      linhasRef.current[indiceDoEventoFechado]?.focus();
+    }
+  }, [idDoEventoAberto, indiceDoEventoAberto]);
+
   const teclarNaLinha = (indiceDaLinha) => (eventoDeTeclado) => {
+    if (eventoDeTeclado.key === 'Escape' && idDoEventoAberto) { eventoDeTeclado.preventDefault(); aoFechar(); return; }
     const passos = { ArrowDown: 1, ArrowUp: -1 };
     if (!(eventoDeTeclado.key in passos)) return;
     const proximoIndice = indiceDaLinha + passos[eventoDeTeclado.key];
@@ -847,6 +881,7 @@ const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebim
     eventoDeTeclado.preventDefault();
     setIndiceSelecionado(proximoIndice);
     linhasRef.current[proximoIndice]?.focus();
+    if (idDoEventoAberto) aoAbrir(resultado.eventos[proximoIndice]);
   };
 
   const horarioDoEvento = (evento) => {
@@ -856,8 +891,7 @@ const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebim
       : formatarHoraComMilissegundos(instante);
   };
 
-  /* Enter ou clique seleciona a linha. O detalhe do evento (próxima rotina) entra aqui,
-     em aoSelecionar, com a navegação para a tela dele. */
+  /* Enter ou clique abre o evento ao lado da lista. */
   return (
     <React.Fragment>
       <CabecalhoDaLista traduzir={traduzir} colunas={colunas} peloRecebimento={peloRecebimento} />
@@ -866,9 +900,9 @@ const ListaDeEventos = ({ traduzir, resultado, estado, quebrarLinha, peloRecebim
           <LinhaDeEvento
             key={evento.id} traduzir={traduzir} evento={evento} horario={horarioDoEvento(evento)} colunas={colunas}
             quebrarLinha={quebrarLinha} disabled={desabilitado}
-            selecionada={indiceDaLinha === indiceSelecionado}
+            selecionada={idDoEventoAberto ? eventoAbertoExiste && evento.id === idDoEventoAberto : indiceDaLinha === indiceSelecionado}
             estadoDemonstrado={indiceDaLinha === 1 ? estadoDemonstrado : null}
-            aoSelecionar={() => setIndiceSelecionado(indiceDaLinha)}
+            aoSelecionar={() => { setIndiceSelecionado(indiceDaLinha); aoAbrir(evento); }}
             aoTeclar={teclarNaLinha(indiceDaLinha)}
             linhaRef={(elemento) => { linhasRef.current[indiceDaLinha] = elemento; }}
           />
@@ -905,20 +939,7 @@ const VazioDaBusca = ({ traduzir, busca, resultado, catalogo, liberaToda, indisp
     <EmptyState
       title={traduzir('buscaVazioTitulo')}
       body={traduzir('buscaVazioCorpo')}
-      detalhes={(
-        <dl style={{
-          margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: 'var(--space-2) var(--space-4)',
-          textAlign: 'left', fontSize: 13, padding: 'var(--space-3) var(--space-4)',
-          background: 'var(--surface-2)', borderRadius: 'var(--radius-md)',
-        }}>
-          {fatos.map(([nomeDoFato, valorDoFato]) => (
-            <React.Fragment key={nomeDoFato}>
-              <dt style={{ fontWeight: 700, color: 'var(--muted)' }}>{nomeDoFato}</dt>
-              <dd style={{ margin: 0 }}>{valorDoFato}</dd>
-            </React.Fragment>
-          ))}
-        </dl>
-      )}
+      detalhes={<ListaDeFatos fatos={fatos} emCaixa />}
       acoes={(
         <div style={{ display: 'flex', gap: 'var(--space-2)', flexWrap: 'wrap', justifyContent: 'center' }}>
           {podeAmpliarPara24h && <Button variant="primary" compacto disabled={indisponivel} onClick={() => aoAmpliar('24h')}>{traduzir('vazioAmpliarPara24h')}</Button>}
@@ -961,9 +982,14 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
   const traduzir = useT(lang);
   const { navigate } = useRouter();
   const parametrosDoPainel = { ...PAINEL_DO_EXCURFLY, ...params };
-  const { produto: idDoProduto, ambiente: idDoAmbiente, busca: textoDaBusca } = parametrosDoPainel;
+  const { produto: idDoProduto, ambiente: idDoAmbiente, busca: textoDaBusca, idDoEvento: idDoEventoAberto } = parametrosDoPainel;
+  const secaoDoEvento = parametrosDoPainel.secao;
+  const temEventoAberto = Boolean(idDoEventoAberto);
 
   const catalogo = useMemo(() => catalogoDoProduto(idDoProduto), [idDoProduto]);
+  const eventoAberto = useMemo(
+    () => eventosDoAmbiente(idDoProduto, idDoAmbiente).find((evento) => evento.id === idDoEventoAberto) || null,
+    [idDoProduto, idDoAmbiente, idDoEventoAberto]);
   const busca = useMemo(() => ajustarBusca(decodificarBusca(textoDaBusca), catalogo), [textoDaBusca, catalogo]);
   const resultado = useMemo(
     () => calcularResultado({ idDoProduto, idDoAmbiente, busca, catalogo }),
@@ -986,27 +1012,51 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
 
   const desabilitado = estado === 'disabled';
   const semInternet = estado === 'offline';
-  const carregando = estado === 'loading';
-  const comErro = estado === 'error';
-  const vazio = !comErro && (estado === 'empty' || resultado.total === 0);
+  /* Com um evento aberto, carregando, vazio e erro falam do evento: a lista continua na tela. */
+  const estadoDaLista = temEventoAberto && ['loading', 'empty', 'error'].includes(estado) ? 'default' : estado;
+  const carregando = estadoDaLista === 'loading';
+  const comErro = estadoDaLista === 'error';
+  const vazio = !comErro && (estadoDaLista === 'empty' || resultado.total === 0);
   const buscaIndisponivel = desabilitado || semInternet;
   const liberaToda = temFiltroEspecifico(busca, catalogo);
   const chaveDaRecusa = recusaDoTexto(textoDigitado, modoRegex);
   const nomeDoProduto = (PRODUTOS.find((produto) => produto.id === idDoProduto) || PRODUTOS[0]).nome;
+  const nomeDoAmbiente = (AMBIENTES.find((ambiente) => ambiente.id === idDoAmbiente) || AMBIENTES[0]).nome;
+  const indiceDoEventoAberto = resultado.eventos.findIndex((evento) => evento.id === idDoEventoAberto);
 
-  /* Toda mudança da busca vira endereço. Sem filtro, na última hora, é a abertura do painel. */
+  /* Toda mudança da busca vira endereço. Sem filtro, na última hora, é a abertura do painel.
+     Com `destino.idDoEvento`, o endereço leva também o evento aberto ao lado da lista. */
   const irParaBusca = (novaBusca, destino = {}) => {
     const idDoProdutoDeDestino = destino.produto || idDoProduto;
-    const papelDeDestino = destino.papel || papel;
+    const rotasDoPapel = ROTAS_DO_PAPEL[destino.papel || papel];
     const buscaCodificada = codificarBusca(ajustarBusca(novaBusca, catalogoDoProduto(idDoProdutoDeDestino)));
-    const comBusca = buscaCodificada !== BUSCA_DE_ABERTURA;
-    const rotasDoPapel = papelDeDestino === 'administrador'
-      ? { abertura: 'PAINEL_ADMINISTRADOR', busca: 'BUSCA_ADMINISTRADOR' }
-      : { abertura: 'PAINEL_INVESTIGADOR', busca: 'BUSCA_INVESTIGADOR' };
     const parametrosDaRota = { produto: idDoProdutoDeDestino, ambiente: destino.ambiente || idDoAmbiente };
+    if (destino.idDoEvento) {
+      const parametrosDoEvento = { ...parametrosDaRota, busca: buscaCodificada, idDoEvento: destino.idDoEvento };
+      if (destino.secao) navigate(rotasDoPapel.eventoNaSecao, { ...parametrosDoEvento, secao: destino.secao });
+      else navigate(rotasDoPapel.evento, parametrosDoEvento);
+      return;
+    }
+    const comBusca = buscaCodificada !== BUSCA_DE_ABERTURA;
     navigate(comBusca ? rotasDoPapel.busca : rotasDoPapel.abertura, comBusca ? { ...parametrosDaRota, busca: buscaCodificada } : parametrosDaRota);
   };
   const mudarBusca = (mudancas) => irParaBusca({ ...busca, pagina: 1, ...mudancas });
+
+  /* Abrir outro evento pede o servidor: sem internet, só o que já está aberto continua. */
+  const abrirEvento = (evento) => { if (!buscaIndisponivel) irParaBusca(busca, { idDoEvento: evento.id }); };
+  const fecharEvento = () => irParaBusca(busca);
+  const irParaASecaoDoEvento = (idDaSecao) => irParaBusca(busca, { idDoEvento: idDoEventoAberto, secao: idDaSecao });
+  const abrirEventoVizinho = (passo) => {
+    const eventoVizinho = indiceDoEventoAberto >= 0 && resultado.eventos[indiceDoEventoAberto + passo];
+    if (eventoVizinho) abrirEvento(eventoVizinho);
+  };
+  /* "Clicar num campo do evento aberto cria a ficha": a busca ganha o filtro e o endereço muda. */
+  const filtrarPeloValor = (filtroNovo) => mudarBusca({ filtros: juntarFiltro(busca.filtros, filtroNovo) });
+  const abrirTentativa = (nomeDoCampo, valorDoCampo) => {
+    lembrarOrigemDaTentativa(
+      { produto: idDoProduto, ambiente: idDoAmbiente, busca: codificarBusca(busca), idDoEvento: idDoEventoAberto }, nomeDoCampo, valorDoCampo);
+    navigate(ROTAS_DO_PAPEL[papel].tentativa, { produto: idDoProduto, ambiente: idDoAmbiente, campo: nomeDoCampo, valor: encodeURIComponent(valorDoCampo) });
+  };
 
   const buscarOTexto = () => {
     if (buscaIndisponivel || chaveDaRecusa) return;
@@ -1021,14 +1071,14 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
   return (
     <CascaDoPainel
       traduzir={traduzir} estado={estado} params={parametrosDoPainel} papel={papel} campoDeBuscaRef={campoDeBuscaRef}
-      aoMudar={(destino) => irParaBusca({ ...busca, pagina: 1 }, destino)}
+      aoMudar={(destino) => irParaBusca({ ...busca, pagina: 1 }, { ...destino, idDoEvento: destino.papel ? idDoEventoAberto : undefined, secao: secaoDoEvento })}
     >
       {semInternet && (
         <div style={{ position: 'sticky', top: 0, zIndex: 5 }}>
           <AvisoSemInternet
             titulo={traduzir('semInternetTitulo')}
-            continuaFuncionando={traduzir('buscaSemInternetContinua')}
-            espera={traduzir('buscaSemInternetEspera')}
+            continuaFuncionando={traduzir(temEventoAberto ? 'eventoSemInternetContinua' : 'buscaSemInternetContinua')}
+            espera={traduzir(temEventoAberto ? 'eventoSemInternetEspera' : 'buscaSemInternetEspera')}
           />
         </div>
       )}
@@ -1078,7 +1128,17 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
       )}
 
       {!comErro && (
-        <section style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
+        <div style={temEventoAberto ? {
+          flex: '1 1 0', minHeight: ALTURA_MINIMA_COM_EVENTO_ABERTO, display: 'grid', gap: 'var(--space-3)',
+          gridTemplateColumns: COLUNAS_COM_EVENTO_ABERTO, gridTemplateRows: 'minmax(0, 1fr)',
+        } : undefined}>
+        <section
+          className={temEventoAberto ? 'rolagem-propria' : undefined}
+          style={{
+            background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius-lg)',
+            overflowX: 'hidden', overflowY: temEventoAberto ? 'auto' : 'hidden', minHeight: temEventoAberto ? 0 : undefined,
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)', padding: 'var(--space-2) var(--space-3)', borderBottom: '1px solid var(--border)', flexWrap: 'wrap' }}>
             {!vazio && (
               <span style={{ fontSize: 13, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{textoDaContagemDeEventos(traduzir, resultado)}</span>
@@ -1136,8 +1196,10 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
             )
             : (
               <ListaDeEventos
-                traduzir={traduzir} resultado={resultado} estado={estado} quebrarLinha={quebrarLinha}
+                traduzir={traduzir} resultado={resultado} estado={estadoDaLista} quebrarLinha={quebrarLinha}
                 peloRecebimento={busca.base === 'recebimento'}
+                idDoEventoAberto={idDoEventoAberto} aoAbrir={abrirEvento} aoFechar={fecharEvento}
+                eventoAbertoExiste={Boolean(eventoAberto) && estado !== 'empty'}
               />
             )}
 
@@ -1151,6 +1213,18 @@ const TelaBusca = ({ lang, estado, params, papel }) => {
             </div>
           )}
         </section>
+        {temEventoAberto && (
+          <PainelDoEvento
+            traduzir={traduzir} estado={estado} evento={eventoAberto} idDoEvento={idDoEventoAberto}
+            catalogo={catalogo} filtrosDaBusca={busca.filtros} nomeDoProduto={nomeDoProduto} nomeDoAmbiente={nomeDoAmbiente}
+            posicaoNaPagina={indiceDoEventoAberto} eventosNaPagina={resultado.eventos.length}
+            enderecoDoEvento={`${window.location.origin}${window.location.pathname}${buildPath(ROTAS_DO_PAPEL[papel].evento, { produto: idDoProduto, ambiente: idDoAmbiente, busca: codificarBusca(busca), idDoEvento: idDoEventoAberto })}`}
+            secao={secaoDoEvento} aoIrParaSecao={irParaASecaoDoEvento}
+            aoFechar={fecharEvento} aoIrParaVizinho={abrirEventoVizinho}
+            aoFiltrar={filtrarPeloValor} aoAbrirTentativa={abrirTentativa}
+          />
+        )}
+        </div>
       )}
     </CascaDoPainel>
   );

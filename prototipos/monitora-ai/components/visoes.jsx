@@ -19,6 +19,10 @@ const VISOES = [
 
 const PAINEL_DO_EXCURFLY = { produto: 'excurfly', ambiente: 'producao' };
 
+/* O cenário das rotinas Investigar: a reserva R-1042 e o erro da cobrança T-900. */
+const BUSCA_DA_RESERVA = 'p=1h;f=reservationId:e:R-1042';
+const EVENTO_DO_CARTAO_SEM_LIMITE = 'ev-1042-06';
+
 /* Uma rotina é o trabalho inteiro de alguém, em telas na ordem em que acontecem.
    `telas` são rotas de router.jsx, com os params da tela quando ela precisa. */
 const ROTINAS = [
@@ -50,7 +54,7 @@ const ROTINAS = [
     rotulo: 'Buscar eventos',
     telas: [
       { rota: 'PAINEL_INVESTIGADOR', params: PAINEL_DO_EXCURFLY },
-      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=1h;f=reservationId:e:R-1042' } },
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA } },
     ],
   },
   /* Os avisos próprios da busca, cada um numa tela: "rápido desde" (campo declarado às
@@ -64,6 +68,43 @@ const ROTINAS = [
       { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=24h;f=amountCents:i:1000,5000' } },
       { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=24h;q=limite' } },
       { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: 'p=1h;q=limite' } },
+    ],
+  },
+  /* Prototipar o detalhe de um evento (issue 69). O evento abre ao lado da lista e mora
+     no endereço. Caminho: clicar na linha do erro "cartão sem limite" (cobrança T-900) →
+     "Abrir a tentativa" no valor R-1042. A tela da tentativa é a próxima rotina: aqui
+     ela é um miolo provisório. */
+  {
+    id: 'ler-um-evento',
+    visao: 'painel',
+    rotulo: 'Abrir e ler um evento',
+    telas: [
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA } },
+      { rota: 'EVENTO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE } },
+      { rota: 'TENTATIVA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, campo: 'reservationId', valor: 'R-1042' } },
+    ],
+  },
+  /* O que fica abaixo da dobra do evento aberto: os atributos (valor mascarado, código de
+     busca, não declarado, valor incompatível) e o erro com a pilha longa. A seção mora no
+     endereço. Caminho: "Ir para" Atributos → "Ir para" Erro. */
+  {
+    id: 'ler-o-erro-do-evento',
+    visao: 'painel',
+    rotulo: 'Ler os atributos e o erro de um evento',
+    telas: [
+      { rota: 'EVENTO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE } },
+      { rota: 'EVENTO_SECAO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE, secao: 'atributos' } },
+      { rota: 'EVENTO_SECAO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE, secao: 'erro' } },
+    ],
+  },
+  /* O atalho de filtrar por um valor do evento aberto. Caminho: "é" na linha `method`. */
+  {
+    id: 'filtrar-por-um-valor',
+    visao: 'painel',
+    rotulo: 'Filtrar por um valor do evento',
+    telas: [
+      { rota: 'EVENTO_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: BUSCA_DA_RESERVA, idDoEvento: EVENTO_DO_CARTAO_SEM_LIMITE } },
+      { rota: 'BUSCA_INVESTIGADOR', params: { ...PAINEL_DO_EXCURFLY, busca: `${BUSCA_DA_RESERVA};f=method:e:cartao` } },
     ],
   },
   {

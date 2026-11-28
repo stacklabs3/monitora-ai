@@ -86,6 +86,7 @@ const CATALOGO_DE_CAMPOS = {
     { nome: 'refunded', descricao: 'Se houve estorno', tipo: 'booleano', buscas: ['exata'],
       opcoes: [{ valor: 'true', chaveDoRotulo: 'valorVerdadeiro' }, { valor: 'false', chaveDoRotulo: 'valorFalso' }] },
     { nome: 'providerMessage', descricao: 'Resposta do provedor de pagamento', tipo: 'texto', buscas: ['palavras'] },
+    { nome: 'providerLatencyMs', descricao: 'Tempo de resposta do provedor, em ms', tipo: 'numero', buscas: ['exata', 'intervalo'] },
   ],
   demonstracao: [],
 };
@@ -143,9 +144,16 @@ const EVENTOS_DO_CENARIO = [
   { id: 'ev-1042-06', ...ORIGENS_DO_EXCURFLY.api, ...TRANSACAO_DA_RESERVA, nivel: 'erro', nome: 'charge.refused', mensagem: 'cartão sem limite',
     origemEm: instanteNoFusoDoPainel(27, 14, 55, 16, 10),
     rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-5/purchase',
-    atributos: { reservationId: 'R-1042', pspTxId: 'T-900', accountId: 'conta-7', amountCents: 4500, method: 'cartao', installmentCount: 3 },
-    mascarados: { buyerDocument: '***.456.789-**' }, codigosDeBusca: { buyerDocument: 'cb_51c0e7' }, naoDeclarados: ['installmentCount'],
-    erro: { tipo: 'CardLimitExceededError', pilha: PILHA_DO_CARTAO_SEM_LIMITE } },
+    /* O detalhe do evento lê daqui os casos de atributo: valor incompatível com o tipo
+       (`providerLatencyMs` é número no catálogo), lista, JSON com níveis e não declarado. */
+    atributos: {
+      reservationId: 'R-1042', pspTxId: 'T-900', accountId: 'conta-7', amountCents: 4500, method: 'cartao', installmentCount: 3,
+      providerLatencyMs: 'abc', seatNumbers: [12, 13],
+      providerResponse: { code: 402, reason: 'insufficient_funds', retry: { allowed: true, afterSeconds: 30 } },
+    },
+    mascarados: { buyerDocument: '***.456.789-**' }, codigosDeBusca: { buyerDocument: 'cb_51c0e7' },
+    naoDeclarados: ['installmentCount', 'seatNumbers', 'providerResponse'],
+    erro: { tipo: 'CardLimitExceededError', mensagem: 'cartão sem limite', pilha: PILHA_DO_CARTAO_SEM_LIMITE } },
   { id: 'ev-1042-07', ...ORIGENS_DO_EXCURFLY.api, ...TRANSACAO_DA_RESERVA, nivel: 'aviso', nome: 'payment.retried', mensagem: 'retrying payment with another method',
     origemEm: instanteNoFusoDoPainel(27, 14, 56, 40, 877),
     rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-5/purchase',
@@ -171,21 +179,22 @@ const EVENTOS_DO_CENARIO = [
     rota: '/webhooks/provider', url: 'https://hooks.excurfly.example/webhooks/provider',
     atributos: { refundId: 'E-3', pspTxId: 'T-901', status: 'refunded', providerMessage: 'refund approved' } },
 
-  /* Outras cobranças com "cartão sem limite", para a busca por texto livre achar. */
+  /* Outras cobranças com "cartão sem limite", para a busca por texto livre achar.
+     Cada uma traz uma das marcas que o detalhe do evento mostra junto dos horários. */
   { id: 'ev-1040-01', ...ORIGENS_DO_EXCURFLY.api, nivel: 'erro', nome: 'charge.refused', mensagem: 'cartão sem limite',
-    origemEm: instanteNoFusoDoPainel(27, 14, 21, 47, 233),
+    origemEm: instanteNoFusoDoPainel(27, 14, 21, 47, 233), marcas: ['cortado', 'valorAcimaDoLimite'],
     rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-9/purchase',
     atributos: { reservationId: 'R-1040', pspTxId: 'T-893', accountId: 'conta-12', amountCents: 12900, method: 'cartao' } },
   { id: 'ev-1038-01', ...ORIGENS_DO_EXCURFLY.api, nivel: 'erro', nome: 'charge.refused', mensagem: 'cartão sem limite',
-    origemEm: instanteNoFusoDoPainel(27, 13, 12, 5, 871),
+    origemEm: instanteNoFusoDoPainel(27, 13, 12, 5, 871), marcas: ['horarioNoFuturo'],
     rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-5/purchase',
     atributos: { reservationId: 'R-1038', pspTxId: 'T-887', accountId: 'conta-31', amountCents: 4500, method: 'cartao' } },
   { id: 'ev-1031-01', ...ORIGENS_DO_EXCURFLY.api, nivel: 'erro', nome: 'charge.refused', mensagem: 'cartão sem limite',
-    origemEm: instanteNoFusoDoPainel(27, 12, 20, 39, 408),
+    origemEm: instanteNoFusoDoPainel(27, 12, 20, 39, 408), marcas: ['semHorarioDeOrigem'],
     rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-2/purchase',
     atributos: { reservationId: 'R-1031', pspTxId: 'T-871', accountId: 'conta-44', amountCents: 2300, method: 'cartao' } },
   { id: 'ev-1019-01', ...ORIGENS_DO_EXCURFLY.api, nivel: 'erro', nome: 'charge.refused', mensagem: 'cartão sem limite',
-    origemEm: instanteNoFusoDoPainel(27, 9, 40, 12, 96),
+    origemEm: instanteNoFusoDoPainel(27, 9, 40, 12, 96), marcas: ['muitoNoPassado'],
     rota: '/api/v1/trip/:id/purchase', url: 'https://api.excurfly.example/api/v1/trip/V-7/purchase',
     atributos: { reservationId: 'R-1019', pspTxId: 'T-850', accountId: 'conta-9', amountCents: 8700, method: 'cartao' } },
 ].map((evento) => ({ recebidoEm: evento.origemEm + 380, ...evento }));
@@ -250,8 +259,15 @@ const gerarMovimentoDoExcurfly = () => {
   return eventosGerados;
 };
 
+/* Número do evento na execução: cresce com o horário de origem, sempre igual para o
+   mesmo evento. */
+const MILISSEGUNDOS_POR_NUMERO_NA_EXECUCAO = 1000;
+const numeroDoEventoNaExecucao = (evento) =>
+  Math.floor((evento.origemEm - RELOGIO_DO_PAINEL.dadosDesde) / MILISSEGUNDOS_POR_NUMERO_NA_EXECUCAO) + 1;
+
 /* Todos os eventos do Excurfly em produção, mais recentes primeiro. */
 const EVENTOS_DO_EXCURFLY = [...EVENTOS_DO_CENARIO, ...gerarMovimentoDoExcurfly()]
+  .map((evento) => ({ numeroNaExecucao: numeroDoEventoNaExecucao(evento), ...evento }))
   .sort((eventoAnterior, eventoSeguinte) => eventoSeguinte.origemEm - eventoAnterior.origemEm);
 
 /* O alerta da chegada pelo celular e da mensagem no Telegram. */

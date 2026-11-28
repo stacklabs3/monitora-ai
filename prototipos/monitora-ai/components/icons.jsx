@@ -31,4 +31,8 @@ const IconKey = (propriedades) => <IconBase {...propriedades}><circle cx="7.5" c
 const IconDatabase = (propriedades) => <IconBase {...propriedades}><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></IconBase>;
 const IconBranch = (propriedades) => <IconBase {...propriedades}><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="8" r="3"/><path d="M6 9v6M18 11c0 4-6 3-9 6"/></IconBase>;
 const IconExternal = (propriedades) => <IconBase {...propriedades}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></IconBase>;
-const IconWrap = (propriedades) => <IconBase {...propriedades}><line x1="3" y1="6" x2="21" y2="6"/><path d="M3 12h15a3 3 0 0 1 0 6h-4"/><polyline points="16 16 14 18 16 20"/><line x1="3" y1="18" x2="10" y2="18"/></IconBase>;
+const IconCopy = (propriedades) => <IconBase {...propriedades}><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></IconBase>;
+const IconInfo = (propriedades) => <IconBase {...propriedades}><circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></IconBase>;
+const IconUp = (propriedades) => <IconBase {...propriedades}><polyline points="6 15 12 9 18 15"/></IconBase>;
+const IconDown = (propriedades) => <IconBase {...propriedades}><polyline points="6 9 12 15 18 9"/></IconBase>;
+const IconWrap =(propriedades) => <IconBase {...propriedades}><line x1="3" y1="6" x2="21" y2="6"/><path d="M3 12h15a3 3 0 0 1 0 6h-4"/><polyline points="16 16 14 18 16 20"/><line x1="3" y1="18" x2="10" y2="18"/></IconBase>;
